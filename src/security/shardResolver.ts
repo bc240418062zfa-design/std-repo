@@ -1,14 +1,8 @@
 /**
- * Client-Side Encrypted Shard Resolver
+ * Client-Side Encrypted Shard Resolver (Bundled via Vite Dynamic Imports)
  * 
- * Provides resilient, zero-failure resource resolution for static deployments
- * (e.g. GitHub Pages) where no server-side Node.js / Express proxy is active.
- * 
- * Architecture:
- * - Resources are indexed with opaque hashes (RLH: r_...).
- * - Exact Drive mappings are protected in 16 AES-256-GCM encrypted shards.
- * - On download demand, the client fetches the single required ~1MB shard,
- *   decrypts it in memory via the Web Crypto API, and constructs the direct download stream.
+ * Guarantees zero 404 errors on static hosts (GitHub Pages) by bundling
+ * AES-256-GCM encrypted shards directly into Vite code-split chunks.
  */
 
 export interface ResolvedResource {
@@ -21,12 +15,10 @@ export interface ResolvedResource {
   directDownloadUrl: string;
 }
 
-// In-memory cache for decrypted shards (shardKey '0'-'f' -> record map)
+// In-memory cache for decrypted shards
 const shardCache = new Map<string, Record<string, any>>();
-// Pending promises to prevent duplicate simultaneous fetches
 const pendingShardFetches = new Map<string, Promise<Record<string, any>>>();
 
-// Hex to Uint8Array converter
 function hexToBytes(hex: string): Uint8Array {
   const bytes = new Uint8Array(hex.length / 2);
   for (let i = 0; i < bytes.length; i++) {
@@ -35,7 +27,6 @@ function hexToBytes(hex: string): Uint8Array {
   return bytes;
 }
 
-// Compute SHA-256 hex string using browser Web Crypto
 async function sha256Hex(text: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(text);
@@ -44,7 +35,6 @@ async function sha256Hex(text: string): Promise<string> {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-// Decrypt AES-256-GCM shard using Web Crypto API
 async function decryptShardGCM(
   ciphertextHex: string,
   ivHex: string,
@@ -77,10 +67,8 @@ async function decryptShardGCM(
   return new TextDecoder().decode(decrypted);
 }
 
-// Master decryption key for public static fallback
 const SHARD_MASTER_KEY = 'a9f8fe4633851740d710a6772988ccb72c9613d016abbbbbf628a83337fdeb90';
 
-// Fetch and decrypt a specific shard by key ('0'-'f')
 async function loadShard(shardKey: string): Promise<Record<string, any>> {
   if (shardCache.has(shardKey)) {
     return shardCache.get(shardKey)!;
@@ -91,38 +79,43 @@ async function loadShard(shardKey: string): Promise<Record<string, any>> {
   }
 
   const fetchPromise = (async () => {
-    // Try relative and absolute paths for universal GitHub Pages / Custom Domain support
-    const candidates = [
-      `./shards/shard-${shardKey}.enc`,
-      `shards/shard-${shardKey}.enc`,
-      `/shards/shard-${shardKey}.enc`
-    ];
-
     let rawData: any = null;
-    let fetchError: any = null;
 
-    for (const url of candidates) {
-      try {
-        const res = await fetch(url);
-        if (res.ok) {
-          rawData = await res.json();
-          break;
-        }
-      } catch (err) {
-        fetchError = err;
+    try {
+      switch (shardKey) {
+        case '0': rawData = await import('../data/shards/shard-0.json'); break;
+        case '1': rawData = await import('../data/shards/shard-1.json'); break;
+        case '2': rawData = await import('../data/shards/shard-2.json'); break;
+        case '3': rawData = await import('../data/shards/shard-3.json'); break;
+        case '4': rawData = await import('../data/shards/shard-4.json'); break;
+        case '5': rawData = await import('../data/shards/shard-5.json'); break;
+        case '6': rawData = await import('../data/shards/shard-6.json'); break;
+        case '7': rawData = await import('../data/shards/shard-7.json'); break;
+        case '8': rawData = await import('../data/shards/shard-8.json'); break;
+        case '9': rawData = await import('../data/shards/shard-9.json'); break;
+        case 'a': rawData = await import('../data/shards/shard-a.json'); break;
+        case 'b': rawData = await import('../data/shards/shard-b.json'); break;
+        case 'c': rawData = await import('../data/shards/shard-c.json'); break;
+        case 'd': rawData = await import('../data/shards/shard-d.json'); break;
+        case 'e': rawData = await import('../data/shards/shard-e.json'); break;
+        case 'f': rawData = await import('../data/shards/shard-f.json'); break;
+        default:
+          throw new Error(`Unknown shard key: ${shardKey}`);
       }
+    } catch (err) {
+      throw new Error(`Failed to load resource shard (${shardKey}): ${err}`);
     }
 
-    if (!rawData || !rawData.ciphertext || !rawData.iv || !rawData.tag) {
-      throw new Error(
-        `Failed to retrieve resource map shard (${shardKey}). ${fetchError ? fetchError.message : 'File not found'}`
-      );
+    const shardPayload = rawData.default || rawData;
+
+    if (!shardPayload || !shardPayload.ciphertext || !shardPayload.iv || !shardPayload.tag) {
+      throw new Error(`Invalid shard payload for (${shardKey})`);
     }
 
     const decryptedStr = await decryptShardGCM(
-      rawData.ciphertext,
-      rawData.iv,
-      rawData.tag,
+      shardPayload.ciphertext,
+      shardPayload.iv,
+      shardPayload.tag,
       SHARD_MASTER_KEY
     );
 
@@ -136,29 +129,22 @@ async function loadShard(shardKey: string): Promise<Record<string, any>> {
   return fetchPromise;
 }
 
-// Construct dynamic download URL avoiding static pattern detection
 function buildDirectDownloadUrl(driveId: string): string {
   const domainParts = ['https://', 'drive.', 'usercontent.', 'google.', 'com'];
   const endpoint = `${domainParts.join('')}/download?id=${encodeURIComponent(driveId)}&export=download&confirm=t`;
   return endpoint;
 }
 
-/**
- * Resolve any RLH to its authentic file record and direct download URL
- */
 export async function resolveResourceLocally(rlh: string): Promise<ResolvedResource> {
   if (!rlh || typeof rlh !== 'string') {
     throw new Error('Invalid resource locator hash.');
   }
 
-  // 1. Determine shard key from SHA-256 hash
   const hash = await sha256Hex(rlh);
-  const shardKey = hash[0]; // first hex char ('0'-'f')
+  const shardKey = hash[0];
 
-  // 2. Load and decrypt corresponding shard
   const shard = await loadShard(shardKey);
 
-  // 3. Find record
   const record = shard[rlh];
   if (!record || !record.driveId) {
     throw new Error('This resource is currently unavailable in the verified catalog.');
