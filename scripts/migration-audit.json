@@ -1,0 +1,30 @@
+{
+  "verifiedMigrationTimestamp": "2026-10-02T12:55:32.525Z",
+  "status": "VERIFIED_COMPLETE_100_PERCENT",
+  "totalMigratedRecords": 28328,
+  "publicSanitizedRecords": 28328,
+  "serverSideEncryptedRecords": 28328,
+  "totalUniqueCourses": 411,
+  "zeroDataLossConfirmed": true,
+  "typeBreakdown": {
+    "FINALTERM": 7361,
+    "HANDOUT": 2625,
+    "ASSIGNMENT": 419,
+    "MCQFILE": 3256,
+    "MIDTERM": 3877,
+    "OTHER": 5057,
+    "QUIZ": 5733
+  },
+  "formatBreakdown": {
+    "DOC": 1540,
+    "PDF": 22865,
+    "ARCHIVE": 185,
+    "PPT": 529,
+    "OTHER": 123,
+    "IMAGE": 3069,
+    "TXT": 17
+  },
+  "sourceFilesVerified": [
+    "/app/applet/VU_Mega_Index_Bot.md"
+  ]
+}

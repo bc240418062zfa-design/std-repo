@@ -1,0 +1,87 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build & Verify Production Static Site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci || npm install
+          else
+            npm install
+          fi
+
+      - name: TypeScript typecheck & lint
+        run: npm run lint
+
+      - name: Validate dataset integrity (28,000+ authentic records)
+        run: npm run validate
+
+      - name: Build static production bundle
+        run: npm run build
+
+      - name: Run security test suite & token checks
+        run: npm run test
+
+      - name: Audit public build output for zero-leak compliance
+        run: npm run audit-public
+
+      - name: Prepare SPA routing & custom domain fallback
+        run: |
+          # Copy index.html to 404.html for SPA client-side routing on GitHub Pages
+          if [ -f dist/index.html ]; then
+            cp dist/index.html dist/404.html
+          fi
+          # Ensure custom domain CNAME is preserved
+          if [ -f CNAME ]; then
+            cp CNAME dist/CNAME
+          fi
+          # Ensure .nojekyll exists so files starting with underscores are served
+          touch dist/.nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+  deploy:
+    name: Deploy to GitHub Pages Live
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,7 @@
+name = "mihora-download-relay"
+main = "worker.ts"
+compatibility_date = "2024-03-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ALLOWED_ORIGIN = "https://study.mihora.tech"

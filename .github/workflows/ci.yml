@@ -1,0 +1,55 @@
+name: CI / Automated Integrity & Security Verification
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint, Test, Audit & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci || npm install
+          else
+            npm install
+          fi
+
+      - name: TypeScript typecheck
+        run: npm run lint
+
+      - name: Validate dataset integrity (28,328 records / 411 courses)
+        run: npm run validate
+
+      - name: Run security test suite (HMAC tokens & anti-tamper)
+        run: npm run test
+
+      - name: Audit codebase for sensitive credentials or raw storage links
+        run: npm run audit-public
+
+      - name: Test production static build
+        run: npm run build
+
+      - name: Re-audit production build artifacts in dist/
+        run: npm run audit-public

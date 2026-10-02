@@ -1,0 +1,46 @@
+name: Deploy Download Relay to Cloudflare
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'relay/**'
+    branches:
+      - main
+      - master
+
+concurrency:
+  group: 'relay-deploy'
+  cancel-in-progress: true
+
+jobs:
+  deploy-relay:
+    name: Deploy Cloudflare Worker Relay
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Check Cloudflare Secret Configuration
+        id: check-secrets
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "⚠️ CLOUDFLARE_API_TOKEN secret is not set in repository settings."
+            echo "To enable automated Cloudflare deployment, add CLOUDFLARE_API_TOKEN to Settings -> Secrets and variables -> Actions."
+            echo "has_token=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_token=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy Cloudflare Worker
+        if: steps.check-secrets.outputs.has_token == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: 'relay'

@@ -1,0 +1,2468 @@
+[
+  {
+    "code": "ACC301",
+    "title": "Financial Accounting",
+    "faculty": "Accounting & Finance",
+    "fileCount": 6
+  },
+  {
+    "code": "ACC311",
+    "title": "Fundamentals of Auditing",
+    "faculty": "Accounting & Finance",
+    "fileCount": 94
+  },
+  {
+    "code": "ACC501",
+    "title": "Business Finance",
+    "faculty": "Accounting & Finance",
+    "fileCount": 128
+  },
+  {
+    "code": "BIF101",
+    "title": "Basic Bioinformatics",
+    "faculty": "Bioinformatics",
+    "fileCount": 90
+  },
+  {
+    "code": "BIF401",
+    "title": "Introduction to Bioinformatics",
+    "faculty": "Bioinformatics",
+    "fileCount": 268
+  },
+  {
+    "code": "BIF402",
+    "title": "Computational Biology Methods",
+    "faculty": "Bioinformatics",
+    "fileCount": 4
+  },
+  {
+    "code": "BIF501",
+    "title": "Genomics & Proteomics",
+    "faculty": "Bioinformatics",
+    "fileCount": 115
+  },
+  {
+    "code": "BIF601",
+    "title": "Bioinformatics Algorithms",
+    "faculty": "Bioinformatics",
+    "fileCount": 3
+  },
+  {
+    "code": "BIF602",
+    "title": "Structural Bioinformatics",
+    "faculty": "Bioinformatics",
+    "fileCount": 1
+  },
+  {
+    "code": "BIF604",
+    "title": "Systems Biology",
+    "faculty": "Bioinformatics",
+    "fileCount": 5
+  },
+  {
+    "code": "BIO101",
+    "title": "Basic Biology",
+    "faculty": "Biological Sciences",
+    "fileCount": 82
+  },
+  {
+    "code": "BIO102",
+    "title": "Introductory Biology & Diversity",
+    "faculty": "Biological Sciences",
+    "fileCount": 2
+  },
+  {
+    "code": "BIO201",
+    "title": "Cell Biology",
+    "faculty": "Biological Sciences",
+    "fileCount": 166
+  },
+  {
+    "code": "BIO202",
+    "title": "Biochemistry",
+    "faculty": "Biological Sciences",
+    "fileCount": 357
+  },
+  {
+    "code": "BIO203",
+    "title": "General Genetics",
+    "faculty": "Biological Sciences",
+    "fileCount": 186
+  },
+  {
+    "code": "BIO204",
+    "title": "Biochemical Techniques",
+    "faculty": "Biological Sciences",
+    "fileCount": 69
+  },
+  {
+    "code": "BIO301",
+    "title": "Molecular Biology",
+    "faculty": "Biological Sciences",
+    "fileCount": 190
+  },
+  {
+    "code": "BIO302",
+    "title": "Animal Physiology",
+    "faculty": "Biological Sciences",
+    "fileCount": 90
+  },
+  {
+    "code": "BIO303",
+    "title": "Developmental Biology",
+    "faculty": "Biological Sciences",
+    "fileCount": 133
+  },
+  {
+    "code": "BIO401",
+    "title": "Ecology & Evolutionary Biology",
+    "faculty": "Biological Sciences",
+    "fileCount": 117
+  },
+  {
+    "code": "BIO502",
+    "title": "Immunology & Pathology",
+    "faculty": "Biological Sciences",
+    "fileCount": 4
+  },
+  {
+    "code": "BIO503",
+    "title": "Pharmacology & Toxicology",
+    "faculty": "Biological Sciences",
+    "fileCount": 72
+  },
+  {
+    "code": "BIO504",
+    "title": "Applied Microbiology",
+    "faculty": "Biological Sciences",
+    "fileCount": 20
+  },
+  {
+    "code": "BIO505",
+    "title": "Environmental Biotechnology",
+    "faculty": "Biological Sciences",
+    "fileCount": 70
+  },
+  {
+    "code": "BIO506",
+    "title": "Forensic Biology",
+    "faculty": "Biological Sciences",
+    "fileCount": 69
+  },
+  {
+    "code": "BIO731",
+    "title": "Advanced Molecular Genetics",
+    "faculty": "Biological Sciences",
+    "fileCount": 2
+  },
+  {
+    "code": "BNK601",
+    "title": "Banking Laws & Practices",
+    "faculty": "Accounting & Finance",
+    "fileCount": 15
+  },
+  {
+    "code": "BNK603",
+    "title": "Consumer Banking",
+    "faculty": "Accounting & Finance",
+    "fileCount": 13
+  },
+  {
+    "code": "BNK604",
+    "title": "Commercial Banking",
+    "faculty": "Accounting & Finance",
+    "fileCount": 1
+  },
+  {
+    "code": "BNK610",
+    "title": "Credit & Risk Management in Banking",
+    "faculty": "Accounting & Finance",
+    "fileCount": 3
+  },
+  {
+    "code": "BT101",
+    "title": "Ecology, Biodiversity & Evolution",
+    "faculty": "Bio-Technology",
+    "fileCount": 242
+  },
+  {
+    "code": "BT102",
+    "title": "Microbiology",
+    "faculty": "Bio-Technology",
+    "fileCount": 164
+  },
+  {
+    "code": "BT201",
+    "title": "Biotechnology Fundamentals",
+    "faculty": "Bio-Technology",
+    "fileCount": 97
+  },
+  {
+    "code": "BT301",
+    "title": "Recombinant DNA Technology",
+    "faculty": "Bio-Technology",
+    "fileCount": 126
+  },
+  {
+    "code": "BT302",
+    "title": "Cell and Tissue Culture",
+    "faculty": "Bio-Technology",
+    "fileCount": 114
+  },
+  {
+    "code": "BT401",
+    "title": "Genetic Engineering",
+    "faculty": "Bio-Technology",
+    "fileCount": 161
+  },
+  {
+    "code": "BT402",
+    "title": "Fermentation Technology",
+    "faculty": "Bio-Technology",
+    "fileCount": 35
+  },
+  {
+    "code": "BT403",
+    "title": "Agricultural Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 50
+  },
+  {
+    "code": "BT404",
+    "title": "Medical Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 30
+  },
+  {
+    "code": "BT405",
+    "title": "Industrial Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 38
+  },
+  {
+    "code": "BT406",
+    "title": "Nanobiotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 145
+  },
+  {
+    "code": "BT501",
+    "title": "Biochemical Engineering",
+    "faculty": "Bio-Technology",
+    "fileCount": 42
+  },
+  {
+    "code": "BT502",
+    "title": "Biosafety & Bioethics",
+    "faculty": "Bio-Technology",
+    "fileCount": 6
+  },
+  {
+    "code": "BT503",
+    "title": "Molecular Diagnostics",
+    "faculty": "Bio-Technology",
+    "fileCount": 122
+  },
+  {
+    "code": "BT504",
+    "title": "Stem Cell Technology",
+    "faculty": "Bio-Technology",
+    "fileCount": 43
+  },
+  {
+    "code": "BT505",
+    "title": "Food Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 43
+  },
+  {
+    "code": "BT511",
+    "title": "Vaccine Technology",
+    "faculty": "Bio-Technology",
+    "fileCount": 19
+  },
+  {
+    "code": "BT512",
+    "title": "Drug Design & Development",
+    "faculty": "Bio-Technology",
+    "fileCount": 13
+  },
+  {
+    "code": "BT513",
+    "title": "Genomics & Functional Proteomics",
+    "faculty": "Bio-Technology",
+    "fileCount": 17
+  },
+  {
+    "code": "BT514",
+    "title": "Enzyme Technology",
+    "faculty": "Bio-Technology",
+    "fileCount": 8
+  },
+  {
+    "code": "BT601",
+    "title": "Advanced Genetic Engineering",
+    "faculty": "Bio-Technology",
+    "fileCount": 42
+  },
+  {
+    "code": "BT602",
+    "title": "Bioinformatics in Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 4
+  },
+  {
+    "code": "BT603",
+    "title": "Bioprocess Engineering",
+    "faculty": "Bio-Technology",
+    "fileCount": 32
+  },
+  {
+    "code": "BT604",
+    "title": "Aquatic Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 28
+  },
+  {
+    "code": "BT605",
+    "title": "Environmental Bioremediation",
+    "faculty": "Bio-Technology",
+    "fileCount": 57
+  },
+  {
+    "code": "BT611",
+    "title": "Synthetic Biology",
+    "faculty": "Bio-Technology",
+    "fileCount": 9
+  },
+  {
+    "code": "BT612",
+    "title": "Metabolic Engineering",
+    "faculty": "Bio-Technology",
+    "fileCount": 9
+  },
+  {
+    "code": "BT613",
+    "title": "Biofuels and Bioenergy",
+    "faculty": "Bio-Technology",
+    "fileCount": 7
+  },
+  {
+    "code": "BT614",
+    "title": "Clinical Research in Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 9
+  },
+  {
+    "code": "BT693",
+    "title": "Research Project in Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 1
+  },
+  {
+    "code": "BT732",
+    "title": "Advanced Molecular Biology Seminar",
+    "faculty": "Bio-Technology",
+    "fileCount": 1
+  },
+  {
+    "code": "BT734",
+    "title": "Advanced Cellular Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 1
+  },
+  {
+    "code": "BT735",
+    "title": "Current Topics in Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 1
+  },
+  {
+    "code": "CHE201",
+    "title": "General Chemistry",
+    "faculty": "Chemistry",
+    "fileCount": 42
+  },
+  {
+    "code": "CHE301",
+    "title": "Organic Chemistry",
+    "faculty": "Chemistry",
+    "fileCount": 73
+  },
+  {
+    "code": "CS000",
+    "title": "Introduction to Computer Fundamentals",
+    "faculty": "Computer Science",
+    "fileCount": 7
+  },
+  {
+    "code": "CS001",
+    "title": "Computer Proficiency License",
+    "faculty": "Computer Science",
+    "fileCount": 67
+  },
+  {
+    "code": "CS101",
+    "title": "Introduction to Computing",
+    "faculty": "Computer Science",
+    "fileCount": 919
+  },
+  {
+    "code": "CS201",
+    "title": "Introduction to Programming",
+    "faculty": "Computer Science",
+    "fileCount": 484
+  },
+  {
+    "code": "CS202",
+    "title": "Web Design & Development",
+    "faculty": "Computer Science",
+    "fileCount": 96
+  },
+  {
+    "code": "CS204",
+    "title": "Cyber Law & Intellectual Property",
+    "faculty": "Computer Science",
+    "fileCount": 36
+  },
+  {
+    "code": "CS205",
+    "title": "Information Security Management",
+    "faculty": "Computer Science",
+    "fileCount": 117
+  },
+  {
+    "code": "CS206",
+    "title": "Ethical Hacking & Defense",
+    "faculty": "Computer Science",
+    "fileCount": 4
+  },
+  {
+    "code": "CS301",
+    "title": "Data Structures",
+    "faculty": "Computer Science",
+    "fileCount": 456
+  },
+  {
+    "code": "CS302",
+    "title": "Digital Logic Design",
+    "faculty": "Computer Science",
+    "fileCount": 666
+  },
+  {
+    "code": "CS304",
+    "title": "Object Oriented Programming",
+    "faculty": "Computer Science",
+    "fileCount": 347
+  },
+  {
+    "code": "CS310",
+    "title": "Introduction to Programming (Python)",
+    "faculty": "Computer Science",
+    "fileCount": 8
+  },
+  {
+    "code": "CS311",
+    "title": "Introduction to Web Services Development",
+    "faculty": "Computer Science",
+    "fileCount": 30
+  },
+  {
+    "code": "CS312",
+    "title": "Mobile Application Development",
+    "faculty": "Computer Science",
+    "fileCount": 5
+  },
+  {
+    "code": "CS314",
+    "title": "Embedded Systems & IoT",
+    "faculty": "Computer Science",
+    "fileCount": 3
+  },
+  {
+    "code": "CS315",
+    "title": "Web Engineering",
+    "faculty": "Computer Science",
+    "fileCount": 3
+  },
+  {
+    "code": "CS401",
+    "title": "Computer Architecture & Assembly Language",
+    "faculty": "Computer Science",
+    "fileCount": 284
+  },
+  {
+    "code": "CS402",
+    "title": "Theory of Automata",
+    "faculty": "Computer Science",
+    "fileCount": 190
+  },
+  {
+    "code": "CS403",
+    "title": "Database Management Systems",
+    "faculty": "Computer Science",
+    "fileCount": 265
+  },
+  {
+    "code": "CS405",
+    "title": "Mobile Computing",
+    "faculty": "Computer Science",
+    "fileCount": 12
+  },
+  {
+    "code": "CS407",
+    "title": "Cloud Computing Fundamentals",
+    "faculty": "Computer Science",
+    "fileCount": 4
+  },
+  {
+    "code": "CS408",
+    "title": "Human Computer Interaction",
+    "faculty": "Computer Science",
+    "fileCount": 219
+  },
+  {
+    "code": "CS409",
+    "title": "Ethical & Legal Issues in Computing",
+    "faculty": "Computer Science",
+    "fileCount": 15
+  },
+  {
+    "code": "CS410",
+    "title": "Design & Analysis of Algorithms",
+    "faculty": "Computer Science",
+    "fileCount": 17
+  },
+  {
+    "code": "CS411",
+    "title": "Visual Programming",
+    "faculty": "Computer Science",
+    "fileCount": 171
+  },
+  {
+    "code": "CS420",
+    "title": "Game Design and Development",
+    "faculty": "Computer Science",
+    "fileCount": 14
+  },
+  {
+    "code": "CS432",
+    "title": "Network Security",
+    "faculty": "Computer Science",
+    "fileCount": 5
+  },
+  {
+    "code": "CS435",
+    "title": "Cloud Computing Infrastructure",
+    "faculty": "Computer Science",
+    "fileCount": 8
+  },
+  {
+    "code": "CS501",
+    "title": "Advance Computer Architecture",
+    "faculty": "Computer Science",
+    "fileCount": 168
+  },
+  {
+    "code": "CS502",
+    "title": "Fundamentals of Algorithms",
+    "faculty": "Computer Science",
+    "fileCount": 228
+  },
+  {
+    "code": "CS504",
+    "title": "Software Engineering - I",
+    "faculty": "Software Engineering",
+    "fileCount": 310
+  },
+  {
+    "code": "CS505",
+    "title": "Agile Software Development",
+    "faculty": "Computer Science",
+    "fileCount": 6
+  },
+  {
+    "code": "CS506",
+    "title": "Enterprise Application Development",
+    "faculty": "Computer Science",
+    "fileCount": 190
+  },
+  {
+    "code": "CS507",
+    "title": "Information Systems",
+    "faculty": "Computer Science",
+    "fileCount": 134
+  },
+  {
+    "code": "CS508",
+    "title": "Modern Programming Languages",
+    "faculty": "Computer Science",
+    "fileCount": 108
+  },
+  {
+    "code": "CS510",
+    "title": "Compiler Construction",
+    "faculty": "Computer Science",
+    "fileCount": 19
+  },
+  {
+    "code": "CS511",
+    "title": "Distributed Systems",
+    "faculty": "Computer Science",
+    "fileCount": 2
+  },
+  {
+    "code": "CS521",
+    "title": "Data Science Principles",
+    "faculty": "Computer Science",
+    "fileCount": 2
+  },
+  {
+    "code": "CS601",
+    "title": "Data Communication",
+    "faculty": "Computer Science",
+    "fileCount": 237
+  },
+  {
+    "code": "CS602",
+    "title": "Computer Graphics",
+    "faculty": "Computer Science",
+    "fileCount": 177
+  },
+  {
+    "code": "CS603",
+    "title": "Software Architecture",
+    "faculty": "Computer Science",
+    "fileCount": 46
+  },
+  {
+    "code": "CS604",
+    "title": "Operating Systems",
+    "faculty": "Computer Science",
+    "fileCount": 281
+  },
+  {
+    "code": "CS605",
+    "title": "Software Engineering - II",
+    "faculty": "Software Engineering",
+    "fileCount": 126
+  },
+  {
+    "code": "CS606",
+    "title": "Compiler Design & Construction",
+    "faculty": "Computer Science",
+    "fileCount": 89
+  },
+  {
+    "code": "CS607",
+    "title": "Artificial Intelligence",
+    "faculty": "Computer Science",
+    "fileCount": 401
+  },
+  {
+    "code": "CS608",
+    "title": "Digital Signal Processing",
+    "faculty": "Computer Science",
+    "fileCount": 8
+  },
+  {
+    "code": "CS609",
+    "title": "System Programming",
+    "faculty": "Computer Science",
+    "fileCount": 92
+  },
+  {
+    "code": "CS610",
+    "title": "Computer Networks",
+    "faculty": "Computer Science",
+    "fileCount": 176
+  },
+  {
+    "code": "CS611",
+    "title": "Software Quality Assurance",
+    "faculty": "Software Engineering",
+    "fileCount": 17
+  },
+  {
+    "code": "CS614",
+    "title": "Data Warehousing",
+    "faculty": "Computer Science",
+    "fileCount": 137
+  },
+  {
+    "code": "CS615",
+    "title": "Software Project Management",
+    "faculty": "Software Engineering",
+    "fileCount": 70
+  },
+  {
+    "code": "CS619",
+    "title": "Final Year Project",
+    "faculty": "Computer Science",
+    "fileCount": 8
+  },
+  {
+    "code": "CS621",
+    "title": "Information Retrieval Techniques",
+    "faculty": "Computer Science",
+    "fileCount": 1
+  },
+  {
+    "code": "CS625",
+    "title": "Formal Methods in Software Engineering",
+    "faculty": "Computer Science",
+    "fileCount": 37
+  },
+  {
+    "code": "CS627",
+    "title": "Computer Vision & Pattern Recognition",
+    "faculty": "Computer Science",
+    "fileCount": 2
+  },
+  {
+    "code": "CS636",
+    "title": "Big Data Analytics",
+    "faculty": "Computer Science",
+    "fileCount": 2
+  },
+  {
+    "code": "CS708",
+    "title": "Advanced Computer Graphics",
+    "faculty": "Computer Science",
+    "fileCount": 1
+  },
+  {
+    "code": "CS713",
+    "title": "Advanced Software Architecture",
+    "faculty": "Computer Science",
+    "fileCount": 1
+  },
+  {
+    "code": "CS718",
+    "title": "Advanced Artificial Intelligence",
+    "faculty": "Computer Science",
+    "fileCount": 1
+  },
+  {
+    "code": "DSTA630",
+    "title": "Data Science Research Methods",
+    "faculty": "Statistics",
+    "fileCount": 1
+  },
+  {
+    "code": "ECE101",
+    "title": "Introduction to Early Childhood Care & Education",
+    "faculty": "Education",
+    "fileCount": 2
+  },
+  {
+    "code": "ECO401",
+    "title": "Economics (Micro & Macro)",
+    "faculty": "Economics",
+    "fileCount": 213
+  },
+  {
+    "code": "ECO402",
+    "title": "Microeconomics Analysis",
+    "faculty": "Economics",
+    "fileCount": 84
+  },
+  {
+    "code": "ECO403",
+    "title": "Macroeconomics Analysis",
+    "faculty": "Economics",
+    "fileCount": 83
+  },
+  {
+    "code": "ECO404",
+    "title": "Managerial Economics",
+    "faculty": "Economics",
+    "fileCount": 5
+  },
+  {
+    "code": "ECO406",
+    "title": "Development Economics",
+    "faculty": "Economics",
+    "fileCount": 4
+  },
+  {
+    "code": "ECO501",
+    "title": "Monetary Economics",
+    "faculty": "Economics",
+    "fileCount": 4
+  },
+  {
+    "code": "ECO601",
+    "title": "International Economics",
+    "faculty": "Economics",
+    "fileCount": 5
+  },
+  {
+    "code": "ECO603",
+    "title": "Public Sector Economics",
+    "faculty": "Economics",
+    "fileCount": 1
+  },
+  {
+    "code": "ECO606",
+    "title": "Agricultural Economics",
+    "faculty": "Economics",
+    "fileCount": 10
+  },
+  {
+    "code": "ECO607",
+    "title": "Environmental & Resource Economics",
+    "faculty": "Economics",
+    "fileCount": 5
+  },
+  {
+    "code": "ECO610",
+    "title": "Econometrics Principles",
+    "faculty": "Economics",
+    "fileCount": 6
+  },
+  {
+    "code": "EDU101",
+    "title": "Foundations of Education",
+    "faculty": "Education",
+    "fileCount": 225
+  },
+  {
+    "code": "EDU201",
+    "title": "Learning Theories & Applications",
+    "faculty": "Education",
+    "fileCount": 43
+  },
+  {
+    "code": "EDU205",
+    "title": "Classroom Management",
+    "faculty": "Education",
+    "fileCount": 2
+  },
+  {
+    "code": "EDU301",
+    "title": "General Methods of Teaching",
+    "faculty": "Education",
+    "fileCount": 184
+  },
+  {
+    "code": "EDU302",
+    "title": "Human Development & Learning",
+    "faculty": "Education",
+    "fileCount": 56
+  },
+  {
+    "code": "EDU303",
+    "title": "School, Community and Teacher",
+    "faculty": "Education",
+    "fileCount": 29
+  },
+  {
+    "code": "EDU304",
+    "title": "Educational Assessment & Evaluation",
+    "faculty": "Education",
+    "fileCount": 31
+  },
+  {
+    "code": "EDU305",
+    "title": "Curriculum Development & Instruction",
+    "faculty": "Education",
+    "fileCount": 154
+  },
+  {
+    "code": "EDU306",
+    "title": "Contemporary Trends in Education",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "EDU401",
+    "title": "Critical Thinking and Reflective Practices",
+    "faculty": "Education",
+    "fileCount": 218
+  },
+  {
+    "code": "EDU402",
+    "title": "Educational Leadership & Management",
+    "faculty": "Education",
+    "fileCount": 92
+  },
+  {
+    "code": "EDU403",
+    "title": "Art, Craft & Calligraphy in Education",
+    "faculty": "Education",
+    "fileCount": 120
+  },
+  {
+    "code": "EDU404",
+    "title": "Teaching of English",
+    "faculty": "Education",
+    "fileCount": 4
+  },
+  {
+    "code": "EDU405",
+    "title": "Teaching of Mathematics",
+    "faculty": "Education",
+    "fileCount": 14
+  },
+  {
+    "code": "EDU406",
+    "title": "Teaching of General Science",
+    "faculty": "Education",
+    "fileCount": 264
+  },
+  {
+    "code": "EDU410",
+    "title": "ICT in Education",
+    "faculty": "Education",
+    "fileCount": 152
+  },
+  {
+    "code": "EDU411",
+    "title": "Teaching of Social Studies",
+    "faculty": "Education",
+    "fileCount": 11
+  },
+  {
+    "code": "EDU430",
+    "title": "Information & Communication Technology in Teaching",
+    "faculty": "Education",
+    "fileCount": 80
+  },
+  {
+    "code": "EDU431",
+    "title": "Test Development & Measurement",
+    "faculty": "Education",
+    "fileCount": 63
+  },
+  {
+    "code": "EDU433",
+    "title": "Educational Statistics",
+    "faculty": "Education",
+    "fileCount": 58
+  },
+  {
+    "code": "EDU501",
+    "title": "Educational Psychology",
+    "faculty": "Education",
+    "fileCount": 147
+  },
+  {
+    "code": "EDU505",
+    "title": "Guidance and Counseling in Schools",
+    "faculty": "Education",
+    "fileCount": 42
+  },
+  {
+    "code": "EDU510",
+    "title": "Qualitative Research in Education",
+    "faculty": "Education",
+    "fileCount": 4
+  },
+  {
+    "code": "EDU512",
+    "title": "Comparative Education",
+    "faculty": "Education",
+    "fileCount": 8
+  },
+  {
+    "code": "EDU514",
+    "title": "Special Education Principles",
+    "faculty": "Education",
+    "fileCount": 2
+  },
+  {
+    "code": "EDU515",
+    "title": "Early Childhood Education Curriculum",
+    "faculty": "Education",
+    "fileCount": 3
+  },
+  {
+    "code": "EDU516",
+    "title": "Educational Technology & Media",
+    "faculty": "Education",
+    "fileCount": 155
+  },
+  {
+    "code": "EDU601",
+    "title": "Philosophy of Education",
+    "faculty": "Education",
+    "fileCount": 61
+  },
+  {
+    "code": "EDU602",
+    "title": "Educational Planning and Policy",
+    "faculty": "Education",
+    "fileCount": 56
+  },
+  {
+    "code": "EDU604",
+    "title": "Educational Administration & Supervision",
+    "faculty": "Education",
+    "fileCount": 14
+  },
+  {
+    "code": "EDU630",
+    "title": "Research Methods in Education",
+    "faculty": "Education",
+    "fileCount": 3
+  },
+  {
+    "code": "EDU654",
+    "title": "Teacher Education in Pakistan",
+    "faculty": "Education",
+    "fileCount": 40
+  },
+  {
+    "code": "EDU702",
+    "title": "Advanced Seminar in Educational Leadership",
+    "faculty": "Education",
+    "fileCount": 2
+  },
+  {
+    "code": "EDU705",
+    "title": "Advanced Educational Policy Analysis",
+    "faculty": "Education",
+    "fileCount": 43
+  },
+  {
+    "code": "EDUA305",
+    "title": "Applied Curriculum Development",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "EDUA403",
+    "title": "Elementary Arts Education",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "EDUA405",
+    "title": "Pedagogy of Mathematics",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "EDUA516",
+    "title": "Educational Media Design",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "EDUA630",
+    "title": "Action Research in Educational Settings",
+    "faculty": "Education",
+    "fileCount": 10
+  },
+  {
+    "code": "EFIN623",
+    "title": "Economics of Financial Markets",
+    "faculty": "Accounting & Finance",
+    "fileCount": 2
+  },
+  {
+    "code": "EMG525",
+    "title": "Engineering Project Management",
+    "faculty": "Management Sciences",
+    "fileCount": 11
+  },
+  {
+    "code": "ENG001",
+    "title": "Basic English Grammar & Composition",
+    "faculty": "English",
+    "fileCount": 57
+  },
+  {
+    "code": "ENG101",
+    "title": "English Comprehension",
+    "faculty": "English",
+    "fileCount": 110
+  },
+  {
+    "code": "ENG201",
+    "title": "Business and Technical English Writing",
+    "faculty": "English",
+    "fileCount": 188
+  },
+  {
+    "code": "ENG301",
+    "title": "Business Communication",
+    "faculty": "English",
+    "fileCount": 96
+  },
+  {
+    "code": "ENG501",
+    "title": "History of English Language",
+    "faculty": "English",
+    "fileCount": 221
+  },
+  {
+    "code": "ENG502",
+    "title": "Introduction to Linguistics",
+    "faculty": "English",
+    "fileCount": 196
+  },
+  {
+    "code": "ENG503",
+    "title": "English Morphology and Syntax",
+    "faculty": "English",
+    "fileCount": 256
+  },
+  {
+    "code": "ENG504",
+    "title": "Sociolinguistics",
+    "faculty": "English",
+    "fileCount": 334
+  },
+  {
+    "code": "ENG505",
+    "title": "Phonetics & Phonology",
+    "faculty": "English",
+    "fileCount": 226
+  },
+  {
+    "code": "ENG506",
+    "title": "World Englishes",
+    "faculty": "English",
+    "fileCount": 253
+  },
+  {
+    "code": "ENG507",
+    "title": "Psycholinguistics",
+    "faculty": "English",
+    "fileCount": 212
+  },
+  {
+    "code": "ENG508",
+    "title": "Semantics & Pragmatics",
+    "faculty": "English",
+    "fileCount": 273
+  },
+  {
+    "code": "ENG509",
+    "title": "English for Specific Purposes (ESP)",
+    "faculty": "English",
+    "fileCount": 258
+  },
+  {
+    "code": "ENG510",
+    "title": "Language Testing & Evaluation",
+    "faculty": "English",
+    "fileCount": 199
+  },
+  {
+    "code": "ENG511",
+    "title": "Syllabus Design & Materials Development",
+    "faculty": "English",
+    "fileCount": 207
+  },
+  {
+    "code": "ENG512",
+    "title": "Stylistics & Literary Analysis",
+    "faculty": "English",
+    "fileCount": 234
+  },
+  {
+    "code": "ENG513",
+    "title": "Second Language Acquisition (SLA)",
+    "faculty": "English",
+    "fileCount": 227
+  },
+  {
+    "code": "ENG514",
+    "title": "Classical Poetry",
+    "faculty": "English",
+    "fileCount": 159
+  },
+  {
+    "code": "ENG515",
+    "title": "Classical Drama",
+    "faculty": "English",
+    "fileCount": 209
+  },
+  {
+    "code": "ENG516",
+    "title": "Research Methodology in Linguistics",
+    "faculty": "English",
+    "fileCount": 283
+  },
+  {
+    "code": "ENG517",
+    "title": "Modern Poetry",
+    "faculty": "English",
+    "fileCount": 246
+  },
+  {
+    "code": "ENG518",
+    "title": "Modern Drama",
+    "faculty": "English",
+    "fileCount": 239
+  },
+  {
+    "code": "ENG519",
+    "title": "Classical Novel",
+    "faculty": "English",
+    "fileCount": 251
+  },
+  {
+    "code": "ENG520",
+    "title": "Modern Novel",
+    "faculty": "English",
+    "fileCount": 218
+  },
+  {
+    "code": "ENG521",
+    "title": "American Literature",
+    "faculty": "English",
+    "fileCount": 37
+  },
+  {
+    "code": "ENG522",
+    "title": "Postcolonial Literature",
+    "faculty": "English",
+    "fileCount": 204
+  },
+  {
+    "code": "ENG523",
+    "title": "Continental Literature & Criticism",
+    "faculty": "English",
+    "fileCount": 220
+  },
+  {
+    "code": "ENG524",
+    "title": "Literary Criticism & Theory",
+    "faculty": "English",
+    "fileCount": 131
+  },
+  {
+    "code": "ENG525",
+    "title": "Discourse Analysis",
+    "faculty": "English",
+    "fileCount": 14
+  },
+  {
+    "code": "ENG526",
+    "title": "Applied Linguistics in Education",
+    "faculty": "English",
+    "fileCount": 14
+  },
+  {
+    "code": "ENG527",
+    "title": "Creative Writing & Composition",
+    "faculty": "English",
+    "fileCount": 8
+  },
+  {
+    "code": "ENG528",
+    "title": "Corpus Linguistics",
+    "faculty": "English",
+    "fileCount": 15
+  },
+  {
+    "code": "ENG529",
+    "title": "Translation Studies & Theory",
+    "faculty": "English",
+    "fileCount": 142
+  },
+  {
+    "code": "ETH100",
+    "title": "Ethics (For Non-Muslim Students)",
+    "faculty": "Islamic Studies",
+    "fileCount": 5
+  },
+  {
+    "code": "ETH201",
+    "title": "Ethics & Moral Philosophy (For Non-Muslims)",
+    "faculty": "Islamic Studies",
+    "fileCount": 2
+  },
+  {
+    "code": "FENG301",
+    "title": "Functional English for Professionals",
+    "faculty": "English",
+    "fileCount": 2
+  },
+  {
+    "code": "FIN611",
+    "title": "Advanced Financial Accounting",
+    "faculty": "Accounting & Finance",
+    "fileCount": 7
+  },
+  {
+    "code": "FIN621",
+    "title": "Financial Statement Analysis",
+    "faculty": "Accounting & Finance",
+    "fileCount": 10
+  },
+  {
+    "code": "FIN622",
+    "title": "Corporate Finance",
+    "faculty": "Accounting & Finance",
+    "fileCount": 10
+  },
+  {
+    "code": "FIN623",
+    "title": "Taxation Management",
+    "faculty": "Accounting & Finance",
+    "fileCount": 21
+  },
+  {
+    "code": "FIN624",
+    "title": "Islamic Banking & Finance",
+    "faculty": "Accounting & Finance",
+    "fileCount": 6
+  },
+  {
+    "code": "FIN625",
+    "title": "Credit & Risk Management",
+    "faculty": "Accounting & Finance",
+    "fileCount": 6
+  },
+  {
+    "code": "FIN630",
+    "title": "Investment Analysis & Portfolio Management",
+    "faculty": "Accounting & Finance",
+    "fileCount": 17
+  },
+  {
+    "code": "FIN722",
+    "title": "Advanced Corporate Finance",
+    "faculty": "Accounting & Finance",
+    "fileCount": 6
+  },
+  {
+    "code": "GENERAL",
+    "title": "General University Resources, Guides & Handbooks",
+    "faculty": "General Guides",
+    "fileCount": 545
+  },
+  {
+    "code": "GSC101",
+    "title": "General Science",
+    "faculty": "General Sciences",
+    "fileCount": 26
+  },
+  {
+    "code": "HRM613",
+    "title": "Human Resource Development",
+    "faculty": "Human Resources",
+    "fileCount": 2
+  },
+  {
+    "code": "HRM617",
+    "title": "Compensation & Benefits Management",
+    "faculty": "Human Resources",
+    "fileCount": 3
+  },
+  {
+    "code": "HRM624",
+    "title": "Conflict & Negotiation Management",
+    "faculty": "Human Resources",
+    "fileCount": 3
+  },
+  {
+    "code": "HRM627",
+    "title": "Strategic Human Resource Management",
+    "faculty": "Human Resources",
+    "fileCount": 5
+  },
+  {
+    "code": "ISL201",
+    "title": "Islamic Studies",
+    "faculty": "Islamic Studies",
+    "fileCount": 86
+  },
+  {
+    "code": "ISL202",
+    "title": "Islamic Studies / Ethics",
+    "faculty": "Islamic Studies",
+    "fileCount": 119
+  },
+  {
+    "code": "IT430",
+    "title": "E-Commerce & Digital Business",
+    "faculty": "Information Technology",
+    "fileCount": 65
+  },
+  {
+    "code": "IT601",
+    "title": "Network Administration",
+    "faculty": "Information Technology",
+    "fileCount": 4
+  },
+  {
+    "code": "IT602",
+    "title": "Database Administration",
+    "faculty": "Information Technology",
+    "fileCount": 2
+  },
+  {
+    "code": "ITU430",
+    "title": "E-Commerce Systems",
+    "faculty": "Information Technology",
+    "fileCount": 3
+  },
+  {
+    "code": "MB501",
+    "title": "General Microbiology & Microbial Diversity",
+    "faculty": "Microbiology",
+    "fileCount": 5
+  },
+  {
+    "code": "MB502",
+    "title": "Microbial Physiology & Metabolism",
+    "faculty": "Microbiology",
+    "fileCount": 1
+  },
+  {
+    "code": "MB504",
+    "title": "Medical Microbiology",
+    "faculty": "Microbiology",
+    "fileCount": 2
+  },
+  {
+    "code": "MCD401",
+    "title": "Media Content Development",
+    "faculty": "Mass Communication",
+    "fileCount": 5
+  },
+  {
+    "code": "MCD403",
+    "title": "Media Ethics & Professional Standards",
+    "faculty": "Mass Communication",
+    "fileCount": 35
+  },
+  {
+    "code": "MCM000",
+    "title": "Introduction to Communication Fundamentals",
+    "faculty": "Mass Communication",
+    "fileCount": 4
+  },
+  {
+    "code": "MCM101",
+    "title": "Introduction to Mass Communication",
+    "faculty": "Mass Communication",
+    "fileCount": 128
+  },
+  {
+    "code": "MCM301",
+    "title": "Communication Skills",
+    "faculty": "Mass Communication",
+    "fileCount": 388
+  },
+  {
+    "code": "MCM304",
+    "title": "Mass Media in Pakistan",
+    "faculty": "Mass Communication",
+    "fileCount": 95
+  },
+  {
+    "code": "MCM310",
+    "title": "Radio Broadcasting & Audio Media",
+    "faculty": "Mass Communication",
+    "fileCount": 25
+  },
+  {
+    "code": "MCM311",
+    "title": "Radio & Television Production",
+    "faculty": "Mass Communication",
+    "fileCount": 6
+  },
+  {
+    "code": "MCM401",
+    "title": "Fundamentals of Public Relations",
+    "faculty": "Mass Communication",
+    "fileCount": 26
+  },
+  {
+    "code": "MCM404",
+    "title": "Electronic Media Content Creation",
+    "faculty": "Mass Communication",
+    "fileCount": 3
+  },
+  {
+    "code": "MCM411",
+    "title": "News Writing and Reporting",
+    "faculty": "Mass Communication",
+    "fileCount": 4
+  },
+  {
+    "code": "MCM431",
+    "title": "Digital Media & Online Journalism",
+    "faculty": "Mass Communication",
+    "fileCount": 5
+  },
+  {
+    "code": "MCM501",
+    "title": "Development Support Communication",
+    "faculty": "Mass Communication",
+    "fileCount": 5
+  },
+  {
+    "code": "MCM511",
+    "title": "Media Ethics, Cyber Laws & Regulation",
+    "faculty": "Mass Communication",
+    "fileCount": 9
+  },
+  {
+    "code": "MCM514",
+    "title": "Feature, Column & Editorial Writing",
+    "faculty": "Mass Communication",
+    "fileCount": 4
+  },
+  {
+    "code": "MCM517",
+    "title": "Advertising Strategy & Campaigns",
+    "faculty": "Mass Communication",
+    "fileCount": 6
+  },
+  {
+    "code": "MCM520",
+    "title": "Print Media Design & Layout",
+    "faculty": "Mass Communication",
+    "fileCount": 10
+  },
+  {
+    "code": "MCM531",
+    "title": "International & Cross-Cultural Communication",
+    "faculty": "Mass Communication",
+    "fileCount": 5
+  },
+  {
+    "code": "MCM601",
+    "title": "Theories of Mass Communication",
+    "faculty": "Mass Communication",
+    "fileCount": 3
+  },
+  {
+    "code": "MCM604",
+    "title": "Communication Research Methodology",
+    "faculty": "Mass Communication",
+    "fileCount": 5
+  },
+  {
+    "code": "MCM610",
+    "title": "Cyber Journalism & Web Publishing",
+    "faculty": "Mass Communication",
+    "fileCount": 11
+  },
+  {
+    "code": "MCMP310",
+    "title": "Radio & Audio Production Practical",
+    "faculty": "Mass Communication",
+    "fileCount": 1
+  },
+  {
+    "code": "MEDU402",
+    "title": "Master Level Educational Leadership",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "MEDU406",
+    "title": "Science Teaching Pedagogies",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "MEDU430",
+    "title": "Advanced ICT in Education",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "MEDU601",
+    "title": "Advanced Philosophy of Education",
+    "faculty": "Education",
+    "fileCount": 1
+  },
+  {
+    "code": "MGMT614",
+    "title": "Leadership & Team Building",
+    "faculty": "Management Sciences",
+    "fileCount": 3
+  },
+  {
+    "code": "MGMT615",
+    "title": "Project Management Practices",
+    "faculty": "Management Sciences",
+    "fileCount": 7
+  },
+  {
+    "code": "MGMT617",
+    "title": "Project Management Methodologies",
+    "faculty": "Management Sciences",
+    "fileCount": 1
+  },
+  {
+    "code": "MGMT622",
+    "title": "Operations Management",
+    "faculty": "Management Sciences",
+    "fileCount": 2
+  },
+  {
+    "code": "MGMT623",
+    "title": "Supply Chain Management",
+    "faculty": "Management Sciences",
+    "fileCount": 29
+  },
+  {
+    "code": "MGMT625",
+    "title": "Knowledge Management Systems",
+    "faculty": "Management Sciences",
+    "fileCount": 2
+  },
+  {
+    "code": "MGMT627",
+    "title": "Global Business Strategy",
+    "faculty": "Management Sciences",
+    "fileCount": 7
+  },
+  {
+    "code": "MGMT628",
+    "title": "Strategic Management",
+    "faculty": "Management Sciences",
+    "fileCount": 3
+  },
+  {
+    "code": "MGMT630",
+    "title": "Business Strategy & Policy",
+    "faculty": "Management Sciences",
+    "fileCount": 4
+  },
+  {
+    "code": "MGMT631",
+    "title": "Innovation Management",
+    "faculty": "Management Sciences",
+    "fileCount": 4
+  },
+  {
+    "code": "MGT101",
+    "title": "Financial Accounting",
+    "faculty": "Management Sciences",
+    "fileCount": 18
+  },
+  {
+    "code": "MGT111",
+    "title": "Introduction to Public Administration",
+    "faculty": "Management Sciences",
+    "fileCount": 2
+  },
+  {
+    "code": "MGT211",
+    "title": "Introduction to Business",
+    "faculty": "Management Sciences",
+    "fileCount": 80
+  },
+  {
+    "code": "MGT301",
+    "title": "Principles of Marketing",
+    "faculty": "Management Sciences",
+    "fileCount": 113
+  },
+  {
+    "code": "MGT402",
+    "title": "Cost & Management Accounting",
+    "faculty": "Management Sciences",
+    "fileCount": 6
+  },
+  {
+    "code": "MGT411",
+    "title": "Money & Banking",
+    "faculty": "Management Sciences",
+    "fileCount": 8
+  },
+  {
+    "code": "MGT501",
+    "title": "Human Resource Management",
+    "faculty": "Management Sciences",
+    "fileCount": 104
+  },
+  {
+    "code": "MGT502",
+    "title": "Organizational Behaviour",
+    "faculty": "Management Sciences",
+    "fileCount": 73
+  },
+  {
+    "code": "MGT503",
+    "title": "Principles of Management",
+    "faculty": "Management Sciences",
+    "fileCount": 95
+  },
+  {
+    "code": "MGT510",
+    "title": "Total Quality Management",
+    "faculty": "Management Sciences",
+    "fileCount": 20
+  },
+  {
+    "code": "MGT602",
+    "title": "Entrepreneurship",
+    "faculty": "Management Sciences",
+    "fileCount": 20
+  },
+  {
+    "code": "MGT604",
+    "title": "Management of Financial Institutions",
+    "faculty": "Management Sciences",
+    "fileCount": 2
+  },
+  {
+    "code": "MGT610",
+    "title": "Business Ethics & Corporate Governance",
+    "faculty": "Management Sciences",
+    "fileCount": 13
+  },
+  {
+    "code": "MGT611",
+    "title": "Business & Labor Law",
+    "faculty": "Management Sciences",
+    "fileCount": 7
+  },
+  {
+    "code": "MGTE630",
+    "title": "Business Management Strategy",
+    "faculty": "Management Sciences",
+    "fileCount": 13
+  },
+  {
+    "code": "MIC501",
+    "title": "Applied Microbiology",
+    "faculty": "Microbiology",
+    "fileCount": 26
+  },
+  {
+    "code": "MKT501",
+    "title": "Marketing Management",
+    "faculty": "Marketing",
+    "fileCount": 13
+  },
+  {
+    "code": "MKT530",
+    "title": "Consumer Behaviour",
+    "faculty": "Marketing",
+    "fileCount": 3
+  },
+  {
+    "code": "MKT610",
+    "title": "Customer Relationship Management (CRM)",
+    "faculty": "Marketing",
+    "fileCount": 7
+  },
+  {
+    "code": "MKT621",
+    "title": "Advertising & Brand Management",
+    "faculty": "Marketing",
+    "fileCount": 5
+  },
+  {
+    "code": "MKT630",
+    "title": "International Marketing Strategy",
+    "faculty": "Marketing",
+    "fileCount": 2
+  },
+  {
+    "code": "MTH001",
+    "title": "Elementary Mathematics",
+    "faculty": "Mathematics",
+    "fileCount": 21
+  },
+  {
+    "code": "MTH100",
+    "title": "General Mathematics",
+    "faculty": "Mathematics",
+    "fileCount": 23
+  },
+  {
+    "code": "MTH101",
+    "title": "Calculus & Analytical Geometry",
+    "faculty": "Mathematics",
+    "fileCount": 68
+  },
+  {
+    "code": "MTH104",
+    "title": "Sets & Logic",
+    "faculty": "Mathematics",
+    "fileCount": 26
+  },
+  {
+    "code": "MTH202",
+    "title": "Discrete Mathematics",
+    "faculty": "Mathematics",
+    "fileCount": 53
+  },
+  {
+    "code": "MTH301",
+    "title": "Calculus II (Multivariable Calculus)",
+    "faculty": "Mathematics",
+    "fileCount": 41
+  },
+  {
+    "code": "MTH401",
+    "title": "Differential Equations",
+    "faculty": "Mathematics",
+    "fileCount": 51
+  },
+  {
+    "code": "MTH501",
+    "title": "Linear Algebra",
+    "faculty": "Mathematics",
+    "fileCount": 52
+  },
+  {
+    "code": "MTH601",
+    "title": "Operations Research",
+    "faculty": "Mathematics",
+    "fileCount": 11
+  },
+  {
+    "code": "MTH603",
+    "title": "Numerical Analysis",
+    "faculty": "Mathematics",
+    "fileCount": 58
+  },
+  {
+    "code": "MTH622",
+    "title": "Vector & Tensor Analysis",
+    "faculty": "Mathematics",
+    "fileCount": 6
+  },
+  {
+    "code": "MTH631",
+    "title": "Real Analysis",
+    "faculty": "Mathematics",
+    "fileCount": 1
+  },
+  {
+    "code": "MTH632",
+    "title": "Complex Analysis",
+    "faculty": "Mathematics",
+    "fileCount": 2
+  },
+  {
+    "code": "MTH634",
+    "title": "Topology",
+    "faculty": "Mathematics",
+    "fileCount": 36
+  },
+  {
+    "code": "MTH641",
+    "title": "Functional Analysis",
+    "faculty": "Mathematics",
+    "fileCount": 1
+  },
+  {
+    "code": "MTH644",
+    "title": "Mathematical Methods",
+    "faculty": "Mathematics",
+    "fileCount": 16
+  },
+  {
+    "code": "MTH645",
+    "title": "Mechanics",
+    "faculty": "Mathematics",
+    "fileCount": 20
+  },
+  {
+    "code": "MTH646",
+    "title": "Differential Geometry",
+    "faculty": "Mathematics",
+    "fileCount": 26
+  },
+  {
+    "code": "MTH647",
+    "title": "Fluid Mechanics",
+    "faculty": "Mathematics",
+    "fileCount": 31
+  },
+  {
+    "code": "NTBT301",
+    "title": "Nanotechnology in Biotechnology",
+    "faculty": "Bio-Technology",
+    "fileCount": 2
+  },
+  {
+    "code": "PAK301",
+    "title": "Pakistan Studies",
+    "faculty": "Social Studies",
+    "fileCount": 106
+  },
+  {
+    "code": "PAK302",
+    "title": "History of Pakistan",
+    "faculty": "Social Studies",
+    "fileCount": 2
+  },
+  {
+    "code": "PAK522",
+    "title": "Ideology & Constitution of Pakistan",
+    "faculty": "Social Studies",
+    "fileCount": 3
+  },
+  {
+    "code": "PHY000",
+    "title": "Foundational Physics",
+    "faculty": "Physics",
+    "fileCount": 8
+  },
+  {
+    "code": "PHY101",
+    "title": "Physics - Mechanics & Waves",
+    "faculty": "Physics",
+    "fileCount": 120
+  },
+  {
+    "code": "PHY301",
+    "title": "Circuit Theory",
+    "faculty": "Physics",
+    "fileCount": 71
+  },
+  {
+    "code": "PSY101",
+    "title": "General Psychology",
+    "faculty": "Psychology",
+    "fileCount": 107
+  },
+  {
+    "code": "PSY401",
+    "title": "Clinical Psychology Fundamentals",
+    "faculty": "Psychology",
+    "fileCount": 5
+  },
+  {
+    "code": "PSY402",
+    "title": "Social Psychology",
+    "faculty": "Psychology",
+    "fileCount": 4
+  },
+  {
+    "code": "PSY403",
+    "title": "Developmental Psychology",
+    "faculty": "Psychology",
+    "fileCount": 43
+  },
+  {
+    "code": "PSY404",
+    "title": "Abnormal Psychology",
+    "faculty": "Psychology",
+    "fileCount": 18
+  },
+  {
+    "code": "PSY405",
+    "title": "Personality Theories & Assessment",
+    "faculty": "Psychology",
+    "fileCount": 6
+  },
+  {
+    "code": "PSY406",
+    "title": "Educational Psychology Applications",
+    "faculty": "Psychology",
+    "fileCount": 41
+  },
+  {
+    "code": "PSY407",
+    "title": "Experimental Psychology & Lab Methods",
+    "faculty": "Psychology",
+    "fileCount": 4
+  },
+  {
+    "code": "PSY408",
+    "title": "Health Psychology",
+    "faculty": "Psychology",
+    "fileCount": 2
+  },
+  {
+    "code": "PSY502",
+    "title": "History and Systems of Psychology",
+    "faculty": "Psychology",
+    "fileCount": 9
+  },
+  {
+    "code": "PSY504",
+    "title": "Cognitive Psychology",
+    "faculty": "Psychology",
+    "fileCount": 30
+  },
+  {
+    "code": "PSY505",
+    "title": "Psychological Testing & Measurement",
+    "faculty": "Psychology",
+    "fileCount": 4
+  },
+  {
+    "code": "PSY510",
+    "title": "Positive Psychology & Well-being",
+    "faculty": "Psychology",
+    "fileCount": 4
+  },
+  {
+    "code": "PSY511",
+    "title": "Counseling Psychology Principles",
+    "faculty": "Psychology",
+    "fileCount": 13
+  },
+  {
+    "code": "PSY512",
+    "title": "Organizational & Industrial Psychology",
+    "faculty": "Psychology",
+    "fileCount": 3
+  },
+  {
+    "code": "PSY513",
+    "title": "Neuropsychology Fundamentals",
+    "faculty": "Psychology",
+    "fileCount": 2
+  },
+  {
+    "code": "PSY515",
+    "title": "Forensic & Criminal Psychology",
+    "faculty": "Psychology",
+    "fileCount": 2
+  },
+  {
+    "code": "PSY516",
+    "title": "Cross-Cultural Psychology",
+    "faculty": "Psychology",
+    "fileCount": 3
+  },
+  {
+    "code": "PSY610",
+    "title": "Neurological Basis of Behavior",
+    "faculty": "Psychology",
+    "fileCount": 3
+  },
+  {
+    "code": "PSY611",
+    "title": "Psychopathology & Diagnostics",
+    "faculty": "Psychology",
+    "fileCount": 4
+  },
+  {
+    "code": "PSY631",
+    "title": "Psychological Assessment Practicum",
+    "faculty": "Psychology",
+    "fileCount": 5
+  },
+  {
+    "code": "PSY632",
+    "title": "Research Methods in Psychology",
+    "faculty": "Psychology",
+    "fileCount": 1
+  },
+  {
+    "code": "PSYP631",
+    "title": "Psychological Assessment Lab Practical",
+    "faculty": "Psychology",
+    "fileCount": 2
+  },
+  {
+    "code": "SOC101",
+    "title": "Introduction to Sociology",
+    "faculty": "Sociology",
+    "fileCount": 168
+  },
+  {
+    "code": "SOC201",
+    "title": "Pakistani Society and Culture",
+    "faculty": "Sociology",
+    "fileCount": 5
+  },
+  {
+    "code": "SOC301",
+    "title": "Social Psychology & Society",
+    "faculty": "Sociology",
+    "fileCount": 25
+  },
+  {
+    "code": "SOC302",
+    "title": "Cultural Anthropology",
+    "faculty": "Sociology",
+    "fileCount": 7
+  },
+  {
+    "code": "SOC401",
+    "title": "Social Research Methods",
+    "faculty": "Sociology",
+    "fileCount": 117
+  },
+  {
+    "code": "SOC402",
+    "title": "Classical Sociological Theories",
+    "faculty": "Sociology",
+    "fileCount": 3
+  },
+  {
+    "code": "SOC403",
+    "title": "Social Change & Modernization",
+    "faculty": "Sociology",
+    "fileCount": 3
+  },
+  {
+    "code": "SOC404",
+    "title": "Urban Sociology",
+    "faculty": "Sociology",
+    "fileCount": 16
+  },
+  {
+    "code": "SOC601",
+    "title": "Rural Sociology & Community Development",
+    "faculty": "Sociology",
+    "fileCount": 4
+  },
+  {
+    "code": "SOC602",
+    "title": "Gender Studies & Society",
+    "faculty": "Sociology",
+    "fileCount": 2
+  },
+  {
+    "code": "SOC605",
+    "title": "Criminology & Juvenile Delinquency",
+    "faculty": "Sociology",
+    "fileCount": 2
+  },
+  {
+    "code": "SOC608",
+    "title": "Sociology of Development",
+    "faculty": "Sociology",
+    "fileCount": 2
+  },
+  {
+    "code": "SOC609",
+    "title": "Sociology of Health & Medicine",
+    "faculty": "Sociology",
+    "fileCount": 7
+  },
+  {
+    "code": "SOC610",
+    "title": "Demography & Population Dynamics",
+    "faculty": "Sociology",
+    "fileCount": 2
+  },
+  {
+    "code": "STA000",
+    "title": "Basic Statistics Fundamentals",
+    "faculty": "Statistics",
+    "fileCount": 3
+  },
+  {
+    "code": "STA100",
+    "title": "Foundations of Statistics",
+    "faculty": "Statistics",
+    "fileCount": 52
+  },
+  {
+    "code": "STA301",
+    "title": "Statistics and Probability",
+    "faculty": "Statistics",
+    "fileCount": 506
+  },
+  {
+    "code": "STA304",
+    "title": "Statistical Inference",
+    "faculty": "Statistics",
+    "fileCount": 7
+  },
+  {
+    "code": "STA404",
+    "title": "Experimental Design",
+    "faculty": "Statistics",
+    "fileCount": 12
+  },
+  {
+    "code": "STA406",
+    "title": "Sampling Techniques",
+    "faculty": "Statistics",
+    "fileCount": 18
+  },
+  {
+    "code": "STA408",
+    "title": "Biostatistics and Epidemiology",
+    "faculty": "Statistics",
+    "fileCount": 20
+  },
+  {
+    "code": "STA630",
+    "title": "Research Methods in Social Sciences",
+    "faculty": "Statistics",
+    "fileCount": 279
+  },
+  {
+    "code": "STA631",
+    "title": "Advanced Statistical Methods",
+    "faculty": "Statistics",
+    "fileCount": 1
+  },
+  {
+    "code": "STA632",
+    "title": "Multivariate Analysis",
+    "faculty": "Statistics",
+    "fileCount": 9
+  },
+  {
+    "code": "STA641",
+    "title": "Non-Parametric Methods",
+    "faculty": "Statistics",
+    "fileCount": 44
+  },
+  {
+    "code": "STA642",
+    "title": "Econometric Models",
+    "faculty": "Statistics",
+    "fileCount": 22
+  },
+  {
+    "code": "STA730",
+    "title": "Advanced Research Methodology in Statistics",
+    "faculty": "Statistics",
+    "fileCount": 1
+  },
+  {
+    "code": "STAT100",
+    "title": "Statistics Fundamentals",
+    "faculty": "Statistics",
+    "fileCount": 4
+  },
+  {
+    "code": "STAT404",
+    "title": "Applied Statistical Modeling",
+    "faculty": "Statistics",
+    "fileCount": 1
+  },
+  {
+    "code": "STAT408",
+    "title": "Statistical Computing",
+    "faculty": "Statistics",
+    "fileCount": 5
+  },
+  {
+    "code": "STAT730",
+    "title": "Advanced Biostatistics",
+    "faculty": "Statistics",
+    "fileCount": 2
+  },
+  {
+    "code": "URD101",
+    "title": "Functional Urdu (Urdu Zaban-o-Adab)",
+    "faculty": "Urdu Literature",
+    "fileCount": 4
+  },
+  {
+    "code": "URDU101",
+    "title": "Urdu Language & Literature",
+    "faculty": "Urdu Literature",
+    "fileCount": 16
+  },
+  {
+    "code": "ZOO101",
+    "title": "Principles of Animal Life I",
+    "faculty": "Zoology",
+    "fileCount": 66
+  },
+  {
+    "code": "ZOO102",
+    "title": "Principles of Animal Life II",
+    "faculty": "Zoology",
+    "fileCount": 40
+  },
+  {
+    "code": "ZOO103",
+    "title": "Animal Diversity: Invertebrates",
+    "faculty": "Zoology",
+    "fileCount": 63
+  },
+  {
+    "code": "ZOO111",
+    "title": "Fundamentals of Zoology",
+    "faculty": "Zoology",
+    "fileCount": 1
+  },
+  {
+    "code": "ZOO201",
+    "title": "Animal Diversity: Chordates",
+    "faculty": "Zoology",
+    "fileCount": 106
+  },
+  {
+    "code": "ZOO202",
+    "title": "Animal Form & Function I",
+    "faculty": "Zoology",
+    "fileCount": 80
+  },
+  {
+    "code": "ZOO203",
+    "title": "Animal Form & Function II",
+    "faculty": "Zoology",
+    "fileCount": 6
+  },
+  {
+    "code": "ZOO301",
+    "title": "Animal Physiology",
+    "faculty": "Zoology",
+    "fileCount": 81
+  },
+  {
+    "code": "ZOO302",
+    "title": "Cell & Molecular Biology in Zoology",
+    "faculty": "Zoology",
+    "fileCount": 42
+  },
+  {
+    "code": "ZOO307",
+    "title": "Principles of Ecology",
+    "faculty": "Zoology",
+    "fileCount": 7
+  },
+  {
+    "code": "ZOO401",
+    "title": "Evolution & Principles of Systematics",
+    "faculty": "Zoology",
+    "fileCount": 2
+  },
+  {
+    "code": "ZOO403",
+    "title": "Animal Behavior & Sociobiology",
+    "faculty": "Zoology",
+    "fileCount": 107
+  },
+  {
+    "code": "ZOO404",
+    "title": "Biostatistics for Zoologists",
+    "faculty": "Zoology",
+    "fileCount": 29
+  },
+  {
+    "code": "ZOO405",
+    "title": "General Developmental Biology",
+    "faculty": "Zoology",
+    "fileCount": 12
+  },
+  {
+    "code": "ZOO501",
+    "title": "Developmental Biology",
+    "faculty": "Zoology",
+    "fileCount": 169
+  },
+  {
+    "code": "ZOO502",
+    "title": "Environmental Biology",
+    "faculty": "Zoology",
+    "fileCount": 121
+  },
+  {
+    "code": "ZOO503",
+    "title": "Biostatistics in Zoological Research",
+    "faculty": "Zoology",
+    "fileCount": 197
+  },
+  {
+    "code": "ZOO504",
+    "title": "Zoogeography & Paleontology",
+    "faculty": "Zoology",
+    "fileCount": 169
+  },
+  {
+    "code": "ZOO505",
+    "title": "Wildlife of Pakistan & Conservation",
+    "faculty": "Zoology",
+    "fileCount": 77
+  },
+  {
+    "code": "ZOO506",
+    "title": "Endocrinology",
+    "faculty": "Zoology",
+    "fileCount": 145
+  },
+  {
+    "code": "ZOO507",
+    "title": "Animal Diversity & Behavior",
+    "faculty": "Zoology",
+    "fileCount": 823
+  },
+  {
+    "code": "ZOO509",
+    "title": "Fish Biology & Fisheries Science",
+    "faculty": "Zoology",
+    "fileCount": 10
+  },
+  {
+    "code": "ZOO510",
+    "title": "General Microbiology & Immunology",
+    "faculty": "Zoology",
+    "fileCount": 88
+  },
+  {
+    "code": "ZOO511",
+    "title": "Immunology & Serology",
+    "faculty": "Zoology",
+    "fileCount": 66
+  },
+  {
+    "code": "ZOO512",
+    "title": "Parasitology & Vectors",
+    "faculty": "Zoology",
+    "fileCount": 25
+  },
+  {
+    "code": "ZOO513",
+    "title": "Applied Entomology",
+    "faculty": "Zoology",
+    "fileCount": 36
+  },
+  {
+    "code": "ZOO514",
+    "title": "Biochemistry of Animals",
+    "faculty": "Zoology",
+    "fileCount": 24
+  },
+  {
+    "code": "ZOO515",
+    "title": "Genetics & Population Biology",
+    "faculty": "Zoology",
+    "fileCount": 40
+  },
+  {
+    "code": "ZOO516",
+    "title": "Aquaculture & Fisheries Management",
+    "faculty": "Zoology",
+    "fileCount": 9
+  },
+  {
+    "code": "ZOO517",
+    "title": "Toxicology & Environmental Health",
+    "faculty": "Zoology",
+    "fileCount": 31
+  },
+  {
+    "code": "ZOO518",
+    "title": "Comparative Vertebrate Anatomy",
+    "faculty": "Zoology",
+    "fileCount": 57
+  },
+  {
+    "code": "ZOO519",
+    "title": "Mammalogy",
+    "faculty": "Zoology",
+    "fileCount": 53
+  },
+  {
+    "code": "ZOO520",
+    "title": "Ornithology (Bird Biology)",
+    "faculty": "Zoology",
+    "fileCount": 2
+  },
+  {
+    "code": "ZOO603",
+    "title": "Applied Parasitology & Vector Biology",
+    "faculty": "Zoology",
+    "fileCount": 56
+  },
+  {
+    "code": "ZOO630",
+    "title": "Research Methodology in Zoology",
+    "faculty": "Zoology",
+    "fileCount": 4
+  }
+]
