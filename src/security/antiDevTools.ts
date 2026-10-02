@@ -72,45 +72,12 @@ class AntiDevToolsManager {
       e.preventDefault();
     }, { capture: true });
 
-    // 3. Lightweight Heuristic Detection
-    this.startDetectionLoop();
+    // 3. Lightweight Heuristic Detection (Disabled to prevent false-positives on laptops, split-screen, and zooming)
+    // Keyboard deterrence (F12, Ctrl+Shift+I, Ctrl+U) and right-click suppression handle deterrence cleanly.
   }
 
   private startDetectionLoop() {
-    if (this.isMonitoring) return;
-    this.isMonitoring = true;
-
-    const check = () => {
-      // Skip dimension check if embedded in an iframe (outerWidth reflects host, not iframe)
-      let isInIframe = false;
-      try {
-        isInIframe = window.self !== window.top;
-      } catch {
-        isInIframe = true;
-      }
-
-      if (!isInIframe) {
-        // Heuristic A: Dimension Delta Check (Docked DevTools changes inner/outer delta significantly)
-        const widthThreshold = window.outerWidth - window.innerWidth > 160;
-        const heightThreshold = window.outerHeight - window.innerHeight > 160;
-
-        if (widthThreshold || heightThreshold) {
-          // High confidence signal
-          this.notify(true);
-        }
-      }
-
-      // Heuristic B: Execution timing check (micro-probe without freezing loop)
-      const start = performance.now();
-      // Probe
-      const end = performance.now();
-      if (end - start > 100) {
-        this.notify(true);
-      }
-    };
-
-    // Run every 2.5 seconds to conserve CPU on mobile and low-end devices
-    this.timer = window.setInterval(check, 2500);
+    // Dimension delta heuristics removed to prevent false alarms on high-DPI and split-screen setups
   }
 
   public destroy() {
