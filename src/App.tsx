@@ -3,6 +3,7 @@ import { Resource, Course, FilterState, DownloadSession } from './types';
 import { searchResources } from './search/searchEngine';
 import { antiDevTools } from './security/antiDevTools';
 import { SecurityOverlay } from './security/SecurityOverlay';
+import { resolveResourceLocally } from './security/shardResolver';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FilterBar } from './components/FilterBar';
@@ -65,7 +66,7 @@ export default function App() {
     return searchResources(resources, query, filters, limit);
   }, [query, filters, limit]);
 
-  // Handle single resource download through Two-Stage Relay
+  // Handle single resource download with Resilient Shard Fallback
   const handleDownload = async (resource: Resource) => {
     setDownloadSession({
       rlh: resource.rlh,
@@ -76,20 +77,38 @@ export default function App() {
     });
 
     try {
-      // Stage 1: Resolve RLH to short-lived signed download token
-      const res = await fetch('/api/resolve', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rlh: resource.rlh })
-      });
+      let downloadUrl = '';
+      let token: string | undefined = undefined;
+      let expiresIn: number | undefined = undefined;
 
-      if (!res.ok) {
-        throw new Error('Resource not available.');
+      // Stage 1A: Attempt Server-side Relay (Active in local dev or configured relay)
+      try {
+        const res = await fetch('/api/resolve', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ rlh: resource.rlh })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.ok && data.downloadUrl) {
+            downloadUrl = data.downloadUrl;
+            token = data.token;
+            expiresIn = data.expiresIn;
+          }
+        }
+      } catch {
+        // Fallback to client-side shard resolution
       }
 
-      const data = await res.json();
-      if (!data.ok || !data.downloadUrl) {
-        throw new Error('Failed to resolve resource token.');
+      // Stage 1B: Resilient Static Fallback (for GitHub Pages static deployments)
+      if (!downloadUrl) {
+        const resolved = await resolveResourceLocally(resource.rlh);
+        downloadUrl = resolved.directDownloadUrl;
+      }
+
+      if (!downloadUrl) {
+        throw new Error('Resource not available.');
       }
 
       setDownloadSession((prev) =>
@@ -97,15 +116,15 @@ export default function App() {
           ? {
               ...prev,
               status: 'ready',
-              token: data.token,
-              downloadUrl: data.downloadUrl,
-              expiresIn: data.expiresIn
+              token,
+              downloadUrl,
+              expiresIn: expiresIn || 120
             }
           : null
       );
 
       // Automatically trigger stage 2 download
-      triggerFileStream(data.downloadUrl);
+      triggerFileStream(downloadUrl);
     } catch (err: any) {
       setDownloadSession((prev) =>
         prev
@@ -123,16 +142,20 @@ export default function App() {
   const triggerFileStream = (downloadUrl: string) => {
     const link = document.createElement('a');
     link.href = downloadUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
     link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
     setTimeout(() => {
-      document.body.removeChild(link);
+      if (document.body.contains(link)) {
+        document.body.removeChild(link);
+      }
       setDownloadSession((prev) => (prev ? { ...prev, status: 'complete' } : null));
     }, 1000);
   };
 
-  // Handle multi-download ZIP archive
+  // Handle multi-download ZIP archive with static fallback
   const handleDownloadZip = async () => {
     if (selectedRLHs.size === 0) return;
     setIsDownloadingZip(true);
@@ -142,26 +165,47 @@ export default function App() {
       const courseLabel = filters.course || 'Mihora_Study';
       const zipName = `${courseLabel}_Selected_Resources`;
 
-      const res = await fetch('/api/resolve-multi', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rlhs: rlhArray, zipName })
-      });
+      let downloadUrl = '';
 
-      if (!res.ok) throw new Error('Multi-download session failed');
-      const data = await res.json();
+      try {
+        const res = await fetch('/api/resolve-multi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ rlhs: rlhArray, zipName })
+        });
 
-      if (data.ok && data.downloadUrl) {
-        triggerFileStream(data.downloadUrl);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.ok && data.downloadUrl) {
+            downloadUrl = data.downloadUrl;
+          }
+        }
+      } catch {
+        // Fallback
+      }
+
+      if (downloadUrl) {
+        triggerFileStream(downloadUrl);
+      } else {
+        // Static GitHub Pages fallback: sequential trigger of selected downloads
+        for (const rlh of rlhArray) {
+          try {
+            const resolved = await resolveResourceLocally(rlh);
+            triggerFileStream(resolved.directDownloadUrl);
+            await new Promise((r) => setTimeout(r, 600));
+          } catch (e) {
+            console.warn('Could not resolve item in batch:', rlh, e);
+          }
+        }
       }
     } catch (err: any) {
       setDownloadSession({
         rlh: 'batch-zip',
-        name: `${filters.course || 'Selected'}_Resources.zip`,
-        format: 'ZIP',
+        name: `${filters.course || 'Selected'}_Resources`,
+        format: 'BATCH',
         course: filters.course || 'BATCH',
         status: 'error',
-        errorMessage: err.message || 'Unable to generate ZIP archive at this moment. Please try downloading individual files.'
+        errorMessage: err.message || 'Unable to download all selected files.'
       });
     } finally {
       setIsDownloadingZip(false);
