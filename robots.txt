@@ -1,4 +1,66 @@
+# ==============================================================================
+# MIHORA STUDY LIBRARY — Production Robots Exclusion Protocol (RFC 9309)
+# Primary: https://study.mihora.tech
+# Organization: MIHORA TECH (https://www.mihora.tech)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Global Crawler Policy (Google, Bing, Yahoo, DuckDuckGo, Safari/Apple)
+# ------------------------------------------------------------------------------
 User-agent: *
 Allow: /
+Allow: /assets/
+Allow: /logo.svg
+Allow: /logo-white.svg
+Allow: /sitemap.xml
+Disallow: /api/
+Disallow: /relay/
+Disallow: /scripts/
+Disallow: /.secrets/
+Disallow: /*.json$
+Disallow: /*.map$
 
+# ------------------------------------------------------------------------------
+# 2. Major Search Engine Webcrawlers
+# ------------------------------------------------------------------------------
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: DuckDuckBot
+User-agent: YandexBot
+Allow: /
+Disallow: /api/
+Disallow: /.secrets/
+
+# ------------------------------------------------------------------------------
+# 3. AI Search & Grounding Assistants (Perplexity, ChatGPT, Claude, Gemini)
+# Allowed for accurate educational citation & answers for VU students
+# ------------------------------------------------------------------------------
+User-agent: Google-Extended
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: PerplexityBot
+User-agent: Cohere-ai
+Allow: /
+Disallow: /api/
+Disallow: /.secrets/
+
+# ------------------------------------------------------------------------------
+# 4. Aggressive Commercial Scrapers & Backlink Crawlers
+# Blocked to preserve server and bandwidth integrity
+# ------------------------------------------------------------------------------
+User-agent: Bytespider
+User-agent: PetalBot
+User-agent: SemrushBot
+User-agent: AhrefsBot
+User-agent: MJ12bot
+Disallow: /
+
+# ------------------------------------------------------------------------------
+# 5. Authoritative Sitemap & Host
+# ------------------------------------------------------------------------------
 Sitemap: https://study.mihora.tech/sitemap.xml
+Host: study.mihora.tech
