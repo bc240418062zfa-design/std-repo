@@ -21,17 +21,34 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "MIHORA STUDY LIBRARY",
-      "url": "https://study.mihora.tech",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "All",
-      "description": "High-performance educational resource portal and search engine by Mihora Tech for Virtual University of Pakistan students.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "MIHORA TECH",
-        "url": "https://www.mihora.tech"
-      }
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://www.mihora.tech/#organization",
+          "name": "MIHORA TECH",
+          "url": "https://www.mihora.tech",
+          "logo": "https://study.mihora.tech/logo.svg",
+          "description": "Enterprise software engineering, cloud systems, and AI technology solutions.",
+          "sameAs": [
+            "https://study.mihora.tech"
+          ]
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://study.mihora.tech/#webapp",
+          "name": "MIHORA STUDY LIBRARY",
+          "url": "https://study.mihora.tech",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "All",
+          "description": "High-performance educational resource portal and search engine by MIHORA TECH for Virtual University of Pakistan students.",
+          "publisher": {
+            "@id": "https://www.mihora.tech/#organization"
+          },
+          "creator": {
+            "@id": "https://www.mihora.tech/#organization"
+          }
+        }
+      ]
     }
     </script>
     <script type="module" crossorigin src="./assets/index-DzOYBL6H.js"></script>
