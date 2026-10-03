@@ -10,10 +10,13 @@ import { FilterBar } from './components/FilterBar';
 import { ResourceCard } from './components/ResourceCard';
 import { MultiDownloadBar } from './components/MultiDownloadBar';
 import { DownloadModal } from './components/DownloadModal';
-import { CoursesBrowser } from './components/CoursesBrowser';
-import { AboutModal } from './components/AboutModal';
 import { MihoraLogo } from './components/MihoraLogo';
-import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle } from 'lucide-react';
+import { CoursesPage } from './pages/CoursesPage';
+import { SecurityPage } from './pages/SecurityPage';
+import { AboutPage } from './pages/AboutPage';
+import { SitemapPage } from './pages/SitemapPage';
+import { DisclaimerPage } from './pages/DisclaimerPage';
+import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
 
 // Static sanitized data compiled at build time
 import coursesData from './data/courses.json';
@@ -22,7 +25,22 @@ import resourcesData from './data/resources.json';
 const courses: Course[] = coursesData as Course[];
 const resources: Resource[] = resourcesData as Resource[];
 
+export type AppPage = 'home' | 'courses' | 'security' | 'about' | 'sitemap' | 'disclaimer';
+
+function getPageFromHash(): AppPage {
+  if (typeof window === 'undefined') return 'home';
+  const hash = window.location.hash.toLowerCase();
+  if (hash === '#courses') return 'courses';
+  if (hash === '#security' || hash === '#relay') return 'security';
+  if (hash === '#about' || hash === '#mission') return 'about';
+  if (hash === '#sitemap') return 'sitemap';
+  if (hash === '#disclaimer' || hash === '#terms') return 'disclaimer';
+  return 'home';
+}
+
 export default function App() {
+  const [currentPage, setCurrentPage] = useState<AppPage>(getPageFromHash);
+
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({
     course: '',
@@ -36,9 +54,7 @@ export default function App() {
   const [limit, setLimit] = useState<number>(12);
   const [selectedRLHs, setSelectedRLHs] = useState<Set<string>>(new Set());
 
-  // Modals & Overlay States
-  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  // Security & Download Session States
   const [devToolsDetected, setDevToolsDetected] = useState(false);
   const [downloadSession, setDownloadSession] = useState<DownloadSession | null>(null);
   const [isDownloadingZip, setIsDownloadingZip] = useState(false);
@@ -46,6 +62,31 @@ export default function App() {
   const searchResultsRef = useRef<HTMLDivElement>(null);
   const downloadSessionRef = useRef<DownloadSession | null>(null);
   downloadSessionRef.current = downloadSession;
+
+  // Listen to hash changes for browser back/forward and direct links
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentPage(getPageFromHash());
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleNavigate = (page: AppPage) => {
+    setCurrentPage(page);
+    window.location.hash = page === 'home' ? '' : page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectCourse = (courseCode: string) => {
+    setFilters((prev) => ({ ...prev, course: courseCode }));
+    setQuery('');
+    setCurrentPage('home');
+    window.location.hash = '';
+    setTimeout(() => {
+      scrollToSearch();
+    }, 80);
+  };
 
   // Initialize anti-DevTools deterrence & subscribe to detection signals
   useEffect(() => {
@@ -140,7 +181,7 @@ export default function App() {
     }
   };
 
-  // Trigger file stream through hidden anchor or window navigation to preserve domain
+  // Trigger file stream through hidden anchor or window navigation
   const triggerFileStream = (downloadUrl: string) => {
     const link = document.createElement('a');
     link.href = downloadUrl;
@@ -200,40 +241,34 @@ export default function App() {
           }
         }
       }
-    } catch (err: any) {
-      setDownloadSession({
-        rlh: 'batch-zip',
-        name: `${filters.course || 'Selected'}_Resources`,
-        format: 'BATCH',
-        course: filters.course || 'BATCH',
-        status: 'error',
-        errorMessage: err.message || 'Unable to download all selected files.'
-      });
+    } catch (err) {
+      console.error('Batch download failed:', err);
     } finally {
       setIsDownloadingZip(false);
     }
   };
 
-  // Toggle selection
   const handleToggleSelect = (rlh: string) => {
     setSelectedRLHs((prev) => {
       const next = new Set(prev);
       if (next.has(rlh)) {
         next.delete(rlh);
       } else {
+        if (next.size >= 50) {
+          return next;
+        }
         next.add(rlh);
       }
       return next;
     });
   };
 
-  // Select all currently visible in results
   const handleSelectAllVisible = () => {
-    const visibleRLHs = filteredResources.map((r) => r.rlh);
-    const allSelected = visibleRLHs.every((id) => selectedRLHs.has(id));
-
     setSelectedRLHs((prev) => {
       const next = new Set(prev);
+      const visibleRLHs = filteredResources.map((r) => r.rlh);
+      const allSelected = visibleRLHs.every((id) => next.has(id));
+
       if (allSelected) {
         visibleRLHs.forEach((id) => next.delete(id));
       } else {
@@ -270,259 +305,308 @@ export default function App() {
             : ''
         }`}
       >
-
-      {/* Top Bar Contract Navigation */}
-      <Navbar
-        onOpenCourses={() => setIsCoursesOpen(true)}
-        onOpenAbout={() => setIsAboutOpen(true)}
-        selectedCount={selectedRLHs.size}
-        onScrollToSearch={scrollToSearch}
-      />
-
-      {/* Hero Section */}
-      <Hero
-        query={query}
-        onQueryChange={(val) => {
-          setQuery(val);
-          scrollToSearch();
-        }}
-        onCategoryClick={(cat) => {
-          setQuery(cat);
-          scrollToSearch();
-        }}
-        onCourseClick={(code) => {
-          setFilters((prev) => ({ ...prev, course: code }));
-          setQuery('');
-          scrollToSearch();
-        }}
-        totalResources={resources.length}
-        totalCourses={courses.length}
-      />
-
-      {/* Filter Toolbar */}
-      <div ref={searchResultsRef}>
-        <FilterBar
-          filters={filters}
-          onFilterChange={setFilters}
-          courses={courses}
-          limit={limit}
-          onLimitChange={setLimit}
-          totalFiltered={filteredResources.length}
-          totalMatching={totalMatchingCount}
+        {/* Top Bar Navigation */}
+        <Navbar
+          currentPage={currentPage}
+          onNavigate={(p) => handleNavigate(p as AppPage)}
+          selectedCount={selectedRLHs.size}
         />
-      </div>
 
-      {/* Main Resource Catalog Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {/* Results Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-200">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-              {filters.course ? `${filters.course} Study Materials` : 'Verified Educational Catalog'}
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-              Showing <span className="font-semibold text-slate-800 tabular-nums">{filteredResources.length}</span> of{' '}
-              <span className="font-semibold text-slate-800 tabular-nums">{totalMatchingCount.toLocaleString()}</span> authentic educational resources.
-            </p>
-          </div>
-
-          {filteredResources.length > 0 && (
-            <button
-              type="button"
-              onClick={handleSelectAllVisible}
-              className="text-xs font-semibold text-blue-600 hover:text-blue-700 cursor-pointer self-start sm:self-auto"
-            >
-              {filteredResources.every((r) => selectedRLHs.has(r.rlh))
-                ? 'Deselect Visible'
-                : 'Select All Visible'}
-            </button>
-          )}
-        </div>
-
-        {/* Resources Grid */}
-        {filteredResources.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center max-w-lg mx-auto space-y-4 my-8 shadow-xs">
-            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <div className="space-y-1">
-              <h3 className="font-bold text-base text-slate-900">No resources found</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                We couldn't find any resources matching your current search or filters. Try searching by course code (e.g. <strong>CS302</strong>, <strong>MTH101</strong>) or clearing filters.
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setQuery('');
-                setFilters({
-                  course: '',
-                  type: '',
-                  format: '',
-                  tags: [],
-                  solvedOnly: false,
-                  pastPapersOnly: false,
-                  currentOnly: false
-                });
+        {/* 1. Page: Home / Search Catalog */}
+        {currentPage === 'home' && (
+          <>
+            {/* Hero Section */}
+            <Hero
+              query={query}
+              onQueryChange={(val) => {
+                setQuery(val);
+                scrollToSearch();
               }}
-              className="px-4 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors cursor-pointer"
-            >
-              Clear Search & Filters
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {filteredResources.map((res) => (
-              <ResourceCard
-                key={res.rlh}
-                resource={res}
-                isSelected={selectedRLHs.has(res.rlh)}
-                onToggleSelect={handleToggleSelect}
-                onDownload={handleDownload}
-                isDownloading={downloadSession?.rlh === res.rlh && downloadSession.status === 'resolving'}
-              />
-            ))}
-          </div>
-        )}
+              onCategoryClick={(cat) => {
+                setQuery(cat);
+                scrollToSearch();
+              }}
+              onCourseClick={(code) => {
+                setFilters((prev) => ({ ...prev, course: code }));
+                setQuery('');
+                scrollToSearch();
+              }}
+              totalResources={resources.length}
+              totalCourses={courses.length}
+            />
 
-        {/* Load More Pagination Controls */}
-        {filteredResources.length < totalMatchingCount && (
-          <div className="mt-10 p-6 bg-white border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
-            <div className="text-xs sm:text-sm text-slate-600 text-center sm:text-left">
-              Displaying <strong className="text-slate-900 tabular-nums">{filteredResources.length}</strong> out of{' '}
-              <strong className="text-slate-900 tabular-nums">{totalMatchingCount.toLocaleString()}</strong> resources
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => setLimit((prev) => prev + 24)}
-                className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shadow-sm shadow-blue-500/20"
-              >
-                Load More (+24)
-              </button>
-              {totalMatchingCount > filteredResources.length && totalMatchingCount <= 1000 && (
+            {/* Main Interactive Catalog */}
+            <main
+              ref={searchResultsRef}
+              id="catalog"
+              className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1 w-full"
+            >
+              {/* Filter Control Surface */}
+              <FilterBar
+                filters={filters}
+                onFilterChange={setFilters}
+                courses={courses}
+                limit={limit}
+                onLimitChange={setLimit}
+                totalFiltered={filteredResources.length}
+                totalMatching={totalMatchingCount}
+              />
+
+              {/* Resource Cards Grid */}
+              <div className="mt-8">
+                {filteredResources.length === 0 ? (
+                  <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4 shadow-xs">
+                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+                      <BookOpen className="w-6 h-6" />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-base font-bold text-slate-900">
+                        No resources matched your criteria
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
+                        Try clearing active filters or searching with a broader keyword (e.g., &ldquo;midterm&rdquo;, &ldquo;handouts&rdquo;, or &ldquo;CS101&rdquo;).
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQuery('');
+                        setFilters({
+                          course: '',
+                          type: '',
+                          format: '',
+                          tags: [],
+                          solvedOnly: false,
+                          pastPapersOnly: false,
+                          currentOnly: false
+                        });
+                      }}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors cursor-pointer"
+                    >
+                      <span>Reset All Filters</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+                    {filteredResources.map((res) => (
+                      <ResourceCard
+                        key={res.rlh}
+                        resource={res}
+                        isSelected={selectedRLHs.has(res.rlh)}
+                        onToggleSelect={handleToggleSelect}
+                        onDownload={handleDownload}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Pagination / Load More */}
+              {filteredResources.length < totalMatchingCount && (
+                <div className="mt-12 text-center space-y-2">
+                  <button
+                    type="button"
+                    onClick={() => setLimit((prev) => prev + 24)}
+                    className="px-6 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-slate-400 text-slate-700 font-semibold text-xs sm:text-sm shadow-xs transition-colors cursor-pointer"
+                  >
+                    Load More Resources ({totalMatchingCount - filteredResources.length} remaining)
+                  </button>
+                  <p className="text-[11px] text-slate-400">
+                    Showing {filteredResources.length} of {totalMatchingCount.toLocaleString()} matching documents
+                  </p>
+                </div>
+              )}
+
+              {/* Informational Callout */}
+              <div className="mt-14 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
+                <div className="space-y-1.5 max-w-2xl">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700">
+                    <Shield className="w-4 h-4" />
+                    <span>Virtual University Student Empowerment Network</span>
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
+                    Looking for a specific course archive?
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                    Explore our comprehensive 411 course directory categorized by Computer Science, Mathematics, Management, Economics, and Mass Media.
+                  </p>
+                </div>
                 <button
                   type="button"
-                  onClick={() => setLimit(totalMatchingCount)}
-                  className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
+                  onClick={() => handleNavigate('courses')}
+                  className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 shadow-xs"
                 >
-                  View All {totalMatchingCount.toLocaleString()} Files
+                  Open Course Directory
                 </button>
-              )}
-            </div>
-          </div>
+              </div>
+            </main>
+          </>
         )}
 
-        {/* Informational Callout */}
-        <div className="mt-12 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
-          <div className="space-y-1.5 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700">
-              <Shield className="w-4 h-4" />
-              <span>Independent Student Resource Network</span>
+        {/* 2. Page: Course Directory */}
+        {currentPage === 'courses' && (
+          <CoursesPage courses={courses} onSelectCourse={handleSelectCourse} />
+        )}
+
+        {/* 3. Page: Security & Relay Technical Architecture */}
+        {currentPage === 'security' && (
+          <SecurityPage onNavigateHome={() => handleNavigate('home')} />
+        )}
+
+        {/* 4. Page: About Mihora Tech & VU Initiative */}
+        {currentPage === 'about' && (
+          <AboutPage
+            onNavigateHome={() => handleNavigate('home')}
+            onNavigateCourses={() => handleNavigate('courses')}
+          />
+        )}
+
+        {/* 5. Page: Interactive Sitemap */}
+        {currentPage === 'sitemap' && (
+          <SitemapPage
+            courses={courses}
+            onSelectCourse={handleSelectCourse}
+            onNavigate={(p) => handleNavigate(p as AppPage)}
+          />
+        )}
+
+        {/* 6. Page: Academic Disclaimer & Terms */}
+        {currentPage === 'disclaimer' && (
+          <DisclaimerPage
+            onNavigateHome={() => handleNavigate('home')}
+            onNavigateCourses={() => handleNavigate('courses')}
+          />
+        )}
+
+        {/* Floating Multi-Download Action Bar */}
+        <MultiDownloadBar
+          selectedCount={selectedRLHs.size}
+          totalVisible={filteredResources.length}
+          onClear={handleClearSelection}
+          onSelectAllVisible={handleSelectAllVisible}
+          onDownloadZip={handleDownloadZip}
+          isDownloadingZip={isDownloadingZip}
+        />
+
+        {/* Two-Stage Download Status Dialog */}
+        <DownloadModal
+          session={downloadSession}
+          onClose={() => setDownloadSession(null)}
+          onTriggerDownload={() => {
+            if (downloadSession?.downloadUrl) {
+              triggerFileStream(downloadSession.downloadUrl);
+            }
+          }}
+        />
+
+        {/* Enterprise Footer */}
+        <footer className="bg-slate-950 text-white border-t border-slate-900 mt-20 pt-14 pb-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
+              {/* Brand Column */}
+              <div className="space-y-3 md:col-span-2">
+                <MihoraLogo variant="white" size="md" />
+                <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
+                  MIHORA STUDY LIBRARY is an independent, non-commercial educational technology and CSR initiative engineered by <strong>MIHORA TECH</strong> to empower students of the Virtual University of Pakistan.
+                </p>
+                <div className="pt-2">
+                  <a
+                    href="https://www.mihora.tech"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 font-semibold"
+                  >
+                    <span>Visit Official Website (www.mihora.tech)</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Portal Links Column */}
+              <div className="space-y-3 text-xs">
+                <div className="font-bold text-white uppercase tracking-wider text-[11px]">
+                  Academic Portal
+                </div>
+                <ul className="space-y-2 text-slate-400">
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigate('home')}
+                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      Search 28,328+ Documents
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigate('courses')}
+                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      All 411 VU Courses
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigate('sitemap')}
+                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      Portal Directory & Sitemap
+                    </button>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Technology & Governance Column */}
+              <div className="space-y-3 text-xs">
+                <div className="font-bold text-white uppercase tracking-wider text-[11px]">
+                  Governance & Tech
+                </div>
+                <ul className="space-y-2 text-slate-400">
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigate('security')}
+                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      Security & Relay Whitepaper
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigate('about')}
+                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      About Mihora Tech Initiative
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => handleNavigate('disclaimer')}
+                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    >
+                      Academic Disclaimer & Fair Use
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <h3 className="text-base sm:text-lg font-bold text-slate-900">
-              Looking for a specific course archive?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-              Explore our comprehensive 400+ course directory categorized by Computer Science, Mathematics, Management, Economics, and Mass Media.
-            </p>
+
+            {/* Bottom Copyright & Subdomains */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+              <div>
+                &copy; {new Date().getFullYear()} MIHORA TECH. Educational Welfare Initiative. All rights reserved.
+              </div>
+              <div className="text-[11px] text-slate-400 text-center sm:text-right">
+                Primary: <span className="font-mono text-slate-300">study.mihora.tech</span> · Relay: <span className="font-mono text-slate-300">dl.study.mihora.tech</span> · Corporate: <span className="font-mono text-slate-300">www.mihora.tech</span>
+              </div>
+            </div>
           </div>
-          <button
-            type="button"
-            onClick={() => setIsCoursesOpen(true)}
-            className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 shadow-xs"
-          >
-            Open Course Directory
-          </button>
-        </div>
-      </main>
-
-      {/* Floating Multi-Download Action Bar */}
-      <MultiDownloadBar
-        selectedCount={selectedRLHs.size}
-        totalVisible={filteredResources.length}
-        onClear={handleClearSelection}
-        onSelectAllVisible={handleSelectAllVisible}
-        onDownloadZip={handleDownloadZip}
-        isDownloadingZip={isDownloadingZip}
-      />
-
-      {/* Two-Stage Download Status Dialog */}
-      <DownloadModal
-        session={downloadSession}
-        onClose={() => setDownloadSession(null)}
-        onTriggerDownload={() => {
-          if (downloadSession?.downloadUrl) {
-            triggerFileStream(downloadSession.downloadUrl);
-          }
-        }}
-      />
-
-      {/* Course Directory Modal */}
-      <CoursesBrowser
-        isOpen={isCoursesOpen}
-        onClose={() => setIsCoursesOpen(false)}
-        courses={courses}
-        onSelectCourse={(courseCode) => {
-          setFilters((prev) => ({ ...prev, course: courseCode }));
-          setQuery('');
-          scrollToSearch();
-        }}
-      />
-
-      {/* About & Disclaimer Modal */}
-      <AboutModal
-        isOpen={isAboutOpen}
-        onClose={() => setIsAboutOpen(false)}
-      />
-
-      {/* Mihora Footer */}
-      <footer className="bg-slate-950 text-white border-t border-slate-900 mt-20 pt-12 pb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-800">
-            <div className="space-y-2">
-              <MihoraLogo variant="white" size="md" />
-              <p className="text-xs text-slate-400 max-w-md leading-relaxed">
-                MIHORA STUDY LIBRARY is a fast, independent educational resource repository designed for university students.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-6 text-xs text-slate-400">
-              <button
-                type="button"
-                onClick={() => setIsCoursesOpen(true)}
-                className="hover:text-blue-400 transition-colors cursor-pointer"
-              >
-                All Courses
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsAboutOpen(true)}
-                className="hover:text-blue-400 transition-colors cursor-pointer"
-              >
-                Security & Relay
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsAboutOpen(true)}
-                className="hover:text-blue-400 transition-colors cursor-pointer"
-              >
-                Disclaimer & Terms
-              </button>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-            <div>
-              &copy; {new Date().getFullYear()} Mihora Tech. Independent student resource portal.
-            </div>
-            <div className="text-[11px] text-slate-400 text-center sm:text-right">
-              Primary: <span className="font-mono text-slate-300">study.mihora.tech</span> · Relay: <span className="font-mono text-slate-300">dl.study.mihora.tech</span>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </>
-);
+        </footer>
+      </div>
+    </>
+  );
 }

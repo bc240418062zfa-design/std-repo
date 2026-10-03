@@ -1,82 +1,122 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MihoraLogo } from './MihoraLogo';
-import { BookOpen, Layers, Info, ShieldCheck, Download } from 'lucide-react';
+import { 
+  BookOpen, 
+  Layers, 
+  Info, 
+  ShieldCheck, 
+  Download, 
+  Search, 
+  Network, 
+  Menu, 
+  X,
+  Building2
+} from 'lucide-react';
 
 interface NavbarProps {
-  onOpenCourses: () => void;
-  onOpenAbout: () => void;
+  currentPage: string;
+  onNavigate: (page: string) => void;
   selectedCount: number;
-  onScrollToSearch: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  onOpenCourses,
-  onOpenAbout,
-  selectedCount,
-  onScrollToSearch
+  currentPage,
+  onNavigate,
+  selectedCount
 }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNavClick = (page: string) => {
+    onNavigate(page);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Zone 1: Brand Wordmark (Single element) */}
+        {/* Zone 1: Brand Wordmark */}
         <a
-          href="/"
+          href="#home"
           onClick={(e) => {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            handleNavClick('home');
           }}
-          className="focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg"
+          className="focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg shrink-0"
           aria-label="Mihora Study Library Home"
         >
           <MihoraLogo variant="dark" size="md" />
         </a>
 
-        {/* Zone 2: Clean Typography Nav Links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+        {/* Zone 2: Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium text-slate-600">
           <button
             type="button"
-            onClick={onScrollToSearch}
-            className="hover:text-blue-600 transition-colors cursor-pointer"
+            onClick={() => handleNavClick('home')}
+            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+              currentPage === 'home'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-blue-600 hover:bg-slate-50'
+            }`}
           >
-            Search Catalog
+            <Search className="w-4 h-4" />
+            <span>Search Library</span>
           </button>
+
           <button
             type="button"
-            onClick={onOpenCourses}
-            className="hover:text-blue-600 transition-colors cursor-pointer flex items-center gap-1.5"
+            onClick={() => handleNavClick('courses')}
+            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+              currentPage === 'courses'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-blue-600 hover:bg-slate-50'
+            }`}
           >
-            <BookOpen className="w-4 h-4 text-slate-400" />
-            <span>Course Index</span>
+            <BookOpen className="w-4 h-4" />
+            <span>Course Directory</span>
           </button>
+
           <button
             type="button"
-            onClick={onOpenAbout}
-            className="hover:text-blue-600 transition-colors cursor-pointer flex items-center gap-1.5"
+            onClick={() => handleNavClick('security')}
+            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+              currentPage === 'security'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-blue-600 hover:bg-slate-50'
+            }`}
           >
-            <ShieldCheck className="w-4 h-4 text-slate-400" />
+            <ShieldCheck className="w-4 h-4" />
             <span>Security & Relay</span>
           </button>
+
           <button
             type="button"
-            onClick={onOpenAbout}
-            className="hover:text-blue-600 transition-colors cursor-pointer flex items-center gap-1.5"
+            onClick={() => handleNavClick('about')}
+            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+              currentPage === 'about'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-blue-600 hover:bg-slate-50'
+            }`}
           >
-            <Info className="w-4 h-4 text-slate-400" />
-            <span>About</span>
+            <Building2 className="w-4 h-4" />
+            <span>About Mihora Tech</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleNavClick('sitemap')}
+            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+              currentPage === 'sitemap'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-blue-600 hover:bg-slate-50'
+            }`}
+          >
+            <Network className="w-4 h-4" />
+            <span>Sitemap</span>
           </button>
         </nav>
 
-        {/* Zone 3: Primary Actions */}
+        {/* Zone 3: Primary Actions & Mobile Toggle */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            type="button"
-            onClick={onOpenCourses}
-            className="md:hidden inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Courses</span>
-          </button>
-
           {selectedCount > 0 ? (
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold tabular-nums">
               <Download className="w-3.5 h-3.5" />
@@ -85,14 +125,107 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <button
               type="button"
-              onClick={onScrollToSearch}
-              className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer whitespace-nowrap shadow-sm shadow-blue-500/20"
+              onClick={() => handleNavClick('home')}
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer whitespace-nowrap shadow-xs"
             >
               <span>Explore Materials</span>
             </button>
           )}
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-150">
+          <button
+            type="button"
+            onClick={() => handleNavClick('home')}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'home'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <Search className="w-4 h-4 text-blue-600" />
+            <span>Search Library</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleNavClick('courses')}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'courses'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <BookOpen className="w-4 h-4 text-indigo-600" />
+            <span>Course Directory (411 Courses)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleNavClick('security')}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'security'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <span>Security & Relay Technical Architecture</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleNavClick('about')}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'about'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <Building2 className="w-4 h-4 text-purple-600" />
+            <span>About Mihora Tech & VU Initiative</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleNavClick('sitemap')}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'sitemap'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <Network className="w-4 h-4 text-slate-500" />
+            <span>Complete Portal Sitemap</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleNavClick('disclaimer')}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'disclaimer'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <Info className="w-4 h-4 text-amber-600" />
+            <span>Academic Notice & Disclaimer</span>
+          </button>
+        </div>
+      )}
     </header>
   );
 };
