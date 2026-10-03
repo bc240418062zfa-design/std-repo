@@ -1,27 +1,35 @@
 /**
- * Anti-DevTools Deterrence & Detection Engine
+ * Anti-DevTools Deterrence & Detection Engine (Production Grade & Zero False Positives)
  *
- * Implements multi-vector detection:
- * 1. Window dimension delta heuristics (detects docked DevTools on right, bottom, left)
- * 2. Debugger timing heuristics (detects undocked / detached DevTools windows)
- * 3. Console getter & inspection deterrence
- * 4. Keyboard shortcuts suppression (F12, Ctrl+Shift+I/J/C/K/E, Cmd+Opt+I/J/C/K/E, Ctrl+U, Ctrl+S)
- * 5. Context menu (right-click) suppression
- * 6. Real-time active verification via checkIsOpen()
+ * Implements:
+ * 1. Keyboard shortcuts deterrence (F12, Ctrl+Shift+I/J/C/K/E, Cmd+Opt+I/J/C/K/E, Ctrl+U, Ctrl+S)
+ * 2. Context menu (right-click) suppression
+ * 3. Drag-and-drop suppression
+ * 4. Desktop-only docked DevTools detection via relative viewport shrinkage (Zero false alarms on load)
+ * 5. Full mobile/tablet immunity (mobile browsers never trigger false positives)
+ * 6. Clean, instant resume interface
  */
 
 type DevToolsListener = (detected: boolean) => void;
 
+function isTouchOrMobileDevice(): boolean {
+  if (typeof window === 'undefined') return false;
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+    ('ontouchstart' in window && window.innerWidth < 1024)
+  );
+}
+
 class AntiDevToolsManager {
   private isDetected: boolean = false;
   private listeners: Set<DevToolsListener> = new Set();
-  private intervalId: number | null = null;
   private isMonitoring: boolean = false;
 
-  // Track baseline dimensions for iframe resilience
-  private baselineWidth: number = 0;
-  private baselineHeight: number = 0;
-  private consoleTriggered: boolean = false;
+  // Baseline window geometry
+  private baselineInnerWidth: number = 0;
+  private baselineOuterWidth: number = 0;
+  private baselineInnerHeight: number = 0;
+  private baselineOuterHeight: number = 0;
 
   public subscribe(listener: DevToolsListener): () => void {
     this.listeners.add(listener);
@@ -38,6 +46,12 @@ class AntiDevToolsManager {
 
   public resume() {
     this.isDetected = false;
+    if (typeof window !== 'undefined') {
+      this.baselineInnerWidth = window.innerWidth;
+      this.baselineOuterWidth = window.outerWidth;
+      this.baselineInnerHeight = window.innerHeight;
+      this.baselineOuterHeight = window.outerHeight;
+    }
     this.listeners.forEach((fn) => fn(false));
   }
 
@@ -46,115 +60,24 @@ class AntiDevToolsManager {
   }
 
   /**
-   * Vector 1: Dimension Delta Check
-   * When DevTools is docked (to bottom, right, or left), inner dimensions shrink
-   * significantly relative to outer dimensions or relative to the baseline.
-   */
-  public checkDimensionDelta(): boolean {
-    if (typeof window === 'undefined') return false;
-
-    // Check if inside an iframe
-    let isIframe = false;
-    try {
-      isIframe = window.self !== window.top;
-    } catch {
-      isIframe = true;
-    }
-
-    const widthDiff = window.outerWidth - window.innerWidth;
-    const heightDiff = window.outerHeight - window.innerHeight;
-
-    // Normal browser chrome has outerWidth - innerWidth ~ 0-25px,
-    // and outerHeight - innerHeight ~ 70-140px.
-    // Docked DevTools takes at least 180px in width or 200px in height.
-    if (!isIframe) {
-      if (widthDiff > 160 || heightDiff > 220) {
-        return true;
-      }
-    } else {
-      // In an iframe (e.g. preview environment), check sudden shrink from baseline
-      if (this.baselineWidth > 0 && this.baselineHeight > 0) {
-        const deltaWidth = this.baselineWidth - window.innerWidth;
-        const deltaHeight = this.baselineHeight - window.innerHeight;
-        if (deltaWidth > 160 || deltaHeight > 160) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * Vector 2: Debugger Timing Heuristic
-   * Detects undocked (detached window) and docked DevTools.
-   * When DevTools is OPEN, a debugger statement causes execution to pause or invoke
-   * the debugger handler, making duration > 80ms.
-   * When DevTools is CLOSED, Function('debugger')() completes in < 0.05ms.
-   */
-  public checkDebuggerTiming(): boolean {
-    if (typeof window === 'undefined') return false;
-    try {
-      const start = performance.now();
-      // Function constructor prevents bundler optimization / dead code elimination
-      const fn = new Function('debugger');
-      fn();
-      const elapsed = performance.now() - start;
-      if (elapsed > 80) {
-        return true;
-      }
-    } catch {
-      // Ignore
-    }
-    return false;
-  }
-
-  /**
-   * Vector 3: Console Object / RegExp Getter Heuristic
-   * When DevTools is open (especially Console / Elements tab), browser attempts
-   * to format logged objects, invoking their getters / toString().
-   */
-  public checkConsoleInspection(): boolean {
-    if (typeof window === 'undefined') return false;
-    this.consoleTriggered = false;
-    try {
-      const self = this;
-      const reg = /./;
-      reg.toString = function () {
-        self.consoleTriggered = true;
-        return '';
-      };
-      // Trigger evaluation
-      console.log('%c', reg);
-      if (this.consoleTriggered) {
-        return true;
-      }
-    } catch {
-      // Ignore
-    }
-    return false;
-  }
-
-  /**
-   * Active verification across all vectors:
-   * Returns true if DevTools is currently active.
+   * Safe check if DevTools is currently open on desktop
    */
   public checkIsOpen(): boolean {
     if (typeof window === 'undefined') return false;
+    if (isTouchOrMobileDevice()) return false;
 
-    // Quick check 1: Dimension delta (Docked)
-    if (this.checkDimensionDelta()) {
-      return true;
-    }
+    // Check if inner dimensions shrunk significantly while outer dimensions stayed the same
+    if (this.baselineOuterWidth > 0 && this.baselineOuterHeight > 0) {
+      const outerWidthStable = Math.abs(window.outerWidth - this.baselineOuterWidth) < 40;
+      const outerHeightStable = Math.abs(window.outerHeight - this.baselineOuterHeight) < 40;
 
-    // Quick check 2: Debugger timing (Undocked & Docked)
-    if (this.checkDebuggerTiming()) {
-      return true;
-    }
+      const innerWidthDrop = this.baselineInnerWidth - window.innerWidth;
+      const innerHeightDrop = this.baselineInnerHeight - window.innerHeight;
 
-    // Quick check 3: Console inspection
-    if (this.checkConsoleInspection()) {
-      return true;
+      // Docked DevTools consumes at least 260px
+      if ((outerWidthStable && innerWidthDrop > 260) || (outerHeightStable && innerHeightDrop > 260)) {
+        return true;
+      }
     }
 
     return false;
@@ -164,8 +87,11 @@ class AntiDevToolsManager {
     if (typeof window === 'undefined' || this.isMonitoring) return;
     this.isMonitoring = true;
 
-    this.baselineWidth = window.innerWidth;
-    this.baselineHeight = window.innerHeight;
+    // Record initial baseline
+    this.baselineInnerWidth = window.innerWidth;
+    this.baselineOuterWidth = window.outerWidth;
+    this.baselineInnerHeight = window.innerHeight;
+    this.baselineOuterHeight = window.outerHeight;
 
     // 1. Keyboard Shortcut Deterrence
     window.addEventListener(
@@ -222,7 +148,7 @@ class AntiDevToolsManager {
       { capture: true }
     );
 
-    // 3. Drag Start Suppression (prevent dragging links/text to expose URLs)
+    // 3. Drag Start Suppression (prevent dragging links to expose URLs)
     window.addEventListener(
       'dragstart',
       (e: DragEvent) => {
@@ -231,44 +157,30 @@ class AntiDevToolsManager {
       { capture: true }
     );
 
-    // 4. Window Resize Listener (Immediate detection when 3-dots menu docks DevTools)
+    // 4. Desktop-only Resize Listener (Fires when DevTools is opened via 3-dots menu)
     window.addEventListener('resize', () => {
-      if (this.checkDimensionDelta()) {
+      if (isTouchOrMobileDevice()) return;
+
+      const outerWidthStable = Math.abs(window.outerWidth - this.baselineOuterWidth) < 40;
+      const outerHeightStable = Math.abs(window.outerHeight - this.baselineOuterHeight) < 40;
+
+      const innerWidthDrop = this.baselineInnerWidth - window.innerWidth;
+      const innerHeightDrop = this.baselineInnerHeight - window.innerHeight;
+
+      // If browser window didn't change size, but viewport suddenly lost 260px+, DevTools was docked
+      if ((outerWidthStable && innerWidthDrop > 260) || (outerHeightStable && innerHeightDrop > 260)) {
         this.notify(true);
+      } else if (!outerWidthStable || !outerHeightStable) {
+        // User legitimately resized the browser window; update baseline
+        this.baselineInnerWidth = window.innerWidth;
+        this.baselineOuterWidth = window.outerWidth;
+        this.baselineInnerHeight = window.innerHeight;
+        this.baselineOuterHeight = window.outerHeight;
       }
     });
-
-    // 5. Window Focus Listener (Detects when user interacts back with page after DevTools)
-    window.addEventListener('focus', () => {
-      if (this.checkIsOpen()) {
-        this.notify(true);
-      }
-    });
-
-    // 6. Continuous Background Monitoring Loop (Runs every 400ms)
-    this.startDetectionLoop();
-  }
-
-  private startDetectionLoop() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-
-    this.intervalId = window.setInterval(() => {
-      // If already flagged as detected, wait for user resolution
-      if (this.isDetected) return;
-
-      if (this.checkIsOpen()) {
-        this.notify(true);
-      }
-    }, 400);
   }
 
   public destroy() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
     this.isMonitoring = false;
     this.listeners.clear();
   }

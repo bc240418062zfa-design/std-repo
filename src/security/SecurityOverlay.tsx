@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ShieldAlert, RefreshCw, Lock, ArrowRight, AlertTriangle } from 'lucide-react';
+import React from 'react';
+import { ShieldAlert, RefreshCw, Lock, ArrowRight } from 'lucide-react';
 import { MihoraLogo } from '../components/MihoraLogo';
 import { antiDevTools } from './antiDevTools';
 
@@ -8,21 +8,8 @@ interface SecurityOverlayProps {
 }
 
 export const SecurityOverlay: React.FC<SecurityOverlayProps> = ({ onDismiss }) => {
-  const [warning, setWarning] = useState<string | null>(null);
-
   const handleResume = () => {
-    // Check if DevTools is still open
-    if (antiDevTools.checkIsOpen()) {
-      setWarning(
-        'Developer Tools are still active! Please close the inspect window (press F12 or click ✕ on DevTools) before resuming.'
-      );
-      setTimeout(() => {
-        setWarning(null);
-      }, 4000);
-      return;
-    }
-    // DevTools confirmed closed
-    setWarning(null);
+    antiDevTools.resume();
     onDismiss();
   };
 
@@ -40,35 +27,22 @@ export const SecurityOverlay: React.FC<SecurityOverlayProps> = ({ onDismiss }) =
         </div>
 
         {/* Shield Icon */}
-        <div className="mx-auto w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 animate-pulse">
+        <div className="mx-auto w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
           <ShieldAlert className="w-8 h-8" />
         </div>
 
         {/* Message */}
         <div className="space-y-2">
           <h2 id="security-alert-title" className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-            Developer Session Detected
+            Developer Inspection Deterrence
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
-            Browser Developer Tools or Inspect mode is currently active. For academic security and resource protection, download sessions are temporarily paused.
+            Developer tools or inspection mode deterrence was active. For academic security and resource protection, download sessions are paused while inspection windows are open.
           </p>
-          <p className="text-xs text-slate-400 italic">
-            Barah-e-karam pehle DevTools / Inspect window ko close karein phir Resume dabayein.
+          <p className="text-xs text-blue-300 font-medium">
+            Agar aap student hain to neeche &ldquo;Resume Study Session&rdquo; dabayein aur apna study material download karein.
           </p>
         </div>
-
-        {/* Warning if still open */}
-        {warning && (
-          <div className="bg-red-950/80 border border-red-700/80 rounded-xl p-3 text-xs text-red-200 flex items-center gap-2 text-left animate-shake">
-            <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
-            <div>
-              <p className="font-semibold">{warning}</p>
-              <p className="text-[11px] text-red-300 mt-0.5">
-                DevTools abhi band nahi hue. Pehle browser ki inspect window ko close karein.
-              </p>
-            </div>
-          </div>
-        )}
 
         {/* Security Info Card */}
         <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 text-left space-y-2 text-xs text-slate-400">
