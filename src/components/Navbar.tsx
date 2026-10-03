@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { MihoraLogo } from './MihoraLogo';
 import { 
   BookOpen, 
-  Layers, 
   Info, 
   ShieldCheck, 
   Download, 
@@ -26,7 +25,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleNavClick = (page: string) => {
+  const handleNavClick = (page: string, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
     onNavigate(page);
     setMobileMenuOpen(false);
   };
@@ -36,11 +36,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Zone 1: Brand Wordmark */}
         <a
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault();
-            handleNavClick('home');
-          }}
+          href="/"
+          onClick={(e) => handleNavClick('home', e)}
           className="focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg shrink-0"
           aria-label="Mihora Study Library Home"
         >
@@ -49,10 +46,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Zone 2: Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium text-slate-600">
-          <button
-            type="button"
-            onClick={() => handleNavClick('home')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+          <a
+            href="/"
+            onClick={(e) => handleNavClick('home', e)}
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
               currentPage === 'home'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-blue-600 hover:bg-slate-50'
@@ -60,12 +57,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Search className="w-4 h-4" />
             <span>Search Library</span>
-          </button>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('courses')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+          <a
+            href="/courses"
+            onClick={(e) => handleNavClick('courses', e)}
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
               currentPage === 'courses'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-blue-600 hover:bg-slate-50'
@@ -73,25 +70,25 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BookOpen className="w-4 h-4" />
             <span>Course Directory</span>
-          </button>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('security')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+          <a
+            href="/security"
+            onClick={(e) => handleNavClick('security', e)}
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
               currentPage === 'security'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-blue-600 hover:bg-slate-50'
             }`}
           >
             <ShieldCheck className="w-4 h-4" />
-            <span>Security & Relay</span>
-          </button>
+            <span>Trust & Privacy</span>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('about')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+          <a
+            href="/about"
+            onClick={(e) => handleNavClick('about', e)}
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
               currentPage === 'about'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-blue-600 hover:bg-slate-50'
@@ -99,20 +96,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Building2 className="w-4 h-4" />
             <span>About Mihora Tech</span>
-          </button>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('sitemap')}
-            className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
+          <a
+            href="/sitemap"
+            onClick={(e) => handleNavClick('sitemap', e)}
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
               currentPage === 'sitemap'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-blue-600 hover:bg-slate-50'
             }`}
           >
             <Network className="w-4 h-4" />
-            <span>Sitemap</span>
-          </button>
+            <span>Curriculum Directory</span>
+          </a>
         </nav>
 
         {/* Zone 3: Primary Actions & Mobile Toggle */}
@@ -147,9 +144,9 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-5 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-150">
-          <button
-            type="button"
-            onClick={() => handleNavClick('home')}
+          <a
+            href="/"
+            onClick={(e) => handleNavClick('home', e)}
             className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
               currentPage === 'home'
                 ? 'bg-blue-50 text-blue-700'
@@ -158,11 +155,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Search className="w-4 h-4 text-blue-600" />
             <span>Search Library</span>
-          </button>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('courses')}
+          <a
+            href="/courses"
+            onClick={(e) => handleNavClick('courses', e)}
             className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
               currentPage === 'courses'
                 ? 'bg-blue-50 text-blue-700'
@@ -171,11 +168,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BookOpen className="w-4 h-4 text-indigo-600" />
             <span>Course Directory (411 Courses)</span>
-          </button>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('security')}
+          <a
+            href="/security"
+            onClick={(e) => handleNavClick('security', e)}
             className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
               currentPage === 'security'
                 ? 'bg-blue-50 text-blue-700'
@@ -183,12 +180,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>Security & Relay Technical Architecture</span>
-          </button>
+            <span>Trust & Privacy Guarantee</span>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('about')}
+          <a
+            href="/about"
+            onClick={(e) => handleNavClick('about', e)}
             className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
               currentPage === 'about'
                 ? 'bg-blue-50 text-blue-700'
@@ -197,11 +194,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Building2 className="w-4 h-4 text-purple-600" />
             <span>About Mihora Tech & VU Initiative</span>
-          </button>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('sitemap')}
+          <a
+            href="/sitemap"
+            onClick={(e) => handleNavClick('sitemap', e)}
             className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
               currentPage === 'sitemap'
                 ? 'bg-blue-50 text-blue-700'
@@ -209,12 +206,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <Network className="w-4 h-4 text-slate-500" />
-            <span>Complete Portal Sitemap</span>
-          </button>
+            <span>Curriculum Directory</span>
+          </a>
 
-          <button
-            type="button"
-            onClick={() => handleNavClick('disclaimer')}
+          <a
+            href="/disclaimer"
+            onClick={(e) => handleNavClick('disclaimer', e)}
             className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
               currentPage === 'disclaimer'
                 ? 'bg-blue-50 text-blue-700'
@@ -223,7 +220,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Info className="w-4 h-4 text-amber-600" />
             <span>Academic Notice & Disclaimer</span>
-          </button>
+          </a>
         </div>
       )}
     </header>

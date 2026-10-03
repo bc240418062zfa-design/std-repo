@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Course } from '../types';
 import { 
   Network, 
@@ -6,10 +6,8 @@ import {
   ShieldCheck, 
   Building2, 
   HelpCircle, 
-  FileCode2, 
   Search, 
   ChevronRight,
-  ExternalLink,
   Layers,
   FileText
 } from 'lucide-react';
@@ -21,16 +19,23 @@ interface SitemapPageProps {
 }
 
 export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCourse, onNavigate }) => {
+  const [sitemapSearch, setSitemapSearch] = useState('');
+
   // Group courses by faculty
   const facultyGroups = useMemo(() => {
+    const q = sitemapSearch.toLowerCase().trim();
     const map = new Map<string, Course[]>();
+    
     courses.forEach((c) => {
       const fac = c.faculty || 'General Studies';
-      if (!map.has(fac)) map.set(fac, []);
-      map.get(fac)!.push(c);
+      const matches = !q || c.code.toLowerCase().includes(q) || c.title.toLowerCase().includes(q);
+      if (matches) {
+        if (!map.has(fac)) map.set(fac, []);
+        map.get(fac)!.push(c);
+      }
     });
     return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
-  }, [courses]);
+  }, [courses, sitemapSearch]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
@@ -38,13 +43,13 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
       <div className="space-y-4 max-w-3xl">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold">
           <Network className="w-4 h-4" />
-          <span>PORTAL DIRECTORY & XML STRUCTURE</span>
+          <span>PORTAL & CURRICULUM DIRECTORY</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Comprehensive Site Directory & Sitemap
+          Academic Curriculum & Portal Directory
         </h1>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Quickly navigate all sections of the MIHORA STUDY LIBRARY, including all 411+ Virtual University courses, technical documentation, academic guidelines, and search routes.
+          Quickly navigate all sections of the MIHORA STUDY LIBRARY, including all 411+ Virtual University courses, student trust guarantees, academic guidelines, and search routes.
         </p>
       </div>
 
@@ -99,10 +104,10 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
               <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors" />
             </div>
             <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
-              Security & Relay Architecture
+              Privacy & Trust Guarantee
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Detailed technical whitepaper on AES-256-GCM encrypted sharding, two-stage HMAC token relay, and anti-DevTools.
+              Zero student data collection, safe verified documents, and ad-free high-speed downloads.
             </p>
           </div>
 
@@ -141,38 +146,29 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
               Fair educational use policies, copyright disclosures, student revision guidelines, and ethical conduct.
             </p>
           </div>
-
-          <a
-            href="/sitemap.xml"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-5 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 transition-all cursor-pointer space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-slate-800 text-blue-400 flex items-center justify-center font-bold">
-                <FileCode2 className="w-4 h-4" />
-              </div>
-              <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">
-              Raw XML Sitemap
-            </h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Machine-readable XML sitemap for Google Search Console, Bing Webmaster, and search crawlers.
-            </p>
-          </a>
         </div>
       </div>
 
       {/* Comprehensive Faculty Index */}
-      <div className="space-y-8">
-        <div className="space-y-1">
-          <h2 className="text-xl font-bold text-slate-900">
-            Course Catalog by Academic Faculty ({courses.length} Courses)
-          </h2>
-          <p className="text-xs text-slate-500">
-            Select any course code to jump directly into its verified study documents.
-          </p>
+      <div className="space-y-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h2 className="text-xl font-bold text-slate-900">
+              Departmental Course Index ({courses.length} Courses)
+            </h2>
+            <p className="text-xs text-slate-500">
+              Select any course to view its handouts, midterm & final past papers, and solved MCQs.
+            </p>
+          </div>
+          <div className="w-full sm:w-64">
+            <input
+              type="text"
+              value={sitemapSearch}
+              onChange={(e) => setSitemapSearch(e.target.value)}
+              placeholder="Filter courses..."
+              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-600"
+            />
+          </div>
         </div>
 
         <div className="space-y-6">

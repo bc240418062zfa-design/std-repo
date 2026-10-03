@@ -27,19 +27,37 @@ const resources: Resource[] = resourcesData as Resource[];
 
 export type AppPage = 'home' | 'courses' | 'security' | 'about' | 'sitemap' | 'disclaimer';
 
-function getPageFromHash(): AppPage {
+const pagePathMap: Record<AppPage, string> = {
+  home: '/',
+  courses: '/courses',
+  security: '/security',
+  about: '/about',
+  sitemap: '/sitemap',
+  disclaimer: '/disclaimer'
+};
+
+function getPageFromPath(): AppPage {
   if (typeof window === 'undefined') return 'home';
+  const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  if (pathname === '/courses') return 'courses';
+  if (pathname === '/security' || pathname === '/privacy') return 'security';
+  if (pathname === '/about' || pathname === '/mission') return 'about';
+  if (pathname === '/sitemap') return 'sitemap';
+  if (pathname === '/disclaimer' || pathname === '/terms') return 'disclaimer';
+
+  // Backward compatibility with legacy hash
   const hash = window.location.hash.toLowerCase();
   if (hash === '#courses') return 'courses';
   if (hash === '#security' || hash === '#relay') return 'security';
   if (hash === '#about' || hash === '#mission') return 'about';
   if (hash === '#sitemap') return 'sitemap';
   if (hash === '#disclaimer' || hash === '#terms') return 'disclaimer';
+
   return 'home';
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<AppPage>(getPageFromHash);
+  const [currentPage, setCurrentPage] = useState<AppPage>(getPageFromPath);
 
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({
@@ -63,18 +81,25 @@ export default function App() {
   const downloadSessionRef = useRef<DownloadSession | null>(null);
   downloadSessionRef.current = downloadSession;
 
-  // Listen to hash changes for browser back/forward and direct links
+  // Listen to popstate changes for real browser back/forward and clean URLs
   useEffect(() => {
-    const handleHashChange = () => {
-      setCurrentPage(getPageFromHash());
+    const handleLocationChange = () => {
+      setCurrentPage(getPageFromPath());
     };
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
   }, []);
 
   const handleNavigate = (page: AppPage) => {
     setCurrentPage(page);
-    window.location.hash = page === 'home' ? '' : page;
+    const targetPath = pagePathMap[page] || '/';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -82,7 +107,9 @@ export default function App() {
     setFilters((prev) => ({ ...prev, course: courseCode }));
     setQuery('');
     setCurrentPage('home');
-    window.location.hash = '';
+    if (window.location.pathname !== '/') {
+      window.history.pushState(null, '', '/');
+    }
     setTimeout(() => {
       scrollToSearch();
     }, 80);
@@ -529,79 +556,97 @@ export default function App() {
                 </div>
                 <ul className="space-y-2 text-slate-400">
                   <li>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigate('home')}
-                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    <a
+                      href="/"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('home');
+                      }}
+                      className="hover:text-blue-400 transition-colors"
                     >
                       Search 28,328+ Documents
-                    </button>
+                    </a>
                   </li>
                   <li>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigate('courses')}
-                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    <a
+                      href="/courses"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('courses');
+                      }}
+                      className="hover:text-blue-400 transition-colors"
                     >
                       All 411 VU Courses
-                    </button>
+                    </a>
                   </li>
                   <li>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigate('sitemap')}
-                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    <a
+                      href="/sitemap"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('sitemap');
+                      }}
+                      className="hover:text-blue-400 transition-colors"
                     >
-                      Portal Directory & Sitemap
-                    </button>
+                      Curriculum Directory
+                    </a>
                   </li>
                 </ul>
               </div>
 
-              {/* Technology & Governance Column */}
+              {/* Trust & Governance Column */}
               <div className="space-y-3 text-xs">
                 <div className="font-bold text-white uppercase tracking-wider text-[11px]">
-                  Governance & Tech
+                  Trust & About
                 </div>
                 <ul className="space-y-2 text-slate-400">
                   <li>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigate('security')}
-                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    <a
+                      href="/security"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('security');
+                      }}
+                      className="hover:text-blue-400 transition-colors"
                     >
-                      Security & Relay Whitepaper
-                    </button>
+                      Trust & Privacy Guarantee
+                    </a>
                   </li>
                   <li>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigate('about')}
-                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    <a
+                      href="/about"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('about');
+                      }}
+                      className="hover:text-blue-400 transition-colors"
                     >
                       About Mihora Tech Initiative
-                    </button>
+                    </a>
                   </li>
                   <li>
-                    <button
-                      type="button"
-                      onClick={() => handleNavigate('disclaimer')}
-                      className="hover:text-blue-400 transition-colors cursor-pointer"
+                    <a
+                      href="/disclaimer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('disclaimer');
+                      }}
+                      className="hover:text-blue-400 transition-colors"
                     >
-                      Academic Disclaimer & Fair Use
-                    </button>
+                      Academic Notice & Disclaimer
+                    </a>
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* Bottom Copyright & Subdomains */}
+            {/* Bottom Copyright */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
               <div>
                 &copy; {new Date().getFullYear()} MIHORA TECH. Educational Welfare Initiative. All rights reserved.
               </div>
               <div className="text-[11px] text-slate-400 text-center sm:text-right">
-                Primary: <span className="font-mono text-slate-300">study.mihora.tech</span> · Relay: <span className="font-mono text-slate-300">dl.study.mihora.tech</span> · Corporate: <span className="font-mono text-slate-300">www.mihora.tech</span>
+                Study Portal: <span className="font-medium text-slate-300">study.mihora.tech</span> · Corporate: <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-400 hover:underline">www.mihora.tech</a>
               </div>
             </div>
           </div>
