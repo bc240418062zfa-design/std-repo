@@ -44,13 +44,15 @@ export default function App() {
   const [isDownloadingZip, setIsDownloadingZip] = useState(false);
 
   const searchResultsRef = useRef<HTMLDivElement>(null);
+  const downloadSessionRef = useRef<DownloadSession | null>(null);
+  downloadSessionRef.current = downloadSession;
 
   // Initialize anti-DevTools deterrence & subscribe to detection signals
   useEffect(() => {
     antiDevTools.init();
     const unsubscribe = antiDevTools.subscribe((detected) => {
       setDevToolsDetected(detected);
-      if (detected && downloadSession) {
+      if (detected && downloadSessionRef.current) {
         // Invalidate active session if dev tools opened
         setDownloadSession(null);
       }
@@ -59,7 +61,7 @@ export default function App() {
       unsubscribe();
       antiDevTools.destroy();
     };
-  }, [downloadSession]);
+  }, []);
 
   // Compute search results with ranking algorithm
   const { resources: filteredResources, totalCount: totalMatchingCount } = useMemo(() => {
@@ -250,11 +252,24 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <>
       {/* DevTools Deterrence Security Overlay */}
       {devToolsDetected && (
-        <SecurityOverlay onDismiss={() => antiDevTools.resume()} />
+        <SecurityOverlay
+          onDismiss={() => {
+            setDevToolsDetected(false);
+            antiDevTools.resume();
+          }}
+        />
       )}
+
+      <div
+        className={`min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans transition-all duration-300 ${
+          devToolsDetected
+            ? 'filter blur-md pointer-events-none select-none max-h-screen overflow-hidden opacity-30'
+            : ''
+        }`}
+      >
 
       {/* Top Bar Contract Navigation */}
       <Navbar
@@ -508,5 +523,6 @@ export default function App() {
         </div>
       </footer>
     </div>
-  );
+  </>
+);
 }
