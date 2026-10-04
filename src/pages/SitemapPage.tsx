@@ -10,7 +10,8 @@ import {
   ChevronRight, 
   Layers, 
   FileText,
-  Calculator
+  Calculator,
+  GraduationCap
 } from 'lucide-react';
 
 interface SitemapPageProps {
@@ -50,7 +51,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
           Academic Curriculum & Portal Directory
         </h1>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Quickly navigate all sections of the MIHORA STUDY LIBRARY, including all 411+ Virtual University courses, student trust guarantees, academic guidelines, and search routes.
+          Quickly navigate all sections of the MIHORA STUDY LIBRARY, including the VU Student Handbook, all 411+ Virtual University courses, exam passing simulator, student trust guarantees, and academic guidelines.
         </p>
       </div>
 
@@ -91,6 +92,24 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             </h3>
             <p className="text-xs text-slate-500 leading-relaxed">
               Full directory of 411 courses categorized by CS, Math, Management, Economics, and Mass Media.
+            </p>
+          </div>
+
+          <div
+            onClick={() => onNavigate('handbook')}
+            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
+          >
+            <div className="flex items-center justify-between">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                <GraduationCap className="w-4 h-4" />
+              </div>
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors" />
+            </div>
+            <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
+              VU Student Handbook & Rules
+            </h3>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Official student guide covering datesheet creation, 20% two-half rule, reschedule fee, CGPA probation, and VULMS services.
             </p>
           </div>
 
@@ -150,7 +169,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
 
           <div
             onClick={() => onNavigate('disclaimer')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
+            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group sm:col-span-2 lg:col-span-1"
           >
             <div className="flex items-center justify-between">
               <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
