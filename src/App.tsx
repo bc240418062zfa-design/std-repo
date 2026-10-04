@@ -10,6 +10,7 @@ import { FilterBar } from './components/FilterBar';
 import { ResourceCard } from './components/ResourceCard';
 import { MultiDownloadBar } from './components/MultiDownloadBar';
 import { DownloadModal } from './components/DownloadModal';
+import { FilePreviewModal } from './components/FilePreviewModal';
 import { MihoraLogo } from './components/MihoraLogo';
 import { CoursesPage } from './pages/CoursesPage';
 import { SecurityPage } from './pages/SecurityPage';
@@ -80,6 +81,7 @@ export default function App() {
   const [devToolsDetected, setDevToolsDetected] = useState(false);
   const [downloadSession, setDownloadSession] = useState<DownloadSession | null>(null);
   const [isDownloadingZip, setIsDownloadingZip] = useState(false);
+  const [previewResource, setPreviewResource] = useState<Resource | null>(null);
 
   const searchResultsRef = useRef<HTMLDivElement>(null);
   const downloadSessionRef = useRef<DownloadSession | null>(null);
@@ -426,6 +428,7 @@ export default function App() {
                         isSelected={selectedRLHs.has(res.rlh)}
                         onToggleSelect={handleToggleSelect}
                         onDownload={handleDownload}
+                        onPreview={setPreviewResource}
                       />
                     ))}
                   </div>
@@ -533,6 +536,12 @@ export default function App() {
               triggerFileStream(downloadSession.downloadUrl);
             }
           }}
+        />
+
+        {/* Online File Reading & Preview Modal */}
+        <FilePreviewModal
+          resource={previewResource}
+          onClose={() => setPreviewResource(null)}
         />
 
         {/* Enterprise Footer */}

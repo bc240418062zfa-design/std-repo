@@ -1,12 +1,23 @@
 import React from 'react';
 import { Resource } from '../types';
-import { FileText, Download, FileArchive, Presentation, FileCode, Image as ImageIcon, Table } from 'lucide-react';
+import { 
+  FileText, 
+  Download, 
+  FileArchive, 
+  Presentation, 
+  FileCode, 
+  Image as ImageIcon, 
+  Table,
+  Eye,
+  BookOpen
+} from 'lucide-react';
 
 interface ResourceCardProps {
   resource: Resource;
   isSelected: boolean;
   onToggleSelect: (rlh: string) => void;
   onDownload: (resource: Resource) => void;
+  onPreview?: (resource: Resource) => void;
   isDownloading?: boolean;
 }
 
@@ -15,6 +26,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   isSelected,
   onToggleSelect,
   onDownload,
+  onPreview,
   isDownloading = false
 }) => {
   // Format icon helper
@@ -47,18 +59,18 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
 
   return (
     <div
-      className={`group relative bg-white border rounded-xl p-4 sm:p-5 transition-all duration-150 flex flex-col justify-between gap-4 ${
+      className={`group relative bg-white border rounded-2xl p-4 sm:p-5 transition-all duration-150 flex flex-col justify-between gap-4 ${
         isSelected
           ? 'border-blue-500 ring-2 ring-blue-500/20 shadow-md'
           : 'border-slate-200 hover:border-slate-300 hover:shadow-sm'
       }`}
     >
       <div className="space-y-3">
-        {/* Top bar: Selection Checkbox & Category */}
+        {/* Top bar: Format Icon, Course Badge & Selection Checkbox */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
             {getFormatIcon(resource.format)}
-            <span className="font-mono font-bold text-xs text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
+            <span className="font-mono font-bold text-xs text-blue-700 bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-100">
               {resource.course}
             </span>
           </div>
@@ -77,7 +89,11 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         </div>
 
         {/* Resource Name */}
-        <h3 className="font-semibold text-slate-900 text-sm sm:text-base leading-snug line-clamp-2 group-hover:text-blue-600 transition-colors">
+        <h3 
+          onClick={() => onPreview && onPreview(resource)}
+          className="font-bold text-slate-900 text-sm sm:text-base leading-snug line-clamp-2 group-hover:text-blue-600 transition-colors cursor-pointer"
+          title="Click to preview online"
+        >
           {resource.name}
         </h3>
 
@@ -95,14 +111,26 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         </div>
       </div>
 
-      {/* Card Footer: Action button */}
-      <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
-        <span className="text-[11px] text-slate-400 font-mono">Verified Resource</span>
+      {/* Card Footer: Dual Actions (Read Online & Download) */}
+      <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+        {onPreview ? (
+          <button
+            type="button"
+            onClick={() => onPreview(resource)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition-colors cursor-pointer"
+          >
+            <Eye className="w-3.5 h-3.5 text-blue-600" />
+            <span>Read Online</span>
+          </button>
+        ) : (
+          <span className="text-[11px] text-slate-400 font-mono">Verified Resource</span>
+        )}
+
         <button
           type="button"
           disabled={isDownloading}
           onClick={() => onDownload(resource)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors cursor-pointer shadow-xs disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-colors cursor-pointer shadow-2xs disabled:opacity-50"
         >
           <Download className="w-3.5 h-3.5" />
           <span>{isDownloading ? 'Resolving...' : 'Download'}</span>

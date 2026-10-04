@@ -298,10 +298,11 @@ app.get('/api/download', async (req: Request, res: Response) => {
 
   // Stream actual real file from Google Drive via direct proxy
   try {
+    const isInline = req.query.inline === '1' || req.query.preview === '1';
     const driveResult = await fetchDriveStream(record.driveId);
     if (driveResult.ok && driveResult.stream) {
       res.setHeader('Content-Type', driveResult.contentType || contentType);
-      res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(safeName)}"`);
+      res.setHeader('Content-Disposition', `${isInline ? 'inline' : 'attachment'}; filename="${encodeURIComponent(safeName)}"`);
       res.setHeader('Cache-Control', 'private, no-store');
       if (driveResult.contentLength) {
         res.setHeader('Content-Length', driveResult.contentLength);
