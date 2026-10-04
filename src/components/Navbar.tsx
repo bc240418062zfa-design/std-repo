@@ -9,7 +9,8 @@ import {
   Network, 
   Menu, 
   X,
-  Building2
+  Building2,
+  Calculator
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -56,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <Search className="w-4 h-4" />
-            <span>Search Library</span>
+            <span>Search</span>
           </a>
 
           <a
@@ -69,7 +70,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <BookOpen className="w-4 h-4" />
-            <span>Course Directory</span>
+            <span>Courses</span>
+          </a>
+
+          <a
+            href="/simulator"
+            onClick={(e) => handleNavClick('simulator', e)}
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
+              currentPage === 'simulator'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-blue-600 hover:bg-slate-50'
+            }`}
+          >
+            <Calculator className="w-4 h-4 text-blue-600" />
+            <span>Passing Simulator</span>
           </a>
 
           <a
@@ -95,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <Building2 className="w-4 h-4" />
-            <span>About Mihora Tech</span>
+            <span>About</span>
           </a>
 
           <a
@@ -108,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             <Network className="w-4 h-4" />
-            <span>Curriculum Directory</span>
+            <span>Curriculum</span>
           </a>
         </nav>
 
@@ -122,10 +136,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <button
               type="button"
-              onClick={() => handleNavClick('home')}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer whitespace-nowrap shadow-xs"
+              onClick={() => handleNavClick('simulator')}
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer whitespace-nowrap shadow-xs"
             >
-              <span>Explore Materials</span>
+              <Calculator className="w-3.5 h-3.5" />
+              <span>Calculate Passing Marks</span>
             </button>
           )}
 
@@ -168,6 +183,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BookOpen className="w-4 h-4 text-indigo-600" />
             <span>Course Directory (411 Courses)</span>
+          </a>
+
+          <a
+            href="/simulator"
+            onClick={(e) => handleNavClick('simulator', e)}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'simulator'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <Calculator className="w-4 h-4 text-blue-600" />
+            <span>Exam Passing Marks Simulator & Report</span>
           </a>
 
           <a
