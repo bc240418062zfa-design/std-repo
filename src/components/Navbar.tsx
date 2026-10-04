@@ -10,7 +10,8 @@ import {
   Menu, 
   X,
   Building2,
-  Calculator
+  Calculator,
+  GraduationCap
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -71,6 +72,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BookOpen className="w-4 h-4" />
             <span>Courses</span>
+          </a>
+
+          {/* New Important Student Handbook Tab */}
+          <a
+            href="/handbook"
+            onClick={(e) => handleNavClick('handbook', e)}
+            className={`px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 ${
+              currentPage === 'handbook'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-blue-600 hover:bg-slate-50'
+            }`}
+          >
+            <GraduationCap className="w-4 h-4 text-emerald-600" />
+            <span>VU Handbook</span>
           </a>
 
           <a
@@ -183,6 +198,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BookOpen className="w-4 h-4 text-indigo-600" />
             <span>Course Directory (411 Courses)</span>
+          </a>
+
+          <a
+            href="/handbook"
+            onClick={(e) => handleNavClick('handbook', e)}
+            className={`w-full px-3 py-2 rounded-xl text-left text-sm font-semibold flex items-center gap-2.5 transition-colors cursor-pointer ${
+              currentPage === 'handbook'
+                ? 'bg-blue-50 text-blue-700'
+                : 'text-slate-700 hover:bg-slate-50'
+            }`}
+          >
+            <GraduationCap className="w-4 h-4 text-emerald-600" />
+            <span>VU Student Handbook & Essential Rules</span>
           </a>
 
           <a

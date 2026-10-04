@@ -18,6 +18,7 @@ import { AboutPage } from './pages/AboutPage';
 import { SitemapPage } from './pages/SitemapPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
 import { PassingSimulatorPage } from './pages/PassingSimulatorPage';
+import { StudentHandbookPage } from './pages/StudentHandbookPage';
 import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
 
 // Static sanitized data compiled at build time
@@ -27,12 +28,13 @@ import resourcesData from './data/resources.json';
 const courses: Course[] = coursesData as Course[];
 const resources: Resource[] = resourcesData as Resource[];
 
-export type AppPage = 'home' | 'courses' | 'simulator' | 'security' | 'about' | 'sitemap' | 'disclaimer';
+export type AppPage = 'home' | 'courses' | 'simulator' | 'handbook' | 'security' | 'about' | 'sitemap' | 'disclaimer';
 
 const pagePathMap: Record<AppPage, string> = {
   home: '/',
   courses: '/courses',
   simulator: '/simulator',
+  handbook: '/handbook',
   security: '/security',
   about: '/about',
   sitemap: '/sitemap',
@@ -44,6 +46,7 @@ function getPageFromPath(): AppPage {
   const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
   if (pathname === '/courses') return 'courses';
   if (pathname === '/simulator' || pathname === '/calculator') return 'simulator';
+  if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules') return 'handbook';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
   if (pathname === '/about' || pathname === '/mission') return 'about';
   if (pathname === '/sitemap') return 'sitemap';
@@ -53,6 +56,7 @@ function getPageFromPath(): AppPage {
   const hash = window.location.hash.toLowerCase();
   if (hash === '#courses') return 'courses';
   if (hash === '#simulator' || hash === '#calculator') return 'simulator';
+  if (hash === '#handbook' || hash === '#guide') return 'handbook';
   if (hash === '#security' || hash === '#relay') return 'security';
   if (hash === '#about' || hash === '#mission') return 'about';
   if (hash === '#sitemap') return 'sitemap';
@@ -487,6 +491,14 @@ export default function App() {
           <PassingSimulatorPage onSelectCourse={handleSelectCourse} />
         )}
 
+        {/* 3B. Page: Student Handbook & Essential Rules */}
+        {currentPage === 'handbook' && (
+          <StudentHandbookPage
+            onNavigateToSimulator={() => handleNavigate('simulator')}
+            onNavigateToCourses={() => handleNavigate('courses')}
+          />
+        )}
+
         {/* 4. Page: Security & Relay Technical Architecture */}
         {currentPage === 'security' && (
           <SecurityPage onNavigateHome={() => handleNavigate('home')} />
@@ -595,6 +607,18 @@ export default function App() {
                       className="hover:text-blue-400 transition-colors"
                     >
                       All 411 VU Courses
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/handbook"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('handbook');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-medium text-emerald-400"
+                    >
+                      VU Student Handbook & Rules
                     </a>
                   </li>
                   <li>
