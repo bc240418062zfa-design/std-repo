@@ -8,7 +8,10 @@ import {
   EyeOff, 
   FileCheck2, 
   HeartHandshake,
-  Server
+  Server,
+  Cpu,
+  Terminal,
+  ShieldAlert
 } from 'lucide-react';
 
 export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavigateHome }) => {
@@ -24,7 +27,7 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
           Privacy, Security & Resource Safety
         </h1>
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          MIHORA STUDY LIBRARY is built with a student-first philosophy. We prioritize absolute user privacy, verified document safety, and zero commercial interruptions for every Virtual University student across Pakistan.
+          MIHORA STUDY LIBRARY is built with a student-first philosophy. We prioritize absolute user privacy, verified document safety, zero commercial interruptions, and advanced anti-tamper security for every Virtual University student across Pakistan.
         </p>
       </div>
 
@@ -72,6 +75,69 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
             During high-stress midterm and final examination seasons, our distributed edge infrastructure ensures the portal stays online 24/7 with fast load times across PTCL, Nayatel, StormFiber, Jazz, Zong, and overseas connections.
           </p>
+        </div>
+      </div>
+
+      {/* Advanced Anti-DevTools & Resource Protection Section */}
+      <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6 sm:p-8 text-white space-y-6 shadow-xl">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-blue-400">
+            <Cpu className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-[10px] font-mono uppercase tracking-wider">
+              <span>disable-devtool Integration</span>
+            </div>
+            <h2 className="text-lg sm:text-xl font-bold text-white">
+              Multi-Vector Inspection Deterrence Architecture
+            </h2>
+          </div>
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
+          To prevent unauthorized automated harvesting, link scraping, and credential interception, MIHORA STUDY LIBRARY integrates the full capabilities of the industry-standard <strong>disable-devtool</strong> anti-tamper framework across the entire web application.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+            <div className="flex items-center gap-1.5 text-blue-400 font-semibold text-[11px]">
+              <Terminal className="w-3.5 h-3.5" />
+              <span>Multi-Detector Array</span>
+            </div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Monitors 8 distinct vectors including RegToString, DefineId, DateToString, FuncToString, and Debugger timing probes.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+            <div className="flex items-center gap-1.5 text-emerald-400 font-semibold text-[11px]">
+              <Lock className="w-3.5 h-3.5" />
+              <span>Shortcut Deterrence</span>
+            </div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Intercepts F12, Ctrl+Shift+I/J/C, Cmd+Option+I/J/C, Ctrl+U (source view), and right-click context menu calls.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+            <div className="flex items-center gap-1.5 text-purple-400 font-semibold text-[11px]">
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span>Continuous Console Flush</span>
+            </div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Runs active console log wiping (<code className="text-purple-300">clearLog</code>) to prevent scraping of transient memory objects.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-1.5">
+            <div className="flex items-center gap-1.5 text-amber-400 font-semibold text-[11px]">
+              <HeartHandshake className="w-3.5 h-3.5" />
+              <span>Student Session Resume</span>
+            </div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Legitimate students triggering inspection mode can resume their reading session with a single click.
+            </p>
+          </div>
         </div>
       </div>
 

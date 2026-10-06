@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Resource, Course, FilterState, DownloadSession } from './types';
 import { searchResources } from './search/searchEngine';
-import { antiDevTools } from './security/antiDevTools';
+import { antiDevTools, DevToolsDetectionDetail } from './security/antiDevTools';
 import { SecurityOverlay } from './security/SecurityOverlay';
 import { resolveResourceLocally } from './security/shardResolver';
 import { Navbar } from './components/Navbar';
@@ -83,6 +83,7 @@ export default function App() {
 
   // Security & Download Session States
   const [devToolsDetected, setDevToolsDetected] = useState(false);
+  const [devToolsDetail, setDevToolsDetail] = useState<DevToolsDetectionDetail | null>(null);
   const [downloadSession, setDownloadSession] = useState<DownloadSession | null>(null);
   const [isDownloadingZip, setIsDownloadingZip] = useState(false);
   const [previewResource, setPreviewResource] = useState<Resource | null>(null);
@@ -128,9 +129,10 @@ export default function App() {
   // Initialize anti-DevTools deterrence & subscribe to detection signals
   useEffect(() => {
     antiDevTools.init();
-    const unsubscribe = antiDevTools.subscribe((detected) => {
-      setDevToolsDetected(detected);
-      if (detected && downloadSessionRef.current) {
+    const unsubscribe = antiDevTools.subscribe((detail) => {
+      setDevToolsDetected(detail.detected);
+      setDevToolsDetail(detail);
+      if (detail.detected && downloadSessionRef.current) {
         // Invalidate active session if dev tools opened
         setDownloadSession(null);
       }
@@ -328,6 +330,7 @@ export default function App() {
       {/* DevTools Deterrence Security Overlay */}
       {devToolsDetected && (
         <SecurityOverlay
+          detail={devToolsDetail}
           onDismiss={() => {
             setDevToolsDetected(false);
             antiDevTools.resume();

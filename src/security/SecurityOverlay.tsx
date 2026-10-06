@@ -1,17 +1,20 @@
 import React from 'react';
-import { ShieldAlert, RefreshCw, Lock, ArrowRight } from 'lucide-react';
+import { ShieldAlert, RefreshCw, Lock, ArrowRight, Terminal, Cpu } from 'lucide-react';
 import { MihoraLogo } from '../components/MihoraLogo';
-import { antiDevTools } from './antiDevTools';
+import { antiDevTools, DevToolsDetectionDetail } from './antiDevTools';
 
 interface SecurityOverlayProps {
+  detail?: DevToolsDetectionDetail | null;
   onDismiss: () => void;
 }
 
-export const SecurityOverlay: React.FC<SecurityOverlayProps> = ({ onDismiss }) => {
+export const SecurityOverlay: React.FC<SecurityOverlayProps> = ({ detail, onDismiss }) => {
   const handleResume = () => {
     antiDevTools.resume();
     onDismiss();
   };
+
+  const detectorLabel = detail?.detectorName || 'Developer Inspection Mode';
 
   return (
     <div
@@ -33,15 +36,36 @@ export const SecurityOverlay: React.FC<SecurityOverlayProps> = ({ onDismiss }) =
 
         {/* Message */}
         <div className="space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-semibold">
+            <Cpu className="w-3.5 h-3.5 text-blue-400" />
+            <span>disable-devtool Anti-Tamper Protection</span>
+          </div>
+
           <h2 id="security-alert-title" className="text-xl sm:text-2xl font-bold tracking-tight text-white">
             Developer Inspection Deterrence
           </h2>
+
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-md mx-auto">
-            Developer tools or inspection mode deterrence was active. For academic security and resource protection, download sessions are paused while inspection windows are open.
+            Developer tools or inspection mode deterrence was active. For academic security and student resource protection, download sessions are paused while inspection windows are open.
           </p>
+
           <p className="text-xs text-blue-300 font-medium">
             Agar aap student hain to neeche &ldquo;Resume Study Session&rdquo; dabayein aur apna study material download karein.
           </p>
+        </div>
+
+        {/* Detector Specific Diagnostic Badge */}
+        <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3.5 text-left space-y-1.5 text-xs text-slate-300 font-mono">
+          <div className="flex items-center justify-between text-slate-400 text-[11px]">
+            <span className="flex items-center gap-1.5 text-blue-400 font-semibold">
+              <Terminal className="w-3.5 h-3.5" />
+              <span>Inspection Signal</span>
+            </span>
+            <span className="text-[10px] text-slate-500">Defense Active</span>
+          </div>
+          <div className="text-xs text-amber-300 font-bold break-words">
+            {detectorLabel}
+          </div>
         </div>
 
         {/* Security Info Card */}
@@ -51,7 +75,7 @@ export const SecurityOverlay: React.FC<SecurityOverlayProps> = ({ onDismiss }) =
             <span>Cryptographic Architecture Safeguard</span>
           </div>
           <p className="text-slate-400 leading-normal">
-            MIHORA STUDY LIBRARY enforces server-side AES-256-GCM token resolution. Raw storage endpoints and credentials remain cryptographically isolated.
+            MIHORA STUDY LIBRARY enforces server-side AES-256-GCM token resolution and multi-vector anti-debugging. Raw storage endpoints remain cryptographically protected.
           </p>
         </div>
 
@@ -78,4 +102,3 @@ export const SecurityOverlay: React.FC<SecurityOverlayProps> = ({ onDismiss }) =
     </div>
   );
 };
-

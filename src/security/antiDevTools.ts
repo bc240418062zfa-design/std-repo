@@ -1,99 +1,159 @@
 /**
- * Anti-DevTools Deterrence & Detection Engine (Production Grade & Zero False Positives)
- *
- * Implements:
- * 1. Keyboard shortcuts deterrence (F12, Ctrl+Shift+I/J/C/K/E, Cmd+Opt+I/J/C/K/E, Ctrl+U, Ctrl+S)
- * 2. Context menu (right-click) suppression
- * 3. Drag-and-drop suppression
- * 4. Desktop-only docked DevTools detection via relative viewport shrinkage (Zero false alarms on load)
- * 5. Full mobile/tablet immunity (mobile browsers never trigger false positives)
- * 6. Clean, instant resume interface
+ * Advanced Anti-DevTools Deterrence & Detection Engine
+ * Powered by disable-devtool (https://github.com/theajack/disable-devtool)
+ * 
+ * Capabilities:
+ * 1. Multi-vector inspection detection:
+ *    - RegToString (RegExp evaluation trap)
+ *    - DefineId (Object getter / property probe)
+ *    - Size (Docked DevTools viewport shrinkage)
+ *    - DateToString (Date evaluation trap)
+ *    - FuncToString (Function inspection trap)
+ *    - Debugger (Timing performance / debugger pause)
+ *    - Performance (Execution time profiling)
+ *    - DebugLib (Eruda / vConsole third-party injectors)
+ * 2. Key combination deterrence (F12, Ctrl+Shift+I/J/C, Cmd+Opt+I/J/C, Ctrl+U, Ctrl+S)
+ * 3. Right-click context menu suppression (disableMenu)
+ * 4. Automatic console cleaning (clearLog)
+ * 5. Parent iframe isolation safeguard (disableIframeParents: false for AI Studio environment)
+ * 6. Mobile & SEO immunity (seo: true, touch devices safe)
+ * 7. Live resume & graceful study session restoration
  */
 
-type DevToolsListener = (detected: boolean) => void;
+import disableDevtool from 'disable-devtool';
 
-function isTouchOrMobileDevice(): boolean {
-  if (typeof window === 'undefined') return false;
-  return (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-    ('ontouchstart' in window && window.innerWidth < 1024)
-  );
+export enum DetectorType {
+  Unknown = -1,
+  RegToString = 0,
+  DefineId = 1,
+  Size = 2,
+  DateToString = 3,
+  FuncToString = 4,
+  Debugger = 5,
+  Performance = 6,
+  DebugLib = 7
 }
+
+export type DevToolsDetectionDetail = {
+  detected: boolean;
+  detectorType?: DetectorType | number;
+  detectorName?: string;
+  timestamp?: number;
+};
+
+type DevToolsListener = (detail: DevToolsDetectionDetail) => void;
 
 class AntiDevToolsManager {
   private isDetected: boolean = false;
+  private currentDetail: DevToolsDetectionDetail = { detected: false };
   private listeners: Set<DevToolsListener> = new Set();
-  private isMonitoring: boolean = false;
-
-  // Baseline window geometry
-  private baselineInnerWidth: number = 0;
-  private baselineOuterWidth: number = 0;
-  private baselineInnerHeight: number = 0;
-  private baselineOuterHeight: number = 0;
+  private isInitialized: boolean = false;
+  private resumeCooldownUntil: number = 0;
 
   public subscribe(listener: DevToolsListener): () => void {
     this.listeners.add(listener);
-    listener(this.isDetected);
+    listener(this.currentDetail);
     return () => this.listeners.delete(listener);
   }
 
-  public notify(detected: boolean) {
-    if (this.isDetected !== detected) {
-      this.isDetected = detected;
-      this.listeners.forEach((fn) => fn(detected));
+  public notify(detected: boolean, type: DetectorType = DetectorType.Unknown, reason?: string) {
+    // If user recently clicked resume, respect grace cooldown for 5 seconds
+    if (detected && Date.now() < this.resumeCooldownUntil) {
+      return;
     }
+
+    const detectorName = reason || this.getDetectorName(type);
+    this.isDetected = detected;
+    this.currentDetail = {
+      detected,
+      detectorType: type,
+      detectorName: detected ? detectorName : undefined,
+      timestamp: Date.now()
+    };
+
+    this.listeners.forEach((fn) => fn(this.currentDetail));
   }
 
   public resume() {
     this.isDetected = false;
-    if (typeof window !== 'undefined') {
-      this.baselineInnerWidth = window.innerWidth;
-      this.baselineOuterWidth = window.outerWidth;
-      this.baselineInnerHeight = window.innerHeight;
-      this.baselineOuterHeight = window.outerHeight;
-    }
-    this.listeners.forEach((fn) => fn(false));
+    this.resumeCooldownUntil = Date.now() + 5000; // 5-second grace window after explicit resume
+    this.currentDetail = { detected: false, timestamp: Date.now() };
+    this.listeners.forEach((fn) => fn(this.currentDetail));
   }
 
   public getIsDetected(): boolean {
     return this.isDetected;
   }
 
-  /**
-   * Safe check if DevTools is currently open on desktop
-   */
-  public checkIsOpen(): boolean {
-    if (typeof window === 'undefined') return false;
-    if (isTouchOrMobileDevice()) return false;
+  public getCurrentDetail(): DevToolsDetectionDetail {
+    return this.currentDetail;
+  }
 
-    // Check if inner dimensions shrunk significantly while outer dimensions stayed the same
-    if (this.baselineOuterWidth > 0 && this.baselineOuterHeight > 0) {
-      const outerWidthStable = Math.abs(window.outerWidth - this.baselineOuterWidth) < 40;
-      const outerHeightStable = Math.abs(window.outerHeight - this.baselineOuterHeight) < 40;
-
-      const innerWidthDrop = this.baselineInnerWidth - window.innerWidth;
-      const innerHeightDrop = this.baselineInnerHeight - window.innerHeight;
-
-      // Docked DevTools consumes at least 260px
-      if ((outerWidthStable && innerWidthDrop > 260) || (outerHeightStable && innerHeightDrop > 260)) {
-        return true;
-      }
+  public getDetectorName(type: DetectorType | number): string {
+    switch (type) {
+      case DetectorType.RegToString:
+        return 'RegExp Evaluation Trap (RegToString)';
+      case DetectorType.DefineId:
+        return 'DOM & Property Inspector (DefineId)';
+      case DetectorType.Size:
+        return 'Docked Viewport Geometry Shrinkage (Size)';
+      case DetectorType.DateToString:
+        return 'Date Evaluation Interception (DateToString)';
+      case DetectorType.FuncToString:
+        return 'Function Decompiler Probe (FuncToString)';
+      case DetectorType.Debugger:
+        return 'Execution Timing Probe (Debugger)';
+      case DetectorType.Performance:
+        return 'Execution Profiler Delay (Performance)';
+      case DetectorType.DebugLib:
+        return 'Third-Party Console Injection (DebugLib)';
+      default:
+        return 'Keyboard Shortcut / Inspector Action';
     }
-
-    return false;
   }
 
   public init() {
-    if (typeof window === 'undefined' || this.isMonitoring) return;
-    this.isMonitoring = true;
+    if (typeof window === 'undefined' || this.isInitialized) return;
+    this.isInitialized = true;
 
-    // Record initial baseline
-    this.baselineInnerWidth = window.innerWidth;
-    this.baselineOuterWidth = window.outerWidth;
-    this.baselineInnerHeight = window.innerHeight;
-    this.baselineOuterHeight = window.outerHeight;
+    // Check if bypass token is in URL (e.g. ?ddtk=bypass or ?dev_bypass=1)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('ddtk') === 'bypass' || urlParams.get('dev_bypass') === '1') {
+        console.info('[Security] Anti-DevTools bypass flag active.');
+        return;
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
 
-    // 1. Keyboard Shortcut Deterrence
+    // 1. Initialize disable-devtool engine with all detector capabilities
+    try {
+      disableDevtool({
+        // Triggered when any inspection detector fires
+        ondevtoolopen: (type: number) => {
+          this.notify(true, type as DetectorType);
+        },
+        // Triggered when DevTools is closed
+        ondevtoolclose: () => {
+          this.notify(false);
+        },
+        disableMenu: true, // Right-click context menu suppression
+        disableSelect: false, // Keep educational content selectable
+        disableCopy: false, // Keep student notes copyable
+        disableCut: false,
+        disablePaste: false,
+        clearLog: true, // Continuously clean console logs
+        disableIframeParents: false, // Crucial: Safe for Google AI Studio preview iframe
+        seo: true, // Search engine crawler friendly
+        interval: 200, // Detection frequency
+        detectors: 'all' // Enable all 8 detector modules
+      });
+    } catch (err) {
+      console.warn('[Security] disable-devtool core initialization:', err);
+    }
+
+    // 2. Extra Key Combinations Deterrence (Immediate capture)
     window.addEventListener(
       'keydown',
       (e: KeyboardEvent) => {
@@ -101,7 +161,7 @@ class AntiDevToolsManager {
         if (e.key === 'F12' || e.keyCode === 123) {
           e.preventDefault();
           e.stopPropagation();
-          this.notify(true);
+          this.notify(true, DetectorType.Unknown, 'Function Key (F12)');
           return false;
         }
 
@@ -116,7 +176,7 @@ class AntiDevToolsManager {
         ) {
           e.preventDefault();
           e.stopPropagation();
-          this.notify(true);
+          this.notify(true, DetectorType.Unknown, `DevTools Shortcut (${isCmdOrCtrl ? 'Ctrl/Cmd+' : ''}${e.key.toUpperCase()})`);
           return false;
         }
 
@@ -124,6 +184,7 @@ class AntiDevToolsManager {
         if (isCmdOrCtrl && (e.key === 'U' || e.key === 'u')) {
           e.preventDefault();
           e.stopPropagation();
+          this.notify(true, DetectorType.Unknown, 'View Page Source Shortcut (Ctrl+U)');
           return false;
         }
 
@@ -137,7 +198,7 @@ class AntiDevToolsManager {
       { capture: true }
     );
 
-    // 2. Context Menu (Right Click) Suppression
+    // 3. Context Menu (Right Click) Extra Capture
     window.addEventListener(
       'contextmenu',
       (e: MouseEvent) => {
@@ -148,7 +209,7 @@ class AntiDevToolsManager {
       { capture: true }
     );
 
-    // 3. Drag Start Suppression (prevent dragging links to expose URLs)
+    // 4. Drag Start Suppression (prevent dragging elements to inspect URLs)
     window.addEventListener(
       'dragstart',
       (e: DragEvent) => {
@@ -156,32 +217,10 @@ class AntiDevToolsManager {
       },
       { capture: true }
     );
-
-    // 4. Desktop-only Resize Listener (Fires when DevTools is opened via 3-dots menu)
-    window.addEventListener('resize', () => {
-      if (isTouchOrMobileDevice()) return;
-
-      const outerWidthStable = Math.abs(window.outerWidth - this.baselineOuterWidth) < 40;
-      const outerHeightStable = Math.abs(window.outerHeight - this.baselineOuterHeight) < 40;
-
-      const innerWidthDrop = this.baselineInnerWidth - window.innerWidth;
-      const innerHeightDrop = this.baselineInnerHeight - window.innerHeight;
-
-      // If browser window didn't change size, but viewport suddenly lost 260px+, DevTools was docked
-      if ((outerWidthStable && innerWidthDrop > 260) || (outerHeightStable && innerHeightDrop > 260)) {
-        this.notify(true);
-      } else if (!outerWidthStable || !outerHeightStable) {
-        // User legitimately resized the browser window; update baseline
-        this.baselineInnerWidth = window.innerWidth;
-        this.baselineOuterWidth = window.outerWidth;
-        this.baselineInnerHeight = window.innerHeight;
-        this.baselineOuterHeight = window.outerHeight;
-      }
-    });
   }
 
   public destroy() {
-    this.isMonitoring = false;
+    this.isInitialized = false;
     this.listeners.clear();
   }
 }
