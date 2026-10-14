@@ -360,6 +360,8 @@ export default function App() {
               query={query}
               onQueryChange={(val) => {
                 setQuery(val);
+              }}
+              onSearchSubmit={() => {
                 scrollToSearch();
               }}
               onCategoryClick={(cat) => {

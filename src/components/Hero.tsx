@@ -4,6 +4,7 @@ import { Search, X, Sparkles, BookOpen, CheckCircle2 } from 'lucide-react';
 interface HeroProps {
   query: string;
   onQueryChange: (val: string) => void;
+  onSearchSubmit?: () => void;
   onCategoryClick: (category: string) => void;
   onCourseClick: (course: string) => void;
   totalResources: number;
@@ -13,6 +14,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({
   query,
   onQueryChange,
+  onSearchSubmit,
   onCategoryClick,
   onCourseClick,
   totalResources,
@@ -31,6 +33,13 @@ export const Hero: React.FC<HeroProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSearchSubmit) {
+      onSearchSubmit();
+    }
+  };
 
   const quickCategories = [
     { label: 'MIDTERMS', query: 'midterm' },
@@ -79,32 +88,49 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* High-Intent Search Bar */}
         <div className="max-w-2xl mx-auto">
-          <div className="relative flex items-center bg-white rounded-xl shadow-2xl p-2 sm:p-2.5 focus-within:ring-4 focus-within:ring-blue-500/25 transition-all">
-            <Search className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400 ml-2.5 shrink-0" />
+          <form
+            onSubmit={handleFormSubmit}
+            className="relative flex items-center bg-white rounded-xl shadow-2xl p-2 sm:p-2.5 focus-within:ring-4 focus-within:ring-blue-500/25 transition-all"
+          >
+            <button
+              type="submit"
+              aria-label="Search"
+              className="p-1 text-slate-400 hover:text-blue-600 transition-colors ml-1.5 shrink-0 cursor-pointer"
+            >
+              <Search className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
             <input
               ref={inputRef}
               type="text"
               value={query}
               onChange={(e) => onQueryChange(e.target.value)}
               placeholder="Search courses, midterms, finals, MCQs, assignments, handouts..."
-              className="w-full pl-3 pr-10 py-2 sm:py-2.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 focus:outline-none bg-transparent"
+              className="w-full pl-3 pr-4 py-2 sm:py-2.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 focus:outline-hidden bg-transparent"
               aria-label="Search study resources"
             />
             {query ? (
-              <button
-                type="button"
-                onClick={() => onQueryChange('')}
-                className="p-1.5 text-slate-400 hover:text-slate-600 rounded-md transition-colors cursor-pointer mr-1"
-                aria-label="Clear search"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <div className="flex items-center gap-1 shrink-0 mr-1">
+                <button
+                  type="button"
+                  onClick={() => onQueryChange('')}
+                  className="p-1.5 text-slate-400 hover:text-slate-600 rounded-md transition-colors cursor-pointer"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+                >
+                  <span>Search</span>
+                </button>
+              </div>
             ) : (
               <kbd className="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono font-medium text-slate-400 bg-slate-100 rounded border border-slate-200 mr-2 select-none">
                 /
               </kbd>
             )}
-          </div>
+          </form>
 
           {/* Search Examples */}
           <div className="flex flex-wrap items-center justify-center gap-2 mt-3 text-xs text-slate-400">
@@ -113,7 +139,10 @@ export const Hero: React.FC<HeroProps> = ({
               <button
                 key={eg}
                 type="button"
-                onClick={() => onQueryChange(eg)}
+                onClick={() => {
+                  onQueryChange(eg);
+                  onSearchSubmit?.();
+                }}
                 className="text-slate-300 hover:text-blue-400 hover:underline transition-colors cursor-pointer"
               >
                 {eg}
