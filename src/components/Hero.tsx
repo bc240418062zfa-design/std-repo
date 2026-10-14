@@ -92,7 +92,7 @@ export const Hero: React.FC<HeroProps> = ({
       { label: `Search final term papers for "${query}"`, value: `${query} finalterm` },
       { label: `Search handouts & books for "${query}"`, value: `${query} handout` }
     ];
-    return base.slice(0, 3);
+    return base.slice(0, 4);
   }, [query]);
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -125,6 +125,8 @@ export const Hero: React.FC<HeroProps> = ({
   ];
 
   const featuredCourses = ['CS101', 'CS201', 'CS301', 'CS302', 'MTH101', 'ACC311', 'MGT101', 'STA301', 'ZOO507', 'CS607'];
+
+  const hasSuggestions = showSuggestions && (matchingCourses.length > 0 || quickSuggestions.length > 0);
 
   return (
     <section className="relative overflow-hidden bg-slate-950 text-white pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-slate-800/80">
@@ -164,8 +166,8 @@ export const Hero: React.FC<HeroProps> = ({
             }`} 
           />
 
-          {/* Command Bar Shell */}
-          <div className="relative bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl transition-all">
+          {/* Command Bar Shell (In-Flow Integrated Card to completely eliminate overlap) */}
+          <div className="relative bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl transition-all overflow-hidden">
             <form
               onSubmit={handleFormSubmit}
               className="flex items-center p-2 sm:p-2.5 gap-2"
@@ -226,18 +228,24 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
             </form>
 
-            {/* Smart Command Palette Flyout (Instant Course Matches & Search Prompts) */}
-            {showSuggestions && (matchingCourses.length > 0 || quickSuggestions.length > 0) && (
-              <div className="absolute top-full left-0 right-0 mt-2 p-3 bg-slate-900/98 backdrop-blur-2xl border border-slate-700/90 rounded-2xl shadow-2xl z-50 space-y-3 animate-in fade-in slide-in-from-top-2 duration-150">
+            {/* Smart Suggestions - Integrated in-flow inside the card (Zero Overlap with elements below!) */}
+            {hasSuggestions && (
+              <div className="border-t border-slate-800/80 p-3 sm:p-4 bg-slate-950/60 space-y-3 animate-in fade-in duration-150">
                 {/* Matching Courses Subsection */}
                 {matchingCourses.length > 0 && (
                   <div className="space-y-1.5">
-                    <div className="flex items-center justify-between px-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-400">
-                      <span className="flex items-center gap-1.5">
-                        <BookOpen className="w-3 h-3 text-blue-400" />
+                    <div className="flex items-center justify-between px-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-400">
+                      <span className="flex items-center gap-1.5 text-cyan-300">
+                        <BookOpen className="w-3.5 h-3.5 text-blue-400" />
                         <span>Matching Courses ({matchingCourses.length})</span>
                       </span>
-                      <span className="text-[10px] text-slate-500">Click to filter</span>
+                      <button
+                        type="button"
+                        onClick={() => setShowSuggestions(false)}
+                        className="text-[10px] text-slate-500 hover:text-slate-300 cursor-pointer"
+                      >
+                        Press ESC to close
+                      </button>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
@@ -246,7 +254,7 @@ export const Hero: React.FC<HeroProps> = ({
                           key={c.code}
                           type="button"
                           onClick={() => handleSelectCourseSuggestion(c.code)}
-                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/60 hover:bg-blue-600/20 hover:border-blue-500/50 border border-slate-700/50 transition-all text-left cursor-pointer group"
+                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/90 hover:bg-blue-600/20 hover:border-blue-500/50 border border-slate-800 transition-all text-left cursor-pointer group shadow-2xs"
                         >
                           <div className="min-w-0 pr-2">
                             <div className="flex items-center gap-2">
@@ -273,32 +281,35 @@ export const Hero: React.FC<HeroProps> = ({
 
                 {/* Quick Query Completions */}
                 {quickSuggestions.length > 0 && (
-                  <div className="space-y-1 border-t border-slate-800 pt-2">
-                    <div className="px-2 text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500">
-                      Instant Search Shortcuts
+                  <div className="space-y-1.5 border-t border-slate-800/80 pt-2.5">
+                    <div className="flex items-center justify-between px-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                      <span>Instant Search Actions</span>
+                      <span className="text-[10px] text-slate-600">Press Enter ↵ to search</span>
                     </div>
-                    {quickSuggestions.map((s, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => handleSelectQuerySuggestion(s.value)}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer group text-left"
-                      >
-                        <span className="flex items-center gap-2">
-                          <Search className="w-3 h-3 text-slate-500 group-hover:text-blue-400" />
-                          <span>{s.label}</span>
-                        </span>
-                        <CornerDownLeft className="w-3 h-3 text-slate-600 group-hover:text-slate-300" />
-                      </button>
-                    ))}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                      {quickSuggestions.map((s, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => handleSelectQuerySuggestion(s.value)}
+                          className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white bg-slate-900/60 hover:bg-slate-800 border border-slate-800/60 hover:border-slate-700 transition-colors cursor-pointer group text-left"
+                        >
+                          <span className="flex items-center gap-2 truncate">
+                            <Search className="w-3 h-3 text-slate-500 group-hover:text-blue-400 shrink-0" />
+                            <span className="truncate">{s.label}</span>
+                          </span>
+                          <CornerDownLeft className="w-3 h-3 text-slate-600 group-hover:text-slate-300 shrink-0 ml-1" />
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
             )}
           </div>
 
-          {/* Interactive Search Examples */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-3.5 text-xs text-slate-400">
+          {/* Interactive Search Examples - Positioned in clean document flow with proper margin */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs text-slate-400">
             <span className="text-slate-500 text-[11px] font-medium">Try searching:</span>
             {['CS302 midterm', 'CS101 MCQs', 'ACC311 solved final', 'MGT301 handouts'].map((eg) => (
               <button
@@ -308,7 +319,7 @@ export const Hero: React.FC<HeroProps> = ({
                   onQueryChange(eg);
                   onSearchSubmit?.();
                 }}
-                className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 transition-all cursor-pointer font-mono text-[11px]"
+                className="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 hover:bg-slate-800 transition-all cursor-pointer font-mono text-[11px] shadow-2xs"
               >
                 {eg}
               </button>
@@ -316,7 +327,7 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Quick Categories Bar (Modernized Chips) */}
+        {/* Quick Categories Bar (Modernized Chips - In clean document flow) */}
         <div className="pt-2">
           <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-center gap-2">
             <Compass className="w-3.5 h-3.5 text-blue-400" />
