@@ -35,3 +35,23 @@ export interface DownloadSession {
   downloadUrl?: string;
   expiresIn?: number;
 }
+
+export interface ReviewItem {
+  id: string;
+  reviewNum: number;
+  sharedBy: string;
+  date: string;
+  time: string;
+  message: string;
+  keyPoints: string[];
+}
+
+export interface CourseReviewSummary {
+  code: string;
+  title: string;
+  faculty: string;
+  reviewCount: number;
+  latestDate: string;
+  sampleTopics: string[];
+}
+
