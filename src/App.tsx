@@ -19,7 +19,6 @@ import { SitemapPage } from './pages/SitemapPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
 import { PassingSimulatorPage } from './pages/PassingSimulatorPage';
 import { StudentHandbookPage } from './pages/StudentHandbookPage';
-import { PastPapersPage } from './pages/PastPapersPage';
 import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
 
 // Static sanitized data compiled at build time
@@ -29,12 +28,11 @@ import resourcesData from './data/resources.json';
 const courses: Course[] = coursesData as Course[];
 const resources: Resource[] = resourcesData as Resource[];
 
-export type AppPage = 'home' | 'courses' | 'past-papers' | 'simulator' | 'handbook' | 'security' | 'about' | 'sitemap' | 'disclaimer';
+export type AppPage = 'home' | 'courses' | 'simulator' | 'handbook' | 'security' | 'about' | 'sitemap' | 'disclaimer';
 
 const pagePathMap: Record<AppPage, string> = {
   home: '/',
   courses: '/courses',
-  'past-papers': '/past-papers',
   simulator: '/simulator',
   handbook: '/handbook',
   security: '/security',
@@ -47,7 +45,6 @@ function getPageFromPath(): AppPage {
   if (typeof window === 'undefined') return 'home';
   const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
   if (pathname === '/courses') return 'courses';
-  if (pathname === '/past-papers' || pathname === '/reviews' || pathname === '/mids') return 'past-papers';
   if (pathname === '/simulator' || pathname === '/calculator') return 'simulator';
   if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules') return 'handbook';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
@@ -58,7 +55,6 @@ function getPageFromPath(): AppPage {
   // Backward compatibility with legacy hash
   const hash = window.location.hash.toLowerCase();
   if (hash === '#courses') return 'courses';
-  if (hash === '#past-papers' || hash === '#reviews') return 'past-papers';
   if (hash === '#simulator' || hash === '#calculator') return 'simulator';
   if (hash === '#handbook' || hash === '#guide') return 'handbook';
   if (hash === '#security' || hash === '#relay') return 'security';
