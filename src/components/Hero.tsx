@@ -1,5 +1,19 @@
-import React, { useRef, useEffect } from 'react';
-import { Search, X, Sparkles, BookOpen, CheckCircle2 } from 'lucide-react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
+import { 
+  Search, 
+  X, 
+  Sparkles, 
+  BookOpen, 
+  ArrowRight, 
+  CornerDownLeft, 
+  Layers, 
+  FileText, 
+  Zap, 
+  ChevronRight,
+  Command,
+  Compass
+} from 'lucide-react';
+import { Course } from '../types';
 
 interface HeroProps {
   query: string;
@@ -9,6 +23,7 @@ interface HeroProps {
   onCourseClick: (course: string) => void;
   totalResources: number;
   totalCourses: number;
+  courses?: Course[];
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -18,123 +33,273 @@ export const Hero: React.FC<HeroProps> = ({
   onCategoryClick,
   onCourseClick,
   totalResources,
-  totalCourses
+  totalCourses,
+  courses = []
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Focus search on '/' key press
+  // Focus search on '/' key press or Cmd/Ctrl+K
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === '/' && document.activeElement !== inputRef.current) {
+      const isCmdK = (e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K');
+      const isSlash = e.key === '/' && document.activeElement !== inputRef.current;
+      
+      if (isCmdK || isSlash) {
         e.preventDefault();
         inputRef.current?.focus();
+        setShowSuggestions(true);
+      } else if (e.key === 'Escape') {
+        setShowSuggestions(false);
+        inputRef.current?.blur();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Close suggestions flyout on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Compute smart course matching suggestions
+  const matchingCourses = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q || courses.length === 0) return [];
+
+    return courses
+      .filter((c) => c.code.toLowerCase().includes(q) || c.title.toLowerCase().includes(q))
+      .slice(0, 4);
+  }, [query, courses]);
+
+  // Suggested keywords based on input
+  const quickSuggestions = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    
+    const base = [
+      { label: `Search solved papers for "${query}"`, value: `${query} solved` },
+      { label: `Search midterm past papers for "${query}"`, value: `${query} midterm` },
+      { label: `Search final term papers for "${query}"`, value: `${query} finalterm` },
+      { label: `Search handouts & books for "${query}"`, value: `${query} handout` }
+    ];
+    return base.slice(0, 3);
+  }, [query]);
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setShowSuggestions(false);
     if (onSearchSubmit) {
       onSearchSubmit();
     }
   };
 
+  const handleSelectCourseSuggestion = (courseCode: string) => {
+    setShowSuggestions(false);
+    onCourseClick(courseCode);
+  };
+
+  const handleSelectQuerySuggestion = (val: string) => {
+    onQueryChange(val);
+    setShowSuggestions(false);
+    onSearchSubmit?.();
+  };
+
   const quickCategories = [
-    { label: 'MIDTERMS', query: 'midterm' },
-    { label: 'FINALS', query: 'finalterm' },
-    { label: 'QUIZZES', query: 'quiz' },
-    { label: 'MCQ FILES', query: 'mcq' },
-    { label: 'HANDOUTS', query: 'handout' },
-    { label: 'ASSIGNMENTS', query: 'assignment' },
-    { label: 'SOLVED PAPERS', query: 'solved' },
-    { label: 'PAST PAPERS', query: 'past-paper' },
-    { label: 'CURRENT PAPERS', query: 'current' },
-    { label: 'GRAND QUIZ', query: 'grand-quiz' },
-    { label: 'SLIDES', query: 'slides' }
+    { label: 'MIDTERMS', query: 'midterm', badge: '3,877 Files' },
+    { label: 'FINALS', query: 'finalterm', badge: '7,361 Files' },
+    { label: 'MCQ FILES', query: 'mcq', badge: '3,256 Files' },
+    { label: 'HANDOUTS', query: 'handout', badge: '2,625 Books' },
+    { label: 'SOLVED PAPERS', query: 'solved', badge: 'Popular' },
+    { label: 'GRAND QUIZ', query: 'grand-quiz', badge: 'Lec 1-22' },
+    { label: 'ASSIGNMENTS', query: 'assignment', badge: 'Sol.' }
   ];
 
   const featuredCourses = ['CS101', 'CS201', 'CS301', 'CS302', 'MTH101', 'ACC311', 'MGT101', 'STA301', 'ZOO507', 'CS607'];
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 text-white pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-slate-800">
-      {/* Dynamic tech constellation / grid backdrop */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px]" />
+    <section className="relative overflow-hidden bg-slate-950 text-white pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-slate-800/80">
+      {/* High-tech Constellation Grid Backdrop */}
+      <div className="absolute inset-0 opacity-25 pointer-events-none bg-[radial-gradient(#3b82f6_1.2px,transparent_1.2px)] [background-size:28px_28px]" />
       
-      {/* Ambient gradient glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient Radial Core Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[360px] bg-gradient-to-r from-blue-600/20 via-cyan-500/15 to-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-        {/* Trust announcement */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/60 border border-blue-500/30 text-blue-300 text-xs font-medium">
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-          <span>Independent Student Study Portal</span>
-          <span className="text-slate-500">·</span>
+        {/* MIHORA TECH Status Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-blue-500/30 text-blue-300 text-xs font-medium shadow-lg shadow-blue-500/10 backdrop-blur-md">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-mono text-[11px] uppercase tracking-wider text-cyan-300 font-bold">MIHORA INTELLIGENCE ENGINE</span>
+          <span className="text-slate-600">·</span>
           <span className="text-slate-300 tabular-nums">{totalCourses} Curated Courses</span>
-          <span className="text-slate-500">·</span>
-          <span className="text-cyan-300 font-semibold tabular-nums">{totalResources.toLocaleString()} Authentic Files</span>
+          <span className="text-slate-600">·</span>
+          <span className="text-white font-semibold tabular-nums">{totalResources.toLocaleString()} Clean Files</span>
         </div>
 
         {/* Hero Title & Subtext */}
         <div className="space-y-4 max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            Find Your Course <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Resources Faster</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+            Next-Gen Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-300">Resource Engine</span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
-            Search thousands of student resources from one place. Instant access to handouts, solved midterms, finals, MCQs, and past papers.
+          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+            Zero ads, direct verified downloads, and instant full-text discovery across all 411 Virtual University courses, past papers, solved MCQs, and handouts.
           </p>
         </div>
 
-        {/* High-Intent Search Bar */}
-        <div className="max-w-2xl mx-auto">
-          <form
-            onSubmit={handleFormSubmit}
-            className="relative flex items-center bg-white rounded-xl shadow-2xl p-2 sm:p-2.5 focus-within:ring-4 focus-within:ring-blue-500/25 transition-all"
-          >
-            <button
-              type="submit"
-              aria-label="Search"
-              className="p-1 text-slate-400 hover:text-blue-600 transition-colors ml-1.5 shrink-0 cursor-pointer"
+        {/* Modern MIHORA Command Search Cockpit */}
+        <div ref={containerRef} className="max-w-3xl mx-auto relative text-left">
+          {/* Animated Ambient Border Halo */}
+          <div 
+            className={`absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600 blur-md opacity-35 transition-all duration-300 pointer-events-none ${
+              isFocused ? 'opacity-90 blur-lg scale-[1.01]' : 'opacity-35'
+            }`} 
+          />
+
+          {/* Command Bar Shell */}
+          <div className="relative bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl transition-all">
+            <form
+              onSubmit={handleFormSubmit}
+              className="flex items-center p-2 sm:p-2.5 gap-2"
             >
-              <Search className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
-            <input
-              ref={inputRef}
-              type="text"
-              value={query}
-              onChange={(e) => onQueryChange(e.target.value)}
-              placeholder="Search courses, midterms, finals, MCQs, assignments, handouts..."
-              className="w-full pl-3 pr-4 py-2 sm:py-2.5 text-sm sm:text-base text-slate-900 placeholder-slate-400 focus:outline-hidden bg-transparent"
-              aria-label="Search study resources"
-            />
-            {query ? (
-              <div className="flex items-center gap-1 shrink-0 mr-1">
-                <button
-                  type="button"
-                  onClick={() => onQueryChange('')}
-                  className="p-1.5 text-slate-400 hover:text-slate-600 rounded-md transition-colors cursor-pointer"
-                  aria-label="Clear search"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+              {/* Branded Left Icon */}
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-blue-500/25 shrink-0 ml-1">
+                <Search className="w-5 h-5 text-cyan-100" />
+              </div>
+
+              {/* Central Input Field */}
+              <input
+                ref={inputRef}
+                type="text"
+                value={query}
+                onChange={(e) => {
+                  onQueryChange(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => {
+                  setIsFocused(true);
+                  setShowSuggestions(true);
+                }}
+                onBlur={() => setIsFocused(false)}
+                placeholder="Search by course code, topic, or document (e.g. CS101, MTH101, solved midterm)..."
+                className="w-full px-2 sm:px-3 py-2.5 text-sm sm:text-base text-white placeholder-slate-400/80 focus:outline-hidden bg-transparent font-medium tracking-tight"
+                aria-label="Search academic study resources"
+              />
+
+              {/* Right Command Actions */}
+              <div className="flex items-center gap-1.5 shrink-0 mr-1">
+                {query ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onQueryChange('');
+                      inputRef.current?.focus();
+                    }}
+                    className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+                    aria-label="Clear search"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <div className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800/80 border border-slate-700/80 text-slate-400 font-mono text-[11px] select-none">
+                    <Command className="w-3 h-3" />
+                    <span>K</span>
+                  </div>
+                )}
+
+                {/* Submit Action Button */}
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+                  className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-600/30 transition-all cursor-pointer active:scale-95"
                 >
                   <span>Search</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-cyan-200 hidden sm:inline" />
                 </button>
               </div>
-            ) : (
-              <kbd className="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono font-medium text-slate-400 bg-slate-100 rounded border border-slate-200 mr-2 select-none">
-                /
-              </kbd>
-            )}
-          </form>
+            </form>
 
-          {/* Search Examples */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-3 text-xs text-slate-400">
-            <span className="text-slate-500">Try searching:</span>
+            {/* Smart Command Palette Flyout (Instant Course Matches & Search Prompts) */}
+            {showSuggestions && (matchingCourses.length > 0 || quickSuggestions.length > 0) && (
+              <div className="absolute top-full left-0 right-0 mt-2 p-3 bg-slate-900/98 backdrop-blur-2xl border border-slate-700/90 rounded-2xl shadow-2xl z-50 space-y-3 animate-in fade-in slide-in-from-top-2 duration-150">
+                {/* Matching Courses Subsection */}
+                {matchingCourses.length > 0 && (
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between px-2 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-400">
+                      <span className="flex items-center gap-1.5">
+                        <BookOpen className="w-3 h-3 text-blue-400" />
+                        <span>Matching Courses ({matchingCourses.length})</span>
+                      </span>
+                      <span className="text-[10px] text-slate-500">Click to filter</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                      {matchingCourses.map((c) => (
+                        <button
+                          key={c.code}
+                          type="button"
+                          onClick={() => handleSelectCourseSuggestion(c.code)}
+                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-800/60 hover:bg-blue-600/20 hover:border-blue-500/50 border border-slate-700/50 transition-all text-left cursor-pointer group"
+                        >
+                          <div className="min-w-0 pr-2">
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-xs font-black text-cyan-300 group-hover:text-cyan-200">
+                                {c.code}
+                              </span>
+                              <span className="text-[10px] px-1.5 py-0.5 rounded-sm bg-slate-800 text-slate-400 font-mono">
+                                {c.faculty.split(' ')[0]}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-300 truncate mt-0.5 group-hover:text-white">
+                              {c.title}
+                            </p>
+                          </div>
+                          <span className="text-[10px] font-mono text-slate-400 shrink-0 flex items-center gap-1">
+                            <FileText className="w-2.5 h-2.5" />
+                            <span>{c.fileCount || 0}</span>
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Quick Query Completions */}
+                {quickSuggestions.length > 0 && (
+                  <div className="space-y-1 border-t border-slate-800 pt-2">
+                    <div className="px-2 text-[10px] font-mono font-semibold uppercase tracking-wider text-slate-500">
+                      Instant Search Shortcuts
+                    </div>
+                    {quickSuggestions.map((s, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleSelectQuerySuggestion(s.value)}
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-300 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer group text-left"
+                      >
+                        <span className="flex items-center gap-2">
+                          <Search className="w-3 h-3 text-slate-500 group-hover:text-blue-400" />
+                          <span>{s.label}</span>
+                        </span>
+                        <CornerDownLeft className="w-3 h-3 text-slate-600 group-hover:text-slate-300" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Interactive Search Examples */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-3.5 text-xs text-slate-400">
+            <span className="text-slate-500 text-[11px] font-medium">Try searching:</span>
             {['CS302 midterm', 'CS101 MCQs', 'ACC311 solved final', 'MGT301 handouts'].map((eg) => (
               <button
                 key={eg}
@@ -143,7 +308,7 @@ export const Hero: React.FC<HeroProps> = ({
                   onQueryChange(eg);
                   onSearchSubmit?.();
                 }}
-                className="text-slate-300 hover:text-blue-400 hover:underline transition-colors cursor-pointer"
+                className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 transition-all cursor-pointer font-mono text-[11px]"
               >
                 {eg}
               </button>
@@ -151,10 +316,11 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </div>
 
-        {/* Quick Categories Buttons */}
+        {/* Quick Categories Bar (Modernized Chips) */}
         <div className="pt-2">
-          <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">
-            Quick Categories
+          <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-center gap-2">
+            <Compass className="w-3.5 h-3.5 text-blue-400" />
+            <span>High-Yield Exam Categories</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
             {quickCategories.map((cat) => (
@@ -162,23 +328,27 @@ export const Hero: React.FC<HeroProps> = ({
                 key={cat.label}
                 type="button"
                 onClick={() => onCategoryClick(cat.query)}
-                className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-700 transition-all cursor-pointer whitespace-nowrap"
+                className="group relative inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/50 text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all cursor-pointer shadow-xs active:scale-95"
               >
-                {cat.label}
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:bg-cyan-400 transition-colors" />
+                <span>{cat.label}</span>
+                <span className="text-[9px] font-mono font-medium px-1.5 py-0.2 rounded-sm bg-slate-950 text-slate-400 border border-slate-800">
+                  {cat.badge}
+                </span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Featured Course Shortcuts */}
+        {/* Featured Course Shortcuts (Monospace Chips) */}
         <div className="pt-1 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
-          <span className="text-slate-400 font-medium">Popular Courses:</span>
+          <span className="text-slate-400 font-mono text-[11px]">Popular Courses:</span>
           {featuredCourses.map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => onCourseClick(c)}
-              className="px-2.5 py-1 rounded bg-slate-900/80 border border-slate-800 text-slate-300 hover:text-blue-400 hover:border-blue-500/40 transition-colors font-mono font-medium cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800 hover:border-blue-500/60 text-slate-300 hover:text-cyan-300 hover:bg-slate-800 transition-all font-mono font-bold text-xs cursor-pointer shadow-2xs active:scale-95"
             >
               {c}
             </button>

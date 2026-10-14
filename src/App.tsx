@@ -375,6 +375,7 @@ export default function App() {
               }}
               totalResources={resources.length}
               totalCourses={courses.length}
+              courses={courses}
             />
 
             {/* Main Interactive Catalog */}
