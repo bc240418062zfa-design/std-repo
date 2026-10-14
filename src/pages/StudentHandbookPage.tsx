@@ -22,7 +22,11 @@ import {
   Bookmark,
   Zap,
   Sparkles,
-  Info
+  Info,
+  MessageSquare,
+  CheckCircle,
+  Lightbulb,
+  CreditCard
 } from 'lucide-react';
 
 interface GuideItem {
@@ -36,6 +40,228 @@ interface GuideItem {
   tags: string[];
   isImportant?: boolean;
 }
+
+export interface FAQItem {
+  id: string;
+  category: 'sessional' | 'exams' | 'grading' | 'fee-freeze' | 'overseas';
+  question: string;
+  urduQuestion: string;
+  shortAnswer: string;
+  detailedPoints: string[];
+  actionAdvice?: string;
+  isHighFrequency?: boolean;
+}
+
+const TOP_VU_FAQS: FAQItem[] = [
+  // 1. Sessional & Grace Period FAQs
+  {
+    id: 'faq-assignment-missed',
+    category: 'sessional',
+    question: 'If I miss an assignment or score zero, will I fail the course?',
+    urduQuestion: 'Agar Assignment miss ho jaye ya zero marks milein to kya subject fail ho jata hai?',
+    shortAnswer: 'Bilkul nahi! Sessional activities overall 15-20% weightage rakhti hain. Subject direct fail nahi hota, lekin CGPA par asar parta hai.',
+    detailedPoints: [
+      'Assignments, Quizzes aur GDBs course ke First Half ka hissa hain jinka total weightage aam tor par 15% se 20% hota hai.',
+      'VU ke official 20% Two-Half rule ke mutabiq aapko First Half ke majmooyi (collective) marks mein se kam az kam 20% lene hotay hain, jo ke Midterm exam se asani se cover ho jatay hain.',
+      'Kisi aik assignment mein 0 aane se subject fail nahi hota, bas aapki final percentage 3-5% drop hoti hai.'
+    ],
+    actionAdvice: 'Agar assignment miss ho jaye to bilkul pareshan na hon, aane walay Quizzes aur Midterm paper mein achhi tiyari karke marks cover karein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-grace-period',
+    category: 'sessional',
+    question: 'How does the 24-hour Assignment Grace Period work, and are marks deducted?',
+    urduQuestion: 'Assignment mein 24-Hour Grace Period ka kya rule hai aur kya ispar marks kat-tay hain?',
+    shortAnswer: 'Due date ke aglay 24 ghantay grace period hota hai aur is doran submit karnay par exact 100% marks miltay hain bina kisi penalty ke!',
+    detailedPoints: [
+      'Virtual University har regular assignment ke baad 24 ghantay ka grace period automatically enable karti hai.',
+      'Grace period ke andar submit karne par koi marks deduction nahi hoti, aapko full evaluation milti hai.',
+      'Grace period khatam hotay hi LMS par upload link foran gayab ho jata hai. Virtual University instructors email par assignments kabhi accept nahi karte.'
+    ],
+    actionAdvice: 'Grace period ko sirf bijli ya internet emergency ke liye reserve rakhein; regular due date par submit karne ko aadat banayein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-quiz-disconnect',
+    category: 'sessional',
+    question: 'Can I retake a quiz if electricity goes off or internet disconnects?',
+    urduQuestion: 'Quiz ke doran agar bijli chali jaye ya internet band ho jaye to kya re-take mil sakta hai?',
+    shortAnswer: 'Nahi! Virtual University mein quizzes ka koi re-take nahi hota.',
+    detailedPoints: [
+      'Har MCQ question par 90-second ka server-side countdown timer chalta hai jo browser band hone par bhi rukta nahi.',
+      'Agar internet disconnect ho ya browser refresh kiya jaye to current question automatic submit ho jata hai aur baqi sawal skip ho saktay hain.',
+      'VU IT department ya instructor ticket generate karne par bhi quiz dobara reset nahi karta.'
+    ],
+    actionAdvice: 'Quiz attempt karne se pehle laptop ko charge rakhein aur mobile data hotspot ka backup zaroor connectable rakhein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-gdb-plagiarism',
+    category: 'sessional',
+    question: 'What is the word limit for GDB and what happens if I copy-paste?',
+    urduQuestion: 'GDB (Graded Discussion Board) mein copy-paste karne se kya hota hai aur word limit kitni hai?',
+    shortAnswer: 'Strict 150 se 200 words limit hoti hai aur copy-paste karne par direct ZERO marks miltay hain.',
+    detailedPoints: [
+      'GDB LMS ke message box mein direct type karke post kiya jata hai (MS Word file upload nahi hoti).',
+      'Agar aapka answer kisi doosre student ya internet / YouTube group solution se match ho jaye to automated Turnitin checker 0 marks deta hai.',
+      'GDB sirf aik martaba post hota hai; post karne ke baad edit ya delete karne ka koi option nahi hota.'
+    ],
+    actionAdvice: 'Apne alfaz mein 3-4 mukhtasar conceptual points likhein. Original likhai par pure 3 se 5 marks mil jatay hain.'
+  },
+
+  // 2. Exam & Date Sheet FAQs
+  {
+    id: 'faq-reschedule-procedure',
+    category: 'exams',
+    question: 'If I miss an exam, when and how can I apply for rescheduling?',
+    urduQuestion: 'Agar paper miss ho jaye to reschedule kab aur kaisay apply hota hai?',
+    shortAnswer: 'Missed paper ke 24 ghantay baad VULMS Student Services se apply karein, fee PKR 2,000 per paper hai.',
+    detailedPoints: [
+      'Apply karne ka rasta: VULMS > Student Services > Examinations Department > "Apply for Rescheduling of Papers".',
+      'Missed paper actual time slot guzarne ke taqreeban 24 ghantay baad portal par show hota hai.',
+      'Rescheduling fee: PKR 2,000 (Local students) aur $25 (Overseas students) per paper hai, jo ke non-refundable hoti hai.',
+      'Rescheduled exams semester exam schedule ke aakhri do dino mein conduct hotay hain.',
+      'Direct relative ki death ki soorat mein 7 din ke andar death certificate submit karne par fee maaf hoti hai.'
+    ],
+    actionAdvice: 'Reschedule ki sahulat har paper ke liye sirf aik dafa milti hai, is liye rescheduled time par har soorat center pohnchein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-mandatory-documents',
+    category: 'exams',
+    question: 'What documents are mandatory to enter the VU Examination Hall?',
+    urduQuestion: 'Exam Hall mein entry ke liye kaunse documents hona lazmi hain?',
+    shortAnswer: 'Printed Exam Entrance Slip (Roll No Slip) + Original CNIC / B-Form / VU Student ID Card / Passport.',
+    detailedPoints: [
+      'datesheet.vu.edu.pk se print ki hui Exam Entrance Slip lazmi honi chahiye.',
+      'Original CNIC ya Nadra B-Form (18 saal se kam umar ke liye) ya Original Passport ya Original VU Student Card.',
+      'Mobile phone mein tasweer ya photocopy bilkul qabil-e-qabool nahi hoti.',
+      'Mobile phones, smartwatches, handsfree, storage devices, aur bags exam hall ke andar strictly prohibited hain.'
+    ],
+    actionAdvice: 'Exam se aik din pehle slip ka hardcopy print nikal kar apne bag/wallet mein rakh lein taake subah time zaya na ho.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-roll-no-slip-writing',
+    category: 'exams',
+    question: 'Why is rough work or writing strictly prohibited on the Roll No Slip?',
+    urduQuestion: 'Roll Number Slip par rough work ya pencil se likhna kyun mana hai?',
+    shortAnswer: 'Slip par kuch bhi likhna official Unfair Means (UFM) case banata hai jisse semester cancel ho sakta hai!',
+    detailedPoints: [
+      'VU Examination Rules ke mutabiq Roll No Slip ke aglay ya pichlay hissay par koi formula, calculation ya note likhna cheating consider hota hai.',
+      'Rough work ke liye exam hall invigilator official plain sheet faraham karta hai.',
+      'Paper khatam hone par rough sheet invigilator ko wapis jama karwana hoti hai.'
+    ],
+    actionAdvice: 'Rough work ke liye sirf invigilator se scratch sheet maangein, slip par aik lafz bhi na likhein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-datesheet-rush',
+    category: 'exams',
+    question: 'Why is it critical to create the Date Sheet within the first 1-2 hours of opening?',
+    urduQuestion: 'Date Sheet khultay hi pehle 1-2 ghantay mein banana kyun itna ahem hai?',
+    shortAnswer: 'First-come, first-served seat allocation rule ki wajah se preferred campus aur time slots foran bhar jatay hain!',
+    detailedPoints: [
+      'Har exam center mein computer labs ki seats limited hoti hain.',
+      'Subah aur dopehar ke asan slots pehle 30 minutes mein book ho jatay hain.',
+      'Late datesheet banane par aapko door ke campus ya mushkil timings (maslan shaam late) par paper select karna parta hai.',
+      'Deadline guzarne par PKR 500 se PKR 1,000 late fee fine lagta hai.'
+    ],
+    actionAdvice: 'Date sheet opening notification aatay hi foran login karke apna schedule bana lein.',
+    isHighFrequency: true
+  },
+
+  // 3. Grading & Probation FAQs
+  {
+    id: 'faq-two-half-rule',
+    category: 'grading',
+    question: 'What is the 20% Two-Half Rule and how does it cause unexpected failure?',
+    urduQuestion: 'The 20% Two-Half Rule aakhir hai kya aur iski wajah se pass student fail kaisay hota hai?',
+    shortAnswer: 'Sessional mein >= 20% aur Final Term paper mein independently >= 20% score karna lazmi hai!',
+    detailedPoints: [
+      'First Half: Quizzes + Assignments + GDB + Midterm (minimum 20% score hona chahiye).',
+      'Second Half: Final Term Examination paper (minimum 20% score hona chahiye, maslan 60 marks mein se kam az kam 12 marks).',
+      'Aggregate Condition: Dono halves ko mila kar total aggregate 50% (Standard D) ya 40% (Passing Floor) hona chahiye.',
+      'Critical Case: Agar kisi student ke Sessional + Midterm mein 100% marks hon lekin Final paper mein sirf 11 marks (less than 20%) ayein, to wo automatic FAIL ("F" grade) ho jata hai!'
+    ],
+    actionAdvice: 'Hamara Exam Passing Simulator tool (/simulator) use karein jahan aap exact marks daal kar live status check kar saktay hain.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-academic-probation',
+    category: 'grading',
+    question: 'When does Academic Probation trigger and what are its penalties?',
+    urduQuestion: 'Academic Probation kab lagti hai aur iske nuqsanaat kya hain?',
+    shortAnswer: '1st semester mein CGPA < 1.50 aur aagay CGPA < 2.00 par probation lagti hai, aur workload 12 credit hours tak mehdood ho jata hai.',
+    detailedPoints: [
+      'Normal student ko 18 credit hours (6 subjects) allowed hotay hain, jabke probation par sirf 12 credit hours (4 subjects).',
+      'Student ko pehle fail ya low "D" grade subjects repeat karne ki hidayat di jati hai.',
+      'Lagataar do probations aane par academic review aur dismissal notice issue hota hai.',
+      'Graduation ke liye overall CGPA 2.00 / 4.00 hona qanooni taur par lazmi hai.'
+    ],
+    actionAdvice: 'Initial semesters mein low "D" grades ko foran repeat karein kyunke shuru ke courses ka CGPA par sab se zyada impact hota hai.',
+    isHighFrequency: true
+  },
+
+  // 4. Fee & Freeze FAQs
+  {
+    id: 'faq-fee-installments',
+    category: 'fee-freeze',
+    question: 'Can semester fees be converted into easy installments?',
+    urduQuestion: 'Kya semester fee ko installments mein convert karwaya ja sakta hai?',
+    shortAnswer: 'Jee haan! VULMS Account Book se fee voucher ko 2 se 3 installments mein convert kiya ja sakta hai.',
+    detailedPoints: [
+      'Course selection ke baad generate hone wale semester fee voucher ke samne "Installment" ka button aata hai.',
+      'Button click karke aap 2 ya 3 monthly installments choose kar saktay hain.',
+      'Installment fee JazzCash, EasyPaisa, 1Link 1Bill, KUICKPAY, ya bank challan ke zariye 24/7 pay ho sakti hai bina kisi extra charges ke.'
+    ],
+    actionAdvice: 'Agar budget tight ho to voucher generate hotay hi installments bana lein taake late fee fine na lage.'
+  },
+  {
+    id: 'faq-semester-freeze',
+    category: 'fee-freeze',
+    question: 'How many times and when can a student freeze a semester?',
+    urduQuestion: 'Semester Freeze kitni baar aur kab tak karwa saktay hain?',
+    shortAnswer: 'Maximum 2 consecutive semesters freeze kiye ja saktay hain, Midterm se pehle apply karna zaroori hai.',
+    detailedPoints: [
+      'Procedure: VULMS > Student Services > Semester Freeze.',
+      'Midterm exam se pehle freeze ki request approve karwani hoti hai.',
+      'Agar koi student lagataar 2 semesters se zyada baghair permission university chor de to admission cancel ho jata hai.',
+      'Semester unfreeze karne ke liye aglay semester ke start par course selection window mein apply karein.'
+    ],
+    actionAdvice: 'Freeze karte waqt accounts department se clear karwayein ke koi pending dues na hon.'
+  },
+
+  // 5. Overseas & Degree Clearance FAQs
+  {
+    id: 'faq-overseas-pakistan',
+    category: 'overseas',
+    question: 'If an overseas student visits Pakistan during exams, can they sit online from Pakistan?',
+    urduQuestion: 'Overseas student agar exams ke doran Pakistan aaye to kya wo online exam de sakta hai?',
+    shortAnswer: 'Bilkul nahi! Pakistan ke andar baith kar overseas online exam dena strictly illegal hai.',
+    detailedPoints: [
+      'Agar overseas student exam ke doran Pakistan travel karta hai to usay foran overseas directorate se study status local campus mein convert karwana parta hai.',
+      'Pakistan mein rehtay hue sirf physical VU exam center par paper diya ja sakta hai.',
+      'IP address tracking se Pakistan IP detect hone par online paper cancel aur UFM case ban jata hai.'
+    ],
+    actionAdvice: 'Agar Pakistan aane ka plan ho to exam se kam az kam 2 haftay pehle campus conversion apply karein.'
+  },
+  {
+    id: 'faq-hec-attestation',
+    category: 'overseas',
+    question: 'How to get VU degree and transcript attested by HEC after graduation?',
+    urduQuestion: 'Degree aur Transcript complete hone par HEC Attestation kaisay hoti hai?',
+    shortAnswer: 'Degree audit ke baad eservices.hec.gov.pk se online attestation apply karein.',
+    detailedPoints: [
+      'Degree completion criteria: Tamam required credit hours pass hon aur cumulative CGPA >= 2.00 ho.',
+      'VULMS Student Services se Provisional Certificate ya Official Transcript apply karein.',
+      'HEC E-Services portal par account bana kar VU registration number aur degree details enter karein.',
+      'TCS courier service ya walk-in appointment ke zariye HEC stamp aur verification ticket lagta hai.'
+    ],
+    actionAdvice: 'Overseas job ya higher studies ke liye transcript aur provisional dono attest karwayein.'
+  }
+];
 
 const GUIDE_ITEMS: GuideItem[] = [
   // 1. Examinations & Date Sheet
@@ -219,22 +445,6 @@ const GUIDE_ITEMS: GuideItem[] = [
     ],
     tags: ['campus change', 'semester freeze', 'defreeze', 'student services']
   },
-  {
-    id: 'transcript-degree-issuance',
-    category: 'services',
-    title: 'Transcripts, Provisional Certificates & HEC Attestation',
-    shortDesc: 'Procedure for obtaining official transcripts, urgent degrees, and HEC clearance.',
-    details: [
-      'Completion of Credit Hours: After passing all required degree credit hours and achieving a CGPA >= 2.00, your status updates to "Degree Completed".',
-      'Applying for Documents: Navigate to VULMS > Student Services > Examination Department > Apply for Transcript / Degree.',
-      'Urgent vs Normal Processing: Normal degree processing takes 4-6 weeks after final result audit; urgent processing can be requested with the designated fee.',
-      'HEC Attestation: Official VU degrees and transcripts are recognized by the Higher Education Commission (HEC) for both local employment and international embassy visas.'
-    ],
-    officialLinks: [
-      { label: 'HEC E-Services Portal', url: 'https://eservices.hec.gov.pk/' }
-    ],
-    tags: ['transcript', 'degree', 'provisional', 'hec attestation', 'graduation']
-  },
 
   // 8. Official Portals & Contact Directory
   {
@@ -259,14 +469,14 @@ const GUIDE_ITEMS: GuideItem[] = [
 
 const CATEGORIES = [
   { id: 'all', label: 'All Knowledge Base', icon: BookOpen },
+  { id: 'faqs', label: 'Top Student FAQs', icon: MessageSquare },
   { id: 'exams', label: 'Exams & Date Sheet', icon: Calendar },
   { id: 'reschedule', label: 'Paper Rescheduling', icon: RotateCcw },
-  { id: 'grading', label: 'Grading & Probation', icon: Award },
-  { id: 'course-selection', label: 'Course Selection', icon: Layers },
+  { id: 'grading', label: 'Grading & 20% Rule', icon: Award },
   { id: 'sessional', label: 'Assignments & Quizzes', icon: Clock },
-  { id: 'overseas', label: 'Overseas Students', icon: Globe },
-  { id: 'services', label: 'Student Services', icon: ShieldCheck },
-  { id: 'portals', label: 'Official Contacts', icon: Phone }
+  { id: 'fee-freeze', label: 'Fee & Semester Freeze', icon: CreditCard },
+  { id: 'overseas', label: 'Overseas Regulations', icon: Globe },
+  { id: 'portals', label: 'Official Helpdesk', icon: Phone }
 ];
 
 interface StudentHandbookPageProps {
@@ -280,12 +490,27 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [expandedItems, setExpandedItems] = useState<Set<string>>(
+  const [viewMode, setViewMode] = useState<'both' | 'faqs' | 'guides'>('both');
+  
+  // Expanded IDs for Guides and FAQs
+  const [expandedGuides, setExpandedGuides] = useState<Set<string>>(
     new Set(['datesheet-creation', 'rescheduling-procedure', 'two-half-rule'])
   );
+  const [expandedFAQs, setExpandedFAQs] = useState<Set<string>>(
+    new Set(['faq-two-half-rule', 'faq-assignment-missed', 'faq-reschedule-procedure'])
+  );
 
-  const toggleExpand = (id: string) => {
-    setExpandedItems((prev) => {
+  const toggleGuideExpand = (id: string) => {
+    setExpandedGuides((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleFAQExpand = (id: string) => {
+    setExpandedFAQs((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
@@ -294,31 +519,73 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
   };
 
   const expandAll = () => {
-    setExpandedItems(new Set(GUIDE_ITEMS.map((g) => g.id)));
+    setExpandedGuides(new Set(GUIDE_ITEMS.map((g) => g.id)));
+    setExpandedFAQs(new Set(TOP_VU_FAQS.map((f) => f.id)));
   };
 
   const collapseAll = () => {
-    setExpandedItems(new Set());
+    setExpandedGuides(new Set());
+    setExpandedFAQs(new Set());
   };
 
-  const filteredItems = useMemo(() => {
+  // Filtered FAQs
+  const filteredFAQs = useMemo(() => {
+    if (viewMode === 'guides') return [];
+    const q = searchQuery.toLowerCase().trim();
+
+    return TOP_VU_FAQS.filter((item) => {
+      // Category filter
+      if (selectedCategory !== 'all' && selectedCategory !== 'faqs') {
+        const catMap: Record<string, string[]> = {
+          exams: ['exams'],
+          reschedule: ['exams'],
+          grading: ['grading'],
+          sessional: ['sessional'],
+          'fee-freeze': ['fee-freeze'],
+          overseas: ['overseas']
+        };
+        const allowed = catMap[selectedCategory] || [];
+        if (!allowed.includes(item.category)) return false;
+      }
+
+      // Search filter
+      if (q) {
+        const matchQ = item.question.toLowerCase().includes(q);
+        const matchUrdu = item.urduQuestion.toLowerCase().includes(q);
+        const matchAns = item.shortAnswer.toLowerCase().includes(q);
+        const matchPoints = item.detailedPoints.some((p) => p.toLowerCase().includes(q));
+        const matchAdvice = item.actionAdvice ? item.actionAdvice.toLowerCase().includes(q) : false;
+        return matchQ || matchUrdu || matchAns || matchPoints || matchAdvice;
+      }
+
+      return true;
+    });
+  }, [selectedCategory, searchQuery, viewMode]);
+
+  // Filtered Guides
+  const filteredGuides = useMemo(() => {
+    if (viewMode === 'faqs') return [];
+    const q = searchQuery.toLowerCase().trim();
+
     return GUIDE_ITEMS.filter((item) => {
       // Category filter
-      if (selectedCategory !== 'all' && item.category !== selectedCategory) {
-        return false;
+      if (selectedCategory !== 'all') {
+        if (selectedCategory === 'faqs') return false;
+        if (item.category !== selectedCategory) return false;
       }
+
       // Search filter
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase().trim();
+      if (q) {
         const matchTitle = item.title.toLowerCase().includes(q);
         const matchDesc = item.shortDesc.toLowerCase().includes(q);
         const matchTags = item.tags.some((t) => t.toLowerCase().includes(q));
         const matchDetails = item.details.some((d) => d.toLowerCase().includes(q));
         return matchTitle || matchDesc || matchTags || matchDetails;
       }
+
       return true;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery, viewMode]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
@@ -330,19 +597,19 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         </div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          The Essential VU Student Knowledge Base
+          The Essential VU Student Knowledge Base & FAQs
         </h1>
 
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          Everything a Virtual University of Pakistan student normally needs to know: verified examination procedures, the <strong>20% Two-Half passing rule</strong>, missed paper rescheduling (PKR 2,000 policy), CGPA probation limits, assignment grace periods, and official support directories.
+          Everything a Virtual University student normally needs to know: <strong>14 most important student FAQs</strong>, verified examination rules, the <strong>20% Two-Half passing rule</strong>, missed paper rescheduling (PKR 2,000 policy), CGPA probation limits, and assignment grace periods.
         </p>
 
         {/* Quick Highlights Stats Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
           <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Reschedule Fee</span>
-            <strong className="text-sm sm:text-base font-black text-blue-700 font-mono">PKR 2,000</strong>
-            <span className="text-[10px] text-slate-400 block">$25 for Overseas</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Top FAQs</span>
+            <strong className="text-sm sm:text-base font-black text-indigo-700 font-mono">14 Questions</strong>
+            <span className="text-[10px] text-slate-400 block">Crucial Student Answers</span>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
@@ -352,15 +619,15 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
           </div>
 
           <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Probation Threshold</span>
-            <strong className="text-sm sm:text-base font-black text-amber-700 font-mono">&lt; 2.00 CGPA</strong>
-            <span className="text-[10px] text-slate-400 block">1.50 in 1st Semester</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Reschedule Fee</span>
+            <strong className="text-sm sm:text-base font-black text-blue-700 font-mono">PKR 2,000</strong>
+            <span className="text-[10px] text-slate-400 block">24-Hr Window on VULMS</span>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Official Helpdesk</span>
-            <strong className="text-sm sm:text-base font-black text-purple-700 font-mono">Support System</strong>
-            <span className="text-[10px] text-slate-400 block">support.vu.edu.pk</span>
+            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Grace Period</span>
+            <strong className="text-sm sm:text-base font-black text-amber-700 font-mono">24 Hours</strong>
+            <span className="text-[10px] text-slate-400 block">Zero marks deduction</span>
           </div>
         </div>
       </div>
@@ -375,13 +642,43 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search e.g. datesheet, reschedule, 20%, probation, grace period, credit hours..."
+              placeholder="Search e.g. assignment fail, reschedule, 20%, probation, grace period, installments..."
               className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm font-medium rounded-2xl border border-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
             />
           </div>
 
-          {/* Expand / Collapse All Controls */}
-          <div className="flex items-center gap-2">
+          {/* Section View Tabs & Expand All */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold">
+              <button
+                type="button"
+                onClick={() => setViewMode('both')}
+                className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
+                  viewMode === 'both' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                All Content
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('faqs')}
+                className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
+                  viewMode === 'faqs' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                FAQs Only ({filteredFAQs.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('guides')}
+                className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
+                  viewMode === 'guides' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                Guides ({filteredGuides.length})
+              </button>
+            </div>
+
             <button
               type="button"
               onClick={expandAll}
@@ -394,7 +691,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               onClick={collapseAll}
               className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
             >
-              Collapse All
+              Collapse
             </button>
           </div>
         </div>
@@ -404,9 +701,6 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
             const isSelected = selectedCategory === cat.id;
-            const count = cat.id === 'all' 
-              ? GUIDE_ITEMS.length 
-              : GUIDE_ITEMS.filter((g) => g.category === cat.id).length;
 
             return (
               <button
@@ -421,144 +715,262 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               >
                 <Icon className="w-3.5 h-3.5 shrink-0" />
                 <span>{cat.label}</span>
-                <span className={`text-[10px] px-1.5 py-0.2 rounded-md ${
-                  isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
-                }`}>
-                  {count}
-                </span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* 3. Knowledge Items List */}
-      <div className="space-y-4">
-        {filteredItems.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center space-y-3">
-            <HelpCircle className="w-12 h-12 text-slate-300 mx-auto" />
-            <h3 className="text-base font-bold text-slate-900">No matching handbook items found</h3>
-            <p className="text-xs text-slate-500 max-w-md mx-auto">
-              Try searching with another keyword like "reschedule", "datesheet", "passing", or select "All Knowledge Base".
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('all');
-              }}
-              className="px-4 py-2 rounded-xl bg-blue-50 text-blue-700 text-xs font-bold hover:bg-blue-100 transition-colors cursor-pointer"
-            >
-              Reset Filters
-            </button>
+      {/* 3. SECTION A: Top Important Student FAQs */}
+      {(viewMode === 'both' || viewMode === 'faqs') && filteredFAQs.length > 0 && (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-indigo-700 uppercase tracking-wider">
+                <MessageSquare className="w-4 h-4 text-indigo-600" />
+                <span>Frequently Asked Student Questions</span>
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                Most Important VU Questions & Direct Answers
+              </h2>
+            </div>
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+              {filteredFAQs.length} Critical FAQs
+            </span>
           </div>
-        ) : (
-          filteredItems.map((item) => {
-            const isExpanded = expandedItems.has(item.id);
 
-            return (
-              <div
-                key={item.id}
-                className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden ${
-                  isExpanded ? 'border-blue-300 shadow-md ring-1 ring-blue-100' : 'border-slate-200 hover:border-slate-300 shadow-2xs'
-                }`}
-              >
-                {/* Header Row */}
+          <div className="grid grid-cols-1 gap-4">
+            {filteredFAQs.map((faq) => {
+              const isExpanded = expandedFAQs.has(faq.id);
+
+              return (
                 <div
-                  onClick={() => toggleExpand(item.id)}
-                  className="p-5 sm:p-6 flex items-start justify-between gap-4 cursor-pointer select-none"
+                  key={faq.id}
+                  className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden ${
+                    isExpanded ? 'border-indigo-300 shadow-md ring-1 ring-indigo-100' : 'border-slate-200 hover:border-slate-300 shadow-2xs'
+                  }`}
                 >
-                  <div className="space-y-1.5 flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {item.isImportant && (
-                        <span className="px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 font-bold text-[10px] uppercase tracking-wider">
-                          Must Know
-                        </span>
-                      )}
-                      <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold text-[10px] uppercase tracking-wider">
-                        {item.category.replace('-', ' ')}
-                      </span>
-                    </div>
-
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                      {item.shortDesc}
-                    </p>
-                  </div>
-
-                  <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-1">
-                    {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                  </div>
-                </div>
-
-                {/* Expanded Details Body */}
-                {isExpanded && (
-                  <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 space-y-5 animate-in fade-in duration-150">
-                    {/* Bullet Points */}
-                    <div className="space-y-2.5">
-                      {item.details.map((detail, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Pro Tip Box if available */}
-                    {item.tips && (
-                      <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/60 flex items-start gap-3">
-                        <Sparkles className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                        <div className="text-xs text-blue-900 leading-relaxed">
-                          <strong className="font-bold block text-blue-950 mb-0.5">Student Advice / Pro-Tip:</strong>
-                          <span>{item.tips}</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Links & Tags Footer */}
-                    <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-                      {/* Tags */}
-                      <div className="flex flex-wrap gap-1.5">
-                        {item.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 text-[10px] font-medium"
-                          >
-                            #{tag}
+                  {/* FAQ Header Row */}
+                  <div
+                    onClick={() => toggleFAQExpand(faq.id)}
+                    className="p-5 sm:p-6 flex items-start justify-between gap-4 cursor-pointer select-none"
+                  >
+                    <div className="space-y-2 flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {faq.isHighFrequency && (
+                          <span className="px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 font-bold text-[10px] uppercase tracking-wider">
+                            Most Asked Question
                           </span>
+                        )}
+                        <span className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 font-mono font-semibold text-[10px] uppercase tracking-wider">
+                          {faq.category.replace('-', ' ')}
+                        </span>
+                      </div>
+
+                      {/* Roman Urdu Question */}
+                      <h3 className="text-base sm:text-lg font-black text-slate-900 leading-snug">
+                        {faq.urduQuestion}
+                      </h3>
+
+                      {/* English Translation Question */}
+                      <p className="text-xs text-slate-500 font-medium italic">
+                        &ldquo;{faq.question}&rdquo;
+                      </p>
+
+                      {/* Immediate Short Answer Callout */}
+                      <div className="p-3 rounded-2xl bg-indigo-50/70 border border-indigo-100/80 text-xs sm:text-sm text-indigo-950 font-semibold leading-relaxed">
+                        <strong className="text-indigo-800 mr-1.5 font-bold">Answer:</strong>
+                        <span>{faq.shortAnswer}</span>
+                      </div>
+                    </div>
+
+                    <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-1">
+                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </div>
+                  </div>
+
+                  {/* Expanded Detailed Points */}
+                  {isExpanded && (
+                    <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 space-y-4 animate-in fade-in duration-150">
+                      <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                        Detailed Explanation & Rules:
+                      </h4>
+
+                      <div className="space-y-2">
+                        {faq.detailedPoints.map((point, pIdx) => (
+                          <div key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>{point}</span>
+                          </div>
                         ))}
                       </div>
 
-                      {/* Official Links */}
-                      {item.officialLinks && item.officialLinks.length > 0 && (
-                        <div className="flex items-center gap-2">
-                          {item.officialLinks.map((link) => (
-                            <a
-                              key={link.url}
-                              href={link.url}
-                              target={link.url.startsWith('http') ? '_blank' : '_self'}
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition-colors shadow-2xs"
-                            >
-                              <span>{link.label}</span>
-                              <ExternalLink className="w-3 h-3 text-blue-300" />
-                            </a>
-                          ))}
+                      {faq.actionAdvice && (
+                        <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/60 flex items-start gap-3">
+                          <Lightbulb className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                          <div className="text-xs text-amber-950 leading-relaxed">
+                            <strong className="font-bold block text-amber-900 mb-0.5">Student Action Tip / Mashwara:</strong>
+                            <span>{faq.actionAdvice}</span>
+                          </div>
                         </div>
                       )}
                     </div>
-                  </div>
-                )}
-              </div>
-            );
-          })
-        )}
-      </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
-      {/* 4. Interactive Callout Banners */}
+      {/* 4. SECTION B: Comprehensive Guide Cards */}
+      {(viewMode === 'both' || viewMode === 'guides') && filteredGuides.length > 0 && (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
+                <BookOpen className="w-4 h-4 text-blue-600" />
+                <span>Official Academic & Examination Rules</span>
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                In-Depth Policy & Procedure Encyclopedia
+              </h2>
+            </div>
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+              {filteredGuides.length} Guide Chapters
+            </span>
+          </div>
+
+          <div className="space-y-4">
+            {filteredGuides.map((item) => {
+              const isExpanded = expandedGuides.has(item.id);
+
+              return (
+                <div
+                  key={item.id}
+                  className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden ${
+                    isExpanded ? 'border-blue-300 shadow-md ring-1 ring-blue-100' : 'border-slate-200 hover:border-slate-300 shadow-2xs'
+                  }`}
+                >
+                  {/* Header Row */}
+                  <div
+                    onClick={() => toggleGuideExpand(item.id)}
+                    className="p-5 sm:p-6 flex items-start justify-between gap-4 cursor-pointer select-none"
+                  >
+                    <div className="space-y-1.5 flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {item.isImportant && (
+                          <span className="px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 font-bold text-[10px] uppercase tracking-wider">
+                            Must Know
+                          </span>
+                        )}
+                        <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold text-[10px] uppercase tracking-wider">
+                          {item.category.replace('-', ' ')}
+                        </span>
+                      </div>
+
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+                        {item.shortDesc}
+                      </p>
+                    </div>
+
+                    <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-1">
+                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                    </div>
+                  </div>
+
+                  {/* Expanded Details Body */}
+                  {isExpanded && (
+                    <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 space-y-5 animate-in fade-in duration-150">
+                      {/* Bullet Points */}
+                      <div className="space-y-2.5">
+                        {item.details.map((detail, idx) => (
+                          <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>{detail}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Pro Tip Box if available */}
+                      {item.tips && (
+                        <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/60 flex items-start gap-3">
+                          <Sparkles className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                          <div className="text-xs text-blue-900 leading-relaxed">
+                            <strong className="font-bold block text-blue-950 mb-0.5">Student Advice / Pro-Tip:</strong>
+                            <span>{item.tips}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Links & Tags Footer */}
+                      <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 text-[10px] font-medium"
+                            >
+                              #{tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Official Links */}
+                        {item.officialLinks && item.officialLinks.length > 0 && (
+                          <div className="flex items-center gap-2">
+                            {item.officialLinks.map((link) => (
+                              <a
+                                key={link.url}
+                                href={link.url}
+                                target={link.url.startsWith('http') ? '_blank' : '_self'}
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition-colors shadow-2xs"
+                              >
+                                <span>{link.label}</span>
+                                <ExternalLink className="w-3 h-3 text-blue-300" />
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* No Results Fallback */}
+      {filteredFAQs.length === 0 && filteredGuides.length === 0 && (
+        <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center space-y-3">
+          <HelpCircle className="w-12 h-12 text-slate-300 mx-auto" />
+          <h3 className="text-base font-bold text-slate-900">No matching handbook items or FAQs found</h3>
+          <p className="text-xs text-slate-500 max-w-md mx-auto">
+            Try searching with another keyword like &ldquo;assignment fail&rdquo;, &ldquo;reschedule&rdquo;, &ldquo;grace period&rdquo;, or reset filters.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedCategory('all');
+              setViewMode('both');
+            }}
+            className="px-4 py-2 rounded-xl bg-blue-50 text-blue-700 text-xs font-bold hover:bg-blue-100 transition-colors cursor-pointer"
+          >
+            Reset Filters
+          </button>
+        </div>
+      )}
+
+      {/* 5. Interactive Callout Banners */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Banner 1: Passing Simulator */}
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-blue-950 text-white space-y-4 shadow-md flex flex-col justify-between">

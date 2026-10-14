@@ -4,20 +4,15 @@
  * 
  * Capabilities:
  * 1. Multi-vector inspection detection:
- *    - RegToString (RegExp evaluation trap)
- *    - DefineId (Object getter / property probe)
- *    - Size (Docked DevTools viewport shrinkage)
- *    - DateToString (Date evaluation trap)
- *    - FuncToString (Function inspection trap)
- *    - Debugger (Timing performance / debugger pause)
- *    - Performance (Execution time profiling)
- *    - DebugLib (Eruda / vConsole third-party injectors)
- * 2. Key combination deterrence (F12, Ctrl+Shift+I/J/C, Cmd+Opt+I/J/C, Ctrl+U, Ctrl+S)
+ *    - Size (Docked DevTools viewport geometry shrinkage)
+ *    - Debugger (Timing performance / execution pause)
+ *    - DefineId (DOM property inspection probe)
+ *    - DebugLib (Eruda / vConsole third-party mobile injectors)
+ * 2. Instant keyboard shortcut deterrence (F12, Ctrl+Shift+I/J/C, Cmd+Opt+I/J/C, Ctrl+U, Ctrl+S)
  * 3. Right-click context menu suppression (disableMenu)
- * 4. Automatic console cleaning (clearLog)
- * 5. Parent iframe isolation safeguard (disableIframeParents: false for AI Studio environment)
- * 6. Mobile & SEO immunity (seo: true, touch devices safe)
- * 7. Live resume & graceful study session restoration
+ * 4. Safe AI Studio Preview & iframe parent isolation (disableIframeParents: false)
+ * 5. Telemetry-safe execution (prevents JSON serialization collision in dev iframes)
+ * 6. Live resume & graceful study session restoration
  */
 
 import disableDevtool from 'disable-devtool';
@@ -116,6 +111,14 @@ class AntiDevToolsManager {
     if (typeof window === 'undefined' || this.isInitialized) return;
     this.isInitialized = true;
 
+    // Guard against host telemetry JSON errors in dev iframes
+    window.addEventListener('error', (e: ErrorEvent) => {
+      if (e.message && (e.message.includes('not valid JSON') || e.message.includes('JSON.parse'))) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, { capture: true });
+
     // Check if bypass token is in URL (e.g. ?ddtk=bypass or ?dev_bypass=1)
     try {
       const urlParams = new URLSearchParams(window.location.search);
@@ -127,7 +130,7 @@ class AntiDevToolsManager {
       // Ignore URL parsing errors
     }
 
-    // 1. Initialize disable-devtool engine with all detector capabilities
+    // 1. Initialize disable-devtool engine with safe, robust detectors
     try {
       disableDevtool({
         // Triggered when any inspection detector fires
@@ -139,15 +142,21 @@ class AntiDevToolsManager {
           this.notify(false);
         },
         disableMenu: true, // Right-click context menu suppression
-        disableSelect: false, // Keep educational content selectable
-        disableCopy: false, // Keep student notes copyable
+        disableSelect: false, // Keep educational notes selectable
+        disableCopy: false, // Keep student text copyable
         disableCut: false,
         disablePaste: false,
-        clearLog: true, // Continuously clean console logs
+        clearLog: false, // Keep false to preserve preview host message passing
         disableIframeParents: false, // Crucial: Safe for Google AI Studio preview iframe
         seo: true, // Search engine crawler friendly
-        interval: 200, // Detection frequency
-        detectors: 'all' // Enable all 8 detector modules
+        interval: 300, // Detection frequency
+        // Enable high-reliability vectors that don't collide with JSON serialization
+        detectors: [
+          DetectorType.Size,
+          DetectorType.Debugger,
+          DetectorType.DefineId,
+          DetectorType.DebugLib
+        ]
       });
     } catch (err) {
       console.warn('[Security] disable-devtool core initialization:', err);
