@@ -9,6 +9,13 @@
 # ------------------------------------------------------------------------------
 User-agent: *
 Allow: /
+Allow: /courses
+Allow: /handbook
+Allow: /simulator
+Allow: /security
+Allow: /about
+Allow: /sitemap
+Allow: /disclaimer
 Allow: /assets/
 Allow: /logo.svg
 Allow: /logo-white.svg
@@ -30,6 +37,14 @@ User-agent: Applebot
 User-agent: DuckDuckBot
 User-agent: YandexBot
 Allow: /
+Allow: /courses
+Allow: /handbook
+Allow: /simulator
+Allow: /security
+Allow: /about
+Allow: /sitemap
+Allow: /disclaimer
+Allow: /assets/
 Disallow: /api/
 Disallow: /.secrets/
 
@@ -45,6 +60,13 @@ User-agent: anthropic-ai
 User-agent: PerplexityBot
 User-agent: Cohere-ai
 Allow: /
+Allow: /courses
+Allow: /handbook
+Allow: /simulator
+Allow: /security
+Allow: /about
+Allow: /sitemap
+Allow: /disclaimer
 Disallow: /api/
 Disallow: /.secrets/
 
@@ -60,7 +82,7 @@ User-agent: MJ12bot
 Disallow: /
 
 # ------------------------------------------------------------------------------
-# 5. Authoritative Sitemap & Host
+# 5. Authoritative XML & HTML Sitemaps
 # ------------------------------------------------------------------------------
 Sitemap: https://study.mihora.tech/sitemap.xml
 Host: study.mihora.tech
