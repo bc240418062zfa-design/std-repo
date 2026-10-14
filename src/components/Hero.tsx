@@ -170,11 +170,11 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="relative bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl transition-all overflow-hidden">
             <form
               onSubmit={handleFormSubmit}
-              className="flex items-center p-2 sm:p-2.5 gap-2"
+              className="flex items-center p-1.5 sm:p-2.5 gap-1.5 sm:gap-2"
             >
               {/* Branded Left Icon */}
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-blue-500/25 shrink-0 ml-1">
-                <Search className="w-5 h-5 text-cyan-100" />
+              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-700 flex items-center justify-center text-white shadow-md shadow-blue-500/25 shrink-0 ml-0.5 sm:ml-1">
+                <Search className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-100" />
               </div>
 
               {/* Central Input Field */}
@@ -191,13 +191,13 @@ export const Hero: React.FC<HeroProps> = ({
                   setShowSuggestions(true);
                 }}
                 onBlur={() => setIsFocused(false)}
-                placeholder="Search by course code, topic, or document (e.g. CS101, MTH101, solved midterm)..."
-                className="w-full px-2 sm:px-3 py-2.5 text-sm sm:text-base text-white placeholder-slate-400/80 focus:outline-hidden bg-transparent font-medium tracking-tight"
+                placeholder="Search course code or topic (e.g. CS101, solved midterm)..."
+                className="w-full px-2 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-base text-white placeholder-slate-400 focus:outline-hidden bg-transparent font-medium tracking-tight"
                 aria-label="Search academic study resources"
               />
 
               {/* Right Command Actions */}
-              <div className="flex items-center gap-1.5 shrink-0 mr-1">
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 mr-0.5 sm:mr-1">
                 {query ? (
                   <button
                     type="button"

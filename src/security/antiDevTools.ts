@@ -57,6 +57,15 @@ class AntiDevToolsManager {
       return;
     }
 
+    // Suppress viewport size false positives on mobile / small screen devices
+    if (detected && type === DetectorType.Size && typeof window !== 'undefined') {
+      const isMobile = 
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+        (('ontouchstart' in window || navigator.maxTouchPoints > 0) && window.innerWidth < 1024) ||
+        window.innerWidth < 768;
+      if (isMobile) return;
+    }
+
     const detectorName = reason || this.getDetectorName(type);
     this.isDetected = detected;
     this.currentDetail = {
@@ -130,18 +139,31 @@ class AntiDevToolsManager {
       // Ignore URL parsing errors
     }
 
+    // Check if running on mobile device or touch viewport
+    const isMobile = 
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      (('ontouchstart' in window || navigator.maxTouchPoints > 0) && window.innerWidth < 1024);
+
     // 1. Initialize disable-devtool engine with safe, robust detectors
     try {
+      const activeDetectors = isMobile
+        ? [DetectorType.Debugger, DetectorType.DebugLib]
+        : [DetectorType.Size, DetectorType.Debugger, DetectorType.DefineId, DetectorType.DebugLib];
+
       disableDevtool({
         // Triggered when any inspection detector fires
         ondevtoolopen: (type: number) => {
+          // Double check: Never trigger Size false positive on mobile devices
+          if (type === DetectorType.Size && (isMobile || window.innerWidth < 768)) {
+            return;
+          }
           this.notify(true, type as DetectorType);
         },
         // Triggered when DevTools is closed
         ondevtoolclose: () => {
           this.notify(false);
         },
-        disableMenu: true, // Right-click context menu suppression
+        disableMenu: !isMobile, // Keep long-press menu functional on mobile phones
         disableSelect: false, // Keep educational notes selectable
         disableCopy: false, // Keep student text copyable
         disableCut: false,
@@ -149,14 +171,8 @@ class AntiDevToolsManager {
         clearLog: false, // Keep false to preserve preview host message passing
         disableIframeParents: false, // Crucial: Safe for Google AI Studio preview iframe
         seo: true, // Search engine crawler friendly
-        interval: 300, // Detection frequency
-        // Enable high-reliability vectors that don't collide with JSON serialization
-        detectors: [
-          DetectorType.Size,
-          DetectorType.Debugger,
-          DetectorType.DefineId,
-          DetectorType.DebugLib
-        ]
+        interval: isMobile ? 800 : 300, // Balanced frequency on mobile
+        detectors: activeDetectors
       });
     } catch (err) {
       console.warn('[Security] disable-devtool core initialization:', err);

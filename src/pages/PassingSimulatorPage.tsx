@@ -366,8 +366,8 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
       {/* 1. Header & Official Context */}
       <div className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold">
-          <Award className="w-4 h-4 text-blue-600" />
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold">
+          <Award className="w-4 h-4 text-slate-600" />
           <span>VIRTUAL UNIVERSITY ACADEMIC SIMULATION ENGINE</span>
         </div>
         

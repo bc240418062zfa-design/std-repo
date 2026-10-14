@@ -105,6 +105,23 @@ export default function App() {
     };
   }, []);
 
+  // Support deep links from sitemap or external bookmarks (e.g. ?course=CS101 or ?q=midterm)
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const courseParam = params.get('course');
+      const qParam = params.get('q');
+      if (courseParam) {
+        setFilters((prev) => ({ ...prev, course: courseParam.toUpperCase() }));
+      }
+      if (qParam) {
+        setQuery(qParam);
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+  }, []);
+
   const handleNavigate = (page: AppPage) => {
     setCurrentPage(page);
     const targetPath = pagePathMap[page] || '/';

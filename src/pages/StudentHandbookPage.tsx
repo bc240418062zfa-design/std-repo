@@ -260,6 +260,118 @@ const TOP_VU_FAQS: FAQItem[] = [
       'TCS courier service ya walk-in appointment ke zariye HEC stamp aur verification ticket lagta hai.'
     ],
     actionAdvice: 'Overseas job ya higher studies ke liye transcript aur provisional dono attest karwayein.'
+  },
+
+  // 6. Account, Calculators, Lecture Videos & Degree Rules FAQs
+  {
+    id: 'faq-account-blocked-fee',
+    category: 'fee-freeze',
+    question: 'Why does VULMS show "Account is blocked due to non-payment of fee" and how to unblock it immediately?',
+    urduQuestion: 'Fee dues ki wajah se VULMS block ho jaye to foran unblock kaisay hota hai?',
+    shortAnswer: 'Challan pay karne ke 15-30 minutes baad LMS auto-unblock ho jata hai. Agar delay ho to Support ticket send karein.',
+    detailedPoints: [
+      'Jab fee due date guzar jaye to VULMS auto-block mode mein chala jata hai aur lectures, assignments ya date sheet access suspend ho jati hai.',
+      'Aap JazzCash, EasyPaisa, 1Link (1Bill), KUICKPAY ya bank challan ke zariye kisi bhi waqt fees pay kar saktay hain.',
+      'Electronic payment (JazzCash / EasyPaisa / 1Link) ki confirmation aam tor par 15 se 30 minutes mein VU account system update karti hai.',
+      'Agar 1 ghantay ke baad bhi LMS open na ho to support.vu.edu.pk par Accounts Department ko Challan Number aur transaction screenshot ke sath ticket open karein.'
+    ],
+    actionAdvice: 'Exams aur Datesheet se kam az kam 3 din pehle dues clear karein taake datesheet bananay mein koi rukawat na aye.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-video-attendance-rule',
+    category: 'sessional',
+    question: 'Are watching LMS lecture videos and answering pop-up quizzes compulsory to appear in exams?',
+    urduQuestion: 'Kya LMS par lecture videos dekhna aur pop-up quizzes solve karna exam dene ke liye lazmi hai?',
+    shortAnswer: 'Jee haan! Designated courses mein kam az kam 80-100% lecture video progress lazmi hoti hai warna date sheet block ho jati hai.',
+    detailedPoints: [
+      'VU ne naye semesters mein Video Progress Enforcement lagai hui hai jisme har topic ki video poori dekhna shart hai.',
+      'Video ke doran aane wale in-video reflection quizzes ka sahi jawab dena parta hai tab ja kar agla lecture unlock hota hai.',
+      'Agar aap kisi subject ki required percentage complete nahi karte to datesheet banatay waqt wo subject disabled ya ineligible show hota hai.'
+    ],
+    actionAdvice: 'Aakhri hafte par bojh daalne ke bajaye har hafte ke lectures usi hafte cover karein taake end par rush na banay.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-course-repeat-improvement',
+    category: 'grading',
+    question: 'Can I repeat a course to improve a "D" or "F" grade, and how does it calculate into the CGPA?',
+    urduQuestion: 'Kya "D" ya "F" grade walay subject ko repeat karke CGPA improve kiya ja sakta hai?',
+    shortAnswer: 'Jee haan! Behtar (higher) grade aapke CGPA mein add hota hai jabke puraana grade transcript par "I" (Improvement) ke sath rehta hai.',
+    detailedPoints: [
+      'Student kisi bhi "D" ya "F" grade walay course ko aglay semester ki Course Selection window mein dobara enroll kar sakta hai.',
+      'Agar naye attempt mein behtar grade aye (maslan D se B ya A) to naya grade CGPA mein count hota hai aur puraana grade neutralize ho jata hai.',
+      'Official transcript par dono attempts show hoti hain, lekin final CGPA hamesha highest obtained grade par calculate hota hai.',
+      '"C" ya us se oopar ke grades ko repeat karne ki permission nahi hoti.'
+    ],
+    actionAdvice: 'Initial semesters ke "D" grades ko lazmi repeat karein kyunke wo CGPA ko girnay se bacha letay hain.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-physical-calculator-exam',
+    category: 'exams',
+    question: 'Are physical scientific calculators allowed in the VU Exam Center, or must students use software calculators?',
+    urduQuestion: 'Exam hall mein kya physical scientific calculator lay jana allowed hai ya computer software calculator use karna hota hai?',
+    shortAnswer: 'Standard non-programmable physical scientific calculators allowed hain (e.g. Casio fx-82 / fx-991), programmable devices strictly banned hain.',
+    detailedPoints: [
+      'Invigilators entry gate par scientific calculator ko physically check karte hain; memory-storing ya graphic programmable calculators confiscated ho jatay hain.',
+      'In addition, VU Examination Software ke andar built-in Scientific Calculator aur Windows Calculator har waqt available rehta hai.',
+      'Mathematics aur programming courses ke liye MathType aur Dev-C++ exam computer par pre-installed hotay hain.'
+    ],
+    actionAdvice: 'Exam se pehle calculator ki battery check karein aur standard Casio non-programmable model carry karein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-exam-software-shortcuts',
+    category: 'exams',
+    question: 'How does copy-paste work in VU Exam Software, and can answers be copied from external files?',
+    urduQuestion: 'VU Exam Software mein MathType aur Dev-C++ se answer copy-paste kaisay hota hai?',
+    shortAnswer: 'MathType aur Dev-C++ se paper answer box mein Ctrl+V se paste hota hai, lekin question text copy karna disabled hota hai.',
+    detailedPoints: [
+      'Exam software mein question ka text copy karna intentionally block hota hai taake paper leak ya external search na ho sake.',
+      'MathType equations ko select karke Ctrl+C karein aur Exam Software ke subjective box mein Ctrl+V daba kar asani se paste karein.',
+      'Dev-C++ ya Notepad par likha gaya code direct paper software ke answer box mein paste kiya ja sakta hai.'
+    ],
+    actionAdvice: 'Shortcuts practice karne ke liye VU demo exam application ko exam se pehle chala kar check karein.'
+  },
+  {
+    id: 'faq-cs619-final-project',
+    category: 'grading',
+    question: 'What happens if a student fails the Final Year Project (CS619 / MCM619) Viva Voce or SRS document?',
+    urduQuestion: 'Final Year Project (CS619) ya Viva presentation mein fail honay par kya hota hai?',
+    shortAnswer: 'Proposal/SRS reject hone par revision time milta hai; Final Viva fail hone par aglay semester project dobara register karna parta hai.',
+    detailedPoints: [
+      'CS619 teen main phases par mushtamil hota hai: Proposal & SRS, Design Document & Test Phase, aur Final Code & Viva Voce.',
+      'Initial phases mein supervisor comments de kar resubmission ka chance faraham karta hai.',
+      'Agar final external viva mein student viva committee ko satisfy na kar sake to project fail ho jata hai aur next semester course selection mein dobara fee ke sath enroll karna parta hai.'
+    ],
+    actionAdvice: 'Har phase ke supervisor deadlines ko strictly follow karein aur project ka working code khud likhein ya samjhein.'
+  },
+  {
+    id: 'faq-grace-marks-policy',
+    category: 'grading',
+    question: 'Does Virtual University award Grace Marks if a student is failing by 1 or 2 marks?',
+    urduQuestion: 'Kya Virtual University 1 ya 2 marks se fail honay par Grace Marks deti hai?',
+    shortAnswer: 'Academic council board margin par 1-2 grace marks borderline pass karne ke liye auto-round off karti hai, lekin iska koi manual claim nahi hota.',
+    detailedPoints: [
+      'VU grading engine 49.5% ya 49% ko general passing threshold (50%) par push karne ke liye institutional rounding lagata hai.',
+      'Lekin Two-Half 20% rule par koi grace marks nahi miltay; Final paper mein kam az kam 20% score hona strictly mandatory hai.',
+      'Instructor ya Controller Examinations ko grace marks ke liye email karne se result change nahi hota.'
+    ],
+    actionAdvice: 'Kabhi bhi borderline 50% ka target na banayein; hamesha 65%+ ki tiyari karein taake risk zero rahay.'
+  },
+  {
+    id: 'faq-max-degree-duration',
+    category: 'fee-freeze',
+    question: 'What is the maximum allowed duration to complete a BS or Master\'s degree in Virtual University?',
+    urduQuestion: 'Virtual University mein 4-year BS ya 2-year Associate Degree complete karne ki maximum time limit kitni hoti hai?',
+    shortAnswer: 'HEC aur VU policy ke mutabiq 4-year BS degree maximum 6 to 7 saal mein, aur 2-year degree maximum 3 to 4 saal mein complete karni hoti hai.',
+    detailedPoints: [
+      'Normal duration: BS (4 years / 8 semesters), ADP (2 years / 4 semesters).',
+      'Maximum extension: HEC standard policy ke mutabiq actual duration se 50% zyada time allow hota hai (BS ke liye up to 6 or 7 years).',
+      'Agar maximum duration ke andar degree requirements poori na hon to student status terminate ho jata hai.'
+    ],
+    actionAdvice: 'Semesters ko bila-wajah freeze na karein taake maximum time limit exceed na ho.'
   }
 ];
 
@@ -601,14 +713,14 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         </h1>
 
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          Everything a Virtual University student normally needs to know: <strong>14 most important student FAQs</strong>, verified examination rules, the <strong>20% Two-Half passing rule</strong>, missed paper rescheduling (PKR 2,000 policy), CGPA probation limits, and assignment grace periods.
+          Everything a Virtual University student normally needs to know: <strong>{TOP_VU_FAQS.length} most important student FAQs</strong>, verified examination rules, the <strong>20% Two-Half passing rule</strong>, missed paper rescheduling (PKR 2,000 policy), CGPA probation limits, and assignment grace periods.
         </p>
 
         {/* Quick Highlights Stats Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
           <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
             <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Top FAQs</span>
-            <strong className="text-sm sm:text-base font-black text-indigo-700 font-mono">14 Questions</strong>
+            <strong className="text-sm sm:text-base font-black text-indigo-700 font-mono">{TOP_VU_FAQS.length} Questions</strong>
             <span className="text-[10px] text-slate-400 block">Crucial Student Answers</span>
           </div>
 

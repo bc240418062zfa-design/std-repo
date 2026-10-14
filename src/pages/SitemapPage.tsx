@@ -11,7 +11,8 @@ import {
   Layers, 
   FileText,
   Calculator,
-  GraduationCap
+  GraduationCap,
+  ExternalLink
 } from 'lucide-react';
 
 interface SitemapPageProps {
@@ -115,13 +116,13 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
 
           <div
             onClick={() => onNavigate('simulator')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
+            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
           >
             <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
                 <Calculator className="w-4 h-4" />
               </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" />
+              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors" />
             </div>
             <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
               Exam Passing Marks Simulator
@@ -133,7 +134,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
 
           <div
             onClick={() => onNavigate('security')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
+            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
           >
             <div className="flex items-center justify-between">
               <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
@@ -151,7 +152,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
 
           <div
             onClick={() => onNavigate('about')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
+            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
           >
             <div className="flex items-center justify-between">
               <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
@@ -169,7 +170,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
 
           <div
             onClick={() => onNavigate('disclaimer')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group sm:col-span-2 lg:col-span-1"
+            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group sm:col-span-2 lg:col-span-1"
           >
             <div className="flex items-center justify-between">
               <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
@@ -184,6 +185,29 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
               Fair educational use policies, copyright disclosures, student revision guidelines, and ethical conduct.
             </p>
           </div>
+        </div>
+
+        {/* Machine-Readable Sitemaps & Crawler Resources */}
+        <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-500">
+          <span className="font-semibold text-slate-700">Crawler & Indexing Protocol:</span>
+          <a
+            href="/sitemap.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-700 text-slate-700 font-mono transition-colors shadow-2xs"
+          >
+            <span>XML Sitemap (RFC-compliant)</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </a>
+          <a
+            href="/robots.txt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-700 text-slate-700 font-mono transition-colors shadow-2xs"
+          >
+            <span>Robots.txt Policy</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </a>
         </div>
       </div>
 
