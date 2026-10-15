@@ -128,6 +128,19 @@ class AntiDevToolsManager {
       }
     }, { capture: true });
 
+    // SEO & Search Crawler Safe Bypass: Allow Googlebot, Bing, Lighthouse & Headless indexing
+    try {
+      const ua = (navigator.userAgent || '').toLowerCase();
+      const isCrawler = 
+        navigator.webdriver ||
+        /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|exabot|facebot|facebookexternalhit|ia_archiver|chrome-lighthouse|headlesschrome|google-extended|petalbot|bytespider|gptbot|claudebot|perplexitybot|applebot|screaming frog|semrushbot/i.test(ua);
+      if (isCrawler) {
+        return;
+      }
+    } catch {
+      // Ignore
+    }
+
     // Check if bypass token is in URL (e.g. ?ddtk=bypass or ?dev_bypass=1)
     try {
       const urlParams = new URLSearchParams(window.location.search);

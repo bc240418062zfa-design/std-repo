@@ -44,7 +44,7 @@ const pagePathMap: Record<AppPage, string> = {
 function getPageFromPath(): AppPage {
   if (typeof window === 'undefined') return 'home';
   const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
-  if (pathname === '/courses') return 'courses';
+  if (pathname === '/courses' || pathname.startsWith('/courses/')) return 'courses';
   if (pathname === '/simulator' || pathname === '/calculator') return 'simulator';
   if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules') return 'handbook';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
@@ -105,9 +105,19 @@ export default function App() {
     };
   }, []);
 
-  // Support deep links from sitemap or external bookmarks (e.g. ?course=CS101 or ?q=midterm)
+  // Support deep links from sitemap or external bookmarks (e.g. /courses/cs101, ?course=CS101 or ?q=midterm)
   useEffect(() => {
     try {
+      const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '');
+      if (pathname.startsWith('/courses/')) {
+        const parts = pathname.split('/');
+        const code = parts[2];
+        if (code) {
+          setFilters((prev) => ({ ...prev, course: code.toUpperCase() }));
+          setCurrentPage('home');
+        }
+      }
+
       const params = new URLSearchParams(window.location.search);
       const courseParam = params.get('course');
       const qParam = params.get('q');
@@ -142,6 +152,44 @@ export default function App() {
       scrollToSearch();
     }, 80);
   };
+
+  // Dynamically synchronize document title and meta description for SEO & browser history
+  useEffect(() => {
+    let title = 'VU Study Library – Virtual University Solved Past Papers, Handouts & MCQs | MIHORA';
+    let desc = 'Free direct download for 28,000+ Virtual University of Pakistan (VU) solved past papers, midterms, final terms, handouts, quizzes, and MCQs for all 411+ courses.';
+    
+    if (currentPage === 'home' && filters.course) {
+      title = `${filters.course} Solved Past Papers, Handouts & MCQs | VU MIHORA Library`;
+      desc = `Download verified ${filters.course} Virtual University solved midterm past papers, final term papers, and lecture handouts with 100% direct download.`;
+    } else if (currentPage === 'courses') {
+      title = 'All 411+ VU Courses Directory – Past Papers, Handouts & Solved MCQs | MIHORA';
+      desc = 'Browse all 411 Virtual University courses. Download CS101, MTH101, MGT101, ENG101, and CS201 handouts, solved papers, and exam files.';
+    } else if (currentPage === 'handbook') {
+      title = 'VU Student Handbook 2026 – 20% Passing Rule, Datesheet & Rules FAQs | MIHORA';
+      desc = 'Official VU rules guide: Master the 20% two-half passing rule, datesheet creation, fee installments, CGPA probation, and paper reschedule policies.';
+    } else if (currentPage === 'simulator') {
+      title = 'VU Passing Marks Simulator – 20% Two-Half Rule & Finalterm Calculator | MIHORA';
+      desc = 'Calculate exact marks needed in VU Final Term exams. Check compliance with the official 20% Two-Half rule and download your free academic PDF report.';
+    } else if (currentPage === 'security') {
+      title = 'Privacy & Trust Guarantee – Zero Student Data Collection | MIHORA';
+      desc = 'Our student safety commitment: zero cookies, zero telemetry, verified clean academic files, and instant direct downloads without login.';
+    } else if (currentPage === 'about') {
+      title = 'About MIHORA TECH – Free Academic Resource Initiative for VU Students';
+      desc = 'Learn about MIHORA TECH\'s non-commercial educational CSR mission to provide free, fast, and structured academic study archives for Pakistani students.';
+    } else if (currentPage === 'sitemap') {
+      title = 'VU Curriculum & Faculty Sitemap Directory – 411 Courses Index | MIHORA';
+      desc = 'Comprehensive portal map of all Virtual University faculties, departments, 411 courses, handbook guides, passing calculators, and XML sitemaps.';
+    } else if (currentPage === 'disclaimer') {
+      title = 'Academic Disclaimer & Fair Educational Use Notice | MIHORA';
+      desc = 'Fair educational use disclosures, copyright policies, student ethics, and independent non-affiliation notice with Virtual University.';
+    }
+
+    document.title = title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', desc);
+    }
+  }, [currentPage, filters.course]);
 
   // Initialize anti-DevTools deterrence & subscribe to detection signals
   useEffect(() => {

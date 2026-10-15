@@ -403,14 +403,29 @@ app.get('/api/download-multi', async (req: Request, res: Response) => {
   res.send(zipContent);
 });
 
-// Vite Middleware Integration
+// Vite Middleware & Production Routing Integration
 async function startServer() {
-  const vite = await createViteServer({
-    server: { middlewareMode: true },
-    appType: 'spa',
-  });
+  const isProd = process.env.NODE_ENV === 'production';
+  const distPath = path.resolve('dist');
 
-  app.use(vite.middlewares);
+  if (isProd && fs.existsSync(distPath)) {
+    console.log('📦 Serving production pre-rendered assets from dist/');
+    app.use(express.static(distPath));
+    app.get('*', (req: Request, res: Response) => {
+      const cleanPath = req.path.replace(/^\/|\/$/g, '');
+      const specificFile = path.join(distPath, cleanPath, 'index.html');
+      if (cleanPath && fs.existsSync(specificFile)) {
+        return res.sendFile(specificFile);
+      }
+      return res.sendFile(path.join(distPath, 'index.html'));
+    });
+  } else {
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+  }
 
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`🌐 MIHORA STUDY LIBRARY server running at http://0.0.0.0:${PORT}`);
