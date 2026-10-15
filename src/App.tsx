@@ -19,6 +19,10 @@ import { SitemapPage } from './pages/SitemapPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
 import { PassingSimulatorPage } from './pages/PassingSimulatorPage';
 import { StudentHandbookPage } from './pages/StudentHandbookPage';
+import { VUGPACalculatorPage } from './pages/VUGPACalculatorPage';
+import { VUDatesheetGuidePage } from './pages/VUDatesheetGuidePage';
+import { VUCS619GuidePage } from './pages/VUCS619GuidePage';
+import { VUAssignmentGuidePage } from './pages/VUAssignmentGuidePage';
 import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
 
 // Static sanitized data compiled at build time
@@ -28,13 +32,29 @@ import resourcesData from './data/resources.json';
 const courses: Course[] = coursesData as Course[];
 const resources: Resource[] = resourcesData as Resource[];
 
-export type AppPage = 'home' | 'courses' | 'simulator' | 'handbook' | 'security' | 'about' | 'sitemap' | 'disclaimer';
+export type AppPage = 
+  | 'home' 
+  | 'courses' 
+  | 'simulator' 
+  | 'handbook' 
+  | 'gpa-calculator' 
+  | 'datesheet-guide' 
+  | 'cs619-guide' 
+  | 'assignment-guide' 
+  | 'security' 
+  | 'about' 
+  | 'sitemap' 
+  | 'disclaimer';
 
 const pagePathMap: Record<AppPage, string> = {
   home: '/',
   courses: '/courses',
   simulator: '/simulator',
   handbook: '/handbook',
+  'gpa-calculator': '/gpa-calculator',
+  'datesheet-guide': '/datesheet-guide',
+  'cs619-guide': '/cs619-guide',
+  'assignment-guide': '/assignment-guide',
   security: '/security',
   about: '/about',
   sitemap: '/sitemap',
@@ -47,6 +67,10 @@ function getPageFromPath(): AppPage {
   if (pathname === '/courses' || pathname.startsWith('/courses/')) return 'courses';
   if (pathname === '/simulator' || pathname === '/calculator') return 'simulator';
   if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules') return 'handbook';
+  if (pathname === '/gpa-calculator' || pathname === '/cgpa-calculator' || pathname === '/gpa') return 'gpa-calculator';
+  if (pathname === '/datesheet-guide' || pathname === '/datesheet' || pathname === '/datesheet-maker') return 'datesheet-guide';
+  if (pathname === '/cs619-guide' || pathname === '/cs619' || pathname === '/fyp') return 'cs619-guide';
+  if (pathname === '/assignment-guide' || pathname === '/assignments' || pathname === '/gdb') return 'assignment-guide';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
   if (pathname === '/about' || pathname === '/mission') return 'about';
   if (pathname === '/sitemap') return 'sitemap';
@@ -57,6 +81,10 @@ function getPageFromPath(): AppPage {
   if (hash === '#courses') return 'courses';
   if (hash === '#simulator' || hash === '#calculator') return 'simulator';
   if (hash === '#handbook' || hash === '#guide') return 'handbook';
+  if (hash === '#gpa' || hash === '#gpa-calculator') return 'gpa-calculator';
+  if (hash === '#datesheet' || hash === '#datesheet-guide') return 'datesheet-guide';
+  if (hash === '#cs619' || hash === '#cs619-guide') return 'cs619-guide';
+  if (hash === '#assignments' || hash === '#assignment-guide') return 'assignment-guide';
   if (hash === '#security' || hash === '#relay') return 'security';
   if (hash === '#about' || hash === '#mission') return 'about';
   if (hash === '#sitemap') return 'sitemap';
@@ -170,6 +198,18 @@ export default function App() {
     } else if (currentPage === 'simulator') {
       title = 'VU Passing Marks Simulator – 20% Two-Half Rule & Finalterm Calculator | MIHORA';
       desc = 'Calculate exact marks needed in VU Final Term exams. Check compliance with the official 20% Two-Half rule and download your free academic PDF report.';
+    } else if (currentPage === 'gpa-calculator') {
+      title = 'VU GPA & CGPA Calculator 4.0 – Academic Grade Forecaster | MIHORA';
+      desc = 'Calculate Virtual University semester GPA and forecast cumulative CGPA under the official HEC 4.0 scale. Includes academic probation checker and repeat policy guide.';
+    } else if (currentPage === 'datesheet-guide') {
+      title = 'VU Datesheet Maker & Seat Tracker Guide 2026 – Exam Slots Strategy | MIHORA';
+      desc = 'Official guide to VU datesheet opening, first-come first-served lab seat allocation, preferred timeslots, and paper rescheduling procedure.';
+    } else if (currentPage === 'cs619-guide') {
+      title = 'CS619 Final Year Project (FYP) Roadmap & Viva Voce Guide | VU MIHORA';
+      desc = 'Complete CS619 capstone project guide: Proposal, IEEE 830 SRS documentation, ERD database design, test phases, and top 25 viva voce defense questions.';
+    } else if (currentPage === 'assignment-guide') {
+      title = 'VU Assignment & GDB Formatting Guide – Turnitin & 24H Grace Rules | MIHORA';
+      desc = 'VU assignment guidelines: 24-hour grace period rules, Turnitin 19% similarity limits, MathType formula pasting, Dev-C++ code formatting, and GDB rubrics.';
     } else if (currentPage === 'security') {
       title = 'Privacy & Trust Guarantee – Zero Student Data Collection | MIHORA';
       desc = 'Our student safety commitment: zero cookies, zero telemetry, verified clean academic files, and instant direct downloads without login.';
@@ -570,6 +610,38 @@ export default function App() {
           />
         )}
 
+        {/* Page: VU GPA & CGPA Calculator */}
+        {currentPage === 'gpa-calculator' && (
+          <VUGPACalculatorPage
+            onNavigateHome={() => handleNavigate('home')}
+            onSelectCourse={handleSelectCourse}
+          />
+        )}
+
+        {/* Page: VU Datesheet Guide & Seat Strategy */}
+        {currentPage === 'datesheet-guide' && (
+          <VUDatesheetGuidePage
+            onNavigateHome={() => handleNavigate('home')}
+            onNavigateSimulator={() => handleNavigate('simulator')}
+          />
+        )}
+
+        {/* Page: CS619 Final Year Project Hub */}
+        {currentPage === 'cs619-guide' && (
+          <VUCS619GuidePage
+            onNavigateHome={() => handleNavigate('home')}
+            onSelectCourse={handleSelectCourse}
+          />
+        )}
+
+        {/* Page: Assignment & GDB Solutions Formatting Guide */}
+        {currentPage === 'assignment-guide' && (
+          <VUAssignmentGuidePage
+            onNavigateHome={() => handleNavigate('home')}
+            onNavigateHandbook={() => handleNavigate('handbook')}
+          />
+        )}
+
         {/* 4. Page: Security & Relay Technical Architecture */}
         {currentPage === 'security' && (
           <SecurityPage onNavigateHome={() => handleNavigate('home')} />
@@ -630,9 +702,9 @@ export default function App() {
         {/* Enterprise Footer */}
         <footer className="bg-slate-950 text-white border-t border-slate-900 mt-20 pt-14 pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
               {/* Brand Column */}
-              <div className="space-y-3 md:col-span-2">
+              <div className="space-y-3">
                 <MihoraLogo variant="white" size="md" />
                 <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
                   MIHORA STUDY LIBRARY is an independent, non-commercial educational technology and CSR initiative engineered by <strong>MIHORA TECH</strong> to empower students of the Virtual University of Pakistan.
@@ -689,7 +761,7 @@ export default function App() {
                       }}
                       className="hover:text-blue-400 transition-colors font-medium text-emerald-400"
                     >
-                      VU Student Handbook & Rules
+                      VU Student Handbook &amp; FAQs
                     </a>
                   </li>
                   <li>
@@ -719,10 +791,67 @@ export default function App() {
                 </ul>
               </div>
 
+              {/* Tools & Guides Column */}
+              <div className="space-y-3 text-xs">
+                <div className="font-bold text-white uppercase tracking-wider text-[11px]">
+                  Tools &amp; Capstone Hub
+                </div>
+                <ul className="space-y-2 text-slate-400">
+                  <li>
+                    <a
+                      href="/gpa-calculator"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('gpa-calculator');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-medium text-blue-300"
+                    >
+                      VU GPA &amp; CGPA Calculator (4.0)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/datesheet-guide"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('datesheet-guide');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-medium text-amber-300"
+                    >
+                      Datesheet Maker Guide &amp; Tips
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/cs619-guide"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('cs619-guide');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-medium text-indigo-300"
+                    >
+                      CS619 FYP Roadmap &amp; Viva Voce
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/assignment-guide"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('assignment-guide');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-medium text-emerald-300"
+                    >
+                      Assignment &amp; Turnitin Guide
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
               {/* Trust & Governance Column */}
               <div className="space-y-3 text-xs">
                 <div className="font-bold text-white uppercase tracking-wider text-[11px]">
-                  Trust & About
+                  Trust &amp; Governance
                 </div>
                 <ul className="space-y-2 text-slate-400">
                   <li>
@@ -734,7 +863,7 @@ export default function App() {
                       }}
                       className="hover:text-blue-400 transition-colors"
                     >
-                      Trust & Privacy Guarantee
+                      Trust &amp; Privacy Guarantee
                     </a>
                   </li>
                   <li>
@@ -746,7 +875,7 @@ export default function App() {
                       }}
                       className="hover:text-blue-400 transition-colors"
                     >
-                      About Mihora Tech Initiative
+                      About MIHORA TECH Initiative
                     </a>
                   </li>
                   <li>
@@ -758,7 +887,27 @@ export default function App() {
                       }}
                       className="hover:text-blue-400 transition-colors"
                     >
-                      Academic Notice & Disclaimer
+                      Academic Notice &amp; Disclaimer
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/sitemap.xml"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-blue-400 transition-colors font-mono text-[11px]"
+                    >
+                      XML Sitemap (Crawler Feed)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/robots.txt"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-blue-400 transition-colors font-mono text-[11px]"
+                    >
+                      Robots.txt Protocol
                     </a>
                   </li>
                 </ul>

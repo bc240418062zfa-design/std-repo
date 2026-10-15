@@ -235,6 +235,145 @@ const ROUTES: RouteSEO[] = [
     `
   },
 
+  // 3B. VU GPA & CGPA Calculator (4.0 Scale)
+  {
+    path: 'gpa-calculator',
+    title: 'VU GPA & CGPA Calculator 4.0 – Academic Grade Forecaster | MIHORA',
+    description: 'Calculate Virtual University semester GPA and forecast cumulative CGPA under the official HEC 4.0 scale. Includes academic probation checker and repeat policy guide.',
+    canonical: 'https://study.mihora.tech/gpa-calculator',
+    keywords: 'VU GPA calculator, vu cgpa calculator, vu grading scale 4.0, calculate vu semester gpa, vu academic probation cgpa, vu course repeat policy',
+    extraJsonLd: {
+      "@type": "WebApplication",
+      "@id": "https://study.mihora.tech/gpa-calculator#app",
+      "name": "Virtual University GPA & CGPA Calculator 4.0",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "description": "Interactive semester GPA and cumulative CGPA forecaster modeling HEC and Virtual University 4.0 grading criteria.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "PKR"
+      }
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">VU GPA &amp; CGPA Calculator (Official 4.0 Scale)</h1>
+        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
+          Online academic grade point calculator modeling the official Virtual University of Pakistan 4.0 grading system. Calculate semester GPA, forecast cumulative CGPA, and verify academic probation status.
+        </p>
+        <div style="margin-top: 1.5rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+          <h2 style="font-size: 1.3rem; font-weight: 700; color: #0066ff;">Official VU Quality Points Breakdown:</h2>
+          <ul style="color: #475569; line-height: 1.8; margin-top: 0.5rem;">
+            <li><strong>A (85%–100%):</strong> 4.00 Quality Points (Outstanding)</li>
+            <li><strong>A- (80%–84%):</strong> 3.66 Quality Points (Excellent)</li>
+            <li><strong>B+ (75%–79%):</strong> 3.33 Quality Points (Very Good)</li>
+            <li><strong>B (71%–74%):</strong> 3.00 Quality Points (Good)</li>
+            <li><strong>B- (68%–70%):</strong> 2.66 Quality Points (Above Average)</li>
+            <li><strong>C (61%–67%):</strong> 2.00 Quality Points (Pass / Average)</li>
+            <li><strong>D (50%–60%):</strong> 1.00 Quality Point (Marginal Pass)</li>
+            <li><strong>F (&lt;50%):</strong> 0.00 Quality Points (Fail)</li>
+          </ul>
+        </div>
+      </div>
+    `
+  },
+
+  // 3C. VU Datesheet Maker Guide & Strategy
+  {
+    path: 'datesheet-guide',
+    title: 'VU Datesheet Maker & Seat Tracker Guide 2026 – Exam Slots Strategy | MIHORA',
+    description: 'Official guide to VU datesheet opening, first-come first-served lab seat allocation, preferred timeslots, and paper rescheduling procedure.',
+    canonical: 'https://study.mihora.tech/datesheet-guide',
+    keywords: 'VU datesheet maker, datesheet vu edu pk, how to make vu datesheet, vu datesheet opening date, vu exam center selection, vu datesheet time slots',
+    extraJsonLd: {
+      "@type": "HowTo",
+      "@id": "https://study.mihora.tech/datesheet-guide#guide",
+      "name": "How to Create Virtual University Examination Datesheet",
+      "description": "Step-by-step master strategy for selecting exam cities, lab centers, and preferred morning time slots.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Check VULMS Announcement",
+          "text": "Monitor official datesheet opening date and time on VULMS notice board."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Login to datesheet.vu.edu.pk",
+          "text": "Login during the first 60 minutes using your VULMS Student ID and password."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Select Center and Slots",
+          "text": "Pick your nearest exam center and secure preferred morning sessions (8:30 AM / 10:30 AM)."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Confirm and Print Entrance Slip",
+          "text": "Download the PDF examination entrance slip and print physical hardcopies."
+        }
+      ]
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">VU Datesheet Maker &amp; Seat Booking Master Strategy</h1>
+        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
+          Complete handbook for Virtual University examination schedule creation. Learn why seats are strictly first-come first-served and how to secure optimal computer lab terminals.
+        </p>
+      </div>
+    `
+  },
+
+  // 3D. CS619 Final Year Project (FYP) Roadmap
+  {
+    path: 'cs619-guide',
+    title: 'CS619 Final Year Project (FYP) Roadmap & Viva Voce Guide | VU MIHORA',
+    description: 'Complete CS619 capstone project guide: Proposal, IEEE 830 SRS documentation, ERD database design, test phases, and top 25 viva voce defense questions.',
+    canonical: 'https://study.mihora.tech/cs619-guide',
+    keywords: 'CS619 project proposal, cs619 srs template, cs619 viva questions, vu final year project, cs619 design document erd, cs619 test phase',
+    extraJsonLd: {
+      "@type": "Course",
+      "@id": "https://study.mihora.tech/cs619-guide#course",
+      "name": "CS619 - Final Year Project Capstone",
+      "courseCode": "CS619",
+      "provider": {
+        "@type": "Organization",
+        "name": "Virtual University of Pakistan"
+      },
+      "description": "Master guide for 6-credit capstone project covering Proposal, SRS, Design, Prototype, and External Viva Voce."
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">CS619 Final Year Project (FYP) Capstone Roadmap &amp; Viva Voce Guide</h1>
+        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
+          Comprehensive milestone walkthrough for Virtual University BSCS, BSIT, and BSSE final year students: IEEE 830 SRS documentation, Database ERD design, and top oral defense questions.
+        </p>
+      </div>
+    `
+  },
+
+  // 3E. VU Assignment & GDB Formatting Guide
+  {
+    path: 'assignment-guide',
+    title: 'VU Assignment & GDB Formatting Guide – Turnitin & 24H Grace Rules | MIHORA',
+    description: 'VU assignment guidelines: 24-hour grace period rules, Turnitin 19% similarity limits, MathType formula pasting, Dev-C++ code formatting, and GDB rubrics.',
+    canonical: 'https://study.mihora.tech/assignment-guide',
+    keywords: 'VU assignment grace period, vu turnitin plagiarism rules, vu math type equations word, vu dev c plus plus assignment, vu gdb 300 words format',
+    extraJsonLd: {
+      "@type": "HowTo",
+      "@id": "https://study.mihora.tech/assignment-guide#guide",
+      "name": "How to Submit High-Scoring VU Assignments & GDBs",
+      "description": "Rules for zero-plagiarism formatting, 24-hour grace periods, MathType equation formatting, and Dev-C++ commenting."
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">VU Assignment &amp; GDB Formatting Master Guide</h1>
+        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
+          Master guide on avoiding zero marks in Virtual University assignments. Explains Turnitin 19% similarity limits, 24-hour grace periods, and MathType equation formatting.
+        </p>
+      </div>
+    `
+  },
+
   // 4. Privacy & Trust Guarantee
   {
     path: 'security',

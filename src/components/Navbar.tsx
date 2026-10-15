@@ -15,7 +15,12 @@ import {
   HelpCircle,
   SlidersHorizontal,
   Compass,
-  ArrowRight
+  ArrowRight,
+  Calendar,
+  Award,
+  FolderGit2,
+  FileText,
+  Sparkles
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -31,20 +36,26 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
+  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const toolsDropdownRef = useRef<HTMLDivElement>(null);
 
   const handleNavClick = (page: string, e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     onNavigate(page);
     setMobileMenuOpen(false);
     setMoreDropdownOpen(false);
+    setToolsDropdownOpen(false);
   };
 
-  // Close dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setMoreDropdownOpen(false);
+      }
+      if (toolsDropdownRef.current && !toolsDropdownRef.current.contains(e.target as Node)) {
+        setToolsDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -56,6 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setMoreDropdownOpen(false);
+        setToolsDropdownOpen(false);
         setMobileMenuOpen(false);
       }
     };
@@ -76,6 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, [mobileMenuOpen]);
 
   const isMoreActive = ['security', 'about', 'sitemap', 'disclaimer'].includes(currentPage);
+  const isToolsActive = ['gpa-calculator', 'datesheet-guide', 'cs619-guide', 'assignment-guide'].includes(currentPage);
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
@@ -164,6 +177,100 @@ export const Navbar: React.FC<NavbarProps> = ({
               20%
             </span>
           </a>
+
+          {/* 5. Academic Tools & Guides Dropdown Menu */}
+          <div ref={toolsDropdownRef} className="relative">
+            <button
+              type="button"
+              onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
+              className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                isToolsActive
+                  ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
+                  : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
+              }`}
+              aria-expanded={toolsDropdownOpen}
+              aria-haspopup="true"
+            >
+              <Award className={`w-4 h-4 ${isToolsActive ? 'text-blue-600' : 'text-slate-400'}`} />
+              <span>Tools &amp; Guides</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
+                toolsDropdownOpen ? 'rotate-180' : ''
+              }`} />
+            </button>
+
+            {/* Tools Dropdown Menu Window */}
+            {toolsDropdownOpen && (
+              <div className="absolute left-0 top-full mt-2 w-80 p-2 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 animate-in fade-in slide-in-from-top-1 duration-150 space-y-1">
+                <div className="px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
+                  Student Tools &amp; Capstone Guides
+                </div>
+
+                <a
+                  href="/gpa-calculator"
+                  onClick={(e) => handleNavClick('gpa-calculator', e)}
+                  className={`w-full p-2.5 rounded-xl flex items-start gap-3 transition-colors cursor-pointer text-left ${
+                    currentPage === 'gpa-calculator' ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Award className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900">VU GPA &amp; CGPA Calculator</div>
+                    <div className="text-[11px] text-slate-500 leading-tight mt-0.5">Official 4.0 scale &amp; probation forecaster</div>
+                  </div>
+                </a>
+
+                <a
+                  href="/datesheet-guide"
+                  onClick={(e) => handleNavClick('datesheet-guide', e)}
+                  className={`w-full p-2.5 rounded-xl flex items-start gap-3 transition-colors cursor-pointer text-left ${
+                    currentPage === 'datesheet-guide' ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900">Datesheet Maker Guide</div>
+                    <div className="text-[11px] text-slate-500 leading-tight mt-0.5">First-hour seat strategy &amp; lab slots</div>
+                  </div>
+                </a>
+
+                <a
+                  href="/cs619-guide"
+                  onClick={(e) => handleNavClick('cs619-guide', e)}
+                  className={`w-full p-2.5 rounded-xl flex items-start gap-3 transition-colors cursor-pointer text-left ${
+                    currentPage === 'cs619-guide' ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <FolderGit2 className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900">CS619 FYP Capstone Hub</div>
+                    <div className="text-[11px] text-slate-500 leading-tight mt-0.5">5 Phases roadmap &amp; top viva questions</div>
+                  </div>
+                </a>
+
+                <a
+                  href="/assignment-guide"
+                  onClick={(e) => handleNavClick('assignment-guide', e)}
+                  className={`w-full p-2.5 rounded-xl flex items-start gap-3 transition-colors cursor-pointer text-left ${
+                    currentPage === 'assignment-guide' ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900">Assignment &amp; GDB Formatting</div>
+                    <div className="text-[11px] text-slate-500 leading-tight mt-0.5">24h grace period &amp; Turnitin rules</div>
+                  </div>
+                </a>
+              </div>
+            )}
+          </div>
 
           {/* 5. Wide Desktop Direct Links (On xl+ screens, make better productive use of space) */}
           <a
@@ -426,10 +533,73 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </a>
               </div>
 
-              {/* Section 2: Trust & Information */}
+              {/* Section 2: Academic Tools & Guides */}
               <div className="space-y-2 pt-2 border-t border-slate-200">
                 <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 px-1">
-                  Institutional & Trust
+                  Academic Tools &amp; Guides
+                </div>
+
+                <a
+                  href="/gpa-calculator"
+                  onClick={(e) => handleNavClick('gpa-calculator', e)}
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                    currentPage === 'gpa-calculator' ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200/60' : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Award className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>VU GPA &amp; CGPA Calculator</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-400">4.0 Scale</span>
+                </a>
+
+                <a
+                  href="/datesheet-guide"
+                  onClick={(e) => handleNavClick('datesheet-guide', e)}
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                    currentPage === 'datesheet-guide' ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200/60' : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Calendar className="w-4 h-4 text-amber-600 shrink-0" />
+                    <span>Datesheet Maker Guide</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-amber-600 font-bold">Strategy</span>
+                </a>
+
+                <a
+                  href="/cs619-guide"
+                  onClick={(e) => handleNavClick('cs619-guide', e)}
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                    currentPage === 'cs619-guide' ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200/60' : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <FolderGit2 className="w-4 h-4 text-indigo-600 shrink-0" />
+                    <span>CS619 FYP Capstone Hub</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-indigo-600 font-bold">Viva 25</span>
+                </a>
+
+                <a
+                  href="/assignment-guide"
+                  onClick={(e) => handleNavClick('assignment-guide', e)}
+                  className={`w-full min-h-[44px] px-3.5 py-2.5 rounded-xl text-left text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                    currentPage === 'assignment-guide' ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200/60' : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <FileText className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Assignment &amp; Turnitin Guide</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-700 font-bold">24h Grace</span>
+                </a>
+              </div>
+
+              {/* Section 3: Trust & Information */}
+              <div className="space-y-2 pt-2 border-t border-slate-200">
+                <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 px-1">
+                  Institutional &amp; Trust
                 </div>
 
                 <a

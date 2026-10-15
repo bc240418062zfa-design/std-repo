@@ -34,6 +34,34 @@
   </url>
 
   <url>
+    <loc>https://study.mihora.tech/gpa-calculator</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://study.mihora.tech/datesheet-guide</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://study.mihora.tech/cs619-guide</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://study.mihora.tech/assignment-guide</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
     <loc>https://study.mihora.tech/security</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
