@@ -104,9 +104,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <MihoraLogo variant="dark" size="sm" />
           </a>
 
-          <div className="hidden sm:block h-4 w-px bg-slate-200" aria-hidden="true" />
-          <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-slate-600 tracking-tight">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" aria-hidden="true" />
+          <div className="hidden 2xl:block h-4 w-px bg-slate-200" aria-hidden="true" />
+          <div className="hidden 2xl:flex items-center gap-1.5 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]" aria-hidden="true" />
             <span>VU Academic Archive</span>
           </div>
         </div>
@@ -131,34 +131,28 @@ export const Navbar: React.FC<NavbarProps> = ({
           <a
             href="/courses"
             onClick={(e) => handleNavClick('courses', e)}
-            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
+            className={`px-2 xl:px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 xl:gap-2 cursor-pointer ${
               currentPage === 'courses'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
-            <BookOpen className={`w-4 h-4 ${currentPage === 'courses' ? 'text-blue-600' : 'text-slate-400'}`} />
+            <BookOpen className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${currentPage === 'courses' ? 'text-blue-600' : 'text-slate-400'}`} />
             <span>Courses</span>
-            <span className="text-[11px] font-mono text-slate-400 font-normal">
-              411
-            </span>
           </a>
 
           {/* 2B. VU Assignment Solution 2026 (Prominent High-Intent Link) */}
           <a
             href="/vu-assignment-solution-2026"
             onClick={(e) => handleNavClick('assignment-guide', e)}
-            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
+            className={`px-2 xl:px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 xl:gap-2 cursor-pointer ${
               currentPage === 'assignment-guide'
                 ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-200/60'
                 : 'text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/60'
             }`}
           >
-            <FileText className={`w-4 h-4 ${currentPage === 'assignment-guide' ? 'text-emerald-600' : 'text-emerald-500'}`} />
+            <FileText className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${currentPage === 'assignment-guide' ? 'text-emerald-600' : 'text-emerald-500'}`} />
             <span>Assignments</span>
-            <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-100/80 px-1.5 py-0.5 rounded-sm">
-              2026
-            </span>
           </a>
 
           {/* 4. Past Papers (Moaaz & Waqar Siddhu) */}
@@ -194,16 +188,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
-              className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
-                isToolsActive
+              className={`px-2 xl:px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                isToolsActive || currentPage === 'handbook'
                   ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
                   : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
               }`}
               aria-expanded={toolsDropdownOpen}
               aria-haspopup="true"
             >
-              <Award className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${isToolsActive ? 'text-blue-600' : 'text-slate-400'}`} />
-              <span>Tools</span>
+              <Award className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${isToolsActive || currentPage === 'handbook' ? 'text-blue-600' : 'text-slate-400'}`} />
+              <span>Tools & Guides</span>
               <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
                 toolsDropdownOpen ? 'rotate-180' : ''
               }`} />
@@ -213,8 +207,25 @@ export const Navbar: React.FC<NavbarProps> = ({
             {toolsDropdownOpen && (
               <div className="absolute left-0 top-full mt-2 w-80 p-2 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 animate-in fade-in slide-in-from-top-1 duration-150 space-y-1">
                 <div className="px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
-                  Calculators &amp; Academic Tools
+                  Calculators &amp; Study Guides
                 </div>
+
+                {/* 0. VU Handbook & FAQs (Moved here to save space) */}
+                <a
+                  href="/handbook"
+                  onClick={(e) => handleNavClick('handbook', e)}
+                  className={`w-full p-2.5 rounded-xl flex items-start gap-3 transition-colors cursor-pointer text-left ${
+                    currentPage === 'handbook' ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <GraduationCap className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900">VU Handbook &amp; FAQs</div>
+                    <div className="text-[11px] text-slate-500 leading-tight mt-0.5">Official policies, grading scheme &amp; help</div>
+                  </div>
+                </a>
 
                 {/* 1. Passing Marks Simulator */}
                 <a
@@ -405,11 +416,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           )}
 
-          {/* Desktop Right Quick Search Button (Shows on xl+ screens where there is plenty of space) */}
+          {/* Desktop Right Quick Search Button (Shows on 2xl+ screens to avoid crowding) */}
           <button
             type="button"
             onClick={() => handleNavClick('home')}
-            className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-all cursor-pointer border border-slate-200/90 shadow-2xs hover:border-slate-300"
+            className="hidden 2xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-all cursor-pointer border border-slate-200/90 shadow-2xs hover:border-slate-300"
             aria-label="Quick search library"
           >
             <Search className="w-3.5 h-3.5 text-slate-400" />
