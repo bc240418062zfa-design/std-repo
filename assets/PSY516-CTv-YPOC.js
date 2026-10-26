@@ -1,0 +1,1 @@
+var e=[{id:`PSY516-r1`,reviewNum:1,sharedBy:`Faizan`,date:`30-07-2026`,time:`12:00 PM`,message:`Psy516 paper boht difficult tha ANOVA ki assumptions Independent t- measure`,keyPoints:[`Mcqs boht difficult thay`,`Chi square question Aya tha ak`,`Pooled variance long question`,`T test main say question tha ak`]}];export{e as default};

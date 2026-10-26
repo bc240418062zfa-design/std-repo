@@ -1,0 +1,7 @@
+var e=[{id:`EDU602-r1`,reviewNum:1,sharedBy:`Tayyaba`,date:`03-08-2026`,time:`12:00 PM`,message:`Edu 602 3 august 2026 Timing 12 1 What is the difference between legitimate power and reward power 2 Define written communication.Write one example 3 Note on team development 4Importance of organizational culture 5 What is unfreezing in change model 6 What is storming stage 7 issue in making difficult decision making`,keyPoints:[]},{id:`EDU602-r2`,reviewNum:2,sharedBy:`Abc`,date:`02-08-2026`,time:`08:00 AM`,message:`*KEY POINTS / TOPICS:*
+✅ Differentiate between work groups and teams
+✅ Different between change and resistance
+✅ Elements of organization culture
+✅ Objectives of educational administration
+✅ Describe legitimate and reward power
+✅ Two forms of conflicts`,keyPoints:[]},{id:`EDU602-r3`,reviewNum:3,sharedBy:`Ayeshà`,date:`29-07-2026`,time:`12:00 PM`,message:`1- Function of School administration 2- Unfreezing stage of change model 3- Characteristics of Storming stage in team development 4- Types of Organizational control 1- Functions of Organization Culture 2- Change Framework 3- Stages of Group Development`,keyPoints:[`MCQs Change model me se kafi zyada thy or baki files + handouts se mix thy`,`Short Questions:`,`Long Questions:`]}];export{e as default};

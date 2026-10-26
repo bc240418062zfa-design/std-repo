@@ -1,0 +1,1 @@
+var e=[{id:`EDU304-r1`,reviewNum:1,sharedBy:`Vu Gujrnawala`,date:`31-07-2026`,time:`10:00 AM`,message:`1: what is effective way of communication ? 2: How you handle the anger situation as a grade 5 teacher 3: explain how give confidence to studen`,keyPoints:[`Only 20% mcq from past files`,`All Subjective from past files.`,`Long question:`]}];export{e as default};

@@ -1,0 +1,1 @@
+var e=[{id:`HRM624-r1`,reviewNum:1,sharedBy:`Iqra`,date:`03-08-2026`,time:`02:30 PM`,message:`Mcqs sary ky sary conceptual thy meditation ky zayada thy or subject stereotyping ka long tha question bhi sary meditation ky topic sy related thy advantages of meditation.. Or meditation ko good banany ky liya hamy kaya karna chiyaa...🙂`,keyPoints:[]}];export{e as default};

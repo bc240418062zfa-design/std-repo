@@ -1,0 +1,1 @@
+var e=[{id:`BIF401-r1`,reviewNum:1,sharedBy:`Reshail`,date:`02-08-2026`,time:`1 PM`,message:`Bif401 practical Q:protein sequence data bases for similarities? Q:chimera? Q:Q:protein sequence data bases for similarities(DNA/RNA)?`,keyPoints:[]}];export{e as default};

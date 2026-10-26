@@ -1,0 +1,1 @@
+var e=[{id:`ECO404-r1`,reviewNum:1,sharedBy:`areej aziz`,date:`30-12-2026`,time:`12:00 PM`,message:`oIigopoy characteristics profit maximization numericaI TR=TC pricing strategy and issues created by it bertnard modeI`,keyPoints:[`10 mcqs from paradox`,`standard deviation Iong question with given probabiIity tabIe`]}];export{e as default};

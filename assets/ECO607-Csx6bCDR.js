@@ -1,0 +1,1 @@
+var e=[{id:`ECO607-r1`,reviewNum:1,sharedBy:`Amna`,date:`07-12-2026`,time:`08:00 AM`,message:``,keyPoints:[`sare mcqs paradox ke diye gye imp mcqs myn se thy`,`Differential equation  test is exact or not? sh and long`]}];export{e as default};

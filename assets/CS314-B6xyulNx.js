@@ -1,0 +1,1 @@
+var e=[{id:`CS314-r1`,reviewNum:1,sharedBy:`Minal Saeed`,date:`28-07-2026`,time:`8 AM`,message:`EDGE,Generations,5G Their factors and drawbacks , All abbreviation must be learned`,keyPoints:[`MCQS from Handouts`,`Imp topics`,`Almost all mcqs from abbreviations ( BTS , LPC , CDMA , FDMA , CSSS , TDMA , IFSS , SIM , WIMAX , WIFAX`]}];export{e as default};

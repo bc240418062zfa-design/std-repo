@@ -1,0 +1,1 @@
+var e=[{id:`MG211-r1`,reviewNum:1,sharedBy:`Laiba`,date:`27-07-2026`,time:`06:30 PM`,message:`sara slybs ma sa e tha... 60% srf pakstan k bary ma... 20% cnsptual 20% defination basics`,keyPoints:[`Lkn choti choti exmpls ma sa pura mcqs bna hua tha ....`]}];export{e as default};

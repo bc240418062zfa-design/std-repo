@@ -1,0 +1,1 @@
+var e=[{id:`ECO615-r1`,reviewNum:1,sharedBy:`Samreen saqib`,date:`28-07-2026`,time:`8 AM`,message:`1.regression problems`,keyPoints:[`My entire exam was based on these topics and questions.`,`Questions:`]}];export{e as default};

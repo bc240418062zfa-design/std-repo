@@ -1,0 +1,1 @@
+var e=[{id:`PAK101-r1`,reviewNum:1,sharedBy:`Sardar g`,date:`01-08-2026`,time:`12:00 PM`,message:`bhai paper bohat maze ka asaan tha ziada dates wale sawal thai`,keyPoints:[]}];export{e as default};

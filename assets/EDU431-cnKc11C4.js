@@ -1,0 +1,1 @@
+var e=[{id:`EDU431-r1`,reviewNum:1,sharedBy:`aoa`,date:`26-12-2026`,time:`08:00 AM`,message:`three basic design a rubric basic of high stakes`,keyPoints:[`MCQS 50% paradox final term MCQS files sy thy`,`3 mCQS limitation likhni thi`,`advantages of essay type question`,`restricted response question`]}];export{e as default};

@@ -1,0 +1,1 @@
+var e=[{id:`MGT504-r1`,reviewNum:1,sharedBy:`Ali`,date:`04-08-2026`,time:`8 AM`,message:``,keyPoints:[`Mcq concept base`]},{id:`MGT504-r2`,reviewNum:2,sharedBy:`No Name`,date:`03-08-2026`,time:`12:00 PM`,message:`1.Enlist and explain different types of change at strategic level`,keyPoints:[`Short Questions:`,`Long Questions:`]}];export{e as default};

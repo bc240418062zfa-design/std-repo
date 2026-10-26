@@ -1,0 +1,1 @@
+var e=[{id:`MTH201-r1`,reviewNum:1,sharedBy:`Eman Fatima`,date:`01-08-2026`,time:`08:00 AM`,message:`ovar all paper asan tha lakin 40%paper last waly 5 lectures ma say aya tha`,keyPoints:[`MCQ 80% 41 lecture say 45 tk ay thy or short or long ma takreban har topic he cover ho rha tha`]}];export{e as default};

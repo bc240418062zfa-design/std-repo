@@ -1,0 +1,8 @@
+var e=[{id:`EDU402-r1`,reviewNum:1,sharedBy:`Tayyaba`,date:`03-08-2026`,time:`10:00 AM`,message:`Edu 402 Timing 10 Date 3/8/2026`,keyPoints:[]},{id:`EDU402-r2`,reviewNum:2,sharedBy:`FARHANA KAUKAB FAIZI`,date:`03-08-2026`,time:`10:00 AM`,message:`1.Difference between induction and deduction method.`,keyPoints:[`2 or 3 mcqs were from past files rest of were from handouts not so easy tho`,`Questions`]},{id:`EDU402-r3`,reviewNum:3,sharedBy:`Abc`,date:`30-07-2026`,time:`08:00 AM`,message:`*KEY POINTS / TOPICS:*
+✅ Demand in school curriculum learning experience
+✅ Criteria for learning experience
+✅ Evaluation
+✅ Learning experience in your own words
+✅ Large scale curriculum organizations
+✅ Two facts of learning experience of curriculum development
+✅ How can curriculum develop interest in students`,keyPoints:[]},{id:`EDU402-r4`,reviewNum:4,sharedBy:`Bint'a Hussain`,date:`27-07-2026`,time:`02:30 PM`,message:`Kuch paradox ka aya tha or baki handout sa tha zada easy tha mostly Three domain organization stucture Or ek benifit of tyler model Being a teacher how can coundect on learning environment Advantage or disadvantage organization curriculum development Baki ma bol gi 😂😂😂 Best of wishes`,keyPoints:[`Mcqs`,`Short question`,`Ek question tha ka three ways of students evidence`,`Long`,`Lakin ek important bat YouTube sa Tanveer online academy ki file ha wo kr la 100% paer is ma sa aia tha long or short`]}];export{e as default};

@@ -1,0 +1,1 @@
+var e=[{id:`STA621-r1`,reviewNum:1,sharedBy:`S...mafia`,date:`30-07-2026`,time:`12:30 PM`,message:`Subject: STA621 Day: Monday Date: 27 July 2026 > VU Answer`,keyPoints:[`MCQs`,`Short Questions`,`Long Questions`]}];export{e as default};

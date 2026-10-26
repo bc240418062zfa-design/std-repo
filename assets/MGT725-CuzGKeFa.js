@@ -1,0 +1,1 @@
+var e=[{id:`MGT725-r1`,reviewNum:1,sharedBy:`Ali Ahmad`,date:`28-07-2026`,time:`08:00 AM`,message:``,keyPoints:[`One Question from Evey Lecture (Module)`]}];export{e as default};

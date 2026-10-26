@@ -1,0 +1,1 @@
+var e=[{id:`MTH622-r1`,reviewNum:1,sharedBy:`unknown`,date:`29-07-2026`,time:`08:00 AM`,message:`Assalam-o-alaikum! Short and long also from youtube final term preparation videos and from handouts but very easy , you can attempt very easily.`,keyPoints:[`Mcqs were from youtube video skillforstudy and vubrightfuture and also from handouts.`]}];export{e as default};

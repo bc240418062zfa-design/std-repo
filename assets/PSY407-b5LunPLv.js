@@ -1,0 +1,1 @@
+var e=[{id:`PSY407-r1`,reviewNum:1,sharedBy:`Fatima`,date:`29-07-2026`,time:`12:00 PM`,message:`Catastrophy theory Proformance profiling aggression theories about cohesion enlist leadership theroy integrity and competence`,keyPoints:[`Mcq from paradoxical`,`Scenario based questions about team cohesion`]}];export{e as default};

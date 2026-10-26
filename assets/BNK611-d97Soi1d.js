@@ -1,0 +1,1 @@
+var e=[{id:`BNK611-r1`,reviewNum:1,sharedBy:`Samreen saqib`,date:`01-08-2026`,time:`12:00 PM`,message:`liabilities? Answer: 2.5%	on	gold,	silver,	and cash	once	Nisab	is	reached;	1/5th	(20%)	on	the	yield	of	mines	and	treasure.`,keyPoints:[`My entire exam was based on these topics and questions.`,`Questions:`]}];export{e as default};

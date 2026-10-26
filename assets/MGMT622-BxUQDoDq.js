@@ -1,0 +1,1 @@
+var e=[{id:`MGMT622-r1`,reviewNum:1,sharedBy:`Haris`,date:`31-07-2026`,time:`12:00 PM`,message:``,keyPoints:[`Sara paper conceptual tha mcqs , long , short`]}];export{e as default};

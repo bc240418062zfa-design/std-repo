@@ -1,0 +1,1 @@
+var e=[{id:`BT401-r1`,reviewNum:1,sharedBy:`Syeda kashuf`,date:`28-07-2026`,time:`06:30 PM`,message:`Paper were mcqs based totally some mcqs were from paradox final imp mcqs and some were from sulman file mostly paper was from handouts and every topic is included specially categories topic, genetic drift, cryopreservation`,keyPoints:[]}];export{e as default};
