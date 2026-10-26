@@ -94,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-4">
         {/* Left: Brand Identity & Subtitle */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0">
           <a
             href="/"
             onClick={(e) => handleNavClick('home', e)}
@@ -104,23 +104,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             <MihoraLogo variant="dark" size="sm" />
           </a>
 
-          {/* Academic Portal Pill (Desktop Only) */}
-          <div className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-600 text-[11px] font-mono font-medium select-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
-            <span>VU PORTAL</span>
-          </div>
+          <div className="hidden sm:block h-4 w-px bg-slate-200" aria-hidden="true" />
+          <span className="hidden sm:inline-block text-xs font-semibold text-slate-500 tracking-tight">
+            VU Academic Archive
+          </span>
         </div>
 
-        {/* Center: Clean Standard Desktop Navigation Links (Equal standard treatment for all tools) */}
+        {/* Center: Clean Standard Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 text-sm font-semibold text-slate-600">
           {/* 1. Search Library */}
           <a
             href="/"
             onClick={(e) => handleNavClick('home', e)}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
               currentPage === 'home'
-                ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
-                : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
             <Search className={`w-4 h-4 ${currentPage === 'home' ? 'text-blue-600' : 'text-slate-400'}`} />
@@ -131,51 +130,76 @@ export const Navbar: React.FC<NavbarProps> = ({
           <a
             href="/courses"
             onClick={(e) => handleNavClick('courses', e)}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
               currentPage === 'courses'
-                ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
-                : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
             <BookOpen className={`w-4 h-4 ${currentPage === 'courses' ? 'text-blue-600' : 'text-slate-400'}`} />
             <span>Courses</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-md bg-slate-100 text-slate-500 border border-slate-200">
+            <span className="text-[11px] font-mono text-slate-400 font-normal">
               411
             </span>
+          </a>
+
+          {/* 2B. VU Assignment Solution 2026 (Prominent High-Intent Link) */}
+          <a
+            href="/vu-assignment-solution-2026"
+            onClick={(e) => handleNavClick('assignment-guide', e)}
+            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
+              currentPage === 'assignment-guide'
+                ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-200/60'
+                : 'text-slate-700 hover:text-emerald-700 hover:bg-emerald-50/60'
+            }`}
+          >
+            <FileText className={`w-4 h-4 ${currentPage === 'assignment-guide' ? 'text-emerald-600' : 'text-emerald-500'}`} />
+            <span>Assignments</span>
+            <span className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-100/80 px-1.5 py-0.5 rounded-sm">
+              2026
+            </span>
+          </a>
+
+          {/* 2C. Past Papers (Moaaz & Waqar Siddhu) */}
+          <a
+            href="/past-papers"
+            onClick={(e) => handleNavClick('past-papers', e)}
+            className={`hidden xl:flex px-3 py-2 rounded-xl transition-all duration-150 items-center gap-2 cursor-pointer ${
+              currentPage === 'past-papers'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
+            }`}
+          >
+            <Sparkles className={`w-4 h-4 ${currentPage === 'past-papers' ? 'text-blue-600' : 'text-slate-400'}`} />
+            <span>Past Papers</span>
           </a>
 
           {/* 3. VU Handbook & FAQs */}
           <a
             href="/handbook"
             onClick={(e) => handleNavClick('handbook', e)}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
               currentPage === 'handbook'
-                ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
-                : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
-            <GraduationCap className={`w-4 h-4 ${currentPage === 'handbook' ? 'text-emerald-600' : 'text-emerald-500'}`} />
+            <GraduationCap className={`w-4 h-4 ${currentPage === 'handbook' ? 'text-blue-600' : 'text-slate-400'}`} />
             <span>VU Handbook</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-md bg-emerald-100/80 text-emerald-800 font-bold border border-emerald-200">
-              FAQs
-            </span>
           </a>
 
-          {/* 4. Passing Simulator (Treated normally as a standard tool, without extra blue CTA highlight) */}
+          {/* 4. Passing Simulator */}
           <a
             href="/simulator"
             onClick={(e) => handleNavClick('simulator', e)}
-            className={`px-3 py-2 rounded-xl transition-all flex items-center gap-2 cursor-pointer ${
+            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
               currentPage === 'simulator'
-                ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
-                : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
+                ? 'bg-blue-50 text-blue-700 font-bold'
+                : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
             <Calculator className={`w-4 h-4 ${currentPage === 'simulator' ? 'text-blue-600' : 'text-slate-400'}`} />
-            <span>Simulator</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
-              20%
-            </span>
+            <span>Passing Calculator</span>
           </a>
 
           {/* 5. Academic Tools & Guides Dropdown Menu */}
@@ -496,6 +520,38 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
                     411 Courses
+                  </span>
+                </a>
+
+                <a
+                  href="/vu-assignment-solution-2026"
+                  onClick={(e) => handleNavClick('assignment-guide', e)}
+                  className={`w-full min-h-[48px] px-3.5 py-3 rounded-xl text-left text-sm font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                    currentPage === 'assignment-guide' ? 'bg-emerald-50 text-emerald-800 font-bold border border-emerald-300' : 'text-slate-700 hover:bg-slate-50 border border-transparent'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-4 h-4 text-emerald-600" />
+                    <span>Assignments 2026</span>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold">
+                    LATEST
+                  </span>
+                </a>
+
+                <a
+                  href="/past-papers"
+                  onClick={(e) => handleNavClick('past-papers', e)}
+                  className={`w-full min-h-[48px] px-3.5 py-3 rounded-xl text-left text-sm font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                    currentPage === 'past-papers' ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200/60' : 'text-slate-700 hover:bg-slate-50 border border-transparent'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="w-4 h-4 text-blue-600" />
+                    <span>Past Papers (Moaaz &amp; Waqar)</span>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 border border-slate-200">
+                    Solved
                   </span>
                 </a>
 

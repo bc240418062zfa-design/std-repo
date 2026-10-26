@@ -1,11 +1,17 @@
 node_modules/
 build/
 dist/
+docs/
 coverage/
+public/assets/
 .DS_Store
 *.log
 .env*
 !.env.example
+
+# Local Agent Skills & Tooling (not part of student project repository)
+.agents/
+.aistudio/
 
 # Private input directory (NEVER commit raw Drive links / indices to public git)
 private-input/*

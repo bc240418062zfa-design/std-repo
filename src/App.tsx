@@ -23,7 +23,8 @@ import { VUGPACalculatorPage } from './pages/VUGPACalculatorPage';
 import { VUDatesheetGuidePage } from './pages/VUDatesheetGuidePage';
 import { VUCS619GuidePage } from './pages/VUCS619GuidePage';
 import { VUAssignmentGuidePage } from './pages/VUAssignmentGuidePage';
-import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
+import { PastPapersPage } from './pages/PastPapersPage';
+import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
 
 // Static sanitized data compiled at build time
 import coursesData from './data/courses.json';
@@ -41,6 +42,7 @@ export type AppPage =
   | 'datesheet-guide' 
   | 'cs619-guide' 
   | 'assignment-guide' 
+  | 'past-papers'
   | 'security' 
   | 'about' 
   | 'sitemap' 
@@ -54,7 +56,8 @@ const pagePathMap: Record<AppPage, string> = {
   'gpa-calculator': '/gpa-calculator',
   'datesheet-guide': '/datesheet-guide',
   'cs619-guide': '/cs619-guide',
-  'assignment-guide': '/assignment-guide',
+  'assignment-guide': '/vu-assignment-solution-2026',
+  'past-papers': '/past-papers',
   security: '/security',
   about: '/about',
   sitemap: '/sitemap',
@@ -70,7 +73,18 @@ function getPageFromPath(): AppPage {
   if (pathname === '/gpa-calculator' || pathname === '/cgpa-calculator' || pathname === '/gpa') return 'gpa-calculator';
   if (pathname === '/datesheet-guide' || pathname === '/datesheet' || pathname === '/datesheet-maker') return 'datesheet-guide';
   if (pathname === '/cs619-guide' || pathname === '/cs619' || pathname === '/fyp') return 'cs619-guide';
-  if (pathname === '/assignment-guide' || pathname === '/assignments' || pathname === '/gdb') return 'assignment-guide';
+  if (
+    pathname === '/vu-assignment-solution-2026' ||
+    pathname === '/assignment-solutions-2026' ||
+    pathname === '/assignment-guide' ||
+    pathname === '/assignments' ||
+    pathname === '/gdb'
+  ) return 'assignment-guide';
+  if (
+    pathname === '/past-papers' ||
+    pathname === '/pastpapers' ||
+    pathname === '/reviews'
+  ) return 'past-papers';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
   if (pathname === '/about' || pathname === '/mission') return 'about';
   if (pathname === '/sitemap') return 'sitemap';
@@ -84,7 +98,8 @@ function getPageFromPath(): AppPage {
   if (hash === '#gpa' || hash === '#gpa-calculator') return 'gpa-calculator';
   if (hash === '#datesheet' || hash === '#datesheet-guide') return 'datesheet-guide';
   if (hash === '#cs619' || hash === '#cs619-guide') return 'cs619-guide';
-  if (hash === '#assignments' || hash === '#assignment-guide') return 'assignment-guide';
+  if (hash === '#assignments' || hash === '#assignment-guide' || hash === '#assignment-2026') return 'assignment-guide';
+  if (hash === '#past-papers' || hash === '#pastpapers') return 'past-papers';
   if (hash === '#security' || hash === '#relay') return 'security';
   if (hash === '#about' || hash === '#mission') return 'about';
   if (hash === '#sitemap') return 'sitemap';
@@ -115,6 +130,7 @@ export default function App() {
   const [downloadSession, setDownloadSession] = useState<DownloadSession | null>(null);
   const [isDownloadingZip, setIsDownloadingZip] = useState(false);
   const [previewResource, setPreviewResource] = useState<Resource | null>(null);
+  const [showAllCoursesFooter, setShowAllCoursesFooter] = useState(false);
 
   const searchResultsRef = useRef<HTMLDivElement>(null);
   const downloadSessionRef = useRef<DownloadSession | null>(null);
@@ -183,44 +199,49 @@ export default function App() {
 
   // Dynamically synchronize document title and meta description for SEO & browser history
   useEffect(() => {
-    let title = 'VU Study Library – Virtual University Solved Past Papers, Handouts & MCQs | MIHORA';
-    let desc = 'Free direct download for 28,000+ Virtual University of Pakistan (VU) solved past papers, midterms, final terms, handouts, quizzes, and MCQs for all 411+ courses.';
+    let title = 'MIHORA VU – VU Assignment Solution 2026 Latest & Solved Past Papers (All 411+ Courses)';
+    let desc = 'Official MIHORA VU Study Library: Direct download VU Assignment Solution 2026 (Latest Spring & Fall), 28,328+ solved past papers (Moaaz, Waqar Siddhu), handouts & quizzes for all 411+ Virtual University courses.';
     
     if (currentPage === 'home' && filters.course) {
-      title = `${filters.course} Solved Past Papers, Handouts & MCQs | VU MIHORA Library`;
-      desc = `Download verified ${filters.course} Virtual University solved midterm past papers, final term papers, and lecture handouts with 100% direct download.`;
+      const match = courses.find((c) => c.code === filters.course);
+      const titleSuffix = match ? ` – ${match.title}` : '';
+      title = `${filters.course}${titleSuffix} VU Assignment Solution 2026, Solved Past Papers & Handouts | MIHORA VU`;
+      desc = `Download verified ${filters.course} (${match ? match.title : 'VU Course'}) 2026 assignment solutions, solved midterm past papers, final term papers, and lecture handouts with 100% direct download on MIHORA VU.`;
     } else if (currentPage === 'courses') {
-      title = 'All 411+ VU Courses Directory – Past Papers, Handouts & Solved MCQs | MIHORA';
-      desc = 'Browse all 411 Virtual University courses. Download CS101, MTH101, MGT101, ENG101, and CS201 handouts, solved papers, and exam files.';
+      title = 'All 411+ VU Courses Directory – VU Assignment Solution 2026, Past Papers & Handouts | MIHORA VU';
+      desc = 'Browse all 411 Virtual University courses. Download CS101, MTH101, MGT101, ENG101, and CS201 handouts, solved papers, and 2026 assignment solution guides.';
+    } else if (currentPage === 'assignment-guide') {
+      title = 'VU Assignment Solution 2026 Latest – All 411 Courses Solved Assignments & GDBs | MIHORA VU';
+      desc = 'Download verified Virtual University Assignment Solution 2026 (Latest Spring & Fall Semesters), GDB solutions, quiz files, and Turnitin plagiarism-free templates (<19%) for all 411 courses.';
+    } else if (currentPage === 'past-papers') {
+      title = 'VU Solved Past Papers – Midterm & Final Term Papers (Moaaz & Waqar Siddhu) | MIHORA VU';
+      desc = 'Download verified Virtual University solved past papers: Moaaz & Waqar Siddhu midterm and final term papers, repeat MCQs, subjective question banks for all 411 courses.';
     } else if (currentPage === 'handbook') {
-      title = 'VU Student Handbook 2026 – 20% Passing Rule, Datesheet & Rules FAQs | MIHORA';
-      desc = 'Official VU rules guide: Master the 20% two-half passing rule, datesheet creation, fee installments, CGPA probation, and paper reschedule policies.';
+      title = 'VU Student Handbook 2026 – 20% Passing Rule, Datesheet & Rules FAQs | MIHORA VU';
+      desc = 'Official VU rules guide: Master the 20% two-half passing rule, datesheet creation, fee installments, CGPA probation, and paper reschedule policies on MIHORA VU.';
     } else if (currentPage === 'simulator') {
-      title = 'VU Passing Marks Simulator – 20% Two-Half Rule & Finalterm Calculator | MIHORA';
-      desc = 'Calculate exact marks needed in VU Final Term exams. Check compliance with the official 20% Two-Half rule and download your free academic PDF report.';
+      title = 'VU Passing Marks Simulator – 20% Two-Half Rule & Finalterm Calculator | MIHORA VU';
+      desc = 'Calculate exact marks needed in VU Final Term exams. Check compliance with the official 20% Two-Half rule and download your free academic PDF report on MIHORA VU.';
     } else if (currentPage === 'gpa-calculator') {
-      title = 'VU GPA & CGPA Calculator 4.0 – Academic Grade Forecaster | MIHORA';
+      title = 'VU GPA & CGPA Calculator 4.0 – Academic Grade Forecaster | MIHORA VU';
       desc = 'Calculate Virtual University semester GPA and forecast cumulative CGPA under the official HEC 4.0 scale. Includes academic probation checker and repeat policy guide.';
     } else if (currentPage === 'datesheet-guide') {
-      title = 'VU Datesheet Maker & Seat Tracker Guide 2026 – Exam Slots Strategy | MIHORA';
+      title = 'VU Datesheet Maker & Seat Tracker Guide 2026 – Exam Slots Strategy | MIHORA VU';
       desc = 'Official guide to VU datesheet opening, first-come first-served lab seat allocation, preferred timeslots, and paper rescheduling procedure.';
     } else if (currentPage === 'cs619-guide') {
       title = 'CS619 Final Year Project (FYP) Roadmap & Viva Voce Guide | VU MIHORA';
       desc = 'Complete CS619 capstone project guide: Proposal, IEEE 830 SRS documentation, ERD database design, test phases, and top 25 viva voce defense questions.';
-    } else if (currentPage === 'assignment-guide') {
-      title = 'VU Assignment & GDB Formatting Guide – Turnitin & 24H Grace Rules | MIHORA';
-      desc = 'VU assignment guidelines: 24-hour grace period rules, Turnitin 19% similarity limits, MathType formula pasting, Dev-C++ code formatting, and GDB rubrics.';
     } else if (currentPage === 'security') {
-      title = 'Privacy & Trust Guarantee – Zero Student Data Collection | MIHORA';
+      title = 'Privacy & Trust Guarantee – Zero Student Data Collection | MIHORA VU';
       desc = 'Our student safety commitment: zero cookies, zero telemetry, verified clean academic files, and instant direct downloads without login.';
     } else if (currentPage === 'about') {
       title = 'About MIHORA TECH – Free Academic Resource Initiative for VU Students';
       desc = 'Learn about MIHORA TECH\'s non-commercial educational CSR mission to provide free, fast, and structured academic study archives for Pakistani students.';
     } else if (currentPage === 'sitemap') {
-      title = 'VU Curriculum & Faculty Sitemap Directory – 411 Courses Index | MIHORA';
+      title = 'VU Curriculum & Faculty Sitemap Directory – 411 Courses Index | MIHORA VU';
       desc = 'Comprehensive portal map of all Virtual University faculties, departments, 411 courses, handbook guides, passing calculators, and XML sitemaps.';
     } else if (currentPage === 'disclaimer') {
-      title = 'Academic Disclaimer & Fair Educational Use Notice | MIHORA';
+      title = 'Academic Disclaimer & Fair Educational Use Notice | MIHORA VU';
       desc = 'Fair educational use disclosures, copyright policies, student ethics, and independent non-affiliation notice with Virtual University.';
     }
 
@@ -567,25 +588,26 @@ export default function App() {
               )}
 
               {/* Informational Callout */}
-              <div className="mt-14 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
-                <div className="space-y-1.5 max-w-2xl">
-                  <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700">
-                    <Shield className="w-4 h-4" />
-                    <span>Virtual University Student Empowerment Network</span>
+              <div className="mt-14 relative overflow-hidden bg-slate-900 text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="space-y-2 max-w-2xl">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold">
+                    <Shield className="w-3.5 h-3.5 text-blue-400" />
+                    <span>Academic Curriculum Archive</span>
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900">
-                    Looking for a specific course archive?
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+                    Need past papers or handouts for a specific subject?
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                    Explore our comprehensive 411 course directory categorized by Computer Science, Mathematics, Management, Economics, and Mass Media.
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    Explore all 411 Virtual University courses categorized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => handleNavigate('courses')}
-                  className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 shadow-xs"
+                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm transition-all cursor-pointer shrink-0 shadow-md shadow-blue-600/30 active:scale-95 flex items-center gap-2"
                 >
-                  Open Course Directory
+                  <span>Explore 411 Courses</span>
+                  <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </main>
@@ -639,6 +661,14 @@ export default function App() {
           <VUAssignmentGuidePage
             onNavigateHome={() => handleNavigate('home')}
             onNavigateHandbook={() => handleNavigate('handbook')}
+            onSelectCourse={handleSelectCourse}
+          />
+        )}
+
+        {/* Page: Solved Past Papers (Moaaz & Waqar Siddhu Archives) */}
+        {currentPage === 'past-papers' && (
+          <PastPapersPage
+            onSelectCourseInLibrary={handleSelectCourse}
           />
         )}
 
@@ -799,12 +829,37 @@ export default function App() {
                 <ul className="space-y-2 text-slate-400">
                   <li>
                     <a
+                      href="/vu-assignment-solution-2026"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('assignment-guide');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-semibold text-emerald-400 flex items-center gap-1.5"
+                    >
+                      <span>VU Assignment Solution 2026</span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-sm bg-emerald-500/20 text-emerald-300 font-mono font-bold">LATEST</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/past-papers"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('past-papers');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-medium text-blue-300"
+                    >
+                      Solved Past Papers (Moaaz &amp; Waqar)
+                    </a>
+                  </li>
+                  <li>
+                    <a
                       href="/gpa-calculator"
                       onClick={(e) => {
                         e.preventDefault();
                         handleNavigate('gpa-calculator');
                       }}
-                      className="hover:text-blue-400 transition-colors font-medium text-blue-300"
+                      className="hover:text-blue-400 transition-colors font-medium text-slate-300"
                     >
                       VU GPA &amp; CGPA Calculator (4.0)
                     </a>
@@ -831,18 +886,6 @@ export default function App() {
                       className="hover:text-blue-400 transition-colors font-medium text-indigo-300"
                     >
                       CS619 FYP Roadmap &amp; Viva Voce
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/assignment-guide"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavigate('assignment-guide');
-                      }}
-                      className="hover:text-blue-400 transition-colors font-medium text-emerald-300"
-                    >
-                      Assignment &amp; Turnitin Guide
                     </a>
                   </li>
                 </ul>
@@ -914,8 +957,58 @@ export default function App() {
               </div>
             </div>
 
+            {/* Quick Access Course Directory / Accordion */}
+            <div className="pt-6 border-t border-slate-800/80 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <div className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-blue-400" />
+                    <span>Virtual University All 411 Courses &amp; 2026 Solutions Directory</span>
+                  </div>
+                  <div className="text-[11px] text-slate-400 mt-0.5">
+                    Click any course code below to instantly inspect verified solved past papers, lecture handouts, and assignment solutions.
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowAllCoursesFooter(!showAllCoursesFooter)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-cyan-300 hover:text-white text-xs font-semibold border border-slate-800 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
+                >
+                  <span>{showAllCoursesFooter ? 'Collapse 411 Courses' : 'Browse All 411 Courses'}</span>
+                  {showAllCoursesFooter ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+              </div>
+
+              {showAllCoursesFooter && (
+                <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 max-h-96 overflow-y-auto space-y-3 text-xs animate-in fade-in duration-150">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    {courses.map((c) => (
+                      <a
+                        key={c.code}
+                        href={`/courses?course=${c.code}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSelectCourse(c.code);
+                        }}
+                        className="p-2 rounded-lg bg-slate-950/80 hover:bg-blue-950/60 border border-slate-800 hover:border-blue-500/50 text-slate-300 hover:text-white transition-all group block text-left"
+                        title={`${c.code} - ${c.title}`}
+                      >
+                        <div className="font-mono font-bold text-blue-400 group-hover:text-cyan-300 text-[11px]">
+                          {c.code}
+                        </div>
+                        <div className="text-[10px] text-slate-400 line-clamp-1">
+                          {c.title}
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Bottom Copyright */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 pt-4 border-t border-slate-900">
               <div>
                 &copy; {new Date().getFullYear()} MIHORA TECH. Educational Welfare Initiative. All rights reserved.
               </div>

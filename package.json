@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "tsx server.ts",
-    "build": "vite build && tsx scripts/prerender-routes.ts && cp dist/index.html dist/404.html && tsx scripts/audit-public.ts && rm -rf docs && cp -r dist docs",
+    "build": "tsx scripts/generate-index-html.ts && vite build && tsx scripts/prerender-routes.ts && cp dist/index.html dist/404.html && tsx scripts/audit-public.ts",
     "preview": "vite preview",
     "generate": "tsx scripts/import-index.ts",
     "validate": "tsx scripts/validate-index.ts",

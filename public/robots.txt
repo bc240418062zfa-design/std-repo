@@ -2,6 +2,7 @@
 # MIHORA STUDY LIBRARY — Production Robots Exclusion Protocol (RFC 9309)
 # Primary: https://study.mihora.tech
 # Organization: MIHORA TECH (https://www.mihora.tech)
+# Target Queries: mihora vu, vu assignment solution 2026, vu solved past papers
 # ==============================================================================
 
 # ------------------------------------------------------------------------------
@@ -10,8 +11,15 @@
 User-agent: *
 Allow: /
 Allow: /courses
+Allow: /courses/*
+Allow: /vu-assignment-solution-2026
+Allow: /assignment-guide
+Allow: /past-papers
 Allow: /handbook
 Allow: /simulator
+Allow: /gpa-calculator
+Allow: /datesheet-guide
+Allow: /cs619-guide
 Allow: /security
 Allow: /about
 Allow: /sitemap
@@ -28,7 +36,7 @@ Disallow: /*.json$
 Disallow: /*.map$
 
 # ------------------------------------------------------------------------------
-# 2. Major Search Engine Webcrawlers
+# 2. Major Search Engine Webcrawlers (Googlebot, Bingbot, Applebot, YandexBot)
 # ------------------------------------------------------------------------------
 User-agent: Googlebot
 User-agent: Googlebot-Image
@@ -38,8 +46,15 @@ User-agent: DuckDuckBot
 User-agent: YandexBot
 Allow: /
 Allow: /courses
+Allow: /courses/*
+Allow: /vu-assignment-solution-2026
+Allow: /assignment-guide
+Allow: /past-papers
 Allow: /handbook
 Allow: /simulator
+Allow: /gpa-calculator
+Allow: /datesheet-guide
+Allow: /cs619-guide
 Allow: /security
 Allow: /about
 Allow: /sitemap
@@ -61,8 +76,15 @@ User-agent: PerplexityBot
 User-agent: Cohere-ai
 Allow: /
 Allow: /courses
+Allow: /courses/*
+Allow: /vu-assignment-solution-2026
+Allow: /assignment-guide
+Allow: /past-papers
 Allow: /handbook
 Allow: /simulator
+Allow: /gpa-calculator
+Allow: /datesheet-guide
+Allow: /cs619-guide
 Allow: /security
 Allow: /about
 Allow: /sitemap
