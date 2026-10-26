@@ -32,8 +32,12 @@ export function auditDirectory(dirPath: string): number {
       const content = fs.readFileSync(fullPath, 'utf-8');
 
       for (const pattern of LEAK_PATTERNS) {
-        if (pattern.test(content)) {
+        const match = pattern.exec(content);
+        if (match) {
+          const matchIdx = match.index;
+          const snippet = content.substring(Math.max(0, matchIdx - 30), Math.min(content.length, matchIdx + 60)).replace(/[\r\n]+/g, ' ');
           console.error(`🚨 FATAL SECURITY AUDIT FAILURE: File '${fullPath}' matched forbidden pattern: ${pattern.toString()}`);
+          console.error(`   Context: "...${snippet}..."`);
           violations++;
         }
       }
