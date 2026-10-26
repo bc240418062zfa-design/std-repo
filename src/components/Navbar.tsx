@@ -88,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, [mobileMenuOpen]);
 
   const isMoreActive = ['security', 'about', 'sitemap', 'disclaimer'].includes(currentPage);
-  const isToolsActive = ['gpa-calculator', 'datesheet-guide', 'cs619-guide', 'assignment-guide'].includes(currentPage);
+  const isToolsActive = ['simulator', 'gpa-calculator', 'datesheet-guide', 'cs619-guide', 'assignment-guide'].includes(currentPage);
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
@@ -161,54 +161,40 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </a>
 
-          {/* 2C. Past Papers (Moaaz & Waqar Siddhu) */}
+          {/* 4. Past Papers (Moaaz & Waqar Siddhu) */}
           <a
             href="/past-papers"
             onClick={(e) => handleNavClick('past-papers', e)}
-            className={`hidden xl:flex px-3 py-2 rounded-xl transition-all duration-150 items-center gap-2 cursor-pointer ${
+            className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 xl:gap-2 cursor-pointer ${
               currentPage === 'past-papers'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
-            <Sparkles className={`w-4 h-4 ${currentPage === 'past-papers' ? 'text-blue-600' : 'text-slate-400'}`} />
+            <Sparkles className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${currentPage === 'past-papers' ? 'text-blue-600' : 'text-slate-400'}`} />
             <span>Past Papers</span>
           </a>
 
-          {/* 3. VU Handbook & FAQs */}
+          {/* 5. VU Handbook & FAQs */}
           <a
             href="/handbook"
             onClick={(e) => handleNavClick('handbook', e)}
-            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
+            className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 xl:gap-2 cursor-pointer ${
               currentPage === 'handbook'
                 ? 'bg-blue-50 text-blue-700 font-bold'
                 : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
-            <GraduationCap className={`w-4 h-4 ${currentPage === 'handbook' ? 'text-blue-600' : 'text-slate-400'}`} />
-            <span>VU Handbook</span>
+            <GraduationCap className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${currentPage === 'handbook' ? 'text-blue-600' : 'text-slate-400'}`} />
+            <span>Handbook</span>
           </a>
 
-          {/* 4. Passing Simulator */}
-          <a
-            href="/simulator"
-            onClick={(e) => handleNavClick('simulator', e)}
-            className={`px-3 py-2 rounded-xl transition-all duration-150 flex items-center gap-2 cursor-pointer ${
-              currentPage === 'simulator'
-                ? 'bg-blue-50 text-blue-700 font-bold'
-                : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
-            }`}
-          >
-            <Calculator className={`w-4 h-4 ${currentPage === 'simulator' ? 'text-blue-600' : 'text-slate-400'}`} />
-            <span>Passing Calculator</span>
-          </a>
-
-          {/* 5. Academic Tools & Guides Dropdown Menu */}
+          {/* 6. Academic Tools & Simulators Dropdown Menu */}
           <div ref={toolsDropdownRef} className="relative">
             <button
               type="button"
               onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
-              className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
                 isToolsActive
                   ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
                   : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
@@ -216,8 +202,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               aria-expanded={toolsDropdownOpen}
               aria-haspopup="true"
             >
-              <Award className={`w-4 h-4 ${isToolsActive ? 'text-blue-600' : 'text-slate-400'}`} />
-              <span>Tools &amp; Guides</span>
+              <Award className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${isToolsActive ? 'text-blue-600' : 'text-slate-400'}`} />
+              <span>Tools</span>
               <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
                 toolsDropdownOpen ? 'rotate-180' : ''
               }`} />
@@ -227,9 +213,27 @@ export const Navbar: React.FC<NavbarProps> = ({
             {toolsDropdownOpen && (
               <div className="absolute left-0 top-full mt-2 w-80 p-2 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 animate-in fade-in slide-in-from-top-1 duration-150 space-y-1">
                 <div className="px-3 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
-                  Student Tools &amp; Capstone Guides
+                  Calculators &amp; Academic Tools
                 </div>
 
+                {/* 1. Passing Marks Simulator */}
+                <a
+                  href="/simulator"
+                  onClick={(e) => handleNavClick('simulator', e)}
+                  className={`w-full p-2.5 rounded-xl flex items-start gap-3 transition-colors cursor-pointer text-left ${
+                    currentPage === 'simulator' ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-700'
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Calculator className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-slate-900">Passing Marks Simulator</div>
+                    <div className="text-[11px] text-slate-500 leading-tight mt-0.5">VU 20% floor rule &amp; target forecaster</div>
+                  </div>
+                </a>
+
+                {/* 2. VU GPA & CGPA Calculator */}
                 <a
                   href="/gpa-calculator"
                   onClick={(e) => handleNavClick('gpa-calculator', e)}
@@ -237,7 +241,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     currentPage === 'gpa-calculator' ? 'bg-blue-50 text-blue-700 font-bold' : 'hover:bg-slate-50 text-slate-700'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5">
                     <Award className="w-4 h-4" />
                   </div>
                   <div>
@@ -246,6 +250,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                 </a>
 
+                {/* 3. Datesheet Guide */}
                 <a
                   href="/datesheet-guide"
                   onClick={(e) => handleNavClick('datesheet-guide', e)}
@@ -262,6 +267,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                 </a>
 
+                {/* 4. CS619 Guide */}
                 <a
                   href="/cs619-guide"
                   onClick={(e) => handleNavClick('cs619-guide', e)}
@@ -278,6 +284,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                 </a>
 
+                {/* 5. Assignment Guide */}
                 <a
                   href="/assignment-guide"
                   onClick={(e) => handleNavClick('assignment-guide', e)}
@@ -297,40 +304,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </div>
 
-          {/* 5. Wide Desktop Direct Links (On xl+ screens, make better productive use of space) */}
-          <a
-            href="/security"
-            onClick={(e) => handleNavClick('security', e)}
-            className={`hidden xl:flex px-3 py-2 rounded-xl transition-all items-center gap-2 cursor-pointer ${
-              currentPage === 'security'
-                ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
-                : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
-            }`}
-          >
-            <ShieldCheck className={`w-4 h-4 ${currentPage === 'security' ? 'text-emerald-600' : 'text-slate-400'}`} />
-            <span>Trust & Privacy</span>
-          </a>
-
-          <a
-            href="/sitemap"
-            onClick={(e) => handleNavClick('sitemap', e)}
-            className={`hidden xl:flex px-3 py-2 rounded-xl transition-all items-center gap-2 cursor-pointer ${
-              currentPage === 'sitemap'
-                ? 'bg-blue-50 text-blue-700 shadow-2xs font-bold'
-                : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
-            }`}
-          >
-            <Network className={`w-4 h-4 ${currentPage === 'sitemap' ? 'text-blue-600' : 'text-slate-400'}`} />
-            <span>Sitemap</span>
-          </a>
-
-          {/* 6. Institutional & Information Dropdown Menu (For lg screens or extra secondary items) */}
+          {/* 7. Institutional & Information Dropdown Menu ("More") */}
           <div ref={dropdownRef} className="relative">
             <button
               type="button"
               onClick={() => setMoreDropdownOpen(!moreDropdownOpen)}
-              className={`px-3 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
-                isMoreActive && !['security', 'sitemap'].includes(currentPage)
+              className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer ${
+                isMoreActive
                   ? 'bg-slate-100 text-slate-900 font-bold'
                   : 'hover:text-slate-900 hover:bg-slate-100/80 text-slate-600'
               }`}
@@ -425,11 +405,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           )}
 
-          {/* Desktop Right Quick Search Button (Makes productive use of space without extra blue clutter) */}
+          {/* Desktop Right Quick Search Button (Shows on xl+ screens where there is plenty of space) */}
           <button
             type="button"
             onClick={() => handleNavClick('home')}
-            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-all cursor-pointer border border-slate-200/90 shadow-2xs hover:border-slate-300"
+            className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-all cursor-pointer border border-slate-200/90 shadow-2xs hover:border-slate-300"
             aria-label="Quick search library"
           >
             <Search className="w-3.5 h-3.5 text-slate-400" />
