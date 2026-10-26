@@ -105,9 +105,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           <div className="hidden sm:block h-4 w-px bg-slate-200" aria-hidden="true" />
-          <span className="hidden sm:inline-block text-xs font-semibold text-slate-500 tracking-tight">
-            VU Academic Archive
-          </span>
+          <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-slate-600 tracking-tight">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" aria-hidden="true" />
+            <span>VU Academic Archive</span>
+          </div>
         </div>
 
         {/* Center: Clean Standard Desktop Navigation Links */}
@@ -418,8 +419,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Download Count Badge (Shows whenever files are selected) */}
           {selectedCount > 0 && (
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tabular-nums shadow-2xs">
-              <Download className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200/90 text-amber-900 text-xs font-bold tabular-nums shadow-xs">
+              <Download className="w-3.5 h-3.5 text-amber-700" />
               <span>{selectedCount} Selected</span>
             </div>
           )}
@@ -428,12 +429,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             type="button"
             onClick={() => handleNavClick('home')}
-            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-all cursor-pointer border border-slate-200/80 shadow-2xs"
+            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-all cursor-pointer border border-slate-200/90 shadow-2xs hover:border-slate-300"
             aria-label="Quick search library"
           >
-            <Search className="w-3.5 h-3.5 text-slate-500" />
+            <Search className="w-3.5 h-3.5 text-slate-400" />
             <span>Search</span>
-            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white rounded border border-slate-200 text-slate-400 select-none">
+            <kbd className="px-1.5 py-0.5 text-[10px] font-mono bg-white rounded border border-slate-200 text-slate-500 select-none">
               /
             </kbd>
           </button>

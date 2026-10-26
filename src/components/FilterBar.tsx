@@ -150,11 +150,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onFilterChange({ ...filters, solvedOnly: !filters.solvedOnly })}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer border ${
               filters.solvedOnly
-                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
-                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-[#0A192F] border-[#0A192F] text-white shadow-xs'
+                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {filters.solvedOnly && <Check className="w-3 h-3 text-white" />}
+            {filters.solvedOnly && <Check className="w-3 h-3 text-amber-400" />}
             <span>Solved Only</span>
           </button>
 
@@ -163,11 +163,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onFilterChange({ ...filters, pastPapersOnly: !filters.pastPapersOnly })}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer border ${
               filters.pastPapersOnly
-                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
-                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-[#0A192F] border-[#0A192F] text-white shadow-xs'
+                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {filters.pastPapersOnly && <Check className="w-3 h-3 text-white" />}
+            {filters.pastPapersOnly && <Check className="w-3 h-3 text-amber-400" />}
             <span>Past Papers</span>
           </button>
 
@@ -176,11 +176,11 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={handleToggleMcq}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer border ${
               isMcqActive
-                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
-                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-[#0A192F] border-[#0A192F] text-white shadow-xs'
+                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {isMcqActive && <Check className="w-3 h-3 text-white" />}
+            {isMcqActive && <Check className="w-3 h-3 text-amber-400" />}
             <span>MCQs</span>
           </button>
 
@@ -189,7 +189,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <button
               type="button"
               onClick={handleReset}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-rose-600 hover:text-rose-700 bg-rose-50/70 hover:bg-rose-100/80 rounded-xl transition-colors cursor-pointer border border-rose-200/60"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors cursor-pointer border border-rose-200"
               title="Reset all filters"
             >
               <RotateCcw className="w-3 h-3" />
@@ -203,7 +203,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           <span className="text-slate-600 font-medium">
             <strong className="text-slate-900 font-mono font-bold tabular-nums">{totalFiltered}</strong> of <strong className="text-slate-900 font-mono font-bold tabular-nums">{totalMatching.toLocaleString()}</strong> files
           </span>
-          <div className="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/60">
+          <div className="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/80">
             <span className="px-1.5 text-[11px] text-slate-400 font-medium select-none">Limit:</span>
             {[12, 24, 48, 96].map((l) => (
               <button
@@ -212,7 +212,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 onClick={() => onLimitChange(l)}
                 className={`px-2 py-0.5 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer font-mono ${
                   limit === l
-                    ? 'bg-white text-blue-700 shadow-2xs font-bold'
+                    ? 'bg-[#0A192F] text-white shadow-xs font-bold'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >

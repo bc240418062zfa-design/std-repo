@@ -87,10 +87,10 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
 
   return (
     <div
-      className={`group relative bg-white border rounded-2xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-between gap-4 ${
+      className={`group relative bg-white border rounded-2xl p-4 sm:p-5 transition-all duration-200 flex flex-col justify-between gap-4 academic-card-hover academic-card-shadow ${
         isSelected
-          ? 'border-blue-500 ring-2 ring-blue-500/20 shadow-md bg-blue-50/20'
-          : 'border-slate-200/90 hover:border-blue-300 hover:shadow-md hover:-translate-y-0.5'
+          ? 'border-blue-600 ring-2 ring-blue-600/20 shadow-md bg-blue-50/20'
+          : 'border-slate-200/90 hover:border-blue-400/80'
       }`}
     >
       <div className="space-y-3">
@@ -98,7 +98,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2.5 min-w-0">
             {getFormatBadge(resource.format)}
-            <span className="font-mono font-bold text-xs text-blue-700 bg-blue-50/80 px-2 py-0.5 rounded-lg border border-blue-200/70 shrink-0">
+            <span className="font-mono font-bold text-xs text-[#0A192F] bg-slate-100/90 px-2.5 py-0.5 rounded-lg border border-slate-200/90 shrink-0">
               {resource.course}
             </span>
           </div>
@@ -119,7 +119,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         {/* Resource Name */}
         <h3 
           onClick={() => onPreview && onPreview(resource)}
-          className="font-bold text-slate-900 text-sm sm:text-base leading-snug line-clamp-2 group-hover:text-blue-600 transition-colors cursor-pointer"
+          className="font-bold text-slate-900 text-sm sm:text-base leading-snug line-clamp-2 group-hover:text-blue-700 transition-colors cursor-pointer"
           title="Click to preview online"
         >
           {resource.name}
@@ -127,9 +127,9 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
 
         {/* Clean Unboxed Metadata with Typographic Separator (Zero-Pill Rule) */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 font-medium">
-          <span className="text-slate-700 font-semibold">{resource.type}</span>
+          <span className="text-slate-800 font-semibold">{resource.type}</span>
           <span aria-hidden="true" className="text-slate-300">·</span>
-          <span className="uppercase font-mono text-[11px]">{resource.format}</span>
+          <span className="uppercase font-mono text-[11px] font-semibold text-slate-600">{resource.format}</span>
           {resource.tags && resource.tags.length > 0 && (
             <>
               <span aria-hidden="true" className="text-slate-300">·</span>
@@ -145,7 +145,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           <button
             type="button"
             onClick={() => onPreview(resource)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-50 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition-colors cursor-pointer border border-slate-200/80 hover:border-blue-200"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-50 hover:bg-slate-100 hover:text-slate-900 text-slate-700 transition-colors cursor-pointer border border-slate-200/80 hover:border-slate-300"
           >
             <Eye className="w-3.5 h-3.5 text-blue-600" />
             <span>Read Online</span>
@@ -158,7 +158,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           type="button"
           disabled={isDownloading}
           onClick={() => onDownload(resource)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-all cursor-pointer shadow-xs hover:shadow-sm active:scale-95 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-all cursor-pointer shadow-xs hover:shadow-md active:scale-95 disabled:opacity-50"
         >
           <Download className="w-3.5 h-3.5" />
           <span>{isDownloading ? 'Resolving...' : 'Download'}</span>

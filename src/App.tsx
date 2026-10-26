@@ -730,13 +730,13 @@ export default function App() {
         />
 
         {/* Enterprise Footer */}
-        <footer className="bg-slate-950 text-white border-t border-slate-900 mt-20 pt-14 pb-12">
+        <footer className="bg-gradient-to-b from-[#0A192F] to-[#060D1A] text-white border-t border-blue-900/40 mt-20 pt-14 pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
               {/* Brand Column */}
               <div className="space-y-3">
                 <MihoraLogo variant="white" size="md" />
-                <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
+                <p className="text-xs text-slate-300 max-w-sm leading-relaxed">
                   MIHORA STUDY LIBRARY is an independent, non-commercial educational technology and CSR initiative engineered by <strong>MIHORA TECH</strong> to empower students of the Virtual University of Pakistan.
                 </p>
                 <div className="pt-2">
@@ -981,7 +981,7 @@ export default function App() {
               </div>
 
               {showAllCoursesFooter && (
-                <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 max-h-96 overflow-y-auto space-y-3 text-xs animate-in fade-in duration-150">
+                <div className="p-4 rounded-2xl bg-[#0B172A]/90 border border-blue-900/40 max-h-96 overflow-y-auto space-y-3 text-xs animate-in fade-in duration-150">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
                     {courses.map((c) => (
                       <a
@@ -991,10 +991,10 @@ export default function App() {
                           e.preventDefault();
                           handleSelectCourse(c.code);
                         }}
-                        className="p-2 rounded-lg bg-slate-950/80 hover:bg-blue-950/60 border border-slate-800 hover:border-blue-500/50 text-slate-300 hover:text-white transition-all group block text-left"
+                        className="p-2 rounded-lg bg-[#060D1A]/90 hover:bg-blue-950/60 border border-slate-800 hover:border-amber-500/40 text-slate-300 hover:text-white transition-all group block text-left"
                         title={`${c.code} - ${c.title}`}
                       >
-                        <div className="font-mono font-bold text-blue-400 group-hover:text-cyan-300 text-[11px]">
+                        <div className="font-mono font-bold text-sky-400 group-hover:text-amber-300 text-[11px]">
                           {c.code}
                         </div>
                         <div className="text-[10px] text-slate-400 line-clamp-1">

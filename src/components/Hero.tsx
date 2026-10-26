@@ -129,28 +129,28 @@ export const Hero: React.FC<HeroProps> = ({
   const hasSuggestions = showSuggestions && (matchingCourses.length > 0 || quickSuggestions.length > 0);
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 text-white pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-slate-800/80">
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#060D1A] via-[#0A192F] to-[#0D203D] text-white pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-blue-900/40">
       {/* High-tech Constellation Grid Backdrop */}
-      <div className="absolute inset-0 opacity-25 pointer-events-none bg-[radial-gradient(#3b82f6_1.2px,transparent_1.2px)] [background-size:28px_28px]" />
+      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#38bdf8_1.2px,transparent_1.2px)] [background-size:28px_28px]" />
       
-      {/* Ambient Radial Core Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[360px] bg-gradient-to-r from-blue-600/20 via-cyan-500/15 to-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
+      {/* Ambient Academic Radial Glows (Royal Sapphire & Citation Gold) */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[380px] bg-gradient-to-r from-blue-600/25 via-sky-500/15 to-amber-500/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-        {/* Clean Editorial Metadata Kicker */}
-        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-slate-300 text-xs font-medium shadow-md shadow-black/20 backdrop-blur-md">
-          <BookOpen className="w-3.5 h-3.5 text-blue-400" />
-          <span className="text-slate-200 font-semibold tracking-wide">VIRTUAL UNIVERSITY ARCHIVE</span>
+        {/* Clean Academic Editorial Metadata Kicker */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0A1628]/95 border border-amber-500/35 text-slate-200 text-xs font-medium shadow-lg shadow-black/30 backdrop-blur-md">
+          <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+          <span className="text-amber-200/90 font-bold tracking-wider">VIRTUAL UNIVERSITY ARCHIVE</span>
           <span className="text-slate-600" aria-hidden="true">·</span>
-          <span className="text-slate-300 font-mono text-[11px] tabular-nums">{totalCourses} Courses</span>
+          <span className="text-slate-200 font-mono text-[11px] tabular-nums font-semibold">{totalCourses} Courses</span>
           <span className="text-slate-600" aria-hidden="true">·</span>
-          <span className="text-slate-300 font-mono text-[11px] tabular-nums">{totalResources.toLocaleString()} Solved Documents</span>
+          <span className="text-slate-200 font-mono text-[11px] tabular-nums font-semibold">{totalResources.toLocaleString()} Solved Documents</span>
         </div>
 
         {/* Hero Title & Subtext */}
         <div className="space-y-4 max-w-4xl mx-auto">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight" style={{ textWrap: 'balance' }}>
-            MIHORA VU <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300">– Solved Papers, Handouts &amp; 2026 Solutions</span>
+            MIHORA VU <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-sky-200 to-amber-200">– Solved Papers, Handouts &amp; 2026 Solutions</span>
           </h1>
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
             Direct high-speed downloads for 28,328+ Virtual University past papers, Moaaz &amp; Waqar Siddhu solved MCQs, official handouts, and 2026 assignment solution templates across all 411 courses.
@@ -161,13 +161,13 @@ export const Hero: React.FC<HeroProps> = ({
         <div ref={containerRef} className="max-w-3xl mx-auto relative text-left">
           {/* Animated Ambient Border Halo */}
           <div 
-            className={`absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600 blur-md opacity-35 transition-all duration-300 pointer-events-none ${
+            className={`absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 via-sky-400 to-amber-500 blur-md opacity-35 transition-all duration-300 pointer-events-none ${
               isFocused ? 'opacity-90 blur-lg scale-[1.01]' : 'opacity-35'
             }`} 
           />
 
           {/* Command Bar Shell (In-Flow Integrated Card to completely eliminate overlap) */}
-          <div className="relative bg-slate-900/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl transition-all overflow-hidden">
+          <div className="relative bg-[#0A1628]/95 backdrop-blur-2xl border border-slate-700/80 rounded-2xl shadow-2xl transition-all overflow-hidden focus-within:border-blue-400/80">
             <form
               onSubmit={handleFormSubmit}
               className="flex items-center p-1.5 sm:p-2.5 gap-1.5 sm:gap-2"
@@ -330,7 +330,7 @@ export const Hero: React.FC<HeroProps> = ({
         {/* Quick Categories Bar (Modernized Chips - In clean document flow) */}
         <div className="pt-2">
           <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-center gap-2">
-            <Compass className="w-3.5 h-3.5 text-blue-400" />
+            <Compass className="w-3.5 h-3.5 text-amber-400" />
             <span>High-Yield Study Collections</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
@@ -339,10 +339,10 @@ export const Hero: React.FC<HeroProps> = ({
                 key={cat.label}
                 type="button"
                 onClick={() => onCategoryClick(cat.query)}
-                className="group inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-all duration-150 cursor-pointer shadow-xs hover:shadow-md hover:-translate-y-0.5 active:scale-95"
+                className="group inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#0B172A]/90 hover:bg-[#132742] border border-blue-900/50 hover:border-amber-500/40 text-slate-200 hover:text-white transition-all duration-150 cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95"
               >
                 <span>{cat.label}</span>
-                <span className="text-[10px] font-mono font-normal text-slate-400 group-hover:text-sky-300 transition-colors">
+                <span className="text-[10px] font-mono font-normal text-amber-300/90 group-hover:text-amber-200 transition-colors">
                   {cat.badge}
                 </span>
               </button>
@@ -358,7 +358,7 @@ export const Hero: React.FC<HeroProps> = ({
               key={c}
               type="button"
               onClick={() => onCourseClick(c)}
-              className="px-2.5 py-1.5 rounded-lg bg-slate-900/80 border border-slate-800/90 hover:border-blue-500/50 hover:bg-blue-950/40 text-slate-300 hover:text-white transition-all font-mono font-bold text-xs cursor-pointer shadow-2xs hover:-translate-y-0.5 active:scale-95"
+              className="px-2.5 py-1.5 rounded-lg bg-[#0B172A]/90 border border-blue-900/50 hover:border-blue-400 hover:bg-blue-950/60 text-slate-200 hover:text-white transition-all font-mono font-bold text-xs cursor-pointer shadow-2xs hover:-translate-y-0.5 active:scale-95"
             >
               {c}
             </button>

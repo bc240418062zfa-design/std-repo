@@ -24,11 +24,11 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-200">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl p-3.5 sm:p-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-md">
+      <div className="bg-[#0A192F] border border-blue-900/60 rounded-2xl shadow-2xl p-3.5 sm:p-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-md">
         {/* Selection Count Info */}
         <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center tabular-nums">
+            <span className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center tabular-nums">
               {selectedCount}
             </span>
             <span className="text-sm font-semibold">
