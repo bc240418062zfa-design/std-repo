@@ -5,16 +5,12 @@
   --font-serif: 'Fraunces', Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  --oxford-950: #091324;
-  --oxford-900: #0E1B33;
-  --oxford-800: #172847;
-  --royal-blue: #1D4ED8;
-  --amber-gold: #B45309;
+  --oxford-950: #060D1A;
+  --oxford-900: #0B1526;
+  --oxford-800: #132542;
+  --royal-blue: #2563EB;
+  --amber-gold: #D97706;
   --academic-slate: #F8FAFC;
-  --academic-card: #FFFFFF;
-  --academic-border: #E2E8F0;
-  --academic-text: #0F172A;
-  --academic-muted: #475569;
 }
 
 @layer base {
@@ -29,6 +25,7 @@
     color: #0F172A;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
   h1, h2 {
     font-family: var(--font-serif);
@@ -46,6 +43,34 @@
 :focus-visible {
   outline: 2px solid #2563EB;
   outline-offset: 2px;
+}
+
+/* Architectural subtle line grid for Oxford academic headers */
+.bg-academic-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Smooth glass card elevation */
+.glass-panel-dark {
+  background: rgba(15, 29, 53, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.card-elevated {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.card-elevated:hover {
+  box-shadow:
+    0 12px 28px -8px rgba(11, 21, 38, 0.12),
+    0 4px 10px -4px rgba(37, 99, 235, 0.08);
 }
 
 @media (prefers-reduced-motion: reduce) {

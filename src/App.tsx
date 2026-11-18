@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { MotionConfig, motion } from 'motion/react';
 import { Resource, Course, FilterState, DownloadSession } from './types';
 import { searchResources } from './search/searchEngine';
 import { resolveResourceLocally } from './security/shardResolver';
@@ -24,7 +25,15 @@ import { VUCS619GuidePage } from './pages/VUCS619GuidePage';
 import { VUAssignmentGuidePage } from './pages/VUAssignmentGuidePage';
 import { PastPapersPage } from './pages/PastPapersPage';
 import { MCQsPage } from './pages/MCQsPage';
-import { BookOpen, ExternalLink, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
+import {
+  BookOpen,
+  ExternalLink,
+  ChevronDown,
+  ChevronUp,
+  ChevronRight,
+  ListChecks,
+  ArrowRight
+} from 'lucide-react';
 
 // Static sanitized data compiled at build time
 import coursesData from './data/courses.json';
@@ -504,149 +513,258 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
-      {/* Top Bar Navigation */}
-      <Navbar
-        currentPage={currentPage}
-        onNavigate={(p) => handleNavigate(p as AppPage)}
-        selectedCount={selectedRLHs.size}
-      />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+        {/* Top Bar Navigation */}
+        <Navbar
+          currentPage={currentPage}
+          onNavigate={(p) => handleNavigate(p as AppPage)}
+          selectedCount={selectedRLHs.size}
+        />
 
-        {/* 1. Page: Home / Search Catalog */}
-        {currentPage === 'home' && (
-          <>
-            {/* Hero Section */}
-            <Hero
-              query={query}
-              onQueryChange={(val) => {
-                setQuery(val);
-              }}
-              onSearchSubmit={() => {
-                scrollToSearch();
-              }}
-              onCategoryClick={(cat) => {
-                setQuery(cat);
-                scrollToSearch();
-              }}
-              onCourseClick={(code) => {
-                setFilters((prev) => ({ ...prev, course: code }));
-                setQuery('');
-                scrollToSearch();
-              }}
-              totalResources={resources.length}
-              totalCourses={courses.length}
-              courses={courses}
-              onOpenMcqs={() => handleNavigate('mcqs')}
-            />
-
-            {/* Main Interactive Catalog */}
-            <main
-              ref={searchResultsRef}
-              id="catalog"
-              className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex-1 w-full"
-            >
-              {/* Filter Control Surface */}
-              <FilterBar
-                filters={filters}
-                onFilterChange={setFilters}
+        <motion.div
+          key={`${currentPage}-${selectedMcqSetId || 'hub'}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          className="flex-1 flex flex-col"
+        >
+          {/* 1. Page: Home / Search Catalog */}
+          {currentPage === 'home' && (
+            <>
+              {/* Hero Section */}
+              <Hero
+                query={query}
+                onQueryChange={(val) => {
+                  setQuery(val);
+                }}
+                onSearchSubmit={() => {
+                  scrollToSearch();
+                }}
+                onCategoryClick={(cat) => {
+                  setQuery(cat);
+                  scrollToSearch();
+                }}
+                onCourseClick={(code) => {
+                  setFilters((prev) => ({ ...prev, course: code }));
+                  setQuery('');
+                  scrollToSearch();
+                }}
+                totalResources={resources.length}
+                totalCourses={courses.length}
                 courses={courses}
-                limit={limit}
-                onLimitChange={setLimit}
-                totalFiltered={filteredResources.length}
-                totalMatching={totalMatchingCount}
+                onOpenMcqs={() => handleSelectMcqSet(null)}
+                onOpenPastPapers={() => handleNavigate('past-papers')}
+                onOpenSimulator={() => handleNavigate('simulator')}
               />
 
-              {/* Resource Cards Grid */}
-              <div className="mt-8">
-                {filteredResources.length === 0 ? (
-                  <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4 shadow-xs">
-                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
-                      <BookOpen className="w-6 h-6" />
+              {/* Scroll-Revealed Interactive Subject MCQ Quick-Launch Strip */}
+              <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2 w-full">
+                <motion.div
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 'some' }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="space-y-4"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
+                        <ListChecks className="w-4 h-4" />
+                        <span>Shareable Subject Quiz Pages</span>
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-0.5">
+                        Interactive Mid-Term &amp; Final MCQs
+                      </h2>
                     </div>
-                    <div className="space-y-1">
-                      <h3 className="text-base font-bold text-slate-900">
-                        No resources matched your criteria
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
-                        Try clearing active filters or searching with a broader keyword (e.g., &ldquo;midterm&rdquo;, &ldquo;handouts&rdquo;, or &ldquo;CS101&rdquo;).
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setQuery('');
-                        setFilters({
-                          course: '',
-                          type: '',
-                          format: '',
-                          tags: [],
-                          solvedOnly: false,
-                          pastPapersOnly: false,
-                          currentOnly: false
-                        });
+
+                    <a
+                      href="/mcqs"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleSelectMcqSet(null);
                       }}
-                      className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors self-start sm:self-auto"
                     >
-                      <span>Reset All Filters</span>
-                    </button>
+                      <span>Open All {mcqSets.length} Subject Pages</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
                   </div>
-                ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-                    {filteredResources.map((res) => (
-                      <ResourceCard
-                        key={res.rlh}
-                        resource={res}
-                        isSelected={selectedRLHs.has(res.rlh)}
-                        onToggleSelect={handleToggleSelect}
-                        onDownload={handleDownload}
-                        onPreview={setPreviewResource}
-                      />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                    {mcqSets.map((set, idx) => (
+                      <motion.a
+                        key={set.id}
+                        href={`/mcqs/${set.id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSelectMcqSet(set.id);
+                        }}
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{
+                          duration: 0.32,
+                          delay: Math.min(idx * 0.04, 0.24),
+                          ease: [0.16, 1, 0.3, 1]
+                        }}
+                        whileHover={{ y: -4 }}
+                        className="group bg-white rounded-xl border border-slate-200 hover:border-blue-400 p-4 flex flex-col justify-between gap-3 card-elevated transition-colors"
+                      >
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between gap-2 text-xs font-mono">
+                            <span className="font-bold text-blue-700">{set.courseCode}</span>
+                            <span
+                              className={`font-semibold tabular-nums ${
+                                set.term === 'finalterm' ? 'text-amber-700' : 'text-slate-500'
+                              }`}
+                            >
+                              {set.termLabel} · {set.questions.length} Qs
+                            </span>
+                          </div>
+                          <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors line-clamp-1">
+                            {set.courseTitle}
+                          </h3>
+                        </div>
+
+                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                          <span className="truncate">/mcqs/{set.id}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition-all shrink-0" />
+                        </div>
+                      </motion.a>
                     ))}
                   </div>
-                )}
-              </div>
+                </motion.div>
+              </section>
 
-              {/* Pagination / Load More */}
-              {filteredResources.length < totalMatchingCount && (
-                <div className="mt-12 text-center space-y-2">
-                  <button
-                    type="button"
-                    onClick={() => setLimit((prev) => prev + 24)}
-                    className="px-6 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-slate-400 text-slate-700 font-semibold text-xs sm:text-sm shadow-xs transition-colors cursor-pointer"
+              {/* Main Interactive Catalog */}
+              <main
+                ref={searchResultsRef}
+                id="catalog"
+                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full"
+              >
+                {/* Filter Control Surface */}
+                <FilterBar
+                  filters={filters}
+                  onFilterChange={setFilters}
+                  courses={courses}
+                  limit={limit}
+                  onLimitChange={setLimit}
+                  totalFiltered={filteredResources.length}
+                  totalMatching={totalMatchingCount}
+                />
+
+                {/* Resource Cards Grid */}
+                <div className="mt-8">
+                  {filteredResources.length === 0 ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4 card-elevated"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+                        <BookOpen className="w-6 h-6" />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="text-base font-bold text-slate-900">
+                          No resources matched your criteria
+                        </h3>
+                        <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
+                          Try clearing active filters or searching with a broader keyword (e.g., &ldquo;midterm&rdquo;, &ldquo;handouts&rdquo;, or &ldquo;CS101&rdquo;).
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setQuery('');
+                          setFilters({
+                            course: '',
+                            type: '',
+                            format: '',
+                            tags: [],
+                            solvedOnly: false,
+                            pastPapersOnly: false,
+                            currentOnly: false
+                          });
+                        }}
+                        className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors cursor-pointer"
+                      >
+                        <span>Reset All Filters</span>
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+                      {filteredResources.map((res, idx) => (
+                        <ResourceCard
+                          key={res.rlh}
+                          resource={res}
+                          index={idx}
+                          isSelected={selectedRLHs.has(res.rlh)}
+                          onToggleSelect={handleToggleSelect}
+                          onDownload={handleDownload}
+                          onPreview={setPreviewResource}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Pagination / Load More */}
+                {filteredResources.length < totalMatchingCount && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 'some' }}
+                    className="mt-12 text-center space-y-2"
                   >
-                    Load More Resources ({totalMatchingCount - filteredResources.length} remaining)
-                  </button>
-                  <p className="text-[11px] text-slate-400">
-                    Showing {filteredResources.length} of {totalMatchingCount.toLocaleString()} matching documents
-                  </p>
-                </div>
-              )}
+                    <motion.button
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.97 }}
+                      type="button"
+                      onClick={() => setLimit((prev) => prev + 24)}
+                      className="px-6 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-blue-400 text-slate-700 hover:text-blue-700 font-semibold text-xs sm:text-sm card-elevated transition-colors cursor-pointer"
+                    >
+                      Load More Resources ({totalMatchingCount - filteredResources.length} remaining)
+                    </motion.button>
+                    <p className="text-[11px] text-slate-400 tabular-nums">
+                      Showing {filteredResources.length} of {totalMatchingCount.toLocaleString()} matching documents
+                    </p>
+                  </motion.div>
+                )}
 
-              {/* Clean Editorial Curriculum Directory Callout */}
-              <div className="mt-14 bg-white rounded-xl p-6 sm:p-8 border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div className="space-y-1.5 max-w-2xl">
-                  <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
-                    Curriculum Archive
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                    Looking for past papers or handouts by subject?
-                  </h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">
-                    Browse all 411 Virtual University courses organized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleNavigate('courses')}
-                  className="px-5 py-2.5 rounded-lg bg-[#0B1526] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap"
+                {/* Clean Editorial Curriculum Directory Callout */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 'some' }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-14 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-elevated flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
                 >
-                  <span>Explore 411 Courses</span>
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </main>
-          </>
-        )}
+                  <div className="space-y-1.5 max-w-2xl">
+                    <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
+                      Curriculum Archive
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                      Looking for past papers or handouts by subject?
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Browse all 411 Virtual University courses organized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
+                    </p>
+                  </div>
+                  <motion.button
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    type="button"
+                    onClick={() => handleNavigate('courses')}
+                    className="px-5 py-3 rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap"
+                  >
+                    <span>Explore 411 Courses</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </motion.button>
+                </motion.div>
+              </main>
+            </>
+          )}
 
         {/* 2. Page: Course Directory */}
         {currentPage === 'courses' && (
@@ -744,6 +862,7 @@ export default function App() {
             onNavigateCourses={() => handleNavigate('courses')}
           />
         )}
+        </motion.div>
 
         {/* Floating Multi-Download Action Bar */}
         <MultiDownloadBar
@@ -773,8 +892,15 @@ export default function App() {
         />
 
         {/* Clean Institutional Footer */}
-        <footer className="bg-[#0B1526] text-white border-t border-slate-800 mt-20 pt-14 pb-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <footer className="relative bg-[#0B1526] text-white border-t border-slate-800 mt-20 pt-14 pb-12 overflow-hidden">
+          <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10"
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
               <div className="space-y-3">
                 <MihoraLogo variant="white" size="md" />
@@ -1064,8 +1190,9 @@ export default function App() {
                 study.mihora.tech · <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white hover:underline">www.mihora.tech</a>
               </div>
             </div>
-          </div>
+          </motion.div>
         </footer>
       </div>
+    </MotionConfig>
   );
 }

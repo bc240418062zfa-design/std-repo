@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Resource } from '../types';
 import {
   FileText,
@@ -18,6 +19,7 @@ interface ResourceCardProps {
   onDownload: (resource: Resource) => void;
   onPreview?: (resource: Resource) => void;
   isDownloading?: boolean;
+  index?: number;
 }
 
 export const ResourceCard: React.FC<ResourceCardProps> = ({
@@ -26,7 +28,8 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   onToggleSelect,
   onDownload,
   onPreview,
-  isDownloading = false
+  isDownloading = false,
+  index = 0
 }) => {
   const getFormatIcon = (format: string) => {
     switch (format.toUpperCase()) {
@@ -56,11 +59,20 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   };
 
   return (
-    <div
-      className={`group bg-white border rounded-xl p-4 sm:p-5 transition-colors flex flex-col justify-between gap-4 ${
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 'some' }}
+      transition={{
+        duration: 0.32,
+        delay: Math.min((index % 12) * 0.03, 0.24),
+        ease: [0.16, 1, 0.3, 1]
+      }}
+      whileHover={{ y: -4 }}
+      className={`group bg-white border rounded-xl p-4 sm:p-5 transition-colors flex flex-col justify-between gap-4 card-elevated ${
         isSelected
           ? 'border-blue-600 ring-1 ring-blue-600 bg-blue-50/20'
-          : 'border-slate-200 hover:border-slate-300'
+          : 'border-slate-200 hover:border-blue-300'
       }`}
     >
       <div className="space-y-2.5">
@@ -117,7 +129,8 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           <span className="text-[11px] text-slate-400 font-mono">Archive File</span>
         )}
 
-        <button
+        <motion.button
+          whileTap={{ scale: 0.96 }}
           type="button"
           disabled={isDownloading}
           onClick={() => onDownload(resource)}
@@ -125,8 +138,8 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         >
           <Download className="w-3.5 h-3.5" />
           <span>{isDownloading ? 'Resolving...' : 'Download'}</span>
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 };

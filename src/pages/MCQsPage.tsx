@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import {
   BookOpen,
   CheckCircle2,
@@ -515,11 +516,23 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
   // VIEW 1: MCQs DIRECTORY HUB (/mcqs)
   // =========================================================================
   if (!activeSet) {
+    const termTabs = [
+      { id: 'midterm' as const, label: `Mid-Term (${bankSummary.midtermCount})` },
+      { id: 'finalterm' as const, label: `Final-Term (${bankSummary.finalCount})` },
+      { id: 'all' as const, label: `All (${bankSummary.totalCount})` }
+    ];
+
     return (
       <div className="min-h-screen bg-slate-50">
-        <section className="bg-[#0B1526] text-white border-b border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-6">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#071020] via-[#0C1930] to-[#112342] text-white border-b border-slate-800">
+          <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col lg:flex-row lg:items-end justify-between gap-6"
+            >
               <div className="space-y-3 max-w-3xl">
                 <p className="text-xs sm:text-sm font-mono text-amber-300 tracking-wide tabular-nums">
                   Interactive Exam Practice · {bankSummary.totalSubjects} Subjects · {bankSummary.totalCount} Verified MCQs
@@ -539,51 +552,38 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
               {/* Term Switcher */}
               <div
-                className="inline-flex p-1 rounded-lg bg-slate-900 border border-slate-700 self-start lg:self-auto shrink-0"
+                className="inline-flex p-1 rounded-xl bg-slate-900/90 border border-slate-700/80 self-start lg:self-auto shrink-0"
                 role="tablist"
                 aria-label="Filter MCQ subjects by term"
               >
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={termFilter === 'midterm'}
-                  onClick={() => setTermFilter('midterm')}
-                  className={`px-3.5 py-2 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                    termFilter === 'midterm'
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-300 hover:text-white'
-                  }`}
-                >
-                  Mid-Term ({bankSummary.midtermCount})
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={termFilter === 'finalterm'}
-                  onClick={() => setTermFilter('finalterm')}
-                  className={`px-3.5 py-2 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                    termFilter === 'finalterm'
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-300 hover:text-white'
-                  }`}
-                >
-                  Final-Term ({bankSummary.finalCount})
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={termFilter === 'all'}
-                  onClick={() => setTermFilter('all')}
-                  className={`px-3.5 py-2 rounded-md text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                    termFilter === 'all'
-                      ? 'bg-slate-700 text-white'
-                      : 'text-slate-300 hover:text-white'
-                  }`}
-                >
-                  All ({bankSummary.totalCount})
-                </button>
+                {termTabs.map((tab) => {
+                  const active = termFilter === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => setTermFilter(tab.id)}
+                      className={`relative px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                        active ? 'text-white' : 'text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      {active && (
+                        <motion.span
+                          layoutId="mcq-term-filter"
+                          transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                          className={`absolute inset-0 rounded-lg ${
+                            tab.id === 'all' ? 'bg-slate-700' : 'bg-blue-600'
+                          }`}
+                        />
+                      )}
+                      <span className="relative z-10">{tab.label}</span>
+                    </button>
+                  );
+                })}
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -604,7 +604,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {visibleHubSets.map((set) => {
+            {visibleHubSets.map((set, idx) => {
               const p = progress[set.id] || { answers: {}, bookmarks: [] };
               const answeredCount = Object.keys(p.answers).length;
               let correctCount = 0;
@@ -616,9 +616,18 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
               const isCopied = copiedSetId === set.id;
 
               return (
-                <div
+                <motion.div
                   key={set.id}
-                  className="bg-white rounded-xl border border-slate-200 hover:border-slate-300 p-5 sm:p-6 flex flex-col justify-between gap-5 transition-colors"
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 'some' }}
+                  transition={{
+                    duration: 0.34,
+                    delay: Math.min(idx * 0.05, 0.25),
+                    ease: [0.16, 1, 0.3, 1]
+                  }}
+                  whileHover={{ y: -4 }}
+                  className="bg-white rounded-xl border border-slate-200 hover:border-blue-300 p-5 sm:p-6 flex flex-col justify-between gap-5 transition-colors card-elevated"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between gap-2 text-xs font-mono">
@@ -662,16 +671,20 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                         </span>
                       </div>
                       <div className="h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
-                        <div
-                          className="h-full rounded-full bg-blue-600 transition-all duration-300"
-                          style={{ width: `${pct}%` }}
+                        <motion.div
+                          className="h-full rounded-full bg-blue-600"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${pct}%` }}
+                          viewport={{ once: true, amount: 'some' }}
+                          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                         />
                       </div>
                     </div>
 
                     {/* Actions */}
                     <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                      <button
+                      <motion.button
+                        whileTap={{ scale: 0.96 }}
                         type="button"
                         onClick={(e) => handleCopyShareLink(set.id, e)}
                         className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium border transition-colors cursor-pointer min-h-[40px] ${
@@ -691,9 +704,10 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                             <span>Copy Link</span>
                           </>
                         )}
-                      </button>
+                      </motion.button>
 
-                      <a
+                      <motion.a
+                        whileTap={{ scale: 0.96 }}
                         href={`/mcqs/${set.id}`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -703,10 +717,10 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       >
                         <span>Open Quiz</span>
                         <ArrowRight className="w-3.5 h-3.5" />
-                      </a>
+                      </motion.a>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -725,8 +739,14 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Dedicated Subject Header */}
-      <section className="bg-[#0B1526] text-white border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-5">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#071020] via-[#0C1930] to-[#112342] text-white border-b border-slate-800">
+        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-5"
+        >
           {/* Breadcrumb Navigation */}
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-slate-400">
@@ -773,13 +793,14 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
             {/* Subject Share & Action Controls */}
             <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 type="button"
                 onClick={() => handleCopyShareLink(activeSet.id)}
                 className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer min-h-[40px] ${
                   isCopiedActive
                     ? 'bg-emerald-600 border-emerald-500 text-white'
-                    : 'bg-slate-800 hover:bg-slate-700 border-slate-700 text-white'
+                    : 'glass-panel-dark hover:bg-slate-800 text-white'
                 }`}
               >
                 {isCopiedActive ? (
@@ -793,16 +814,17 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     <span>Copy Subject Link</span>
                   </>
                 )}
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 type="button"
                 onClick={() => handleNativeShare(activeSet)}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors cursor-pointer min-h-[40px]"
               >
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Share</span>
-              </button>
+              </motion.button>
 
               {siblingTermSets.map((sib) => (
                 <a
@@ -820,23 +842,24 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
               ))}
 
               {onSelectCourseInLibrary && (
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.96 }}
                   type="button"
                   onClick={() => onSelectCourseInLibrary(activeSet.courseCode)}
                   className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-slate-900 text-xs font-semibold transition-colors cursor-pointer min-h-[40px]"
                 >
                   <FileText className="w-3.5 h-3.5 text-blue-700" />
                   <span>{activeSet.courseCode} Files</span>
-                </button>
+                </motion.button>
               )}
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Studio Toolbar & Study Mode Switcher */}
-        <section className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 space-y-5">
+        <section className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 space-y-5 card-elevated">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="space-y-1">
               <div className="text-xs font-mono text-slate-500 tabular-nums">
@@ -847,54 +870,43 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
               </h2>
             </div>
 
-            {/* Study Mode Selector Tabs */}
+            {/* Study Mode Selector Tabs with sliding motion pill */}
             <div
-              className="inline-flex flex-wrap p-1 rounded-lg bg-slate-100 border border-slate-200 self-start lg:self-auto"
+              className="inline-flex flex-wrap p-1 rounded-xl bg-slate-100 border border-slate-200 self-start lg:self-auto"
               role="tablist"
               aria-label="Study mode"
             >
-              <button
-                type="button"
-                role="tab"
-                aria-selected={mode === 'practice'}
-                onClick={() => setMode('practice')}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold transition-colors cursor-pointer min-h-[38px] ${
-                  mode === 'practice'
-                    ? 'bg-white text-slate-950 shadow-2xs'
-                    : 'text-slate-600 hover:text-slate-950'
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5 text-blue-700" />
-                <span>Practice Mode</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={mode === 'exam'}
-                onClick={() => setMode('exam')}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold transition-colors cursor-pointer min-h-[38px] ${
-                  mode === 'exam'
-                    ? 'bg-white text-slate-950 shadow-2xs'
-                    : 'text-slate-600 hover:text-slate-950'
-                }`}
-              >
-                <Timer className="w-3.5 h-3.5 text-blue-700" />
-                <span>Timed Mock Exam</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={mode === 'revision'}
-                onClick={() => setMode('revision')}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-md text-xs font-semibold transition-colors cursor-pointer min-h-[38px] ${
-                  mode === 'revision'
-                    ? 'bg-white text-slate-950 shadow-2xs'
-                    : 'text-slate-600 hover:text-slate-950'
-                }`}
-              >
-                <ListChecks className="w-3.5 h-3.5 text-blue-700" />
-                <span>Quick Revision</span>
-              </button>
+              {(
+                [
+                  { id: 'practice' as const, label: 'Practice Mode', Icon: BookOpen },
+                  { id: 'exam' as const, label: 'Timed Mock Exam', Icon: Timer },
+                  { id: 'revision' as const, label: 'Quick Revision', Icon: ListChecks }
+                ] as const
+              ).map(({ id, label, Icon }) => {
+                const isActive = mode === id;
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setMode(id)}
+                    className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer min-h-[38px] ${
+                      isActive ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="mcq-mode-selector"
+                        transition={{ type: 'spring', stiffness: 450, damping: 34 }}
+                        className="absolute inset-0 bg-white rounded-lg shadow-xs border border-slate-200/70"
+                      />
+                    )}
+                    <Icon className="relative z-10 w-3.5 h-3.5 text-blue-700" />
+                    <span className="relative z-10">{label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -1105,187 +1117,207 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   const isBookmarked = activeSetProgress.bookmarks.includes(currentQuestion.id);
 
                   return (
-                    <div className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 space-y-6">
-                      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
-                        <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500 tabular-nums">
-                          <span className="font-bold text-slate-900">
-                            Question {currentIndex + 1} of {filteredQuestions.length}
-                          </span>
-                          <span aria-hidden="true">·</span>
-                          <span>Paper #{currentQuestion.num}</span>
-                          {currentQuestion.topic && (
-                            <>
-                              <span aria-hidden="true">·</span>
-                              <span className="text-blue-700 font-semibold">{currentQuestion.topic}</span>
-                            </>
-                          )}
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={() => handleToggleBookmark(currentQuestion.id)}
-                          aria-pressed={isBookmarked}
-                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer min-h-[36px] ${
-                            isBookmarked
-                              ? 'bg-amber-50 border-amber-300 text-amber-800'
-                              : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
-                          }`}
-                        >
-                          <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-amber-500 text-amber-600' : ''}`} />
-                          <span>{isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
-                        </button>
-                      </div>
-
-                      <h3 className="text-lg sm:text-xl font-semibold text-slate-900 leading-relaxed">
-                        {currentQuestion.question}
-                      </h3>
-
-                      <div
-                        className="space-y-2.5"
-                        role="radiogroup"
-                        aria-label={`Options for question ${currentQuestion.num}`}
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentQuestion.id}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="bg-white rounded-xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated"
                       >
-                        {currentQuestion.options.map((opt, idx) => {
-                          const isSelected = chosen === idx;
-                          const isRightOption = idx === currentQuestion.correctIndex;
-
-                          let containerStyle =
-                            'bg-white border-slate-200 hover:border-blue-400 hover:bg-slate-50 text-slate-800';
-                          let letterBadgeStyle =
-                            'bg-slate-100 text-slate-700 border-slate-200';
-                          let statusLabel: string | null = null;
-
-                          if (isAnswered) {
-                            if (isRightOption) {
-                              containerStyle =
-                                'bg-emerald-50/80 border-emerald-500 text-emerald-950';
-                              letterBadgeStyle =
-                                'bg-emerald-700 text-white border-emerald-700';
-                              statusLabel = 'Correct Answer';
-                            } else if (isSelected && !isRightOption) {
-                              containerStyle =
-                                'bg-rose-50/80 border-rose-500 text-rose-950';
-                              letterBadgeStyle =
-                                'bg-rose-700 text-white border-rose-700';
-                              statusLabel = 'Your Answer (Incorrect)';
-                            } else {
-                              containerStyle =
-                                'bg-slate-50/60 border-slate-200 text-slate-500';
-                              letterBadgeStyle =
-                                'bg-slate-100 text-slate-400 border-slate-200';
-                            }
-                          }
-
-                          return (
-                            <button
-                              key={idx}
-                              type="button"
-                              role="radio"
-                              aria-checked={isSelected}
-                              onClick={() => handleSelectAnswer(currentQuestion.id, idx)}
-                              className={`w-full min-h-[52px] p-4 rounded-xl border text-left transition-colors flex items-center justify-between gap-3 cursor-pointer ${containerStyle}`}
-                            >
-                              <div className="flex items-start gap-3.5 min-w-0">
-                                <span
-                                  className={`w-7 h-7 rounded-md border font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 ${letterBadgeStyle}`}
-                                >
-                                  {OPTION_LETTERS[idx]}
-                                </span>
-                                <span className="text-sm sm:text-base font-medium leading-snug break-words">
-                                  {opt}
-                                </span>
-                              </div>
-
-                              {isAnswered && (isRightOption || isSelected) && (
-                                <span
-                                  className={`inline-flex items-center gap-1.5 text-xs font-semibold shrink-0 ${
-                                    isRightOption ? 'text-emerald-700' : 'text-rose-700'
-                                  }`}
-                                >
-                                  {isRightOption ? (
-                                    <CheckCircle2 className="w-4 h-4 shrink-0" />
-                                  ) : (
-                                    <XCircle className="w-4 h-4 shrink-0" />
-                                  )}
-                                  <span className="hidden sm:inline">{statusLabel}</span>
-                                </span>
-                              )}
-                            </button>
-                          );
-                        })}
-                      </div>
-
-                      <div aria-live="polite">
-                        {isAnswered && (
-                          <div
-                            className={`p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm ${
-                              isCorrect
-                                ? 'bg-emerald-50 border-emerald-200 text-emerald-950'
-                                : 'bg-rose-50 border-rose-200 text-rose-950'
-                            }`}
-                          >
-                            <div className="flex items-center gap-2 font-semibold">
-                              {isCorrect ? (
-                                <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
-                              ) : (
-                                <XCircle className="w-4 h-4 text-rose-700 shrink-0" />
-                              )}
-                              <span>
-                                {isCorrect
-                                  ? `Correct! Option ${OPTION_LETTERS[currentQuestion.correctIndex]} is verified.`
-                                  : `Incorrect — Correct option is ${OPTION_LETTERS[currentQuestion.correctIndex]}: ${currentQuestion.options[currentQuestion.correctIndex]}`}
-                              </span>
-                            </div>
-
-                            {!isCorrect && (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setProgress((prev) => {
-                                    const cur = prev[activeSet.id] || { answers: {}, bookmarks: [] };
-                                    const nextAns = { ...cur.answers };
-                                    delete nextAns[currentQuestion.id];
-                                    return { ...prev, [activeSet.id]: { ...cur, answers: nextAns } };
-                                  });
-                                }}
-                                className="text-xs font-semibold underline underline-offset-2 text-rose-800 hover:text-rose-950 cursor-pointer self-start sm:self-auto shrink-0"
-                              >
-                                Try Again
-                              </button>
+                        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                          <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-500 tabular-nums">
+                            <span className="font-bold text-slate-900">
+                              Question {currentIndex + 1} of {filteredQuestions.length}
+                            </span>
+                            <span aria-hidden="true">·</span>
+                            <span>Paper #{currentQuestion.num}</span>
+                            {currentQuestion.topic && (
+                              <>
+                                <span aria-hidden="true">·</span>
+                                <span className="text-blue-700 font-semibold">{currentQuestion.topic}</span>
+                              </>
                             )}
                           </div>
-                        )}
-                      </div>
 
-                      <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                        <button
-                          type="button"
-                          disabled={currentIndex <= 0}
-                          onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
-                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-medium text-slate-700 cursor-pointer min-h-[44px]"
-                        >
-                          <ChevronLeft className="w-4 h-4" />
-                          <span>Previous</span>
-                        </button>
-
-                        <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
-                          <Keyboard className="w-3.5 h-3.5" />
-                          <span>A–D / 1–4 Answer · ← → Navigate · F Bookmark</span>
+                          <motion.button
+                            whileTap={{ scale: 0.95 }}
+                            type="button"
+                            onClick={() => handleToggleBookmark(currentQuestion.id)}
+                            aria-pressed={isBookmarked}
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer min-h-[36px] ${
+                              isBookmarked
+                                ? 'bg-amber-50 border-amber-300 text-amber-800'
+                                : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
+                            }`}
+                          >
+                            <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-amber-500 text-amber-600' : ''}`} />
+                            <span>{isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
+                          </motion.button>
                         </div>
 
-                        <button
-                          type="button"
-                          disabled={currentIndex >= filteredQuestions.length - 1}
-                          onClick={() =>
-                            setCurrentIndex((i) => Math.min(filteredQuestions.length - 1, i + 1))
-                          }
-                          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#0B1526] hover:bg-blue-700 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-white transition-colors cursor-pointer min-h-[44px]"
+                        <h3 className="text-lg sm:text-xl font-semibold text-slate-900 leading-relaxed">
+                          {currentQuestion.question}
+                        </h3>
+
+                        <div
+                          className="space-y-2.5"
+                          role="radiogroup"
+                          aria-label={`Options for question ${currentQuestion.num}`}
                         >
-                          <span>Next Question</span>
-                          <ChevronRight className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
+                          {currentQuestion.options.map((opt, idx) => {
+                            const isSelected = chosen === idx;
+                            const isRightOption = idx === currentQuestion.correctIndex;
+
+                            let containerStyle =
+                              'bg-white border-slate-200 hover:border-blue-400 hover:bg-slate-50 text-slate-800';
+                            let letterBadgeStyle =
+                              'bg-slate-100 text-slate-700 border-slate-200';
+                            let statusLabel: string | null = null;
+
+                            if (isAnswered) {
+                              if (isRightOption) {
+                                containerStyle =
+                                  'bg-emerald-50/80 border-emerald-500 text-emerald-950';
+                                letterBadgeStyle =
+                                  'bg-emerald-700 text-white border-emerald-700';
+                                statusLabel = 'Correct Answer';
+                              } else if (isSelected && !isRightOption) {
+                                containerStyle =
+                                  'bg-rose-50/80 border-rose-500 text-rose-950';
+                                letterBadgeStyle =
+                                  'bg-rose-700 text-white border-rose-700';
+                                statusLabel = 'Your Answer (Incorrect)';
+                              } else {
+                                containerStyle =
+                                  'bg-slate-50/60 border-slate-200 text-slate-500';
+                                letterBadgeStyle =
+                                  'bg-slate-100 text-slate-400 border-slate-200';
+                              }
+                            }
+
+                            return (
+                              <motion.button
+                                key={idx}
+                                whileHover={!isAnswered ? { x: 3 } : undefined}
+                                whileTap={{ scale: 0.99 }}
+                                type="button"
+                                role="radio"
+                                aria-checked={isSelected}
+                                onClick={() => handleSelectAnswer(currentQuestion.id, idx)}
+                                className={`w-full min-h-[52px] p-4 rounded-xl border text-left transition-colors flex items-center justify-between gap-3 cursor-pointer ${containerStyle}`}
+                              >
+                                <div className="flex items-start gap-3.5 min-w-0">
+                                  <span
+                                    className={`w-7 h-7 rounded-md border font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 ${letterBadgeStyle}`}
+                                  >
+                                    {OPTION_LETTERS[idx]}
+                                  </span>
+                                  <span className="text-sm sm:text-base font-medium leading-snug break-words">
+                                    {opt}
+                                  </span>
+                                </div>
+
+                                {isAnswered && (isRightOption || isSelected) && (
+                                  <span
+                                    className={`inline-flex items-center gap-1.5 text-xs font-semibold shrink-0 ${
+                                      isRightOption ? 'text-emerald-700' : 'text-rose-700'
+                                    }`}
+                                  >
+                                    {isRightOption ? (
+                                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                                    ) : (
+                                      <XCircle className="w-4 h-4 shrink-0" />
+                                    )}
+                                    <span className="hidden sm:inline">{statusLabel}</span>
+                                  </span>
+                                )}
+                              </motion.button>
+                            );
+                          })}
+                        </div>
+
+                        <div aria-live="polite">
+                          <AnimatePresence>
+                            {isAnswered && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                transition={{ duration: 0.2 }}
+                                className={`p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm ${
+                                  isCorrect
+                                    ? 'bg-emerald-50 border-emerald-200 text-emerald-950'
+                                    : 'bg-rose-50 border-rose-200 text-rose-950'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2 font-semibold">
+                                  {isCorrect ? (
+                                    <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
+                                  ) : (
+                                    <XCircle className="w-4 h-4 text-rose-700 shrink-0" />
+                                  )}
+                                  <span>
+                                    {isCorrect
+                                      ? `Correct! Option ${OPTION_LETTERS[currentQuestion.correctIndex]} is verified.`
+                                      : `Incorrect — Correct option is ${OPTION_LETTERS[currentQuestion.correctIndex]}: ${currentQuestion.options[currentQuestion.correctIndex]}`}
+                                  </span>
+                                </div>
+
+                                {!isCorrect && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setProgress((prev) => {
+                                        const cur = prev[activeSet.id] || { answers: {}, bookmarks: [] };
+                                        const nextAns = { ...cur.answers };
+                                        delete nextAns[currentQuestion.id];
+                                        return { ...prev, [activeSet.id]: { ...cur, answers: nextAns } };
+                                      });
+                                    }}
+                                    className="text-xs font-semibold underline underline-offset-2 text-rose-800 hover:text-rose-950 cursor-pointer self-start sm:self-auto shrink-0"
+                                  >
+                                    Try Again
+                                  </button>
+                                )}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+
+                        <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                          <motion.button
+                            whileTap={{ scale: 0.96 }}
+                            type="button"
+                            disabled={currentIndex <= 0}
+                            onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-medium text-slate-700 cursor-pointer min-h-[44px]"
+                          >
+                            <ChevronLeft className="w-4 h-4" />
+                            <span>Previous</span>
+                          </motion.button>
+
+                          <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+                            <Keyboard className="w-3.5 h-3.5" />
+                            <span>A–D / 1–4 Answer · ← → Navigate · F Bookmark</span>
+                          </div>
+
+                          <motion.button
+                            whileTap={{ scale: 0.96 }}
+                            type="button"
+                            disabled={currentIndex >= filteredQuestions.length - 1}
+                            onClick={() =>
+                              setCurrentIndex((i) => Math.min(filteredQuestions.length - 1, i + 1))
+                            }
+                            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#0B1526] hover:bg-blue-700 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-white transition-colors cursor-pointer min-h-[44px]"
+                          >
+                            <span>Next Question</span>
+                            <ChevronRight className="w-4 h-4" />
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
                   );
                 })()
               )}
@@ -1649,8 +1681,14 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
             {examStatus === 'submitted' && (
               <div className="space-y-6">
-                <div className="bg-[#0B1526] text-white rounded-xl border border-slate-800 p-6 sm:p-8">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative overflow-hidden bg-[#0B1526] text-white rounded-xl border border-slate-800 p-6 sm:p-8"
+                >
+                  <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+                  <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="space-y-2">
                       <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-amber-300">
                         <Award className="w-4 h-4" />
@@ -1688,16 +1726,17 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                         <div className="text-[11px] text-slate-400">Time Used</div>
                       </div>
 
-                      <button
+                      <motion.button
+                        whileTap={{ scale: 0.96 }}
                         type="button"
                         onClick={() => setExamStatus('setup')}
                         className="px-5 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm cursor-pointer"
                       >
                         Retake Mock Exam
-                      </button>
+                      </motion.button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h4 className="text-lg font-bold text-slate-900">Detailed Answer Review</h4>
@@ -1823,12 +1862,20 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredQuestions.map((q) => {
+                {filteredQuestions.map((q, idx) => {
                   const isRevealed = showAllAnswers || revealedIds.has(q.id);
                   return (
-                    <div
+                    <motion.div
                       key={q.id}
-                      className="bg-white rounded-xl border border-slate-200 p-5 space-y-3 flex flex-col justify-between"
+                      initial={{ opacity: 0, y: 14 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 'some' }}
+                      transition={{
+                        duration: 0.25,
+                        delay: Math.min((idx % 6) * 0.03, 0.15),
+                        ease: [0.16, 1, 0.3, 1]
+                      }}
+                      className="bg-white rounded-xl border border-slate-200 p-5 space-y-3 flex flex-col justify-between card-elevated"
                     >
                       <div className="space-y-3">
                         <div className="flex items-center justify-between gap-2 text-xs font-mono text-slate-500">
@@ -1839,11 +1886,11 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           {q.question}
                         </p>
                         <ul className="space-y-1.5 text-xs">
-                          {q.options.map((opt, idx) => {
-                            const isRight = idx === q.correctIndex;
+                          {q.options.map((opt, oIdx) => {
+                            const isRight = oIdx === q.correctIndex;
                             return (
                               <li
-                                key={idx}
+                                key={oIdx}
                                 className={`p-2 rounded-lg border flex items-center justify-between gap-2 ${
                                   isRevealed && isRight
                                     ? 'bg-emerald-50 border-emerald-300 text-emerald-950 font-semibold'
@@ -1851,7 +1898,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                                 }`}
                               >
                                 <span>
-                                  <span className="font-mono font-bold mr-1.5">{OPTION_LETTERS[idx]}.</span>
+                                  <span className="font-mono font-bold mr-1.5">{OPTION_LETTERS[oIdx]}.</span>
                                   {opt}
                                 </span>
                                 {isRevealed && isRight && (
@@ -1873,7 +1920,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           <span>{isRevealed ? 'Hide Answer' : 'Show Answer'}</span>
                         </button>
                       )}
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
@@ -1903,12 +1950,21 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {otherSets.map((set) => {
+            {otherSets.map((set, idx) => {
               const isCopied = copiedSetId === set.id;
               return (
-                <div
+                <motion.div
                   key={set.id}
-                  className="bg-white rounded-xl border border-slate-200 p-4 flex items-center justify-between gap-3"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 'some' }}
+                  transition={{
+                    duration: 0.25,
+                    delay: Math.min(idx * 0.04, 0.2),
+                    ease: [0.16, 1, 0.3, 1]
+                  }}
+                  whileHover={{ y: -3 }}
+                  className="bg-white rounded-xl border border-slate-200 hover:border-blue-300 p-4 flex items-center justify-between gap-3 transition-colors card-elevated"
                 >
                   <a
                     href={`/mcqs/${set.id}`}
@@ -1938,7 +1994,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   >
                     {isCopied ? 'Copied' : 'Copy'}
                   </button>
-                </div>
+                </motion.div>
               );
             })}
           </div>
