@@ -31,60 +31,87 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   isDownloading = false,
   index = 0
 }) => {
-  const getFormatIcon = (format: string) => {
+  const getFormatVisual = (format: string) => {
     switch (format.toUpperCase()) {
       case 'PDF':
-        return <FileText className="w-4 h-4 text-rose-700" />;
+        return {
+          icon: <FileText className="w-4 h-4 text-rose-600" />,
+          box: 'bg-rose-50 border-rose-200/70'
+        };
       case 'DOC':
       case 'DOCX':
-        return <FileText className="w-4 h-4 text-blue-700" />;
+        return {
+          icon: <FileText className="w-4 h-4 text-blue-600" />,
+          box: 'bg-blue-50 border-blue-200/70'
+        };
       case 'PPT':
       case 'PPTX':
-        return <Presentation className="w-4 h-4 text-amber-700" />;
+        return {
+          icon: <Presentation className="w-4 h-4 text-amber-600" />,
+          box: 'bg-amber-50 border-amber-200/70'
+        };
       case 'IMAGE':
       case 'PNG':
       case 'JPG':
       case 'JPEG':
-        return <ImageIcon className="w-4 h-4 text-slate-700" />;
+        return {
+          icon: <ImageIcon className="w-4 h-4 text-indigo-600" />,
+          box: 'bg-indigo-50 border-indigo-200/70'
+        };
       case 'XLS':
       case 'XLSX':
-        return <Table className="w-4 h-4 text-emerald-700" />;
+        return {
+          icon: <Table className="w-4 h-4 text-emerald-600" />,
+          box: 'bg-emerald-50 border-emerald-200/70'
+        };
       case 'ARCHIVE':
       case 'ZIP':
       case 'RAR':
-        return <FileArchive className="w-4 h-4 text-teal-700" />;
+        return {
+          icon: <FileArchive className="w-4 h-4 text-teal-600" />,
+          box: 'bg-teal-50 border-teal-200/70'
+        };
       default:
-        return <FileCode className="w-4 h-4 text-slate-600" />;
+        return {
+          icon: <FileCode className="w-4 h-4 text-slate-600" />,
+          box: 'bg-slate-100 border-slate-200/70'
+        };
     }
   };
 
+  const fmtVisual = getFormatVisual(resource.format);
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 18 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 'some' }}
       transition={{
-        duration: 0.32,
-        delay: Math.min((index % 12) * 0.03, 0.24),
+        duration: 0.28,
+        delay: Math.min((index % 12) * 0.025, 0.2),
         ease: [0.16, 1, 0.3, 1]
       }}
       whileHover={{ y: -4 }}
-      className={`group bg-white border rounded-xl p-4 sm:p-5 transition-colors flex flex-col justify-between gap-4 card-elevated ${
+      className={`group bg-white border rounded-2xl p-5 transition-colors flex flex-col justify-between gap-4 card-elevated ${
         isSelected
-          ? 'border-blue-600 ring-1 ring-blue-600 bg-blue-50/20'
-          : 'border-slate-200 hover:border-blue-300'
+          ? 'border-blue-600 ring-1 ring-blue-600 bg-blue-50/15'
+          : 'border-slate-200/80 hover:border-blue-300'
       }`}
     >
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-600">
-            {getFormatIcon(resource.format)}
-            <span className="text-slate-900 font-bold">{resource.course}</span>
-            <span aria-hidden="true" className="text-slate-300">·</span>
-            <span className="uppercase text-[11px]">{resource.format}</span>
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 ${fmtVisual.box}`}>
+              {fmtVisual.icon}
+            </div>
+            <div className="flex items-center gap-1.5 text-xs font-mono truncate">
+              <span className="font-bold text-slate-900">{resource.course}</span>
+              <span aria-hidden="true" className="text-slate-300">·</span>
+              <span className="uppercase text-[11px] font-semibold text-slate-500">{resource.format}</span>
+            </div>
           </div>
 
-          <label className="flex items-center gap-1.5 cursor-pointer text-xs text-slate-500 hover:text-slate-800 select-none">
+          <label className="flex items-center gap-1.5 cursor-pointer text-xs text-slate-400 hover:text-slate-800 select-none shrink-0">
             <input
               type="checkbox"
               checked={isSelected}
@@ -92,7 +119,6 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
               className="w-4 h-4 rounded text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer"
               aria-label={`Select ${resource.name}`}
             />
-            <span className="hidden sm:inline">Select</span>
           </label>
         </div>
 
@@ -109,7 +135,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           {resource.tags && resource.tags.length > 0 && (
             <>
               <span aria-hidden="true" className="text-slate-300">·</span>
-              <span className="truncate max-w-[170px]">{resource.tags.slice(0, 2).join(' · ')}</span>
+              <span className="truncate max-w-[160px]">{resource.tags.slice(0, 2).join(' · ')}</span>
             </>
           )}
         </div>
@@ -120,7 +146,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           <button
             type="button"
             onClick={() => onPreview(resource)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors cursor-pointer border border-slate-200 whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors cursor-pointer border border-slate-200/80 whitespace-nowrap"
           >
             <Eye className="w-3.5 h-3.5 text-slate-500" />
             <span>Preview</span>
@@ -134,7 +160,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           type="button"
           disabled={isDownloading}
           onClick={() => onDownload(resource)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-[#0B1526] hover:bg-blue-700 text-white transition-colors cursor-pointer disabled:opacity-50 whitespace-nowrap"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-950 hover:bg-blue-600 text-white transition-colors cursor-pointer disabled:opacity-50 whitespace-nowrap"
         >
           <Download className="w-3.5 h-3.5" />
           <span>{isDownloading ? 'Resolving...' : 'Download'}</span>

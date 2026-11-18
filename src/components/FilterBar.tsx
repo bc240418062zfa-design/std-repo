@@ -81,13 +81,13 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl py-3.5 px-4 sm:px-5 sticky top-16 z-20">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5">
+    <div className="surface-frosted border border-slate-200/80 rounded-2xl py-3 px-4 sm:px-5 sticky top-16 z-20 card-elevated">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         {/* Filters Selectors */}
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 mr-0.5 select-none">
-            <Filter className="w-3.5 h-3.5 text-slate-400" />
-            <span>Filter:</span>
+            <Filter className="w-3.5 h-3.5 text-blue-600" />
+            <span>Filter</span>
           </div>
 
           {/* Course Selector */}
@@ -95,7 +95,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={filters.course}
               onChange={(e) => onFilterChange({ ...filters, course: e.target.value })}
-              className="appearance-none bg-slate-50/80 hover:bg-slate-100/70 border border-slate-200/90 hover:border-slate-300 text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors cursor-pointer"
+              className="h-9 appearance-none bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors cursor-pointer max-w-[200px] truncate"
               aria-label="Filter by course"
             >
               <option value="">All Courses ({courses.length})</option>
@@ -113,7 +113,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={filters.type}
               onChange={(e) => onFilterChange({ ...filters, type: e.target.value })}
-              className="appearance-none bg-slate-50/80 hover:bg-slate-100/70 border border-slate-200/90 hover:border-slate-300 text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors cursor-pointer"
+              className="h-9 appearance-none bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors cursor-pointer"
               aria-label="Filter by type"
             >
               {resourceTypes.map((t) => (
@@ -130,7 +130,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={filters.format}
               onChange={(e) => onFilterChange({ ...filters, format: e.target.value })}
-              className="appearance-none bg-slate-50/80 hover:bg-slate-100/70 border border-slate-200/90 hover:border-slate-300 text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors cursor-pointer"
+              className="h-9 appearance-none bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-colors cursor-pointer"
               aria-label="Filter by format"
             >
               {formats.map((f) => (
@@ -142,57 +142,56 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
           </div>
 
-          <div className="h-4 w-px bg-slate-200 mx-1 hidden sm:block" aria-hidden="true" />
+          <div className="h-4 w-px bg-slate-200 mx-0.5 hidden sm:block" aria-hidden="true" />
 
-          {/* Fast Toggle Buttons for Solved & Past Papers */}
+          {/* Fast Toggle Buttons */}
           <button
             type="button"
             onClick={() => onFilterChange({ ...filters, solvedOnly: !filters.solvedOnly })}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer border ${
+            className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-colors cursor-pointer border whitespace-nowrap ${
               filters.solvedOnly
-                ? 'bg-[#0A192F] border-[#0A192F] text-white shadow-xs'
+                ? 'bg-blue-600 border-blue-600 text-white'
                 : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {filters.solvedOnly && <Check className="w-3 h-3 text-amber-400" />}
+            {filters.solvedOnly && <Check className="w-3.5 h-3.5" />}
             <span>Solved Only</span>
           </button>
 
           <button
             type="button"
             onClick={() => onFilterChange({ ...filters, pastPapersOnly: !filters.pastPapersOnly })}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer border ${
+            className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-colors cursor-pointer border whitespace-nowrap ${
               filters.pastPapersOnly
-                ? 'bg-[#0A192F] border-[#0A192F] text-white shadow-xs'
+                ? 'bg-blue-600 border-blue-600 text-white'
                 : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {filters.pastPapersOnly && <Check className="w-3 h-3 text-amber-400" />}
+            {filters.pastPapersOnly && <Check className="w-3.5 h-3.5" />}
             <span>Past Papers</span>
           </button>
 
           <button
             type="button"
             onClick={handleToggleMcq}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-xl transition-all duration-150 cursor-pointer border ${
+            className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-colors cursor-pointer border whitespace-nowrap ${
               isMcqActive
-                ? 'bg-[#0A192F] border-[#0A192F] text-white shadow-xs'
+                ? 'bg-blue-600 border-blue-600 text-white'
                 : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {isMcqActive && <Check className="w-3 h-3 text-amber-400" />}
-            <span>MCQs</span>
+            {isMcqActive && <Check className="w-3.5 h-3.5" />}
+            <span>MCQ Files</span>
           </button>
 
-          {/* Reset Filters if active */}
           {activeFilterCount > 0 && (
             <button
               type="button"
               onClick={handleReset}
-              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors cursor-pointer border border-rose-200"
+              className="h-9 inline-flex items-center gap-1 px-3 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors cursor-pointer border border-rose-200 whitespace-nowrap"
               title="Reset all filters"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset ({activeFilterCount})</span>
             </button>
           )}
@@ -200,20 +199,20 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
         {/* Results per page / limit */}
         <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-slate-500 shrink-0">
-          <span className="text-slate-600 font-medium">
-            <strong className="text-slate-900 font-mono font-bold tabular-nums">{totalFiltered}</strong> of <strong className="text-slate-900 font-mono font-bold tabular-nums">{totalMatching.toLocaleString()}</strong> files
+          <span className="text-slate-600 font-medium tabular-nums">
+            <strong className="text-slate-900 font-mono font-bold">{totalFiltered}</strong> of{' '}
+            <strong className="text-slate-900 font-mono font-bold">{totalMatching.toLocaleString()}</strong> files
           </span>
-          <div className="flex items-center gap-1 bg-slate-100/90 p-1 rounded-xl border border-slate-200/80">
-            <span className="px-1.5 text-[11px] text-slate-400 font-medium select-none">Limit:</span>
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200/80">
             {[12, 24, 48, 96].map((l) => (
               <button
                 key={l}
                 type="button"
                 onClick={() => onLimitChange(l)}
-                className={`px-2 py-0.5 rounded-lg text-xs font-semibold transition-all duration-150 cursor-pointer font-mono ${
+                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer font-mono tabular-nums ${
                   limit === l
-                    ? 'bg-[#0A192F] text-white shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-white text-slate-950 shadow-2xs font-bold'
+                    : 'text-slate-600 hover:text-slate-950'
                 }`}
               >
                 {l}

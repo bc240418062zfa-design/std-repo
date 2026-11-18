@@ -50,12 +50,11 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">
       {/* Header */}
-      <div className="space-y-3 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/70 text-blue-700 text-xs font-semibold">
-          <GraduationCap className="w-4 h-4 text-blue-600" />
-          <span>VIRTUAL UNIVERSITY ACADEMIC CURRICULUM</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight" style={{ textWrap: 'balance' }}>
+      <div className="space-y-2.5 max-w-3xl">
+        <p className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
+          Virtual University Academic Curriculum
+        </p>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight" style={{ textWrap: 'balance' }}>
           Virtual University All 411 Courses Directory
         </h1>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">

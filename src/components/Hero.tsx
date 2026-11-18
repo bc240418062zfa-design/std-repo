@@ -123,53 +123,51 @@ export const Hero: React.FC<HeroProps> = ({
   const hasSuggestions = showSuggestions && (matchingCourses.length > 0 || quickSuggestions.length > 0);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#071020] via-[#0C1930] to-[#112342] text-white pt-14 pb-16 sm:pt-18 sm:pb-20 border-b border-slate-800/80">
+    <section className="relative overflow-hidden bg-studio-stage text-white pt-12 pb-16 sm:pt-16 sm:pb-20 border-b border-slate-800/80">
       {/* Subtle architectural perspective grid */}
-      <div className="absolute inset-0 bg-academic-grid opacity-50 pointer-events-none" />
-      <div
-        className="absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-blue-900/20 via-transparent to-transparent pointer-events-none"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 bg-academic-grid opacity-55 pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-9">
         {/* Hero Headline & Staggered Entrance */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
           className="text-center space-y-4"
         >
-          <p className="text-xs sm:text-sm font-mono text-amber-300 tracking-wide tabular-nums">
-            Virtual University Study Archive · {totalCourses} Courses · {totalResources.toLocaleString()} Verified Documents
+          <p className="text-xs sm:text-sm font-mono text-sky-300 tracking-wide tabular-nums">
+            Virtual University Academic Studio · {totalCourses} Courses · {totalResources.toLocaleString()} Verified Documents
           </p>
 
           <h1
-            className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-[1.12] max-w-4xl mx-auto"
+            className="text-3xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight text-white leading-[1.08] max-w-4xl mx-auto"
             style={{ textWrap: 'balance' }}
           >
             Solved Past Papers, Handouts &amp;{' '}
-            <span className="text-amber-200">Interactive Exam Practice</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-blue-200 to-amber-300">
+              Interactive Exam Practice
+            </span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            Direct downloads for Virtual University past papers (Moaaz &amp; Waqar Siddhu), official handouts, 2026 assignment guides, and dedicated subject MCQ quizzes.
+            Instant downloads for Virtual University solved papers (Moaaz &amp; Waqar Siddhu), official handouts, 2026 assignment guides, and interactive subject MCQ quizzes.
           </p>
         </motion.div>
 
-        {/* Search Command Bar */}
+        {/* Spotlight Command Search Bar */}
         <motion.div
           ref={containerRef}
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.42, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-3xl mx-auto relative"
         >
-          <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xl shadow-slate-950/40 overflow-hidden transition-shadow focus-within:ring-2 focus-within:ring-amber-400/70">
+          <div className="bg-white rounded-2xl border border-white/20 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.65)] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-sky-400">
             <form
               onSubmit={handleFormSubmit}
               className="flex items-center p-1.5 sm:p-2 gap-2"
             >
-              <div className="pl-3 text-slate-400 shrink-0" aria-hidden="true">
+              <div className="pl-3.5 text-slate-400 shrink-0" aria-hidden="true">
                 <Search className="w-5 h-5" />
               </div>
 
@@ -182,7 +180,7 @@ export const Hero: React.FC<HeroProps> = ({
                   setShowSuggestions(true);
                 }}
                 onFocus={() => setShowSuggestions(true)}
-                placeholder="Search by course code or topic (e.g. CS201 midterm, handouts, Moaaz)..."
+                placeholder="Search course code or topic (e.g. CS201 midterm, handouts, Moaaz)..."
                 className="w-full py-2.5 px-1 text-sm sm:text-base text-slate-900 placeholder-slate-400 focus:outline-none bg-transparent font-medium"
                 aria-label="Search academic study resources"
               />
@@ -195,13 +193,13 @@ export const Hero: React.FC<HeroProps> = ({
                       onQueryChange('');
                       inputRef.current?.focus();
                     }}
-                    className="p-2 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                    className="p-2 text-slate-400 hover:text-slate-700 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer"
                     aria-label="Clear search"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 ) : (
-                  <kbd className="hidden sm:inline-block px-2 py-1 text-[11px] font-mono bg-slate-100 border border-slate-200 rounded text-slate-500 select-none">
+                  <kbd className="hidden sm:inline-block px-2.5 py-1 text-[11px] font-mono bg-slate-100 border border-slate-200 rounded-md text-slate-500 select-none">
                     /
                   </kbd>
                 )}
@@ -209,7 +207,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <motion.button
                   whileTap={{ scale: 0.97 }}
                   type="submit"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer whitespace-nowrap"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer whitespace-nowrap shadow-xs"
                 >
                   <span>Search</span>
                   <ArrowRight className="w-3.5 h-3.5 hidden sm:inline" />
@@ -244,7 +242,7 @@ export const Hero: React.FC<HeroProps> = ({
                             key={c.code}
                             type="button"
                             onClick={() => handleSelectCourseSuggestion(c.code)}
-                            className="flex items-center justify-between p-2.5 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-colors text-left cursor-pointer"
+                            className="flex items-center justify-between p-2.5 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-colors text-left cursor-pointer"
                           >
                             <div className="min-w-0 pr-2">
                               <div className="font-mono text-xs font-bold text-blue-700">
@@ -274,7 +272,7 @@ export const Hero: React.FC<HeroProps> = ({
                             key={idx}
                             type="button"
                             onClick={() => handleSelectQuerySuggestion(s.value)}
-                            className="flex items-center justify-between px-3 py-2 rounded-lg text-xs text-slate-700 hover:text-slate-950 bg-white hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer text-left"
+                            className="flex items-center justify-between px-3 py-2 rounded-xl text-xs text-slate-700 hover:text-slate-950 bg-white hover:bg-slate-100 border border-slate-200 transition-colors cursor-pointer text-left"
                           >
                             <span className="flex items-center gap-2 truncate">
                               <BookOpen className="w-3.5 h-3.5 text-slate-400 shrink-0" />
@@ -294,9 +292,9 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Quick Filter Row & Popular Course Shortcuts */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.42, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl mx-auto space-y-4 text-center"
         >
           <div className="flex flex-wrap items-center justify-center gap-2">
@@ -307,7 +305,7 @@ export const Hero: React.FC<HeroProps> = ({
                 whileTap={{ scale: 0.97 }}
                 type="button"
                 onClick={() => onCategoryClick(cat.query)}
-                className="inline-flex items-center px-3.5 py-2 text-xs font-medium rounded-lg glass-panel-dark hover:bg-slate-800/90 text-slate-200 hover:text-white transition-colors cursor-pointer whitespace-nowrap"
+                className="inline-flex items-center px-3.5 py-2 text-xs font-medium rounded-xl glass-panel-dark hover:bg-slate-800/90 text-slate-200 hover:text-white transition-colors cursor-pointer whitespace-nowrap"
               >
                 {cat.label}
               </motion.button>
@@ -315,13 +313,13 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs text-slate-400">
-            <span className="text-slate-500">Popular courses:</span>
+            <span className="text-slate-500">Quick courses:</span>
             {popularCourses.map((c) => (
               <button
                 key={c}
                 type="button"
                 onClick={() => onCourseClick(c)}
-                className="font-mono font-medium text-slate-300 hover:text-amber-300 transition-colors cursor-pointer"
+                className="font-mono font-semibold text-slate-300 hover:text-sky-300 transition-colors cursor-pointer"
               >
                 {c}
               </button>
@@ -329,12 +327,12 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
         </motion.div>
 
-        {/* 3 Architectural Feature Launch Cards */}
+        {/* 3 Architectural Bento Feature Launch Cards */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2"
+          transition={{ duration: 0.45, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1"
         >
           {onOpenMcqs && (
             <motion.button
@@ -342,26 +340,26 @@ export const Hero: React.FC<HeroProps> = ({
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.99 }}
               onClick={onOpenMcqs}
-              className="group glass-panel-dark rounded-xl p-5 text-left transition-colors hover:border-amber-400/50 cursor-pointer flex flex-col justify-between gap-4"
+              className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-sky-400/50 cursor-pointer flex flex-col justify-between gap-4"
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="w-10 h-10 rounded-lg bg-blue-600/20 border border-blue-400/30 flex items-center justify-center text-amber-300">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-sky-300">
                   <ListChecks className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-mono text-amber-300 tabular-nums">
-                  465 MCQs
+                  465 Verified MCQs
                 </span>
               </div>
               <div className="space-y-1">
-                <h2 className="text-base font-bold text-white font-sans group-hover:text-amber-200 transition-colors">
-                  Subject MCQ Quiz Pages
+                <h2 className="text-base font-bold text-white group-hover:text-sky-200 transition-colors">
+                  Interactive MCQ Studio
                 </h2>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  Practice CS201, CS301, CS304, CS403, CS504 &amp; CS601 with shareable subject links, timed mock tests, and instant answers.
+                  Practice CS201, CS301, CS304, CS403, CS504 &amp; CS601 with shareable subject links, timed mock tests, and instant feedback.
                 </p>
               </div>
-              <div className="text-xs font-semibold text-blue-300 group-hover:text-white inline-flex items-center gap-1.5">
-                <span>Open MCQ Studio</span>
+              <div className="text-xs font-semibold text-sky-300 group-hover:text-white inline-flex items-center gap-1.5">
+                <span>Launch MCQ Studio</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </div>
             </motion.button>
@@ -373,10 +371,10 @@ export const Hero: React.FC<HeroProps> = ({
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.99 }}
               onClick={onOpenPastPapers}
-              className="group glass-panel-dark rounded-xl p-5 text-left transition-colors hover:border-blue-400/50 cursor-pointer flex flex-col justify-between gap-4"
+              className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-indigo-400/50 cursor-pointer flex flex-col justify-between gap-4"
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="w-10 h-10 rounded-lg bg-slate-700/40 border border-slate-600/50 flex items-center justify-center text-sky-300">
+                <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300">
                   <Files className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-mono text-slate-300 tabular-nums">
@@ -384,14 +382,14 @@ export const Hero: React.FC<HeroProps> = ({
                 </span>
               </div>
               <div className="space-y-1">
-                <h2 className="text-base font-bold text-white font-sans group-hover:text-sky-200 transition-colors">
+                <h2 className="text-base font-bold text-white group-hover:text-indigo-200 transition-colors">
                   Solved Past Paper Bank
                 </h2>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  Browse verified Mid-Term &amp; Final-Term solved past papers, repeated objective files, and exam notes across all 411 courses.
+                  Explore verified Mid-Term &amp; Final-Term solved papers, repeated subjective questions, and exam notes across 411 courses.
                 </p>
               </div>
-              <div className="text-xs font-semibold text-blue-300 group-hover:text-white inline-flex items-center gap-1.5">
+              <div className="text-xs font-semibold text-indigo-300 group-hover:text-white inline-flex items-center gap-1.5">
                 <span>Browse Past Papers</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </div>
@@ -404,26 +402,26 @@ export const Hero: React.FC<HeroProps> = ({
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.99 }}
               onClick={onOpenSimulator}
-              className="group glass-panel-dark rounded-xl p-5 text-left transition-colors hover:border-emerald-400/50 cursor-pointer flex flex-col justify-between gap-4"
+              className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-teal-400/50 cursor-pointer flex flex-col justify-between gap-4"
             >
               <div className="flex items-start justify-between gap-3">
-                <div className="w-10 h-10 rounded-lg bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
+                <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center text-teal-300">
                   <Calculator className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-mono text-emerald-300 tabular-nums">
-                  20% Rule
+                <span className="text-xs font-mono text-teal-300 tabular-nums">
+                  20% Two-Half Rule
                 </span>
               </div>
               <div className="space-y-1">
-                <h2 className="text-base font-bold text-white font-sans group-hover:text-emerald-200 transition-colors">
+                <h2 className="text-base font-bold text-white group-hover:text-teal-200 transition-colors">
                   Passing Marks Simulator
                 </h2>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  Calculate exact Final-Term scores needed under the VU 20% Two-Half passing rule and forecast your semester GPA.
+                  Calculate exact Final-Term scores required under the official VU 20% rule and forecast your semester GPA.
                 </p>
               </div>
-              <div className="text-xs font-semibold text-blue-300 group-hover:text-white inline-flex items-center gap-1.5">
-                <span>Launch Simulator</span>
+              <div className="text-xs font-semibold text-teal-300 group-hover:text-white inline-flex items-center gap-1.5">
+                <span>Open Calculator</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </div>
             </motion.button>

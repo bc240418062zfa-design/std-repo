@@ -14,8 +14,8 @@ export const MihoraLogo: React.FC<MihoraLogoProps> = ({
   className = ''
 }) => {
   const sizeMap = {
-    sm: { icon: 'w-7 h-7', textTitle: 'text-base', textSub: 'text-[9px]' },
-    md: { icon: 'w-9 h-9', textTitle: 'text-lg', textSub: 'text-[10px]' },
+    sm: { icon: 'w-8 h-8', textTitle: 'text-[17px]', textSub: 'text-[9.5px]' },
+    md: { icon: 'w-10 h-10', textTitle: 'text-xl', textSub: 'text-[10px]' },
     lg: { icon: 'w-14 h-14', textTitle: 'text-2xl', textSub: 'text-xs' }
   };
 
@@ -23,77 +23,63 @@ export const MihoraLogo: React.FC<MihoraLogoProps> = ({
   const isWhite = variant === 'white';
 
   return (
-    <div className={`inline-flex items-center gap-3 select-none ${className}`}>
-      {/* Modern Academic Crest Logo */}
+    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+      {/* Sleek Modern Architectural Monogram */}
       <div className={`relative shrink-0 ${currentSize.icon}`}>
-        <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-lg" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 64 64" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id={`crest-grad-${variant}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={isWhite ? "#FFFFFF" : "#0A192F"} />
-              <stop offset="100%" stopColor={isWhite ? "#E2E8F0" : "#060D1A"} />
+            <linearGradient id={`m-bg-${variant}`} x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor={isWhite ? '#FFFFFF' : '#1E3A8A'} />
+              <stop offset="100%" stopColor={isWhite ? '#E2E8F0' : '#091122'} />
             </linearGradient>
-            <linearGradient id={`gold-grad-${variant}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#F59E0B" />
+            <linearGradient id={`m-gold-${variant}`} x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#FBBF24" />
               <stop offset="100%" stopColor="#D97706" />
             </linearGradient>
           </defs>
 
-          {/* Shield Base */}
-          <path 
-            d="M50 5 L15 15 C15 15 15 75 50 95 C85 75 85 15 85 15 L50 5Z" 
-            fill={`url(#crest-grad-${variant})`}
-            stroke={isWhite ? "none" : "#D97706"}
-            strokeWidth="2"
+          <rect
+            x="2"
+            y="2"
+            width="60"
+            height="60"
+            rx="16"
+            fill={`url(#m-bg-${variant})`}
+            stroke={isWhite ? 'rgba(255,255,255,0.2)' : 'rgba(37,99,235,0.22)'}
+            strokeWidth="1.5"
           />
 
-          {/* Gold Accent Border (Inner) */}
-          <path 
-            d="M50 12 L22 20 C22 20 22 70 50 87 C78 70 78 20 78 20 L50 12Z" 
-            stroke="#F59E0B" 
-            strokeWidth="1" 
-            strokeOpacity="0.4"
+          {/* Architectural Open Book / M Ribbon */}
+          <path
+            d="M17 44V22L32 34L47 22V44"
+            stroke={isWhite ? '#091122' : '#FFFFFF'}
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
 
-          {/* Stylized 'M' (Academic Columns / Open Book) */}
-          <path 
-            d="M32 35 V65 M68 35 V65 M50 35 L32 50 L50 65 L68 50 L50 35Z" 
-            stroke={isWhite ? "#0A192F" : "#FFFFFF"} 
-            strokeWidth="6" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-          />
-          
-          {/* Central Knowledge Spark */}
-          <circle cx="50" cy="50" r="4" fill="#F59E0B" />
-
-          {/* Top Star of Excellence */}
-          <path 
-            d="M50 20 L52 25 L57 25 L53 28 L54 33 L50 30 L46 33 L47 28 L43 25 L48 25 Z" 
-            fill="#F59E0B" 
-          />
+          {/* Precision Apex Node */}
+          <circle cx="32" cy="19" r="3.5" fill={`url(#m-gold-${variant})`} />
         </svg>
       </div>
 
       {showText && (
         <div className="flex flex-col justify-center text-left leading-none">
           <span
-            className={`font-serif font-black tracking-tight ${currentSize.textTitle} ${
+            className={`font-extrabold tracking-tight whitespace-nowrap ${currentSize.textTitle} ${
               isWhite ? 'text-white' : 'text-slate-950'
             }`}
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            MIHORA
+            MIHORA <span className={isWhite ? 'text-sky-300' : 'text-blue-700'}>VU</span>
           </span>
-          <div className="flex items-center gap-1.5 mt-0.5">
-            <div className={`h-[1px] w-2.5 ${isWhite ? 'bg-amber-400/50' : 'bg-amber-600/50'}`} />
-            <span
-              className={`font-sans font-bold uppercase tracking-[0.2em] ${currentSize.textSub} ${
-                isWhite ? 'text-blue-300' : 'text-blue-700'
-              }`}
-            >
-              STUDY LIBRARY
-            </span>
-            <div className={`h-[1px] w-2.5 ${isWhite ? 'bg-amber-400/50' : 'bg-amber-600/50'}`} />
-          </div>
+          <span
+            className={`font-mono font-semibold uppercase tracking-[0.16em] mt-0.5 whitespace-nowrap ${currentSize.textSub} ${
+              isWhite ? 'text-slate-300' : 'text-slate-500'
+            }`}
+          >
+            Study Library
+          </span>
         </div>
       )}
     </div>

@@ -514,7 +514,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+      <div className="min-h-screen flex flex-col bg-[#F5F7FC] text-slate-900 font-sans">
         {/* Top Bar Navigation */}
         <Navbar
           currentPage={currentPage}
@@ -558,23 +558,23 @@ export default function App() {
                 onOpenSimulator={() => handleNavigate('simulator')}
               />
 
-              {/* Scroll-Revealed Interactive Subject MCQ Quick-Launch Strip */}
-              <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-2 w-full">
+              {/* Scroll-Revealed Interactive Subject MCQ Bento Strip */}
+              <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-2 w-full">
                 <motion.div
-                  initial={{ opacity: 0, y: 18 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 'some' }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-4"
+                  transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                  className="space-y-5"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                     <div>
                       <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
                         <ListChecks className="w-4 h-4" />
-                        <span>Shareable Subject Quiz Pages</span>
+                        <span>Subject MCQ Studio</span>
                       </div>
-                      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mt-0.5">
-                        Interactive Mid-Term &amp; Final MCQs
+                      <h2 className="text-2xl sm:text-3xl font-bold text-slate-950 mt-0.5">
+                        Interactive Mid-Term &amp; Final Quizzes
                       </h2>
                     </div>
 
@@ -586,53 +586,65 @@ export default function App() {
                       }}
                       className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors self-start sm:self-auto"
                     >
-                      <span>Open All {mcqSets.length} Subject Pages</span>
+                      <span>Open All {mcqSets.length} Subject Studios</span>
                       <ArrowRight className="w-4 h-4" />
                     </a>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-                    {mcqSets.map((set, idx) => (
-                      <motion.a
-                        key={set.id}
-                        href={`/mcqs/${set.id}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleSelectMcqSet(set.id);
-                        }}
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 'some' }}
-                        transition={{
-                          duration: 0.32,
-                          delay: Math.min(idx * 0.04, 0.24),
-                          ease: [0.16, 1, 0.3, 1]
-                        }}
-                        whileHover={{ y: -4 }}
-                        className="group bg-white rounded-xl border border-slate-200 hover:border-blue-400 p-4 flex flex-col justify-between gap-3 card-elevated transition-colors"
-                      >
-                        <div className="space-y-1.5">
-                          <div className="flex items-center justify-between gap-2 text-xs font-mono">
-                            <span className="font-bold text-blue-700">{set.courseCode}</span>
-                            <span
-                              className={`font-semibold tabular-nums ${
-                                set.term === 'finalterm' ? 'text-amber-700' : 'text-slate-500'
-                              }`}
-                            >
-                              {set.termLabel} · {set.questions.length} Qs
-                            </span>
-                          </div>
-                          <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors line-clamp-1">
-                            {set.courseTitle}
-                          </h3>
-                        </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {mcqSets.map((set, idx) => {
+                      const badgeColors: Record<string, string> = {
+                        CS201: 'bg-blue-600 text-white',
+                        CS301: 'bg-indigo-600 text-white',
+                        CS304: 'bg-violet-600 text-white',
+                        CS403: 'bg-teal-600 text-white',
+                        CS504: 'bg-sky-600 text-white',
+                        CS601: 'bg-amber-600 text-white'
+                      };
+                      const badgeCls = badgeColors[set.courseCode] || 'bg-slate-900 text-white';
 
-                        <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-400">
-                          <span className="truncate">/mcqs/{set.id}</span>
-                          <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition-all shrink-0" />
-                        </div>
-                      </motion.a>
-                    ))}
+                      return (
+                        <motion.a
+                          key={set.id}
+                          href={`/mcqs/${set.id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleSelectMcqSet(set.id);
+                          }}
+                          initial={{ opacity: 0, y: 14 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 'some' }}
+                          transition={{
+                            duration: 0.28,
+                            delay: Math.min(idx * 0.035, 0.22),
+                            ease: [0.16, 1, 0.3, 1]
+                          }}
+                          whileHover={{ y: -4 }}
+                          className="group bg-white rounded-2xl border border-slate-200/80 hover:border-blue-400 p-4 flex items-center justify-between gap-3 card-elevated transition-colors"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div
+                              className={`w-11 h-11 rounded-xl ${badgeCls} font-mono font-bold text-[11px] flex items-center justify-center shrink-0 shadow-xs`}
+                            >
+                              {set.courseCode}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="text-[11px] font-mono text-slate-500 tabular-nums">
+                                <span className={set.term === 'finalterm' ? 'text-amber-700 font-semibold' : ''}>
+                                  {set.termLabel}
+                                </span>{' '}
+                                · {set.questions.length} Qs
+                              </div>
+                              <h3 className="text-sm font-bold text-slate-950 group-hover:text-blue-700 transition-colors truncate">
+                                {set.courseTitle}
+                              </h3>
+                            </div>
+                          </div>
+
+                          <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0" />
+                        </motion.a>
+                      );
+                    })}
                   </div>
                 </motion.div>
               </section>
@@ -892,8 +904,8 @@ export default function App() {
         />
 
         {/* Clean Institutional Footer */}
-        <footer className="relative bg-[#0B1526] text-white border-t border-slate-800 mt-20 pt-14 pb-12 overflow-hidden">
-          <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+        <footer className="relative bg-studio-stage text-white border-t border-slate-800 mt-20 pt-14 pb-12 overflow-hidden">
+          <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
