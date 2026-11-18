@@ -33,6 +33,12 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://study.mihora.tech/mcqs</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://study.mihora.tech/handbook</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>daily</changefreq>
