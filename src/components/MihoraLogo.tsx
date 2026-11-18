@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 interface MihoraLogoProps {
   variant?: 'dark' | 'white';
@@ -23,9 +24,13 @@ export const MihoraLogo: React.FC<MihoraLogoProps> = ({
   const isWhite = variant === 'white';
 
   return (
-    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      {/* Sleek Modern Architectural Monogram */}
-      <div className={`relative shrink-0 ${currentSize.icon}`}>
+    <div className={`group/logo inline-flex items-center gap-2.5 select-none ${className}`}>
+      {/* Sleek Modern Architectural Monogram with micro-spring hover */}
+      <motion.div
+        whileHover={{ rotate: -4, scale: 1.07 }}
+        transition={{ type: 'spring', stiffness: 420, damping: 20 }}
+        className={`relative shrink-0 ${currentSize.icon}`}
+      >
         <svg viewBox="0 0 64 64" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id={`m-bg-${variant}`} x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
@@ -61,7 +66,7 @@ export const MihoraLogo: React.FC<MihoraLogoProps> = ({
           {/* Precision Apex Node */}
           <circle cx="32" cy="19" r="3.5" fill={`url(#m-gold-${variant})`} />
         </svg>
-      </div>
+      </motion.div>
 
       {showText && (
         <div className="flex flex-col justify-center text-left leading-none">

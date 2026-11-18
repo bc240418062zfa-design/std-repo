@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { MotionConfig, motion } from 'motion/react';
+import { MotionConfig, motion, AnimatePresence } from 'motion/react';
 import { Resource, Course, FilterState, DownloadSession } from './types';
 import { searchResources } from './search/searchEngine';
 import { resolveResourceLocally } from './security/shardResolver';
@@ -12,6 +12,13 @@ import { MultiDownloadBar } from './components/MultiDownloadBar';
 import { DownloadModal } from './components/DownloadModal';
 import { FilePreviewModal } from './components/FilePreviewModal';
 import { MihoraLogo } from './components/MihoraLogo';
+import {
+  ScrollReveal,
+  AnimatedButton,
+  SpotlightCard,
+  FloatingScrollTop,
+  EASE_OUT_EXPO
+} from './components/MotionPrimitives';
 import { CoursesPage } from './pages/CoursesPage';
 import { SecurityPage } from './pages/SecurityPage';
 import { AboutPage } from './pages/AboutPage';
@@ -32,7 +39,11 @@ import {
   ChevronUp,
   ChevronRight,
   ListChecks,
-  ArrowRight
+  ArrowRight,
+  Calculator,
+  Award,
+  FileText,
+  GraduationCap
 } from 'lucide-react';
 
 // Static sanitized data compiled at build time
@@ -524,9 +535,9 @@ export default function App() {
 
         <motion.div
           key={`${currentPage}-${selectedMcqSetId || 'hub'}`}
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.28, ease: EASE_OUT_EXPO }}
           className="flex-1 flex flex-col"
         >
           {/* 1. Page: Home / Search Catalog */}
@@ -560,13 +571,7 @@ export default function App() {
 
               {/* Scroll-Revealed Interactive Subject MCQ Bento Strip */}
               <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-2 w-full">
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 'some' }}
-                  transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-                  className="space-y-5"
-                >
+                <ScrollReveal direction="up" distance={20} className="space-y-5">
                   <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
                     <div>
                       <div className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
@@ -578,17 +583,19 @@ export default function App() {
                       </h2>
                     </div>
 
-                    <a
+                    <motion.a
+                      whileHover={{ x: 2 }}
+                      whileTap={{ scale: 0.97 }}
                       href="/mcqs"
                       onClick={(e) => {
                         e.preventDefault();
                         handleSelectMcqSet(null);
                       }}
-                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors self-start sm:self-auto"
+                      className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-blue-700 hover:text-blue-900 transition-colors self-start sm:self-auto"
                     >
                       <span>Open All {mcqSets.length} Subject Studios</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </a>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                    </motion.a>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -611,20 +618,21 @@ export default function App() {
                             e.preventDefault();
                             handleSelectMcqSet(set.id);
                           }}
-                          initial={{ opacity: 0, y: 14 }}
-                          whileInView={{ opacity: 1, y: 0 }}
+                          initial={{ opacity: 0, y: 18, scale: 0.98 }}
+                          whileInView={{ opacity: 1, y: 0, scale: 1 }}
                           viewport={{ once: true, amount: 'some' }}
                           transition={{
-                            duration: 0.28,
-                            delay: Math.min(idx * 0.035, 0.22),
-                            ease: [0.16, 1, 0.3, 1]
+                            duration: 0.34,
+                            delay: Math.min(idx * 0.045, 0.28),
+                            ease: EASE_OUT_EXPO
                           }}
-                          whileHover={{ y: -4 }}
+                          whileHover={{ y: -5, scale: 1.01 }}
+                          whileTap={{ scale: 0.98 }}
                           className="group bg-white rounded-2xl border border-slate-200/80 hover:border-blue-400 p-4 flex items-center justify-between gap-3 card-elevated transition-colors"
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <div
-                              className={`w-11 h-11 rounded-xl ${badgeCls} font-mono font-bold text-[11px] flex items-center justify-center shrink-0 shadow-xs`}
+                              className={`w-11 h-11 rounded-xl ${badgeCls} font-mono font-bold text-[11px] flex items-center justify-center shrink-0 shadow-xs transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3`}
                             >
                               {set.courseCode}
                             </div>
@@ -641,12 +649,12 @@ export default function App() {
                             </div>
                           </div>
 
-                          <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0" />
+                          <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all shrink-0" />
                         </motion.a>
                       );
                     })}
                   </div>
-                </motion.div>
+                </ScrollReveal>
               </section>
 
               {/* Main Interactive Catalog */}
@@ -723,36 +731,127 @@ export default function App() {
 
                 {/* Pagination / Load More */}
                 {filteredResources.length < totalMatchingCount && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 'some' }}
-                    className="mt-12 text-center space-y-2"
-                  >
-                    <motion.button
-                      whileHover={{ y: -2 }}
-                      whileTap={{ scale: 0.97 }}
+                  <ScrollReveal direction="up" distance={16} className="mt-12 text-center space-y-2">
+                    <AnimatedButton
+                      magnetic
+                      shimmer
                       type="button"
                       onClick={() => setLimit((prev) => prev + 24)}
-                      className="px-6 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-blue-400 text-slate-700 hover:text-blue-700 font-semibold text-xs sm:text-sm card-elevated transition-colors cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-blue-500 text-slate-800 hover:text-blue-700 font-semibold text-xs sm:text-sm card-elevated transition-colors cursor-pointer"
                     >
                       Load More Resources ({totalMatchingCount - filteredResources.length} remaining)
-                    </motion.button>
+                    </AnimatedButton>
                     <p className="text-[11px] text-slate-400 tabular-nums">
                       Showing {filteredResources.length} of {totalMatchingCount.toLocaleString()} matching documents
                     </p>
-                  </motion.div>
+                  </ScrollReveal>
                 )}
 
+                {/* Scroll-Animated VU Student Toolkit Showcase */}
+                <section className="mt-16 space-y-5">
+                  <ScrollReveal direction="up" distance={18} className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                      <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
+                        Academic Toolkit &amp; Exam Planning
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-bold text-slate-950 mt-0.5">
+                        Essential Virtual University Tools
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-500 max-w-md">
+                      Built specifically around VULMS rules, the 20% two-half passing threshold, and 2026 semester deadlines.
+                    </p>
+                  </ScrollReveal>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {[
+                      {
+                        page: 'assignment-guide' as AppPage,
+                        title: 'Assignments 2026 Hub',
+                        kicker: '24h Grace · Turnitin',
+                        desc: 'Formatting templates, Dev-C++ boilerplate, and plagiarism-safe writing checklists.',
+                        icon: <FileText className="w-5 h-5 text-emerald-700" />,
+                        iconBg: 'bg-emerald-50 border-emerald-200/70',
+                        glow: 'rgba(16, 185, 129, 0.10)'
+                      },
+                      {
+                        page: 'simulator' as AppPage,
+                        title: 'Passing Marks Simulator',
+                        kicker: '20% Two-Half Rule',
+                        desc: 'Simulate your midterms, quizzes, and assignments to see exact Final-Term marks needed.',
+                        icon: <Calculator className="w-5 h-5 text-blue-700" />,
+                        iconBg: 'bg-blue-50 border-blue-200/70',
+                        glow: 'rgba(37, 99, 235, 0.10)'
+                      },
+                      {
+                        page: 'gpa-calculator' as AppPage,
+                        title: 'GPA & CGPA Forecaster',
+                        kicker: 'HEC 4.0 Scale',
+                        desc: 'Plan credit hours and predict your semester GPA and cumulative CGPA standing.',
+                        icon: <Award className="w-5 h-5 text-indigo-700" />,
+                        iconBg: 'bg-indigo-50 border-indigo-200/70',
+                        glow: 'rgba(99, 102, 241, 0.10)'
+                      },
+                      {
+                        page: 'handbook' as AppPage,
+                        title: 'Student Handbook & FAQs',
+                        kicker: 'Rules · Datesheet',
+                        desc: 'Clear answers on paper rescheduling, grace periods, and exam seat strategy.',
+                        icon: <GraduationCap className="w-5 h-5 text-amber-700" />,
+                        iconBg: 'bg-amber-50 border-amber-200/70',
+                        glow: 'rgba(217, 119, 6, 0.10)'
+                      }
+                    ].map((tool, idx) => (
+                      <motion.div
+                        key={tool.page}
+                        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{
+                          duration: 0.38,
+                          delay: idx * 0.06,
+                          ease: EASE_OUT_EXPO
+                        }}
+                      >
+                        <SpotlightCard
+                          onClick={() => handleNavigate(tool.page)}
+                          spotlightColor={tool.glow}
+                          className="group h-full bg-white rounded-2xl border border-slate-200/80 hover:border-blue-400 p-5 card-elevated cursor-pointer"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-2">
+                              <div className={`w-10 h-10 rounded-xl border flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${tool.iconBg}`}>
+                                {tool.icon}
+                              </div>
+                              <span className="text-[11px] font-mono text-slate-500">
+                                {tool.kicker}
+                              </span>
+                            </div>
+                            <h3 className="text-base font-bold text-slate-950 group-hover:text-blue-700 transition-colors mt-4">
+                              {tool.title}
+                            </h3>
+                            <p className="text-xs text-slate-600 leading-relaxed mt-1.5">
+                              {tool.desc}
+                            </p>
+                          </div>
+                          <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-blue-700">
+                            <span>Open Tool</span>
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
+                          </div>
+                        </SpotlightCard>
+                      </motion.div>
+                    ))}
+                  </div>
+                </section>
+
                 {/* Clean Editorial Curriculum Directory Callout */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 'some' }}
-                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                  className="mt-14 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-elevated flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+                <ScrollReveal
+                  direction="up"
+                  distance={22}
+                  className="mt-14 relative overflow-hidden bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-elevated flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
                 >
-                  <div className="space-y-1.5 max-w-2xl">
+                  <div className="absolute inset-0 bg-dot-matrix opacity-45 pointer-events-none" aria-hidden="true" />
+                  <div className="relative z-10 space-y-1.5 max-w-2xl">
                     <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
                       Curriculum Archive
                     </div>
@@ -763,17 +862,17 @@ export default function App() {
                       Browse all 411 Virtual University courses organized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
                     </p>
                   </div>
-                  <motion.button
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.97 }}
+                  <AnimatedButton
+                    magnetic
+                    shimmer
                     type="button"
                     onClick={() => handleNavigate('courses')}
-                    className="px-5 py-3 rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap"
+                    className="relative z-10 group px-5 py-3 rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap shadow-sm"
                   >
                     <span>Explore 411 Courses</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </motion.button>
-                </motion.div>
+                    <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  </AnimatedButton>
+                </ScrollReveal>
               </main>
             </>
           )}
@@ -1157,41 +1256,54 @@ export default function App() {
                   </div>
                 </div>
 
-                <button
+                <motion.button
+                  whileHover={{ y: -1.5 }}
+                  whileTap={{ scale: 0.96 }}
                   type="button"
                   onClick={() => setShowAllCoursesFooter(!showAllCoursesFooter)}
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-medium border border-slate-700 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
                 >
                   <span>{showAllCoursesFooter ? 'Collapse 411 Courses' : 'Browse All 411 Courses'}</span>
                   {showAllCoursesFooter ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                </button>
+                </motion.button>
               </div>
 
-              {showAllCoursesFooter && (
-                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 max-h-96 overflow-y-auto text-xs">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-                    {courses.map((c) => (
-                      <a
-                        key={c.code}
-                        href={`/courses?course=${c.code}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleSelectCourse(c.code);
-                        }}
-                        className="p-2 rounded-lg bg-[#0B1526] hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-colors block text-left"
-                        title={`${c.code} - ${c.title}`}
-                      >
-                        <div className="font-mono font-semibold text-amber-300 text-[11px]">
-                          {c.code}
-                        </div>
-                        <div className="text-[11px] text-slate-400 line-clamp-1">
-                          {c.title}
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <AnimatePresence>
+                {showAllCoursesFooter && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.28, ease: EASE_OUT_EXPO }}
+                    className="overflow-hidden"
+                  >
+                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 max-h-96 overflow-y-auto text-xs">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                        {courses.map((c) => (
+                          <motion.a
+                            key={c.code}
+                            whileHover={{ y: -2 }}
+                            href={`/courses?course=${c.code}`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleSelectCourse(c.code);
+                            }}
+                            className="p-2 rounded-lg bg-[#0B1526] hover:bg-slate-800 border border-slate-800 hover:border-blue-500/40 text-slate-300 hover:text-white transition-colors block text-left"
+                            title={`${c.code} - ${c.title}`}
+                          >
+                            <div className="font-mono font-semibold text-amber-300 text-[11px]">
+                              {c.code}
+                            </div>
+                            <div className="text-[11px] text-slate-400 line-clamp-1">
+                              {c.title}
+                            </div>
+                          </motion.a>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 pt-4 border-t border-slate-800">
@@ -1204,6 +1316,9 @@ export default function App() {
             </div>
           </motion.div>
         </footer>
+
+        {/* Circular Scroll-Progress Back-to-Top Floating Button */}
+        <FloatingScrollTop liftForBar={selectedRLHs.size > 0} />
       </div>
     </MotionConfig>
   );

@@ -15,6 +15,14 @@ import {
   FileCheck
 } from 'lucide-react';
 import { MihoraLogo } from '../components/MihoraLogo';
+import {
+  ScrollReveal,
+  StaggerGrid,
+  StaggerItem,
+  SpotlightCard,
+  AnimatedButton,
+  AnimatedCounter
+} from '../components/MotionPrimitives';
 
 interface AboutPageProps {
   onNavigateHome: () => void;
@@ -25,10 +33,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
       {/* Hero / Corporate Identity Header */}
-      <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold">
+      <ScrollReveal className="space-y-4 max-w-3xl">
+        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-mono font-bold uppercase tracking-wider">
           <Building2 className="w-4 h-4" />
-          <span>ABOUT MIHORA TECH & VU INITIATIVE</span>
+          <span>ABOUT MIHORA TECH &amp; VU INITIATIVE</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Empowering Virtual University Students Across Pakistan
@@ -36,10 +44,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
           MIHORA STUDY LIBRARY (<a href="https://study.mihora.tech" className="text-blue-600 font-semibold underline underline-offset-2">study.mihora.tech</a>) is a dedicated non-commercial academic social initiative engineered by <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-colors inline-flex items-center gap-1">MIHORA TECH <ExternalLink className="w-3.5 h-3.5" /></a> to solve the critical challenges of educational resource discovery for distance-learning university students.
         </p>
-      </div>
+      </ScrollReveal>
 
       {/* Corporate Overview Card */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-xs space-y-6">
+      <ScrollReveal delay={0.05} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
           <div className="space-y-1">
             <MihoraLogo variant="dark" size="lg" />
@@ -90,11 +98,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
             </p>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* The Helping Approach for VU Students */}
       <div className="space-y-6">
-        <div className="space-y-2 max-w-2xl">
+        <ScrollReveal className="space-y-2 max-w-2xl">
           <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
             <GraduationCap className="w-4 h-4" />
             <span>Dedicated Helping Approach</span>
@@ -105,78 +113,94 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
           <p className="text-xs sm:text-sm text-slate-500">
             Engineered with student feedback to eliminate clutter and provide immediate academic support.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-3 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
-              01
-            </div>
-            <h3 className="text-base font-bold text-slate-900">411+ Unified Courses</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Every course code (e.g. CS101, CS201, CS504, MTH101, MTH302, MGT211, ENG101) is indexed systematically across Computer Science, Business, Mathematics, and Humanities faculties.
-            </p>
-          </div>
+        <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <StaggerItem>
+            <SpotlightCard className="group h-full bg-white rounded-2xl border border-slate-200 p-6 card-elevated">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
+                  01
+                </div>
+                <h3 className="text-base font-bold text-slate-900">
+                  <AnimatedCounter value={411} suffix="+" /> Unified Courses
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Every course code (e.g. CS101, CS201, CS504, MTH101, MTH302, MGT211, ENG101) is indexed systematically across Computer Science, Business, Mathematics, and Humanities faculties.
+                </p>
+              </div>
+            </SpotlightCard>
+          </StaggerItem>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-3 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-sm">
-              02
-            </div>
-            <h3 className="text-base font-bold text-slate-900">28,328+ Authentic Documents</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Contains verified handouts, midterm solved past papers (Moaaz & Waqar Siddhu collections), final term papers, short notes, solved objective MCQs, and presentation slides.
-            </p>
-          </div>
+          <StaggerItem>
+            <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full bg-white rounded-2xl border border-slate-200 p-6 card-elevated">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
+                  02
+                </div>
+                <h3 className="text-base font-bold text-slate-900">
+                  <AnimatedCounter value={28328} suffix="+" /> Authentic Documents
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Contains verified handouts, midterm solved past papers (Moaaz &amp; Waqar Siddhu collections), final term papers, short notes, solved objective MCQs, and presentation slides.
+                </p>
+              </div>
+            </SpotlightCard>
+          </StaggerItem>
 
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-3 shadow-xs">
-            <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">
-              03
-            </div>
-            <h3 className="text-base font-bold text-slate-900">Zero Ads & Zero Login</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              No popups, no ad banners, no subscription fees, and no mandatory login or registration. Students can immediately access and download documents within seconds.
-            </p>
-          </div>
-        </div>
+          <StaggerItem>
+            <SpotlightCard spotlightColor="rgba(147, 51, 234, 0.10)" className="group h-full bg-white rounded-2xl border border-slate-200 p-6 card-elevated">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
+                  03
+                </div>
+                <h3 className="text-base font-bold text-slate-900">Zero Ads &amp; Zero Login</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  No popups, no ad banners, no subscription fees, and no mandatory login or registration. Students can immediately access and download documents within seconds.
+                </p>
+              </div>
+            </SpotlightCard>
+          </StaggerItem>
+        </StaggerGrid>
       </div>
 
       {/* Key Guarantees & Code of Conduct */}
-      <div className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+      <ScrollReveal className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
         <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-blue-600" />
-          <span>Our Integrity & Operational Commitments</span>
+          <span>Our Integrity &amp; Operational Commitments</span>
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
-          <div className="flex items-start gap-2.5">
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
+          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-800">100% Free Forever:</strong> We will never introduce paywalls, download throttling, or premium subscription tiers for educational materials.
             </div>
-          </div>
+          </StaggerItem>
 
-          <div className="flex items-start gap-2.5">
+          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-800">No Student Telemetry:</strong> We do not collect student roll numbers, phone numbers, email addresses, or personal identity information.
             </div>
-          </div>
+          </StaggerItem>
 
-          <div className="flex items-start gap-2.5">
+          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
-              <strong className="text-slate-800">Virus & Malware Scanned:</strong> All repository items are validated against spam, broken links, and executable files to ensure safe downloads.
+              <strong className="text-slate-800">Virus &amp; Malware Scanned:</strong> All repository items are validated against spam, broken links, and executable files to ensure safe downloads.
             </div>
-          </div>
+          </StaggerItem>
 
-          <div className="flex items-start gap-2.5">
+          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-800">High-Speed Static Delivery:</strong> Hosted on global edge CDN nodes guaranteeing sub-100ms load times across all Pakistani ISPs.
             </div>
-          </div>
-        </div>
-      </div>
+          </StaggerItem>
+        </StaggerGrid>
+      </ScrollReveal>
 
       {/* Official Academic Disclaimer */}
       <div className="p-6 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-950 space-y-2 text-xs">
@@ -195,21 +219,23 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
           Have suggestions or study resources to contribute? Contact our engineering team at <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-semibold hover:underline">www.mihora.tech</a>.
         </div>
         <div className="flex items-center gap-3">
-          <button
+          <AnimatedButton
             type="button"
+            shimmer={false}
             onClick={onNavigateCourses}
-            className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition-colors cursor-pointer"
+            className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition-colors cursor-pointer whitespace-nowrap"
           >
             Browse All 411 Courses
-          </button>
-          <button
+          </AnimatedButton>
+          <AnimatedButton
             type="button"
+            magnetic
             onClick={onNavigateHome}
-            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors cursor-pointer flex items-center gap-1.5"
+            className="group px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors cursor-pointer inline-flex items-center gap-1.5 shadow-sm whitespace-nowrap"
           >
             <span>Search Study Library</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+          </AnimatedButton>
         </div>
       </div>
     </div>

@@ -28,6 +28,16 @@ import {
   Lightbulb,
   CreditCard
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import {
+  ScrollReveal,
+  StaggerGrid,
+  StaggerItem,
+  SpotlightCard,
+  AnimatedButton,
+  AnimatedCounter,
+  EASE_OUT_EXPO
+} from '../components/MotionPrimitives';
 
 interface GuideItem {
   id: string;
@@ -702,14 +712,14 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
       {/* 1. Page Header */}
-      <div className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold">
+      <ScrollReveal className="space-y-4 max-w-4xl">
+        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-mono font-bold uppercase tracking-wider">
           <GraduationCap className="w-4 h-4 text-blue-600" />
-          <span>VIRTUAL UNIVERSITY ACADEMIC HANDBOOK & ESSENTIALS</span>
+          <span>VIRTUAL UNIVERSITY ACADEMIC HANDBOOK &amp; ESSENTIALS</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          The Essential VU Student Knowledge Base & FAQs
+          The Essential VU Student Knowledge Base &amp; FAQs
         </h1>
 
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
@@ -717,35 +727,37 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         </p>
 
         {/* Quick Highlights Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-          <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+        <StaggerGrid className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
             <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Top FAQs</span>
-            <strong className="text-sm sm:text-base font-black text-indigo-700 font-mono">{TOP_VU_FAQS.length} Questions</strong>
+            <strong className="text-sm sm:text-base font-black text-indigo-700 font-mono">
+              <AnimatedCounter value={TOP_VU_FAQS.length} /> Questions
+            </strong>
             <span className="text-[10px] text-slate-400 block">Crucial Student Answers</span>
-          </div>
+          </StaggerItem>
 
-          <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
             <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Two-Half Rule</span>
             <strong className="text-sm sm:text-base font-black text-emerald-700 font-mono">Min 20% + 20%</strong>
-            <span className="text-[10px] text-slate-400 block">Sessional & Final Term</span>
-          </div>
+            <span className="text-[10px] text-slate-400 block">Sessional &amp; Final Term</span>
+          </StaggerItem>
 
-          <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
             <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Reschedule Fee</span>
             <strong className="text-sm sm:text-base font-black text-blue-700 font-mono">PKR 2,000</strong>
             <span className="text-[10px] text-slate-400 block">24-Hr Window on VULMS</span>
-          </div>
+          </StaggerItem>
 
-          <div className="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
             <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Grace Period</span>
             <strong className="text-sm sm:text-base font-black text-amber-700 font-mono">24 Hours</strong>
             <span className="text-[10px] text-slate-400 block">Zero marks deduction</span>
-          </div>
-        </div>
-      </div>
+          </StaggerItem>
+        </StaggerGrid>
+      </ScrollReveal>
 
       {/* 2. Search & Filter Bar */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xs">
+      <ScrollReveal delay={0.05} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Live Search Box */}
           <div className="relative flex-1 max-w-xl">
@@ -762,49 +774,52 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
           {/* Section View Tabs & Expand All */}
           <div className="flex items-center gap-2 flex-wrap">
             <div className="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold">
-              <button
-                type="button"
-                onClick={() => setViewMode('both')}
-                className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
-                  viewMode === 'both' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                All Content
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('faqs')}
-                className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
-                  viewMode === 'faqs' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                FAQs Only ({filteredFAQs.length})
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('guides')}
-                className={`px-3 py-1 rounded-lg transition-colors cursor-pointer ${
-                  viewMode === 'guides' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                Guides ({filteredGuides.length})
-              </button>
+              {(
+                [
+                  { id: 'both', label: 'All Content' },
+                  { id: 'faqs', label: `FAQs Only (${filteredFAQs.length})` },
+                  { id: 'guides', label: `Guides (${filteredGuides.length})` }
+                ] as const
+              ).map((v) => {
+                const active = viewMode === v.id;
+                return (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={() => setViewMode(v.id)}
+                    className={`relative px-3 py-1.5 rounded-lg transition-colors cursor-pointer whitespace-nowrap ${
+                      active ? 'text-slate-900' : 'text-slate-600 hover:text-slate-900'
+                    }`}
+                  >
+                    {active && (
+                      <motion.span
+                        layoutId="handbook-view-mode"
+                        transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                        className="absolute inset-0 bg-white rounded-lg shadow-2xs"
+                      />
+                    )}
+                    <span className="relative z-10">{v.label}</span>
+                  </button>
+                );
+              })}
             </div>
 
-            <button
+            <motion.button
               type="button"
+              whileTap={{ scale: 0.94 }}
               onClick={expandAll}
               className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
             >
               Expand All
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               type="button"
+              whileTap={{ scale: 0.94 }}
               onClick={collapseAll}
               className="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
             >
               Collapse
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -815,23 +830,32 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
             const isSelected = selectedCategory === cat.id;
 
             return (
-              <button
+              <motion.button
                 key={cat.id}
                 type="button"
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                className={`relative inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer border whitespace-nowrap ${
                   isSelected
-                    ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
+                    ? 'border-blue-600 text-white shadow-xs'
                     : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                 }`}
               >
-                <Icon className="w-3.5 h-3.5 shrink-0" />
-                <span>{cat.label}</span>
-              </button>
+                {isSelected && (
+                  <motion.span
+                    layoutId="handbook-cat-pill"
+                    transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                    className="absolute inset-0 rounded-xl bg-blue-600"
+                  />
+                )}
+                <Icon className="relative z-10 w-3.5 h-3.5 shrink-0" />
+                <span className="relative z-10">{cat.label}</span>
+              </motion.button>
             );
           })}
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* 3. SECTION A: Top Important Student FAQs */}
       {(viewMode === 'both' || viewMode === 'faqs') && filteredFAQs.length > 0 && (
@@ -896,38 +920,52 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-1">
-                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    </div>
+                    <motion.div
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-1"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.div>
                   </div>
 
                   {/* Expanded Detailed Points */}
-                  {isExpanded && (
-                    <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 space-y-4 animate-in fade-in duration-150">
-                      <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                        Detailed Explanation & Rules:
-                      </h4>
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.26, ease: EASE_OUT_EXPO }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 space-y-4">
+                          <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                            Detailed Explanation &amp; Rules:
+                          </h4>
 
-                      <div className="space-y-2">
-                        {faq.detailedPoints.map((point, pIdx) => (
-                          <div key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                            <span>{point}</span>
+                          <div className="space-y-2">
+                            {faq.detailedPoints.map((point, pIdx) => (
+                              <div key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                                <span>{point}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
 
-                      {faq.actionAdvice && (
-                        <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/60 flex items-start gap-3">
-                          <Lightbulb className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                          <div className="text-xs text-amber-950 leading-relaxed">
-                            <strong className="font-bold block text-amber-900 mb-0.5">Student Action Tip / Mashwara:</strong>
-                            <span>{faq.actionAdvice}</span>
-                          </div>
+                          {faq.actionAdvice && (
+                            <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/60 flex items-start gap-3">
+                              <Lightbulb className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                              <div className="text-xs text-amber-950 leading-relaxed">
+                                <strong className="font-bold block text-amber-900 mb-0.5">Student Action Tip / Mashwara:</strong>
+                                <span>{faq.actionAdvice}</span>
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      )}
-                    </div>
-                  )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}
@@ -942,10 +980,10 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
                 <BookOpen className="w-4 h-4 text-blue-600" />
-                <span>Official Academic & Examination Rules</span>
+                <span>Official Academic &amp; Examination Rules</span>
               </div>
               <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-                In-Depth Policy & Procedure Encyclopedia
+                In-Depth Policy &amp; Procedure Encyclopedia
               </h2>
             </div>
             <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
@@ -990,69 +1028,83 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
                       </p>
                     </div>
 
-                    <div className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-1">
-                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    </div>
+                    <motion.div
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 mt-1"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.div>
                   </div>
 
                   {/* Expanded Details Body */}
-                  {isExpanded && (
-                    <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 space-y-5 animate-in fade-in duration-150">
-                      {/* Bullet Points */}
-                      <div className="space-y-2.5">
-                        {item.details.map((detail, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                            <span>{detail}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Pro Tip Box if available */}
-                      {item.tips && (
-                        <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/60 flex items-start gap-3">
-                          <Sparkles className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                          <div className="text-xs text-blue-900 leading-relaxed">
-                            <strong className="font-bold block text-blue-950 mb-0.5">Student Advice / Pro-Tip:</strong>
-                            <span>{item.tips}</span>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Links & Tags Footer */}
-                      <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-1.5">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 text-[10px] font-medium"
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Official Links */}
-                        {item.officialLinks && item.officialLinks.length > 0 && (
-                          <div className="flex items-center gap-2">
-                            {item.officialLinks.map((link) => (
-                              <a
-                                key={link.url}
-                                href={link.url}
-                                target={link.url.startsWith('http') ? '_blank' : '_self'}
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition-colors shadow-2xs"
-                              >
-                                <span>{link.label}</span>
-                                <ExternalLink className="w-3 h-3 text-blue-300" />
-                              </a>
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.26, ease: EASE_OUT_EXPO }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-slate-100 space-y-5">
+                          {/* Bullet Points */}
+                          <div className="space-y-2.5">
+                            {item.details.map((detail, idx) => (
+                              <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                                <span>{detail}</span>
+                              </div>
                             ))}
                           </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
+
+                          {/* Pro Tip Box if available */}
+                          {item.tips && (
+                            <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/60 flex items-start gap-3">
+                              <Sparkles className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                              <div className="text-xs text-blue-900 leading-relaxed">
+                                <strong className="font-bold block text-blue-950 mb-0.5">Student Advice / Pro-Tip:</strong>
+                                <span>{item.tips}</span>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Links & Tags Footer */}
+                          <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-1.5">
+                              {item.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600 text-[10px] font-medium"
+                                >
+                                  #{tag}
+                                </span>
+                              ))}
+                            </div>
+
+                            {/* Official Links */}
+                            {item.officialLinks && item.officialLinks.length > 0 && (
+                              <div className="flex items-center gap-2">
+                                {item.officialLinks.map((link) => (
+                                  <a
+                                    key={link.url}
+                                    href={link.url}
+                                    target={link.url.startsWith('http') ? '_blank' : '_self'}
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition-colors shadow-2xs"
+                                  >
+                                    <span>{link.label}</span>
+                                    <ExternalLink className="w-3 h-3 text-blue-300" />
+                                  </a>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}
@@ -1083,10 +1135,11 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
       )}
 
       {/* 5. Interactive Callout Banners */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Banner 1: Passing Simulator */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-blue-950 text-white space-y-4 shadow-md flex flex-col justify-between">
-          <div className="space-y-2">
+        <div className="relative overflow-hidden p-6 sm:p-8 rounded-3xl bg-studio-stage text-white space-y-4 shadow-md flex flex-col justify-between border border-slate-800">
+          <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+          <div className="relative z-10 space-y-2">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-300 uppercase tracking-wider">
               <Calculator className="w-4 h-4 text-amber-400" />
               <span>Two-Half 20% Rule Engine</span>
@@ -1099,41 +1152,45 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
             </p>
           </div>
 
-          <button
+          <AnimatedButton
             type="button"
+            magnetic
             onClick={onNavigateToSimulator}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-xs active:scale-98"
+            className="relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-xs whitespace-nowrap"
           >
             <span>Open Passing Marks Simulator</span>
             <ExternalLink className="w-4 h-4" />
-          </button>
+          </AnimatedButton>
         </div>
 
         {/* Banner 2: 411 Course Library */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 space-y-4 shadow-sm flex flex-col justify-between">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
-              <BookOpen className="w-4 h-4 text-blue-600" />
-              <span>28,328+ Verified Study Files</span>
+        <SpotlightCard className="group p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 card-elevated">
+          <div className="space-y-4 h-full flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
+                <BookOpen className="w-4 h-4 text-blue-600" />
+                <span>28,328+ Verified Study Files</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                Explore All 411 Real VU Courses
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Access handouts, solved past papers, grand quiz files, and mid/final term preparation notes for CS101, MTH101, ENG101, MGT101, and 400+ other real courses with our in-browser reader.
+              </p>
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Explore All 411 Real VU Courses
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Access handouts, solved past papers, grand quiz files, and mid/final term preparation notes for CS101, MTH101, ENG101, MGT101, and 400+ other real courses with our in-browser reader.
-            </p>
-          </div>
 
-          <button
-            type="button"
-            onClick={onNavigateToCourses}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-xs active:scale-98"
-          >
-            <span>Browse 411 Course Directory</span>
-            <ExternalLink className="w-4 h-4 text-blue-400" />
-          </button>
-        </div>
-      </div>
+            <AnimatedButton
+              type="button"
+              magnetic
+              onClick={onNavigateToCourses}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-xs whitespace-nowrap"
+            >
+              <span>Browse 411 Course Directory</span>
+              <ExternalLink className="w-4 h-4 text-blue-400" />
+            </AnimatedButton>
+          </div>
+        </SpotlightCard>
+      </ScrollReveal>
     </div>
   );
 };

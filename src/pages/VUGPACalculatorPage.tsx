@@ -16,6 +16,8 @@ import {
   Sparkles,
   ArrowRight
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ScrollReveal, AnimatedButton, EASE_OUT_EXPO } from '../components/MotionPrimitives';
 
 interface SemesterCourse {
   id: string;
@@ -129,12 +131,13 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
       </nav>
 
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
-        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-600/20 blur-3xl pointer-events-none" />
+      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
+        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none animate-float-slow" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono font-medium">
+          <div className="inline-flex items-center gap-2 text-sky-300 text-xs font-mono font-semibold uppercase tracking-wider">
             <Calculator className="w-3.5 h-3.5" />
-            <span>OFFICIAL 4.0 SCALE • HEC &amp; VU GRADING SCHEME</span>
+            <span>OFFICIAL 4.0 SCALE · HEC &amp; VU GRADING SCHEME</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
             VU GPA &amp; CGPA Calculator &amp; Academic Forecaster
@@ -143,13 +146,13 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
             Calculate your semester GPA, forecast your cumulative CGPA, check academic probation thresholds, and simulate grade improvements under the official Virtual University 4.0 grading scale.
           </p>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* Main Grid: Interactive Calculator + Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Col (8 cols): Semester Calculator Tool */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+          <ScrollReveal delay={0.05} className="bg-white rounded-2xl border border-slate-200 p-6 card-elevated space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-4">
               <div>
                 <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
@@ -161,22 +164,23 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <button
+                <motion.button
                   type="button"
+                  whileTap={{ scale: 0.94 }}
                   onClick={resetToDefault}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 text-xs font-medium transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 text-xs font-medium transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   Reset
-                </button>
-                <button
+                </motion.button>
+                <AnimatedButton
                   type="button"
                   onClick={addCourse}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add Course
-                </button>
+                </AnimatedButton>
               </div>
             </div>
 
@@ -189,92 +193,105 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
                 <div className="col-span-1 text-center">Action</div>
               </div>
 
-              {courses.map((course, idx) => {
-                const gp = VU_GRADE_POINTS[course.grade]?.points ?? 0;
-                return (
-                  <div 
-                    key={course.id}
-                    className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center p-3 rounded-xl bg-slate-50/70 border border-slate-200/80 hover:border-blue-200 transition-colors"
-                  >
-                    <div className="sm:col-span-5">
-                      <label className="sm:hidden block text-[11px] font-semibold text-slate-500 mb-1">
-                        Course Code
-                      </label>
-                      <input
-                        type="text"
-                        value={course.name}
-                        onChange={(e) => updateCourse(course.id, 'name', e.target.value.toUpperCase())}
-                        placeholder="e.g. CS101"
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-900 font-mono font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
+              <AnimatePresence initial={false}>
+                {courses.map((course) => {
+                  return (
+                    <motion.div
+                      key={course.id}
+                      layout
+                      initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: -24, scale: 0.96 }}
+                      transition={{ duration: 0.24, ease: EASE_OUT_EXPO }}
+                      className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center p-3 rounded-xl bg-slate-50/70 border border-slate-200/80 hover:border-blue-200 transition-colors"
+                    >
+                      <div className="sm:col-span-5">
+                        <label className="sm:hidden block text-[11px] font-semibold text-slate-500 mb-1">
+                          Course Code
+                        </label>
+                        <input
+                          type="text"
+                          value={course.name}
+                          onChange={(e) => updateCourse(course.id, 'name', e.target.value.toUpperCase())}
+                          placeholder="e.g. CS101"
+                          className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-900 font-mono font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
 
-                    <div className="sm:col-span-3">
-                      <label className="sm:hidden block text-[11px] font-semibold text-slate-500 mb-1">
-                        Credit Hours
-                      </label>
-                      <select
-                        value={course.creditHours}
-                        onChange={(e) => updateCourse(course.id, 'creditHours', parseInt(e.target.value, 10))}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-900 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
-                        <option value={1}>1 Credit Hour</option>
-                        <option value={2}>2 Credit Hours</option>
-                        <option value={3}>3 Credit Hours</option>
-                        <option value={4}>4 Credit Hours</option>
-                      </select>
-                    </div>
+                      <div className="sm:col-span-3">
+                        <label className="sm:hidden block text-[11px] font-semibold text-slate-500 mb-1">
+                          Credit Hours
+                        </label>
+                        <select
+                          value={course.creditHours}
+                          onChange={(e) => updateCourse(course.id, 'creditHours', parseInt(e.target.value, 10))}
+                          className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-900 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                          <option value={1}>1 Credit Hour</option>
+                          <option value={2}>2 Credit Hours</option>
+                          <option value={3}>3 Credit Hours</option>
+                          <option value={4}>4 Credit Hours</option>
+                        </select>
+                      </div>
 
-                    <div className="sm:col-span-3">
-                      <label className="sm:hidden block text-[11px] font-semibold text-slate-500 mb-1">
-                        Grade Point
-                      </label>
-                      <select
-                        value={course.grade}
-                        onChange={(e) => updateCourse(course.id, 'grade', e.target.value)}
-                        className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
-                        {Object.entries(VU_GRADE_POINTS).map(([code, meta]) => (
-                          <option key={code} value={code}>
-                            {code} ({meta.points.toFixed(2)}) – {meta.marksRange}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                      <div className="sm:col-span-3">
+                        <label className="sm:hidden block text-[11px] font-semibold text-slate-500 mb-1">
+                          Grade Point
+                        </label>
+                        <select
+                          value={course.grade}
+                          onChange={(e) => updateCourse(course.id, 'grade', e.target.value)}
+                          className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                          {Object.entries(VU_GRADE_POINTS).map(([code, meta]) => (
+                            <option key={code} value={code}>
+                              {code} ({meta.points.toFixed(2)}) – {meta.marksRange}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
 
-                    <div className="sm:col-span-1 flex items-center justify-center">
-                      <button
-                        type="button"
-                        onClick={() => removeCourse(course.id)}
-                        disabled={courses.length <= 1}
-                        className="p-1.5 text-slate-400 hover:text-rose-600 disabled:opacity-30 disabled:hover:text-slate-400 rounded-lg transition-colors"
-                        title="Remove Course"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                      <div className="sm:col-span-1 flex items-center justify-center">
+                        <motion.button
+                          type="button"
+                          whileTap={{ scale: 0.85 }}
+                          onClick={() => removeCourse(course.id)}
+                          disabled={courses.length <= 1}
+                          className="p-1.5 text-slate-400 hover:text-rose-600 disabled:opacity-30 disabled:hover:text-slate-400 rounded-lg transition-colors cursor-pointer"
+                          title="Remove Course"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
             </div>
 
             {/* Quick Summary Pill Bar */}
             <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
               <div className="text-xs text-slate-500">
-                Total Semester Credits: <strong className="text-slate-900">{semesterStats.totalCredits} Cr. Hrs</strong>
+                Total Semester Credits: <strong className="text-slate-900 tabular-nums">{semesterStats.totalCredits} Cr. Hrs</strong>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-xs font-semibold text-slate-500 uppercase">Calculated Semester GPA:</span>
-                <span className="text-2xl font-black text-blue-600 font-mono">
+                <motion.span
+                  key={semesterStats.gpa.toFixed(2)}
+                  initial={{ scale: 0.88, opacity: 0.6 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                  className="text-2xl font-black text-blue-600 font-mono tabular-nums"
+                >
                   {semesterStats.gpa.toFixed(2)}
-                </span>
+                </motion.span>
                 <span className="text-xs text-slate-400 font-mono">/ 4.00</span>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Cumulative CGPA Forecaster Card */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
+          <ScrollReveal delay={0.08} className="bg-white rounded-2xl border border-slate-200 p-6 card-elevated space-y-5">
             <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
               <TrendingUp className="w-5 h-5 text-emerald-600" />
               <div>
@@ -330,19 +347,25 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
                 </div>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-black text-emerald-700 font-mono">
+                <motion.span
+                  key={cumulativeStats.newCgpa.toFixed(2)}
+                  initial={{ scale: 0.9, opacity: 0.6 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                  className="text-3xl font-black text-emerald-700 font-mono tabular-nums"
+                >
                   {cumulativeStats.newCgpa.toFixed(2)}
-                </span>
-                <span className="text-xs font-semibold text-emerald-600">
+                </motion.span>
+                <span className="text-xs font-semibold text-emerald-600 font-mono tabular-nums">
                   ({cumulativeStats.diff >= 0 ? `+${cumulativeStats.diff.toFixed(2)}` : `${cumulativeStats.diff.toFixed(2)}`})
                 </span>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* Right Col (4 cols): Official VU Grading Scale & Rules Reference */}
-        <div className="lg:col-span-4 space-y-6">
+        <ScrollReveal direction="left" delay={0.1} className="lg:col-span-4 space-y-6">
           {/* Grading Scale Table */}
           <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
@@ -388,11 +411,11 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
               Students can repeat any course with a grade of <strong>D</strong> or <strong>F</strong> to improve their CGPA. When repeated, the higher/latest grade points replace the previous grade in CGPA calculation.
             </p>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* Comprehensive Academic Guide & Documentation Section */}
-      <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-8">
+      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-8">
         <div className="max-w-3xl space-y-3">
           <h2 className="text-2xl font-black text-slate-900">
             How GPA and CGPA Are Calculated at Virtual University of Pakistan
@@ -455,7 +478,7 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
             </div>
           </div>
         </div>
-      </section>
+      </ScrollReveal>
     </div>
   );
 };

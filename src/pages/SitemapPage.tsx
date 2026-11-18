@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { motion } from 'motion/react';
 import { Course } from '../types';
 import { 
   Network, 
@@ -14,6 +15,7 @@ import {
   GraduationCap,
   ExternalLink
 } from 'lucide-react';
+import { ScrollReveal, StaggerGrid, StaggerItem, SpotlightCard, EASE_OUT_EXPO } from '../components/MotionPrimitives';
 
 interface SitemapPageProps {
   courses: Course[];
@@ -40,13 +42,87 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
     return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0]));
   }, [courses, sitemapSearch]);
 
+  const portalSections = [
+    {
+      id: 'home',
+      title: 'Search Catalog & Library',
+      description: 'Explore 28,328+ study documents with full-text search, filter by format, solved papers, and download.',
+      icon: Search,
+      iconBg: 'bg-blue-50 text-blue-600',
+      hoverBorder: 'hover:border-blue-400',
+      hoverText: 'group-hover:text-blue-600',
+      spotlight: 'rgba(37, 99, 235, 0.12)'
+    },
+    {
+      id: 'courses',
+      title: `Course Directory (${courses.length})`,
+      description: 'Full directory of 411 courses categorized by CS, Math, Management, Economics, and Mass Media.',
+      icon: BookOpen,
+      iconBg: 'bg-indigo-50 text-indigo-600',
+      hoverBorder: 'hover:border-indigo-400',
+      hoverText: 'group-hover:text-indigo-600',
+      spotlight: 'rgba(79, 70, 229, 0.12)'
+    },
+    {
+      id: 'handbook',
+      title: 'VU Student Handbook & Rules',
+      description: 'Official student guide covering datesheet creation, 20% two-half rule, reschedule fee, CGPA probation, and VULMS services.',
+      icon: GraduationCap,
+      iconBg: 'bg-emerald-50 text-emerald-600',
+      hoverBorder: 'hover:border-emerald-400',
+      hoverText: 'group-hover:text-emerald-600',
+      spotlight: 'rgba(16, 185, 129, 0.12)'
+    },
+    {
+      id: 'simulator',
+      title: 'Exam Passing Marks Simulator',
+      description: 'Calculate required Final Term exam marks, evaluate VU 20% & 50% passing rules, and download official PDF report.',
+      icon: Calculator,
+      iconBg: 'bg-slate-100 text-slate-700',
+      hoverBorder: 'hover:border-slate-400',
+      hoverText: 'group-hover:text-blue-600',
+      spotlight: 'rgba(71, 85, 105, 0.10)'
+    },
+    {
+      id: 'security',
+      title: 'Privacy & Trust Guarantee',
+      description: 'Zero student data collection, safe verified documents, and ad-free high-speed downloads.',
+      icon: ShieldCheck,
+      iconBg: 'bg-emerald-50 text-emerald-600',
+      hoverBorder: 'hover:border-emerald-400',
+      hoverText: 'group-hover:text-emerald-600',
+      spotlight: 'rgba(16, 185, 129, 0.12)'
+    },
+    {
+      id: 'about',
+      title: 'About Mihora Tech & VU Mission',
+      description: 'Corporate profile of MIHORA TECH and the background behind the non-commercial VU student welfare initiative.',
+      icon: Building2,
+      iconBg: 'bg-purple-50 text-purple-600',
+      hoverBorder: 'hover:border-purple-400',
+      hoverText: 'group-hover:text-purple-600',
+      spotlight: 'rgba(147, 51, 234, 0.12)'
+    },
+    {
+      id: 'disclaimer',
+      title: 'Academic Disclaimer & Terms',
+      description: 'Fair educational use policies, copyright disclosures, student revision guidelines, and ethical conduct.',
+      icon: HelpCircle,
+      iconBg: 'bg-amber-50 text-amber-600',
+      hoverBorder: 'hover:border-amber-400',
+      hoverText: 'group-hover:text-amber-600',
+      spotlight: 'rgba(217, 119, 6, 0.12)',
+      spanClass: 'sm:col-span-2 lg:col-span-1'
+    }
+  ];
+
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
       {/* Header */}
-      <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold">
+      <ScrollReveal direction="up" className="space-y-4 max-w-3xl">
+        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-extrabold tracking-widest uppercase">
           <Network className="w-4 h-4" />
-          <span>PORTAL & CURRICULUM DIRECTORY</span>
+          <span>Portal & Curriculum Directory</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           Academic Curriculum & Portal Directory
@@ -54,143 +130,49 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
           Quickly navigate all sections of the MIHORA STUDY LIBRARY, including the VU Student Handbook, all 411+ Virtual University courses, exam passing simulator, student trust guarantees, and academic guidelines.
         </p>
-      </div>
+      </ScrollReveal>
 
       {/* Main Portal Section Links */}
       <div className="space-y-4">
-        <h2 className="text-lg font-bold text-slate-900">Main Portal Sections</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div
-            onClick={() => onNavigate('home')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
-                <Search className="w-4 h-4" />
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-              Search Catalog & Library
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Explore 28,328+ study documents with full-text search, filter by format, solved papers, and download.
-            </p>
-          </div>
-
-          <div
-            onClick={() => onNavigate('courses')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
-                <BookOpen className="w-4 h-4" />
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-              Course Directory ({courses.length})
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Full directory of 411 courses categorized by CS, Math, Management, Economics, and Mass Media.
-            </p>
-          </div>
-
-          <div
-            onClick={() => onNavigate('handbook')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                <GraduationCap className="w-4 h-4" />
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
-              VU Student Handbook & Rules
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Official student guide covering datesheet creation, 20% two-half rule, reschedule fee, CGPA probation, and VULMS services.
-            </p>
-          </div>
-
-          <div
-            onClick={() => onNavigate('simulator')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-slate-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
-                <Calculator className="w-4 h-4" />
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-              Exam Passing Marks Simulator
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Calculate required Final Term exam marks, evaluate VU 20% & 50% passing rules, and download official PDF report.
-            </p>
-          </div>
-
-          <div
-            onClick={() => onNavigate('security')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                <ShieldCheck className="w-4 h-4" />
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
-              Privacy & Trust Guarantee
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Zero student data collection, safe verified documents, and ad-free high-speed downloads.
-            </p>
-          </div>
-
-          <div
-            onClick={() => onNavigate('about')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
-                <Building2 className="w-4 h-4" />
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-purple-600 transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
-              About Mihora Tech & VU Mission
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Corporate profile of MIHORA TECH and the background behind the non-commercial VU student welfare initiative.
-            </p>
-          </div>
-
-          <div
-            onClick={() => onNavigate('disclaimer')}
-            className="p-5 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xs transition-all cursor-pointer space-y-2 group sm:col-span-2 lg:col-span-1"
-          >
-            <div className="flex items-center justify-between">
-              <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
-                <HelpCircle className="w-4 h-4" />
-              </div>
-              <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-amber-600 transition-colors" />
-            </div>
-            <h3 className="text-sm font-bold text-slate-900 group-hover:text-amber-600 transition-colors">
-              Academic Disclaimer & Terms
-            </h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Fair educational use policies, copyright disclosures, student revision guidelines, and ethical conduct.
-            </p>
-          </div>
-        </div>
+        <ScrollReveal direction="up">
+          <h2 className="text-lg font-bold text-slate-900">Main Portal Sections</h2>
+        </ScrollReveal>
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {portalSections.map((section) => {
+            const Icon = section.icon;
+            return (
+              <StaggerItem key={section.id} className={section.spanClass || ''}>
+                <SpotlightCard
+                  onClick={() => onNavigate(section.id)}
+                  spotlightColor={section.spotlight}
+                  className={`h-full p-5 rounded-2xl bg-white border border-slate-200 ${section.hoverBorder} card-elevated cursor-pointer group`}
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className={`w-9 h-9 rounded-xl ${section.iconBg} flex items-center justify-center font-bold transition-transform duration-300 group-hover:scale-110`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <ChevronRight className={`w-4 h-4 text-slate-400 ${section.hoverText} group-hover:translate-x-0.5 transition-all`} />
+                    </div>
+                    <h3 className={`text-sm font-bold text-slate-900 ${section.hoverText} transition-colors`}>
+                      {section.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      {section.description}
+                    </p>
+                  </div>
+                </SpotlightCard>
+              </StaggerItem>
+            );
+          })}
+        </StaggerGrid>
 
         {/* Machine-Readable Sitemaps & Crawler Resources */}
-        <div className="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-500">
+        <ScrollReveal direction="up" delay={0.1} className="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-500">
           <span className="font-semibold text-slate-700">Crawler & Indexing Protocol:</span>
-          <a
+          <motion.a
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
             href="/sitemap.xml"
             target="_blank"
             rel="noopener noreferrer"
@@ -198,8 +180,10 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
           >
             <span>XML Sitemap (RFC-compliant)</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
             href="/robots.txt"
             target="_blank"
             rel="noopener noreferrer"
@@ -207,13 +191,13 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
           >
             <span>Robots.txt Policy</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
-          </a>
-        </div>
+          </motion.a>
+        </ScrollReveal>
       </div>
 
       {/* Comprehensive Faculty Index */}
       <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <ScrollReveal direction="up" className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <h2 className="text-xl font-bold text-slate-900">
               Departmental Course Index ({courses.length} Courses)
@@ -228,31 +212,41 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
               value={sitemapSearch}
               onChange={(e) => setSitemapSearch(e.target.value)}
               placeholder="Filter courses..."
-              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-600"
+              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-600 transition-shadow"
             />
           </div>
-        </div>
+        </ScrollReveal>
 
         <div className="space-y-6">
-          {facultyGroups.map(([faculty, facultyCourses]) => (
-            <div key={faculty} className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-xs">
+          {facultyGroups.map(([faculty, facultyCourses], groupIdx) => (
+            <motion.div
+              key={faculty}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 'some' }}
+              transition={{ duration: 0.4, delay: Math.min(groupIdx * 0.04, 0.2), ease: EASE_OUT_EXPO }}
+              className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-xs"
+            >
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                   <Layers className="w-4 h-4 text-blue-600" />
                   <span>{faculty}</span>
                 </h3>
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                <span className="text-xs font-semibold text-slate-600 tabular-nums">
                   {facultyCourses.length} courses
                 </span>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5">
                 {facultyCourses.map((c) => (
-                  <button
+                  <motion.button
                     key={c.code}
                     type="button"
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.16, ease: EASE_OUT_EXPO }}
                     onClick={() => onSelectCourse(c.code)}
-                    className="p-2.5 rounded-xl border border-slate-100 hover:border-blue-400 hover:bg-blue-50/50 text-left transition-all cursor-pointer group flex flex-col justify-between"
+                    className="p-2.5 rounded-xl border border-slate-100 hover:border-blue-400 hover:bg-blue-50/50 hover:shadow-xs text-left transition-colors cursor-pointer group flex flex-col justify-between"
                   >
                     <span className="font-mono text-xs font-bold text-blue-700 group-hover:text-blue-800">
                       {c.code}
@@ -264,10 +258,10 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
                       <FileText className="w-2.5 h-2.5" />
                       <span>{c.fileCount || 0} files</span>
                     </span>
-                  </button>
+                  </motion.button>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

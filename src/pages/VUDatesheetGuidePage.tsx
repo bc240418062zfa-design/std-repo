@@ -14,6 +14,8 @@ import {
   Zap,
   Info
 } from 'lucide-react';
+import { motion } from 'motion/react';
+import { ScrollReveal, StaggerGrid, StaggerItem, EASE_OUT_EXPO } from '../components/MotionPrimitives';
 
 interface VUDatesheetGuidePageProps {
   onNavigateHome: () => void;
@@ -76,12 +78,13 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
       </nav>
 
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
-        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-600/20 blur-3xl pointer-events-none" />
+      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
+        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none animate-float-slow" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-mono font-medium">
+          <div className="inline-flex items-center gap-2 text-sky-300 text-xs font-mono font-semibold uppercase tracking-wider">
             <Calendar className="w-3.5 h-3.5" />
-            <span>OFFICIAL EXAMINATION PROTOCOL • 2026</span>
+            <span>OFFICIAL EXAMINATION PROTOCOL · 2026</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
             VU Datesheet Maker &amp; Seat Booking Master Guide
@@ -90,10 +93,10 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
             Everything you need to know about Virtual University datesheet opening, first-come first-served lab seat allocation, preferred timeslot selection, and missed paper rescheduling procedures.
           </p>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* Critical First-Hour Alert */}
-      <div className="bg-amber-50/80 rounded-2xl border border-amber-200/90 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <ScrollReveal delay={0.05} className="bg-amber-50/80 rounded-2xl border border-amber-200/90 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3">
           <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
           <div className="space-y-1">
@@ -105,19 +108,21 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
             </p>
           </div>
         </div>
-        <a
+        <motion.a
+          whileHover={{ y: -2, scale: 1.02 }}
+          whileTap={{ scale: 0.96 }}
           href="https://datesheet.vu.edu.pk"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shrink-0 shadow-xs transition-colors"
+          className="btn-shimmer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shrink-0 shadow-xs transition-colors whitespace-nowrap"
         >
           <span>Official Datesheet Portal</span>
           <ExternalLink className="w-3.5 h-3.5" />
-        </a>
-      </div>
+        </motion.a>
+      </ScrollReveal>
 
       {/* Step-by-Step Interactive Checklist */}
-      <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
+      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
         <div>
           <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
             <CheckCircle2 className="w-6 h-6 text-blue-600" />
@@ -128,47 +133,55 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
           </p>
         </div>
 
-        <div className="space-y-4">
+        <StaggerGrid className="space-y-4">
           {STEPS.map((step, idx) => {
             const isDone = !!completedSteps[idx];
             return (
-              <div 
-                key={idx}
-                onClick={() => toggleStep(idx)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
-                  isDone 
-                    ? 'bg-blue-50/50 border-blue-200' 
-                    : 'bg-slate-50/70 border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                <div className="flex items-start gap-3.5">
-                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border transition-colors ${
+              <StaggerItem key={idx}>
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ duration: 0.2, ease: EASE_OUT_EXPO }}
+                  onClick={() => toggleStep(idx)}
+                  className={`p-4 sm:p-5 rounded-2xl border transition-colors cursor-pointer ${
                     isDone 
-                      ? 'bg-blue-600 border-blue-600 text-white' 
-                      : 'bg-white border-slate-300 text-transparent'
-                  }`}>
-                    <CheckCircle2 className="w-4 h-4 fill-current" />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className={`text-base font-bold transition-colors ${isDone ? 'text-blue-900 line-through' : 'text-slate-900'}`}>
-                      {step.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      {step.desc}
-                    </p>
-                    <div className="inline-block mt-1 text-[11px] font-medium text-blue-700 bg-blue-100/70 px-2.5 py-0.5 rounded-md">
-                      <strong>Pro-Tip:</strong> {step.tip}
+                      ? 'bg-blue-50/50 border-blue-200' 
+                      : 'bg-slate-50/70 border-slate-200 hover:border-blue-300'
+                  }`}
+                >
+                  <div className="flex items-start gap-3.5">
+                    <motion.div
+                      animate={{ scale: isDone ? [1, 1.18, 1] : 1 }}
+                      transition={{ duration: 0.25 }}
+                      className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border transition-colors ${
+                        isDone 
+                          ? 'bg-blue-600 border-blue-600 text-white' 
+                          : 'bg-white border-slate-300 text-transparent'
+                      }`}
+                    >
+                      <CheckCircle2 className="w-4 h-4 fill-current" />
+                    </motion.div>
+                    <div className="space-y-1">
+                      <h3 className={`text-base font-bold transition-colors ${isDone ? 'text-blue-900 line-through' : 'text-slate-900'}`}>
+                        {step.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        {step.desc}
+                      </p>
+                      <div className="inline-block mt-1 text-[11px] font-medium text-blue-700 bg-blue-100/70 px-2.5 py-0.5 rounded-md">
+                        <strong>Pro-Tip:</strong> {step.tip}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </StaggerItem>
             );
           })}
-        </div>
-      </section>
+        </StaggerGrid>
+      </ScrollReveal>
 
       {/* Daily Time Slot Analysis Table */}
-      <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
+      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
         <div>
           <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
             <Clock className="w-6 h-6 text-emerald-600" />
@@ -211,11 +224,11 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
             </tbody>
           </table>
         </div>
-      </section>
+      </ScrollReveal>
 
       {/* Missed Exam & Rescheduling Policy */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 space-y-4">
+      <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-8 space-y-4 border border-slate-800">
           <div className="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider flex items-center gap-2">
             <ShieldCheck className="w-4 h-4" />
             Official Rescheduling Procedure
@@ -256,7 +269,7 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
             </li>
           </ul>
         </div>
-      </section>
+      </ScrollReveal>
     </div>
   );
 };

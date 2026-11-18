@@ -19,8 +19,17 @@ import {
   GraduationCap,
   HelpCircle
 } from 'lucide-react';
+import { motion } from 'motion/react';
 import coursesData from '../data/courses.json';
 import { Course } from '../types';
+import {
+  ScrollReveal,
+  StaggerGrid,
+  StaggerItem,
+  SpotlightCard,
+  AnimatedButton,
+  EASE_OUT_EXPO
+} from '../components/MotionPrimitives';
 
 const allCourses = coursesData as Course[];
 
@@ -101,10 +110,11 @@ int main() {
       </nav>
 
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
-        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-emerald-600/20 blur-3xl pointer-events-none" />
+      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
+        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none animate-float-slow" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+          <div className="inline-flex items-center gap-2 text-emerald-300 text-xs font-mono font-semibold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
             <span>2026 ACTIVE ACADEMIC SESSION · SPRING &amp; FALL</span>
           </div>
@@ -115,49 +125,61 @@ int main() {
             Official MIHORA VU guide for scoring full marks in Virtual University assignments. Master the 24-hour grace period, Turnitin plagiarism limits (&lt; 19%), MathType equation pasting, and download study files for all 411 courses.
           </p>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* Core Highlights Alert Bar */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-sm transition-all space-y-2.5">
-          <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-            <Clock className="w-5 h-5" />
-          </div>
-          <h3 className="text-slate-900 font-bold text-sm">
-            24-Hour Grace Period (0 Marks Deduction)
-          </h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Every VU regular assignment automatically includes a 24-hour grace window after the due date. Submissions during grace hours receive <strong>100% full credit</strong> with zero deductions.
-          </p>
-        </div>
+      <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <StaggerItem>
+          <SpotlightCard className="group h-full p-6 rounded-2xl bg-white border border-slate-200/90 card-elevated">
+            <div className="space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 transition-transform duration-300 group-hover:scale-110">
+                <Clock className="w-5 h-5" />
+              </div>
+              <h3 className="text-slate-900 font-bold text-sm">
+                24-Hour Grace Period (0 Marks Deduction)
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Every VU regular assignment automatically includes a 24-hour grace window after the due date. Submissions during grace hours receive <strong>100% full credit</strong> with zero deductions.
+              </p>
+            </div>
+          </SpotlightCard>
+        </StaggerItem>
 
-        <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-sm transition-all space-y-2.5">
-          <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center border border-rose-100">
-            <ShieldAlert className="w-5 h-5" />
-          </div>
-          <h3 className="text-slate-900 font-bold text-sm">
-            Turnitin Plagiarism Ceiling (&lt; 19%)
-          </h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Directly copy-pasting solutions from YouTube or WhatsApp groups yields an automatic <strong>Zero (0)</strong>. Always alter variable names, comments, and structure.
-          </p>
-        </div>
+        <StaggerItem>
+          <SpotlightCard spotlightColor="rgba(225, 29, 72, 0.08)" className="group h-full p-6 rounded-2xl bg-white border border-slate-200/90 card-elevated">
+            <div className="space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center border border-rose-100 transition-transform duration-300 group-hover:scale-110">
+                <ShieldAlert className="w-5 h-5" />
+              </div>
+              <h3 className="text-slate-900 font-bold text-sm">
+                Turnitin Plagiarism Ceiling (&lt; 19%)
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Directly copy-pasting solutions from YouTube or WhatsApp groups yields an automatic <strong>Zero (0)</strong>. Always alter variable names, comments, and structure.
+              </p>
+            </div>
+          </SpotlightCard>
+        </StaggerItem>
 
-        <div className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:shadow-sm transition-all space-y-2.5">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
-            <CheckCircle2 className="w-5 h-5" />
-          </div>
-          <h3 className="text-slate-900 font-bold text-sm">
-            Allowed File Formats (.docx / .cpp)
-          </h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Theoretical assignments must be uploaded as <strong>.docx / .doc</strong>. Programming courses require raw <strong>.cpp / .java / .py</strong> or zip archives.
-          </p>
-        </div>
-      </div>
+        <StaggerItem>
+          <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full p-6 rounded-2xl bg-white border border-slate-200/90 card-elevated">
+            <div className="space-y-2.5">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 transition-transform duration-300 group-hover:scale-110">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+              <h3 className="text-slate-900 font-bold text-sm">
+                Allowed File Formats (.docx / .cpp)
+              </h3>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Theoretical assignments must be uploaded as <strong>.docx / .doc</strong>. Programming courses require raw <strong>.cpp / .java / .py</strong> or zip archives.
+              </p>
+            </div>
+          </SpotlightCard>
+        </StaggerItem>
+      </StaggerGrid>
 
       {/* Interactive Code Header Template Generator */}
-      <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
+      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
@@ -177,21 +199,21 @@ int main() {
               placeholder="e.g. BC230400000"
               className="px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs font-bold text-slate-900 uppercase focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button
+            <AnimatedButton
               type="button"
               onClick={handleCopyTemplate}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-colors cursor-pointer whitespace-nowrap"
             >
               {copiedTemplate ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedTemplate ? 'Copied Header!' : 'Copy Template'}</span>
-            </button>
+            </AnimatedButton>
           </div>
         </div>
 
         <pre className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs overflow-x-auto leading-relaxed border border-slate-800">
           <code>{sampleTemplate}</code>
         </pre>
-      </section>
+      </ScrollReveal>
 
       {/* Directory of All 411 Courses for 2026 Assignment Solutions */}
       <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
@@ -270,8 +292,9 @@ int main() {
               </div>
 
               <div className="flex flex-col gap-1.5 shrink-0">
-                <button
+                <motion.button
                   type="button"
+                  whileTap={{ scale: 0.94 }}
                   onClick={() => {
                     setSelectedCourseForTemplate(c.code);
                     window.scrollTo({ top: 380, behavior: 'smooth' });
@@ -280,7 +303,7 @@ int main() {
                   title={`Use ${c.code} in solution template`}
                 >
                   Template
-                </button>
+                </motion.button>
                 <a
                   href={`/courses?course=${c.code}`}
                   onClick={(e) => {
@@ -301,8 +324,9 @@ int main() {
       </section>
 
       {/* Turnitin & GDB Strategy FAQ Section */}
-      <section className="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 space-y-6">
-        <div>
+      <ScrollReveal className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-10 space-y-6 border border-slate-800">
+        <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+        <div className="relative z-10">
           <h2 className="text-2xl font-black text-white flex items-center gap-2">
             <HelpCircle className="w-6 h-6 text-emerald-400" />
             2026 VU Assignment &amp; GDB High-Scoring FAQs
@@ -312,44 +336,44 @@ int main() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
-          <div className="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
+        <StaggerGrid className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
+          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
             <h3 className="font-bold text-emerald-400 text-sm">
               Why do YouTube assignment solutions get 0 marks?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">
               When thousands of students download and submit identical solutions posted on YouTube or Telegram, Turnitin flags the submission as 100% plagiarized. Instructors assign an automatic zero to all matching files. Always rewrite the solution logic and variable names yourself.
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
+          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
             <h3 className="font-bold text-emerald-400 text-sm">
               How does the 24-hour grace period work on VULMS?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">
               If an assignment is due on October 20 at 11:59 PM, the LMS submission link remains open until October 21 at 11:59 PM. Submissions during this 24-hour extension receive 100% of their earned marks with zero late penalties.
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
+          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
             <h3 className="font-bold text-emerald-400 text-sm">
               How to paste MathType equations into MS Word for MTH assignments?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">
-              Copy equations from MathType using "MathML 2.0" or "TeX/LaTeX" clipboard format, or paste directly into MS Word's Equation Editor. Avoid uploading blurry mobile photos of hand-written math sheets.
+              Copy equations from MathType using &ldquo;MathML 2.0&rdquo; or &ldquo;TeX/LaTeX&rdquo; clipboard format, or paste directly into MS Word&apos;s Equation Editor. Avoid uploading blurry mobile photos of hand-written math sheets.
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
+          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
             <h3 className="font-bold text-emerald-400 text-sm">
               What is the key rule for scoring 5/5 in a GDB?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">
               Strictly limit your response to 200–300 words. State your stance in the opening sentence, support it with 2 concise technical arguments, and never copy text from fellow students or ChatGPT without personalization.
             </p>
-          </div>
-        </div>
-      </section>
+          </StaggerItem>
+        </StaggerGrid>
+      </ScrollReveal>
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { FilterState, Course } from '../types';
 import { Filter, RotateCcw, Check, ChevronDown } from 'lucide-react';
+import { EASE_OUT_EXPO } from './MotionPrimitives';
 
 interface FilterBarProps {
   filters: FilterState;
@@ -81,7 +83,13 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   };
 
   return (
-    <div className="surface-frosted border border-slate-200/80 rounded-2xl py-3 px-4 sm:px-5 sticky top-16 z-20 card-elevated">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 'some' }}
+      transition={{ duration: 0.36, ease: EASE_OUT_EXPO }}
+      className="surface-frosted border border-slate-200/80 rounded-2xl py-3 px-4 sm:px-5 sticky top-16 z-20 card-elevated"
+    >
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         {/* Filters Selectors */}
         <div className="flex flex-wrap items-center gap-2">
@@ -144,83 +152,137 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
           <div className="h-4 w-px bg-slate-200 mx-0.5 hidden sm:block" aria-hidden="true" />
 
-          {/* Fast Toggle Buttons */}
-          <button
+          {/* Fast Toggle Buttons with spring tap & check animation */}
+          <motion.button
+            whileHover={{ y: -1.5 }}
+            whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => onFilterChange({ ...filters, solvedOnly: !filters.solvedOnly })}
             className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-colors cursor-pointer border whitespace-nowrap ${
               filters.solvedOnly
-                ? 'bg-blue-600 border-blue-600 text-white'
+                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
                 : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {filters.solvedOnly && <Check className="w-3.5 h-3.5" />}
+            <AnimatePresence mode="popLayout">
+              {filters.solvedOnly && (
+                <motion.span
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 450, damping: 24 }}
+                >
+                  <Check className="w-3.5 h-3.5" />
+                </motion.span>
+              )}
+            </AnimatePresence>
             <span>Solved Only</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ y: -1.5 }}
+            whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => onFilterChange({ ...filters, pastPapersOnly: !filters.pastPapersOnly })}
             className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-colors cursor-pointer border whitespace-nowrap ${
               filters.pastPapersOnly
-                ? 'bg-blue-600 border-blue-600 text-white'
+                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
                 : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {filters.pastPapersOnly && <Check className="w-3.5 h-3.5" />}
+            <AnimatePresence mode="popLayout">
+              {filters.pastPapersOnly && (
+                <motion.span
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 450, damping: 24 }}
+                >
+                  <Check className="w-3.5 h-3.5" />
+                </motion.span>
+              )}
+            </AnimatePresence>
             <span>Past Papers</span>
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
+            whileHover={{ y: -1.5 }}
+            whileTap={{ scale: 0.94 }}
             type="button"
             onClick={handleToggleMcq}
             className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-colors cursor-pointer border whitespace-nowrap ${
               isMcqActive
-                ? 'bg-blue-600 border-blue-600 text-white'
+                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
                 : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'
             }`}
           >
-            {isMcqActive && <Check className="w-3.5 h-3.5" />}
+            <AnimatePresence mode="popLayout">
+              {isMcqActive && (
+                <motion.span
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: 'spring', stiffness: 450, damping: 24 }}
+                >
+                  <Check className="w-3.5 h-3.5" />
+                </motion.span>
+              )}
+            </AnimatePresence>
             <span>MCQ Files</span>
-          </button>
+          </motion.button>
 
-          {activeFilterCount > 0 && (
-            <button
-              type="button"
-              onClick={handleReset}
-              className="h-9 inline-flex items-center gap-1 px-3 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors cursor-pointer border border-rose-200 whitespace-nowrap"
-              title="Reset all filters"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset ({activeFilterCount})</span>
-            </button>
-          )}
+          <AnimatePresence>
+            {activeFilterCount > 0 && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.88, x: -6 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.88, x: -6 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.94 }}
+                type="button"
+                onClick={handleReset}
+                className="h-9 inline-flex items-center gap-1 px-3 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors cursor-pointer border border-rose-200 whitespace-nowrap"
+                title="Reset all filters"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset ({activeFilterCount})</span>
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* Results per page / limit */}
+        {/* Results per page / limit with sliding layoutId pill */}
         <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-slate-500 shrink-0">
           <span className="text-slate-600 font-medium tabular-nums">
             <strong className="text-slate-900 font-mono font-bold">{totalFiltered}</strong> of{' '}
             <strong className="text-slate-900 font-mono font-bold">{totalMatching.toLocaleString()}</strong> files
           </span>
           <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200/80">
-            {[12, 24, 48, 96].map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => onLimitChange(l)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer font-mono tabular-nums ${
-                  limit === l
-                    ? 'bg-white text-slate-950 shadow-2xs font-bold'
-                    : 'text-slate-600 hover:text-slate-950'
-                }`}
-              >
-                {l}
-              </button>
-            ))}
+            {[12, 24, 48, 96].map((l) => {
+              const active = limit === l;
+              return (
+                <button
+                  key={l}
+                  type="button"
+                  onClick={() => onLimitChange(l)}
+                  className={`relative px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer font-mono tabular-nums ${
+                    active ? 'text-slate-950 font-bold' : 'text-slate-600 hover:text-slate-950'
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="filter-limit-pill"
+                      transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                      className="absolute inset-0 bg-white rounded-lg shadow-2xs"
+                    />
+                  )}
+                  <span className="relative z-10">{l}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

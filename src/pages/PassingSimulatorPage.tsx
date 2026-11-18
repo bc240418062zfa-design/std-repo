@@ -21,9 +21,17 @@ import {
   Sparkles,
   Zap
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { generatePassingReportPDF, SimulatorData } from '../utils/pdfGenerator';
 import coursesData from '../data/courses.json';
 import { Course } from '../types';
+import {
+  ScrollReveal,
+  StaggerGrid,
+  StaggerItem,
+  AnimatedButton,
+  EASE_OUT_EXPO
+} from '../components/MotionPrimitives';
 
 const allCourses = coursesData as Course[];
 
@@ -365,14 +373,14 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
       {/* 1. Header & Official Context */}
-      <div className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold">
-          <Award className="w-4 h-4 text-slate-600" />
+      <ScrollReveal className="space-y-4 max-w-4xl">
+        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-mono font-bold uppercase tracking-wider">
+          <Award className="w-4 h-4 text-blue-600" />
           <span>VIRTUAL UNIVERSITY ACADEMIC SIMULATION ENGINE</span>
         </div>
         
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          Exam Passing Marks & Grade Target Simulator
+          Exam Passing Marks &amp; Grade Target Simulator
         </h1>
         
         <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
@@ -380,41 +388,41 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
         </p>
 
         {/* Real Rules Key Facts Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-bold text-xs">
+        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
               20%
             </div>
             <div className="text-xs">
               <strong className="block text-slate-900 font-bold">First-Half Rule</strong>
-              <span className="text-slate-500">Min 20% in sessional & mid</span>
+              <span className="text-slate-500">Min 20% in sessional &amp; mid</span>
             </div>
-          </div>
+          </StaggerItem>
 
-          <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold text-xs">
+          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
               20%
             </div>
             <div className="text-xs">
               <strong className="block text-slate-900 font-bold">Final Term Rule</strong>
               <span className="text-slate-500">Min 20% in final exam paper</span>
             </div>
-          </div>
+          </StaggerItem>
 
-          <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-2xs flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 font-bold text-xs">
+          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
               50%
             </div>
             <div className="text-xs">
               <strong className="block text-slate-900 font-bold">Aggregate Pass</strong>
               <span className="text-slate-500">Official D-Grade Threshold</span>
             </div>
-          </div>
-        </div>
-      </div>
+          </StaggerItem>
+        </StaggerGrid>
+      </ScrollReveal>
 
       {/* 2. Course Selection & Presets */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xs">
+      <ScrollReveal delay={0.05} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
@@ -429,34 +437,42 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
           {/* Quick Presets Buttons */}
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-[11px] font-bold text-slate-500 uppercase mr-1">Sample Profiles:</span>
-            <button
+            <motion.button
               type="button"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.94 }}
               onClick={() => applyScorePreset('high')}
               className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 transition-colors cursor-pointer border border-emerald-200"
             >
               High Performer (4.0)
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               type="button"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.94 }}
               onClick={() => applyScorePreset('average')}
               className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-blue-800 transition-colors cursor-pointer border border-blue-200"
             >
               Average Student
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               type="button"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.94 }}
               onClick={() => applyScorePreset('borderline')}
               className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-800 transition-colors cursor-pointer border border-amber-200"
             >
               Borderline Passing
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               type="button"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.94 }}
               onClick={() => applyScorePreset('zeroMid')}
               className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-50 hover:bg-rose-100 text-rose-800 transition-colors cursor-pointer border border-rose-200"
             >
               Missed Midterm
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -469,21 +485,30 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
             {HIGHLIGHTED_CODES.map((code) => {
               const isSelected = selectedCourseCode === code;
               return (
-                <button
+                <motion.button
                   key={code}
                   type="button"
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.94 }}
                   onClick={() => {
                     setSelectedCourseCode(code);
                     setCourseSearchQuery('');
                   }}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                  className={`relative px-3 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer border ${
                     isSelected
-                      ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
+                      ? 'border-blue-600 text-white shadow-xs'
                       : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-blue-400 hover:bg-blue-50/50'
                   }`}
                 >
-                  <span className="font-mono">{code}</span>
-                </button>
+                  {isSelected && (
+                    <motion.span
+                      layoutId="sim-course-pill"
+                      transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                      className="absolute inset-0 rounded-xl bg-blue-600"
+                    />
+                  )}
+                  <span className="relative z-10 font-mono">{code}</span>
+                </motion.button>
               );
             })}
           </div>
@@ -543,24 +568,25 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
             </p>
           </div>
 
-          <button
+          <AnimatedButton
             type="button"
+            shimmer={false}
             onClick={() => onSelectCourse(selectedCourse.code)}
-            className="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 cursor-pointer transition-colors bg-white px-3 py-1.5 rounded-xl border border-blue-200 shadow-2xs"
+            className="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1 cursor-pointer transition-colors bg-white px-3.5 py-2 rounded-xl border border-blue-200 shadow-2xs whitespace-nowrap"
           >
             <BookOpen className="w-3.5 h-3.5" />
             <span>Open Study Files</span>
-          </button>
+          </AnimatedButton>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* 3. Weightage Scheme & Passing Policy Selector */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xs">
+      <ScrollReveal delay={0.07} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <Sliders className="w-4 h-4 text-blue-600" />
-              <span>Assessment Scheme & Passing Threshold</span>
+              <span>Assessment Scheme &amp; Passing Threshold</span>
             </h2>
             <p className="text-xs text-slate-500">
               Set LMS course weightage and your target passing threshold.
@@ -568,25 +594,31 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
           </div>
 
           {/* Passing Floor Selector (50% vs 40%) */}
-          <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-xl">
-            <button
-              type="button"
-              onClick={() => setPassingThreshold(50)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-                passingThreshold === 50 ? 'bg-white text-blue-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              50% (Standard D-Grade)
-            </button>
-            <button
-              type="button"
-              onClick={() => setPassingThreshold(40)}
-              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer ${
-                passingThreshold === 40 ? 'bg-white text-blue-700 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              40% (VU Floor Rule)
-            </button>
+          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+            {([50, 40] as const).map((threshold) => {
+              const active = passingThreshold === threshold;
+              return (
+                <button
+                  key={threshold}
+                  type="button"
+                  onClick={() => setPassingThreshold(threshold)}
+                  className={`relative px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer whitespace-nowrap ${
+                    active ? 'text-blue-700' : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="sim-threshold-pill"
+                      transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                      className="absolute inset-0 bg-white rounded-lg shadow-2xs"
+                    />
+                  )}
+                  <span className="relative z-10">
+                    {threshold === 50 ? '50% (Standard D-Grade)' : '40% (VU Floor Rule)'}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -594,14 +626,15 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
           {(['standard', 'assignHeavy', 'noGdb', 'custom'] as const).map((key) => {
             const isSelected = schemeKey === key;
-            const title = key === 'custom' ? 'Custom Sliders' : SCHEMES[key].name;
             const desc = key === 'custom' ? 'Custom syllabus weightage' : SCHEMES[key].desc;
             return (
-              <button
+              <motion.button
                 key={key}
                 type="button"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setSchemeKey(key)}
-                className={`p-3.5 rounded-2xl text-left border transition-all cursor-pointer space-y-1 ${
+                className={`p-3.5 rounded-2xl text-left border transition-colors cursor-pointer space-y-1 ${
                   isSelected
                     ? 'border-blue-600 bg-blue-50/50 shadow-2xs'
                     : 'border-slate-200 bg-white hover:border-slate-300'
@@ -614,72 +647,82 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />}
                 </div>
                 <p className="text-[11px] text-slate-500 leading-tight">{desc}</p>
-              </button>
+              </motion.button>
             );
           })}
         </div>
 
         {/* Interactive Custom Sliders if Custom Selected */}
-        {schemeKey === 'custom' && (
-          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-5 gap-4 text-xs">
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Quizzes: {customWeights.quiz}%</label>
-              <input
-                type="range"
-                min="0"
-                max="20"
-                value={customWeights.quiz}
-                onChange={(e) => setCustomWeights({ ...customWeights, quiz: Number(e.target.value) })}
-                className="w-full accent-blue-600"
-              />
-            </div>
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Assignments: {customWeights.assign}%</label>
-              <input
-                type="range"
-                min="0"
-                max="25"
-                value={customWeights.assign}
-                onChange={(e) => setCustomWeights({ ...customWeights, assign: Number(e.target.value) })}
-                className="w-full accent-blue-600"
-              />
-            </div>
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">GDB: {customWeights.gdb}%</label>
-              <input
-                type="range"
-                min="0"
-                max="10"
-                value={customWeights.gdb}
-                onChange={(e) => setCustomWeights({ ...customWeights, gdb: Number(e.target.value) })}
-                className="w-full accent-blue-600"
-              />
-            </div>
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Midterm: {customWeights.mid}%</label>
-              <input
-                type="range"
-                min="15"
-                max="40"
-                value={customWeights.mid}
-                onChange={(e) => setCustomWeights({ ...customWeights, mid: Number(e.target.value) })}
-                className="w-full accent-blue-600"
-              />
-            </div>
-            <div>
-              <label className="font-bold text-slate-700 block mb-1">Final Term: {customWeights.final}%</label>
-              <input
-                type="range"
-                min="35"
-                max="70"
-                value={customWeights.final}
-                onChange={(e) => setCustomWeights({ ...customWeights, final: Number(e.target.value) })}
-                className="w-full accent-blue-600"
-              />
-            </div>
-          </div>
-        )}
-      </div>
+        <AnimatePresence>
+          {schemeKey === 'custom' && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
+              className="overflow-hidden"
+            >
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 grid grid-cols-1 sm:grid-cols-5 gap-4 text-xs">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Quizzes: {customWeights.quiz}%</label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="20"
+                    value={customWeights.quiz}
+                    onChange={(e) => setCustomWeights({ ...customWeights, quiz: Number(e.target.value) })}
+                    className="w-full accent-blue-600"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Assignments: {customWeights.assign}%</label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="25"
+                    value={customWeights.assign}
+                    onChange={(e) => setCustomWeights({ ...customWeights, assign: Number(e.target.value) })}
+                    className="w-full accent-blue-600"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">GDB: {customWeights.gdb}%</label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="10"
+                    value={customWeights.gdb}
+                    onChange={(e) => setCustomWeights({ ...customWeights, gdb: Number(e.target.value) })}
+                    className="w-full accent-blue-600"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Midterm: {customWeights.mid}%</label>
+                  <input
+                    type="range"
+                    min="15"
+                    max="40"
+                    value={customWeights.mid}
+                    onChange={(e) => setCustomWeights({ ...customWeights, mid: Number(e.target.value) })}
+                    className="w-full accent-blue-600"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Final Term: {customWeights.final}%</label>
+                  <input
+                    type="range"
+                    min="35"
+                    max="70"
+                    value={customWeights.final}
+                    onChange={(e) => setCustomWeights({ ...customWeights, final: Number(e.target.value) })}
+                    className="w-full accent-blue-600"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </ScrollReveal>
 
       {/* 4. Sessional Marks Input Cards */}
       <div className="space-y-4">
@@ -851,25 +894,26 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
           </div>
           <div className="flex items-center gap-2">
             {[40, 50, 60, 80].map((t) => (
-              <button
+              <motion.button
                 key={t}
                 type="button"
+                whileTap={{ scale: 0.94 }}
                 onClick={() => setFinalTotalMarks(t)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer ${
                   finalTotalMarks === t
                     ? 'bg-blue-600 text-white shadow-xs'
                     : 'bg-slate-50 text-slate-700 border border-slate-200 hover:border-blue-400'
                 }`}
               >
                 {t} Marks
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
       </div>
 
       {/* 5. Live Analytical Dashboard with Circular Gauge & Two-Half Compliance */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 space-y-8 shadow-sm">
+      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 space-y-8 card-elevated">
         {/* Header & Download Action */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
           <div className="space-y-1">
@@ -878,18 +922,19 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
               <span>Real-Time Academic Audit for {selectedCourse.code}</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Exam Feasibility & Passing Verdict
+              Exam Feasibility &amp; Passing Verdict
             </h2>
           </div>
 
-          <button
+          <AnimatedButton
             type="button"
+            magnetic
             onClick={handleDownloadPDF}
-            className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-md active:scale-98"
+            className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-md whitespace-nowrap"
           >
             <Download className="w-4 h-4 text-blue-400" />
             <span>Download Official PDF Report</span>
-          </button>
+          </AnimatedButton>
         </div>
 
         {/* Circular Gauge & Status Cards Grid */}
@@ -909,22 +954,33 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   fill="transparent"
                 />
                 {/* Progress Ring */}
-                <circle
+                <motion.circle
                   cx="50"
                   cy="50"
                   r="42"
                   stroke="currentColor"
                   strokeWidth="8"
                   strokeDasharray="264"
-                  strokeDashoffset={264 - (264 * Math.min(100, (calculations.earnedWeightedPercent / (100 - activeWeights.final)) * 100)) / 100}
+                  initial={{ strokeDashoffset: 264 }}
+                  animate={{
+                    strokeDashoffset:
+                      264 -
+                      (264 *
+                        Math.min(
+                          100,
+                          (calculations.earnedWeightedPercent / (100 - activeWeights.final)) * 100
+                        )) /
+                        100
+                  }}
+                  transition={{ duration: 0.65, ease: EASE_OUT_EXPO }}
                   strokeLinecap="round"
-                  className="text-blue-600 transition-all duration-700"
+                  className="text-blue-600"
                   fill="transparent"
                 />
               </svg>
               {/* Centered Number */}
               <div className="absolute flex flex-col items-center justify-center text-center">
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono">
+                <span className="text-2xl sm:text-3xl font-black text-slate-900 font-mono tabular-nums">
                   {calculations.earnedWeightedPercent.toFixed(1)}%
                 </span>
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
@@ -1145,54 +1201,55 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
           <div className="text-xs text-slate-500">
             All calculations strictly verify Virtual University Two-Half examination assessment guidelines.
           </div>
-          <button
+          <AnimatedButton
             type="button"
+            magnetic
             onClick={handleDownloadPDF}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-sm active:scale-98"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-sm whitespace-nowrap"
           >
             <Download className="w-4 h-4" />
             <span>Download Official PDF Report</span>
-          </button>
+          </AnimatedButton>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* 8. Official VU Regulations FAQ & Rules Guide */}
-      <div className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+      <ScrollReveal className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
         <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <Info className="w-5 h-5 text-blue-600" />
           <span>Official Virtual University Examination Policies (Verified)</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 leading-relaxed">
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+        <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 leading-relaxed">
+          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
             <h3 className="font-bold text-slate-900 text-sm">1. The Two-Half Evaluation Model</h3>
             <p>
               Under official Virtual University regulations, course assessment is split into two halves: <strong>First Half (Sessional work + Midterm)</strong> and <strong>Second Half (Final Term examination)</strong>. A student must achieve at least 20% in the First Half and at least 20% in the Second Half independently.
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
             <h3 className="font-bold text-slate-900 text-sm">2. Passing Aggregate Threshold</h3>
             <p>
-              In addition to the 20% independent requirements, the total weighted cumulative score of both halves combined must equal or exceed <strong>50% (Standard D grade)</strong> or the university's <strong>40% floor rule</strong> depending on the course announcement.
+              In addition to the 20% independent requirements, the total weighted cumulative score of both halves combined must equal or exceed <strong>50% (Standard D grade)</strong> or the university&apos;s <strong>40% floor rule</strong> depending on the course announcement.
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
             <h3 className="font-bold text-slate-900 text-sm">3. Missed Midterm Exam</h3>
             <p>
               If a student is unable to appear for the Midterm Exam on their scheduled date, they receive 0 marks for that component. However, they can apply for <strong>Rescheduled Examinations</strong> through the official VULMS link by paying the designated rescheduling fee within the announced window.
             </p>
-          </div>
+          </StaggerItem>
 
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
-            <h3 className="font-bold text-slate-900 text-sm">4. Course Repeat & Grade Improvement</h3>
+          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+            <h3 className="font-bold text-slate-900 text-sm">4. Course Repeat &amp; Grade Improvement</h3>
             <p>
-              Any course with an "F" grade must be repeated in a subsequent semester during Course Selection. Courses with "D" or "D+" grades can also be repeated to improve cumulative CGPA and escape academic probation.
+              Any course with an &ldquo;F&rdquo; grade must be repeated in a subsequent semester during Course Selection. Courses with &ldquo;D&rdquo; or &ldquo;D+&rdquo; grades can also be repeated to improve cumulative CGPA and escape academic probation.
             </p>
-          </div>
-        </div>
-      </div>
+          </StaggerItem>
+        </StaggerGrid>
+      </ScrollReveal>
     </div>
   );
 };

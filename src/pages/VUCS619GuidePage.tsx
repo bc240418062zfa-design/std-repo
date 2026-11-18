@@ -14,6 +14,14 @@ import {
   Video,
   Award
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import {
+  ScrollReveal,
+  StaggerGrid,
+  StaggerItem,
+  SpotlightCard,
+  EASE_OUT_EXPO
+} from '../components/MotionPrimitives';
 
 interface VUCS619GuidePageProps {
   onNavigateHome: () => void;
@@ -100,12 +108,13 @@ export const VUCS619GuidePage: React.FC<VUCS619GuidePageProps> = ({ onNavigateHo
       </nav>
 
       {/* Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl bg-slate-900 text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
-        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-indigo-600/20 blur-3xl pointer-events-none" />
+      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
+        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none animate-float-slow" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-mono font-medium">
+          <div className="inline-flex items-center gap-2 text-indigo-300 text-xs font-mono font-semibold uppercase tracking-wider">
             <FolderGit2 className="w-3.5 h-3.5" />
-            <span>6-CREDIT CAPSTONE PROJECT • COMPUTER SCIENCE &amp; IT</span>
+            <span>6-CREDIT CAPSTONE PROJECT · COMPUTER SCIENCE &amp; IT</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
             CS619 Final Year Project (FYP) Complete Roadmap &amp; Viva Voce Hub
@@ -114,166 +123,184 @@ export const VUCS619GuidePage: React.FC<VUCS619GuidePageProps> = ({ onNavigateHo
             Master the 5 deliverable phases, IEEE 830 SRS documentation standards, ERD database design, supervisor review cycles, and top oral defense questions for Virtual University of Pakistan.
           </p>
         </div>
-      </div>
+      </ScrollReveal>
 
       {/* Tab Switcher */}
-      <div className="flex border-b border-slate-200 gap-2">
-        <button
-          type="button"
-          onClick={() => setActiveTab('milestones')}
-          className={`pb-3 px-4 font-bold text-sm border-b-2 transition-colors flex items-center gap-2 ${
-            activeTab === 'milestones'
-              ? 'border-indigo-600 text-indigo-600'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <Layers className="w-4 h-4" />
-          5 Deliverable Phases
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('viva')}
-          className={`pb-3 px-4 font-bold text-sm border-b-2 transition-colors flex items-center gap-2 ${
-            activeTab === 'viva'
-              ? 'border-indigo-600 text-indigo-600'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <Video className="w-4 h-4" />
-          Top 25 Viva Voce Defense Questions
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab('srs')}
-          className={`pb-3 px-4 font-bold text-sm border-b-2 transition-colors flex items-center gap-2 ${
-            activeTab === 'srs'
-              ? 'border-indigo-600 text-indigo-600'
-              : 'border-transparent text-slate-500 hover:text-slate-900'
-          }`}
-        >
-          <FileCode2 className="w-4 h-4" />
-          SRS &amp; Design Architecture Standards
-        </button>
+      <div className="flex border-b border-slate-200 gap-2 overflow-x-auto scrollbar-none">
+        {(
+          [
+            { id: 'milestones', label: '5 Deliverable Phases', Icon: Layers },
+            { id: 'viva', label: 'Top 25 Viva Voce Defense Questions', Icon: Video },
+            { id: 'srs', label: 'SRS & Design Architecture Standards', Icon: FileCode2 }
+          ] as const
+        ).map(({ id, label, Icon }) => {
+          const active = activeTab === id;
+          return (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setActiveTab(id)}
+              className={`relative pb-3 px-4 font-bold text-sm transition-colors flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+                active ? 'text-indigo-600' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <Icon className="w-4 h-4" />
+              <span>{label}</span>
+              {active && (
+                <motion.span
+                  layoutId="cs619-tab-underline"
+                  transition={{ type: 'spring', stiffness: 450, damping: 32 }}
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 rounded-full"
+                />
+              )}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Tab Content: Milestones */}
-      {activeTab === 'milestones' && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {MILESTONES.map((m) => (
-              <div key={m.num} className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4 hover:border-indigo-300 transition-all">
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-black text-indigo-600 font-mono">{m.num}</span>
-                  <span className="text-[11px] font-semibold bg-slate-100 text-slate-700 px-2.5 py-1 rounded-full font-mono">
-                    {m.timeline}
-                  </span>
-                </div>
-                <h3 className="text-base font-bold text-slate-900">{m.title}</h3>
-                <p className="text-xs text-slate-600 leading-relaxed">{m.desc}</p>
-                <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span className="text-slate-400">Evaluation:</span>
-                  <strong className="text-slate-800">{m.weight}</strong>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Tab Content */}
+      <AnimatePresence mode="wait">
+        {activeTab === 'milestones' && (
+          <motion.div
+            key="milestones"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.24, ease: EASE_OUT_EXPO }}
+            className="space-y-6"
+          >
+            <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {MILESTONES.map((m) => (
+                <StaggerItem key={m.num}>
+                  <SpotlightCard spotlightColor="rgba(79, 70, 229, 0.10)" className="group h-full bg-white rounded-2xl border border-slate-200 p-6 card-elevated hover:border-indigo-300">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-2xl font-black text-indigo-600 font-mono transition-transform duration-300 group-hover:scale-110 inline-block">{m.num}</span>
+                        <span className="text-[11px] font-semibold text-slate-500 font-mono">
+                          {m.timeline}
+                        </span>
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900">{m.title}</h3>
+                      <p className="text-xs text-slate-600 leading-relaxed">{m.desc}</p>
+                    </div>
+                    <div className="pt-3 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                      <span className="text-slate-400">Evaluation:</span>
+                      <strong className="text-slate-800">{m.weight}</strong>
+                    </div>
+                  </SpotlightCard>
+                </StaggerItem>
+              ))}
+            </StaggerGrid>
 
-          {/* Supervisor Warning Callout */}
-          <div className="p-6 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-4">
-            <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0 mt-1" />
-            <div className="space-y-1">
-              <h4 className="text-base font-bold text-amber-950">
-                Important Rule: Never Skip a Deliverable Deadline
-              </h4>
-              <p className="text-xs sm:text-sm text-amber-800/90 leading-relaxed">
-                In CS619, deliverables are sequential. Failing or missing the SRS phase permanently bars you from submitting the Design Document or Test Phases. Always communicate proactively with your supervisor on the official VULMS CS619 portal if revisions are required.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab Content: Viva Voce Defense */}
-      {activeTab === 'viva' && (
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
-          <div>
-            <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
-              <Video className="w-6 h-6 text-indigo-600" />
-              Frequently Asked Viva Voce Oral Defense Questions
-            </h2>
-            <p className="text-slate-600 text-sm mt-1">
-              Examiners evaluate your core concepts and hands-on code familiarity rather than memorized slide text.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {VIVA_QUESTIONS.map((item, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <h3 className="font-bold text-slate-900 text-sm sm:text-base flex items-start gap-2">
-                  <span className="text-indigo-600 font-mono shrink-0">Q{idx + 1}.</span>
-                  <span>{item.q}</span>
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-6">
-                  {item.a}
+            {/* Supervisor Warning Callout */}
+            <div className="p-6 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-4">
+              <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0 mt-1" />
+              <div className="space-y-1">
+                <h4 className="text-base font-bold text-amber-950">
+                  Important Rule: Never Skip a Deliverable Deadline
+                </h4>
+                <p className="text-xs sm:text-sm text-amber-800/90 leading-relaxed">
+                  In CS619, deliverables are sequential. Failing or missing the SRS phase permanently bars you from submitting the Design Document or Test Phases. Always communicate proactively with your supervisor on the official VULMS CS619 portal if revisions are required.
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
 
-      {/* Tab Content: SRS Documentation Standards */}
-      {activeTab === 'srs' && (
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
-          <div>
-            <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
-              <FileCode2 className="w-6 h-6 text-indigo-600" />
-              IEEE 830 SRS Document Structure
-            </h2>
-            <p className="text-slate-600 text-sm mt-1">
-              Standard sections required by Virtual University CS619 project supervisors:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-slate-600">
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-              <h3 className="font-bold text-slate-900 text-base">Section 1: Overall Scope &amp; Purpose</h3>
-              <ul className="space-y-1.5 list-disc pl-4">
-                <li>Project Purpose &amp; Problem Statement</li>
-                <li>Intended Audience and Document Conventions</li>
-                <li>Hardware, Software, and Network Architecture Scope</li>
-              </ul>
+        {activeTab === 'viva' && (
+          <motion.div
+            key="viva"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.24, ease: EASE_OUT_EXPO }}
+            className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6"
+          >
+            <div>
+              <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+                <Video className="w-6 h-6 text-indigo-600" />
+                Frequently Asked Viva Voce Oral Defense Questions
+              </h2>
+              <p className="text-slate-600 text-sm mt-1">
+                Examiners evaluate your core concepts and hands-on code familiarity rather than memorized slide text.
+              </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-              <h3 className="font-bold text-slate-900 text-base">Section 2: Functional Requirements</h3>
-              <ul className="space-y-1.5 list-disc pl-4">
-                <li>Use Case Diagram with Actor Identifiers</li>
-                <li>Detailed Use Case Specifications (Pre-conditions, Main Flow, Post-conditions)</li>
-                <li>Role-Based Access Control (Admin, User, Manager)</li>
-              </ul>
+            <StaggerGrid className="space-y-4">
+              {VIVA_QUESTIONS.map((item, idx) => (
+                <StaggerItem key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-200 transition-colors space-y-2">
+                  <h3 className="font-bold text-slate-900 text-sm sm:text-base flex items-start gap-2">
+                    <span className="text-indigo-600 font-mono shrink-0">Q{idx + 1}.</span>
+                    <span>{item.q}</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-6">
+                    {item.a}
+                  </p>
+                </StaggerItem>
+              ))}
+            </StaggerGrid>
+          </motion.div>
+        )}
+
+        {activeTab === 'srs' && (
+          <motion.div
+            key="srs"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.24, ease: EASE_OUT_EXPO }}
+            className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6"
+          >
+            <div>
+              <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
+                <FileCode2 className="w-6 h-6 text-indigo-600" />
+                IEEE 830 SRS Document Structure
+              </h2>
+              <p className="text-slate-600 text-sm mt-1">
+                Standard sections required by Virtual University CS619 project supervisors:
+              </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-              <h3 className="font-bold text-slate-900 text-base">Section 3: Database &amp; Data Models</h3>
-              <ul className="space-y-1.5 list-disc pl-4">
-                <li>Entity Relationship Diagram (ERD) with Cardinalities</li>
-                <li>Data Dictionary with Data Types and Constraints</li>
-                <li>Primary Keys and Foreign Key Relationships</li>
-              </ul>
-            </div>
+            <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-slate-600">
+              <StaggerItem className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <h3 className="font-bold text-slate-900 text-base">Section 1: Overall Scope &amp; Purpose</h3>
+                <ul className="space-y-1.5 list-disc pl-4">
+                  <li>Project Purpose &amp; Problem Statement</li>
+                  <li>Intended Audience and Document Conventions</li>
+                  <li>Hardware, Software, and Network Architecture Scope</li>
+                </ul>
+              </StaggerItem>
 
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-              <h3 className="font-bold text-slate-900 text-base">Section 4: Non-Functional Requirements</h3>
-              <ul className="space-y-1.5 list-disc pl-4">
-                <li>System Security &amp; Data Encryption standards</li>
-                <li>Response Time &amp; Concurrent User Scalability</li>
-                <li>Cross-Browser and Responsive Screen Compatibility</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      )}
+              <StaggerItem className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <h3 className="font-bold text-slate-900 text-base">Section 2: Functional Requirements</h3>
+                <ul className="space-y-1.5 list-disc pl-4">
+                  <li>Use Case Diagram with Actor Identifiers</li>
+                  <li>Detailed Use Case Specifications (Pre-conditions, Main Flow, Post-conditions)</li>
+                  <li>Role-Based Access Control (Admin, User, Manager)</li>
+                </ul>
+              </StaggerItem>
+
+              <StaggerItem className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <h3 className="font-bold text-slate-900 text-base">Section 3: Database &amp; Data Models</h3>
+                <ul className="space-y-1.5 list-disc pl-4">
+                  <li>Entity Relationship Diagram (ERD) with Cardinalities</li>
+                  <li>Data Dictionary with Data Types and Constraints</li>
+                  <li>Primary Keys and Foreign Key Relationships</li>
+                </ul>
+              </StaggerItem>
+
+              <StaggerItem className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                <h3 className="font-bold text-slate-900 text-base">Section 4: Non-Functional Requirements</h3>
+                <ul className="space-y-1.5 list-disc pl-4">
+                  <li>System Security &amp; Data Encryption standards</li>
+                  <li>Response Time &amp; Concurrent User Scalability</li>
+                  <li>Cross-Browser and Responsive Screen Compatibility</li>
+                </ul>
+              </StaggerItem>
+            </StaggerGrid>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

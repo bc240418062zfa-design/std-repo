@@ -19,8 +19,10 @@ import {
   FolderGit2,
   FileText,
   ListChecks,
-  Files
+  Files,
+  ArrowRight
 } from 'lucide-react';
+import { EASE_OUT_EXPO } from './MotionPrimitives';
 
 interface NavbarProps {
   currentPage: string;
@@ -115,34 +117,84 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'past-papers', label: 'Past Papers', href: '/past-papers' }
   ];
 
+  const toolsItems = [
+    {
+      id: 'assignment-guide',
+      href: '/vu-assignment-solution-2026',
+      icon: <FileText className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />,
+      title: 'Assignments 2026 Guide',
+      desc: '24h grace period & Turnitin guidelines'
+    },
+    {
+      id: 'handbook',
+      href: '/handbook',
+      icon: <GraduationCap className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />,
+      title: 'VU Handbook & FAQs',
+      desc: 'Official rules, grading scheme & policies'
+    },
+    {
+      id: 'simulator',
+      href: '/simulator',
+      icon: <Calculator className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />,
+      title: 'Passing Marks Simulator',
+      desc: 'VU 20% two-half rule & target calculator'
+    },
+    {
+      id: 'gpa-calculator',
+      href: '/gpa-calculator',
+      icon: <Award className="w-4 h-4 text-slate-700 shrink-0 mt-0.5" />,
+      title: 'VU GPA & CGPA Calculator',
+      desc: 'Official 4.0 scale & semester forecaster'
+    },
+    {
+      id: 'datesheet-guide',
+      href: '/datesheet-guide',
+      icon: <Calendar className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />,
+      title: 'Datesheet Maker Guide',
+      desc: 'Exam seat strategy & lab slot tips'
+    },
+    {
+      id: 'cs619-guide',
+      href: '/cs619-guide',
+      icon: <FolderGit2 className="w-4 h-4 text-indigo-700 shrink-0 mt-0.5" />,
+      title: 'CS619 FYP Capstone Hub',
+      desc: 'Project milestones & viva preparation'
+    }
+  ];
+
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-all duration-200 border-b ${
+      className={`sticky top-0 z-40 w-full transition-all duration-300 border-b ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-md border-slate-200/90 shadow-sm'
+          ? 'bg-white/90 backdrop-blur-lg border-slate-200/90 shadow-sm'
           : 'bg-white/95 backdrop-blur-xs border-slate-200'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-6">
         {/* Zone 1: Brand Wordmark */}
-        <a
+        <motion.a
           href="/"
           onClick={(e) => handleNavClick('home', e)}
-          className="focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg whitespace-nowrap shrink-0 transition-transform duration-150 hover:scale-[1.01]"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          className="focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg whitespace-nowrap shrink-0"
           aria-label="Mihora Study Library Home"
         >
           <MihoraLogo variant="dark" size="sm" />
-        </a>
+        </motion.a>
 
         {/* Zone 2: Fluid Animated Navigation Links */}
         <nav className="hidden lg:flex items-center gap-6" aria-label="Primary Navigation">
           {primaryLinks.map((link) => {
             const active = currentPage === link.id;
             return (
-              <a
+              <motion.a
                 key={link.id}
                 href={link.href}
                 onClick={(e) => handleNavClick(link.id, e)}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.96 }}
                 className={`relative py-2 px-1 text-sm font-medium transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                   active ? 'text-slate-950 font-semibold' : 'text-slate-600 hover:text-slate-950'
                 }`}
@@ -155,13 +207,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                     className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-blue-700 rounded-full"
                   />
                 )}
-              </a>
+              </motion.a>
             );
           })}
 
           {/* Tools Dropdown */}
           <div ref={toolsDropdownRef} className="relative">
-            <button
+            <motion.button
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.96 }}
               type="button"
               onClick={() => {
                 setToolsDropdownOpen(!toolsDropdownOpen);
@@ -176,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Tools &amp; Guides</span>
               <ChevronDown
                 className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
-                  toolsDropdownOpen ? 'rotate-180' : ''
+                  toolsDropdownOpen ? 'rotate-180 text-blue-600' : ''
                 }`}
               />
               {isToolsActive && (
@@ -186,100 +240,37 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-blue-700 rounded-full"
                 />
               )}
-            </button>
+            </motion.button>
 
             <AnimatePresence>
               {toolsDropdownOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  initial={{ opacity: 0, y: 10, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                  transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                  exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                  transition={{ duration: 0.18, ease: EASE_OUT_EXPO }}
                   className="absolute left-0 top-full mt-2 w-80 p-2 bg-white rounded-xl border border-slate-200 shadow-xl z-50 space-y-0.5 origin-top-left"
                 >
-                  <a
-                    href="/vu-assignment-solution-2026"
-                    onClick={(e) => handleNavClick('assignment-guide', e)}
-                    className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
-                      currentPage === 'assignment-guide' ? 'bg-slate-100 text-slate-950' : 'hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <FileText className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-semibold text-slate-900">Assignments 2026 Guide</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">24h grace period &amp; Turnitin guidelines</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="/handbook"
-                    onClick={(e) => handleNavClick('handbook', e)}
-                    className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
-                      currentPage === 'handbook' ? 'bg-slate-100 text-slate-950' : 'hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <GraduationCap className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-semibold text-slate-900">VU Handbook &amp; FAQs</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">Official rules, grading scheme &amp; policies</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="/simulator"
-                    onClick={(e) => handleNavClick('simulator', e)}
-                    className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
-                      currentPage === 'simulator' ? 'bg-slate-100 text-slate-950' : 'hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <Calculator className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-semibold text-slate-900">Passing Marks Simulator</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">VU 20% two-half rule &amp; target calculator</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="/gpa-calculator"
-                    onClick={(e) => handleNavClick('gpa-calculator', e)}
-                    className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
-                      currentPage === 'gpa-calculator' ? 'bg-slate-100 text-slate-950' : 'hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <Award className="w-4 h-4 text-slate-700 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-semibold text-slate-900">VU GPA &amp; CGPA Calculator</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">Official 4.0 scale &amp; semester forecaster</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="/datesheet-guide"
-                    onClick={(e) => handleNavClick('datesheet-guide', e)}
-                    className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
-                      currentPage === 'datesheet-guide' ? 'bg-slate-100 text-slate-950' : 'hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <Calendar className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-semibold text-slate-900">Datesheet Maker Guide</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">Exam seat strategy &amp; lab slot tips</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="/cs619-guide"
-                    onClick={(e) => handleNavClick('cs619-guide', e)}
-                    className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
-                      currentPage === 'cs619-guide' ? 'bg-slate-100 text-slate-950' : 'hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    <FolderGit2 className="w-4 h-4 text-indigo-700 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-semibold text-slate-900">CS619 FYP Capstone Hub</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">Project milestones &amp; viva preparation</div>
-                    </div>
-                  </a>
+                  {toolsItems.map((item, idx) => (
+                    <motion.a
+                      key={item.id}
+                      initial={{ opacity: 0, x: -6 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.025 }}
+                      whileHover={{ x: 3 }}
+                      href={item.href}
+                      onClick={(e) => handleNavClick(item.id, e)}
+                      className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
+                        currentPage === item.id ? 'bg-slate-100 text-slate-950' : 'hover:bg-slate-50 text-slate-700'
+                      }`}
+                    >
+                      {item.icon}
+                      <div>
+                        <div className="text-xs font-semibold text-slate-900">{item.title}</div>
+                        <div className="text-[11px] text-slate-500 mt-0.5">{item.desc}</div>
+                      </div>
+                    </motion.a>
+                  ))}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -287,7 +278,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Portal Info Dropdown */}
           <div ref={dropdownRef} className="relative">
-            <button
+            <motion.button
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.96 }}
               type="button"
               onClick={() => {
                 setMoreDropdownOpen(!moreDropdownOpen);
@@ -302,7 +295,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Portal Info</span>
               <ChevronDown
                 className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
-                  moreDropdownOpen ? 'rotate-180' : ''
+                  moreDropdownOpen ? 'rotate-180 text-blue-600' : ''
                 }`}
               />
               {isMoreActive && (
@@ -312,18 +305,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-blue-700 rounded-full"
                 />
               )}
-            </button>
+            </motion.button>
 
             <AnimatePresence>
               {moreDropdownOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  initial={{ opacity: 0, y: 10, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                  transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                  exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                  transition={{ duration: 0.18, ease: EASE_OUT_EXPO }}
                   className="absolute right-0 top-full mt-2 w-72 p-2 bg-white rounded-xl border border-slate-200 shadow-xl z-50 space-y-0.5 origin-top-right"
                 >
-                  <a
+                  <motion.a
+                    whileHover={{ x: 3 }}
                     href="/security"
                     onClick={(e) => handleNavClick('security', e)}
                     className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
@@ -335,9 +329,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <div className="text-xs font-semibold text-slate-900">Privacy &amp; Safety</div>
                       <div className="text-[11px] text-slate-500 mt-0.5">Zero tracking, verified documents</div>
                     </div>
-                  </a>
+                  </motion.a>
 
-                  <a
+                  <motion.a
+                    whileHover={{ x: 3 }}
                     href="/about"
                     onClick={(e) => handleNavClick('about', e)}
                     className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
@@ -349,9 +344,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <div className="text-xs font-semibold text-slate-900">About MIHORA TECH</div>
                       <div className="text-[11px] text-slate-500 mt-0.5">Independent CSR study initiative</div>
                     </div>
-                  </a>
+                  </motion.a>
 
-                  <a
+                  <motion.a
+                    whileHover={{ x: 3 }}
                     href="/sitemap"
                     onClick={(e) => handleNavClick('sitemap', e)}
                     className={`w-full p-2.5 rounded-lg flex items-start gap-3 transition-colors text-left ${
@@ -363,11 +359,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <div className="text-xs font-semibold text-slate-900">Curriculum Directory</div>
                       <div className="text-[11px] text-slate-500 mt-0.5">All 411 subjects grouped by faculty</div>
                     </div>
-                  </a>
+                  </motion.a>
 
                   <div className="border-t border-slate-100 my-1" />
 
-                  <a
+                  <motion.a
+                    whileHover={{ x: 3 }}
                     href="/disclaimer"
                     onClick={(e) => handleNavClick('disclaimer', e)}
                     className={`w-full p-2 rounded-lg flex items-center gap-2.5 text-xs font-medium transition-colors text-slate-600 hover:text-slate-900 hover:bg-slate-50 ${
@@ -376,7 +373,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   >
                     <HelpCircle className="w-3.5 h-3.5 text-slate-400" />
                     <span>Academic Disclaimer</span>
-                  </a>
+                  </motion.a>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -385,28 +382,35 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Zone 3: Single Primary Action & Mobile Menu Button */}
         <div className="flex items-center gap-3 shrink-0">
-          {selectedCount > 0 && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold tabular-nums"
-            >
-              <Download className="w-3.5 h-3.5 text-amber-700" />
-              <span>{selectedCount} Selected</span>
-            </motion.div>
-          )}
+          <AnimatePresence>
+            {selectedCount > 0 && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85, y: 4 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.85, y: 4 }}
+                transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold tabular-nums"
+              >
+                <Download className="w-3.5 h-3.5 text-amber-700" />
+                <span>{selectedCount} Selected</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <motion.a
-            whileHover={{ y: -1 }}
-            whileTap={{ scale: 0.97 }}
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 420, damping: 24 }}
             href="/vu-assignment-solution-2026"
             onClick={(e) => handleNavClick('assignment-guide', e)}
-            className="hidden lg:inline-flex items-center px-4 py-2 rounded-lg bg-[#0B1526] hover:bg-blue-700 text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
+            className="btn-shimmer group hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0B1526] hover:bg-blue-700 text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
           >
-            Assignments 2026
+            <span>Assignments 2026</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
           </motion.a>
 
-          <button
+          <motion.button
+            whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => setMobileMenuOpen(true)}
             className="lg:hidden flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition-colors cursor-pointer"
@@ -414,7 +418,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Menu className="w-5 h-5 text-slate-700" />
             <span className="text-xs font-semibold">Menu</span>
-          </button>
+          </motion.button>
         </div>
       </div>
 
@@ -452,14 +456,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
                 <MihoraLogo variant="dark" size="sm" />
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.9, rotate: 90 }}
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
                   aria-label="Close navigation menu"
                 >
                   <X className="w-5 h-5" />
-                </button>
+                </motion.button>
               </div>
 
               <div className="flex-1 overflow-y-auto p-5 space-y-6">
