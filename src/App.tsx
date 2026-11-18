@@ -24,6 +24,7 @@ import { VUDatesheetGuidePage } from './pages/VUDatesheetGuidePage';
 import { VUCS619GuidePage } from './pages/VUCS619GuidePage';
 import { VUAssignmentGuidePage } from './pages/VUAssignmentGuidePage';
 import { PastPapersPage } from './pages/PastPapersPage';
+import { MCQsPage } from './pages/MCQsPage';
 import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
 
 // Static sanitized data compiled at build time
@@ -43,6 +44,7 @@ export type AppPage =
   | 'cs619-guide' 
   | 'assignment-guide' 
   | 'past-papers'
+  | 'mcqs'
   | 'security' 
   | 'about' 
   | 'sitemap' 
@@ -58,6 +60,7 @@ const pagePathMap: Record<AppPage, string> = {
   'cs619-guide': '/cs619-guide',
   'assignment-guide': '/vu-assignment-solution-2026',
   'past-papers': '/past-papers',
+  mcqs: '/mcqs',
   security: '/security',
   about: '/about',
   sitemap: '/sitemap',
@@ -85,6 +88,12 @@ function getPageFromPath(): AppPage {
     pathname === '/pastpapers' ||
     pathname === '/reviews'
   ) return 'past-papers';
+  if (
+    pathname === '/mcqs' ||
+    pathname === '/mcq' ||
+    pathname === '/quiz' ||
+    pathname === '/quizzes'
+  ) return 'mcqs';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
   if (pathname === '/about' || pathname === '/mission') return 'about';
   if (pathname === '/sitemap') return 'sitemap';
@@ -100,6 +109,7 @@ function getPageFromPath(): AppPage {
   if (hash === '#cs619' || hash === '#cs619-guide') return 'cs619-guide';
   if (hash === '#assignments' || hash === '#assignment-guide' || hash === '#assignment-2026') return 'assignment-guide';
   if (hash === '#past-papers' || hash === '#pastpapers') return 'past-papers';
+  if (hash === '#mcqs' || hash === '#mcq' || hash === '#quiz') return 'mcqs';
   if (hash === '#security' || hash === '#relay') return 'security';
   if (hash === '#about' || hash === '#mission') return 'about';
   if (hash === '#sitemap') return 'sitemap';
@@ -216,6 +226,9 @@ export default function App() {
     } else if (currentPage === 'past-papers') {
       title = 'VU Solved Past Papers – Midterm & Final Term Papers (Moaaz & Waqar Siddhu) | MIHORA VU';
       desc = 'Download verified Virtual University solved past papers: Moaaz & Waqar Siddhu midterm and final term papers, repeat MCQs, subjective question banks for all 411 courses.';
+    } else if (currentPage === 'mcqs') {
+      title = 'Interactive VU Exam MCQs & Timed Mock Quizzes (Mid-Term & Final) | MIHORA VU';
+      desc = 'Practice verified Virtual University Midterm and Final-Term MCQs interactively with instant answers, timed mock exams, and rapid revision flash-sheets for CS201, CS301, CS304, CS403, CS504, and CS601.';
     } else if (currentPage === 'handbook') {
       title = 'VU Student Handbook 2026 – 20% Passing Rule, Datesheet & Rules FAQs | MIHORA VU';
       desc = 'Official VU rules guide: Master the 20% two-half passing rule, datesheet creation, fee installments, CGPA probation, and paper reschedule policies on MIHORA VU.';
@@ -502,6 +515,7 @@ export default function App() {
               totalResources={resources.length}
               totalCourses={courses.length}
               courses={courses}
+              onOpenMcqs={() => handleNavigate('mcqs')}
             />
 
             {/* Main Interactive Catalog */}
@@ -672,6 +686,13 @@ export default function App() {
           />
         )}
 
+        {/* Page: Interactive MCQs & Timed Mock Quiz Studio */}
+        {currentPage === 'mcqs' && (
+          <MCQsPage
+            onSelectCourseInLibrary={handleSelectCourse}
+          />
+        )}
+
         {/* 4. Page: Security & Relay Technical Architecture */}
         {currentPage === 'security' && (
           <SecurityPage onNavigateHome={() => handleNavigate('home')} />
@@ -838,6 +859,18 @@ export default function App() {
                     >
                       <span>VU Assignment Solution 2026</span>
                       <span className="text-[9px] px-1.5 py-0.2 rounded-sm bg-emerald-500/20 text-emerald-300 font-mono font-bold">LATEST</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/mcqs"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('mcqs');
+                      }}
+                      className="hover:text-blue-400 transition-colors font-semibold text-amber-300"
+                    >
+                      Interactive MCQs &amp; Mock Quiz Studio
                     </a>
                   </li>
                   <li>

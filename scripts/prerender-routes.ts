@@ -219,6 +219,23 @@ const ROUTES: RouteSEO[] = [
     `
   },
 
+  // 2D. Interactive MCQs & Timed Mock Exams Studio
+  {
+    path: 'mcqs',
+    title: 'Interactive VU Exam MCQs & Mock Quizzes (CS201, CS301, CS304, CS403, CS504, CS601) | MIHORA VU',
+    description: 'Practice verified Virtual University Midterm and Final-Term MCQs interactively with instant answers, timed mock exams, and rapid revision flash-sheets for CS201, CS301, CS304, CS403, CS504, and CS601.',
+    canonical: 'https://study.mihora.tech/mcqs',
+    keywords: 'mihora vu, vu interactive mcqs, cs201 midterm mcqs, cs301 midterm mcqs, cs304 midterm mcqs, cs403 midterm mcqs, cs504 midterm mcqs, cs601 midterm mcqs, cs201 final term mcqs, virtual university online quiz practice',
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Interactive VU Exam MCQs &amp; Mock Quizzes</h1>
+        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
+          Interactive practice quizzes, timed exam simulations, and rapid answer-reveal flash-sheets for CS201, CS301, CS304, CS403, CS504, and CS601 Mid-Term &amp; Final-Term exams.
+        </p>
+      </div>
+    `
+  },
+
   // 3. VU Student Handbook & FAQs
   {
     path: 'handbook',

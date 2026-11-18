@@ -20,7 +20,8 @@ import {
   Award,
   FolderGit2,
   FileText,
-  Sparkles
+  Sparkles,
+  ListChecks
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -169,18 +170,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span>Past Papers</span>
           </a>
 
-          {/* 5. VU Handbook & FAQs */}
+          {/* 5. Interactive MCQs Practice */}
           <a
-            href="/handbook"
-            onClick={(e) => handleNavClick('handbook', e)}
-            className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 xl:gap-2 cursor-pointer ${
-              currentPage === 'handbook'
-                ? 'bg-blue-50 text-blue-700 font-bold'
+            href="/mcqs"
+            onClick={(e) => handleNavClick('mcqs', e)}
+            className={`px-2.5 xl:px-3 py-1.5 xl:py-2 rounded-xl transition-all duration-150 flex items-center gap-1.5 xl:gap-2 cursor-pointer whitespace-nowrap ${
+              currentPage === 'mcqs'
+                ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200/70'
                 : 'hover:text-slate-900 hover:bg-slate-100/70 text-slate-600'
             }`}
           >
-            <GraduationCap className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${currentPage === 'handbook' ? 'text-blue-600' : 'text-slate-400'}`} />
-            <span>Handbook</span>
+            <ListChecks className={`w-3.5 xl:w-4 h-3.5 xl:h-4 ${currentPage === 'mcqs' ? 'text-blue-600' : 'text-amber-600'}`} />
+            <span>MCQs</span>
           </a>
 
           {/* 6. Academic Tools & Simulators Dropdown Menu */}
@@ -528,6 +529,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold">
                     LATEST
+                  </span>
+                </a>
+
+                <a
+                  href="/mcqs"
+                  onClick={(e) => handleNavClick('mcqs', e)}
+                  className={`w-full min-h-[48px] px-3.5 py-3 rounded-xl text-left text-sm font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                    currentPage === 'mcqs' ? 'bg-blue-50 text-blue-700 font-bold border border-blue-200/60' : 'text-slate-700 hover:bg-slate-50 border border-transparent'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <ListChecks className="w-4 h-4 text-amber-600" />
+                    <span>Interactive MCQs</span>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 border border-amber-200 font-bold">
+                    Quiz
                   </span>
                 </a>
 

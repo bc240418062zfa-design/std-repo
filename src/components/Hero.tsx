@@ -24,6 +24,7 @@ interface HeroProps {
   totalResources: number;
   totalCourses: number;
   courses?: Course[];
+  onOpenMcqs?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -34,7 +35,8 @@ export const Hero: React.FC<HeroProps> = ({
   onCourseClick,
   totalResources,
   totalCourses,
-  courses = []
+  courses = [],
+  onOpenMcqs
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -334,6 +336,18 @@ export const Hero: React.FC<HeroProps> = ({
             <span>High-Yield Study Collections</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
+            {onOpenMcqs && (
+              <button
+                type="button"
+                onClick={onOpenMcqs}
+                className="group inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold rounded-xl bg-blue-600 hover:bg-blue-500 border border-blue-400/50 text-white transition-all duration-150 cursor-pointer shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-95"
+              >
+                <span>INTERACTIVE MCQS</span>
+                <span className="text-[10px] font-mono font-semibold text-amber-200">
+                  465+ Quiz
+                </span>
+              </button>
+            )}
             {quickCategories.map((cat) => (
               <button
                 key={cat.label}

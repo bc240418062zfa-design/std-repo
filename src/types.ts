@@ -55,3 +55,24 @@ export interface CourseReviewSummary {
   sampleTopics: string[];
 }
 
+export type ExamTerm = 'midterm' | 'finalterm';
+
+export interface McqQuestion {
+  id: string;
+  num: number;
+  question: string;
+  options: [string, string, string, string];
+  correctIndex: 0 | 1 | 2 | 3;
+  topic?: string;
+}
+
+export interface McqSet {
+  id: string;
+  courseCode: string;
+  courseTitle: string;
+  term: ExamTerm;
+  termLabel: string;
+  description: string;
+  topics: string[];
+  questions: McqQuestion[];
+}
