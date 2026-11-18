@@ -81,8 +81,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-md border-b border-slate-200/80 py-3.5 px-4 sm:px-6 lg:px-8 sticky top-16 z-20 shadow-2xs">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3.5">
+    <div className="bg-white border border-slate-200 rounded-xl py-3.5 px-4 sm:px-5 sticky top-16 z-20">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5">
         {/* Filters Selectors */}
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 mr-0.5 select-none">

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { mcqSets } from '../src/data/mcqs/index';
 
 interface RouteSEO {
   path: string;
@@ -219,19 +220,31 @@ const ROUTES: RouteSEO[] = [
     `
   },
 
-  // 2D. Interactive MCQs & Timed Mock Exams Studio
+  // 2D. Interactive MCQs Directory Hub
   {
     path: 'mcqs',
-    title: 'Interactive VU Exam MCQs & Mock Quizzes (CS201, CS301, CS304, CS403, CS504, CS601) | MIHORA VU',
-    description: 'Practice verified Virtual University Midterm and Final-Term MCQs interactively with instant answers, timed mock exams, and rapid revision flash-sheets for CS201, CS301, CS304, CS403, CS504, and CS601.',
+    title: 'Interactive VU Exam MCQs & Subject Pages (CS201, CS301, CS304, CS403, CS504, CS601) | MIHORA VU',
+    description: 'Dedicated interactive MCQ practice pages and timed mock quizzes for Virtual University Mid-Term and Final-Term courses including CS201, CS301, CS304, CS403, CS504, and CS601.',
     canonical: 'https://study.mihora.tech/mcqs',
     keywords: 'mihora vu, vu interactive mcqs, cs201 midterm mcqs, cs301 midterm mcqs, cs304 midterm mcqs, cs403 midterm mcqs, cs504 midterm mcqs, cs601 midterm mcqs, cs201 final term mcqs, virtual university online quiz practice',
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Interactive VU Exam MCQs &amp; Mock Quizzes</h1>
-        <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
-          Interactive practice quizzes, timed exam simulations, and rapid answer-reveal flash-sheets for CS201, CS301, CS304, CS403, CS504, and CS601 Mid-Term &amp; Final-Term exams.
+        <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a;">Interactive VU Exam MCQs – Subject Pages</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          Open any subject below for its dedicated shareable MCQ practice quiz, timed mock exam simulator, and quick revision sheet.
         </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+          ${mcqSets.map(s => `
+            <div style="padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+              <a href="/mcqs/${s.id}" style="text-decoration: none; font-weight: 700; color: #1d4ed8; font-size: 1.1rem; display: block;">
+                ${s.courseCode} – ${s.courseTitle} (${s.termLabel})
+              </a>
+              <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
+                ${s.questions.length} Verified MCQs · Practice, Mock Exam &amp; Revision
+              </div>
+            </div>
+          `).join('')}
+        </div>
       </div>
     `
   },
@@ -484,6 +497,49 @@ for (const course of allCoursesList) {
               ${course.code} 2026 Assignment Solution Guide
             </a>
           </div>
+        </div>
+      </div>
+    `
+  });
+}
+
+// Add Dedicated Shareable Route for Every Subject MCQ Set (/mcqs/<setId>)
+for (const set of mcqSets) {
+  ROUTES.push({
+    path: `mcqs/${set.id}`,
+    title: `${set.courseCode} ${set.termLabel} MCQs (${set.questions.length} Qs) – ${set.courseTitle} | MIHORA VU`,
+    description: `Practice ${set.questions.length} verified ${set.courseCode} (${set.courseTitle}) ${set.termLabel} MCQs online with instant answers, timed mock exam mode, and quick revision flash-sheets on MIHORA VU.`,
+    canonical: `https://study.mihora.tech/mcqs/${set.id}`,
+    keywords: `mihora vu, ${set.courseCode} ${set.termLabel.toLowerCase()} mcqs, ${set.courseCode} solved mcqs, ${set.courseCode} quiz, ${set.courseTitle} mcqs`,
+    extraJsonLd: {
+      "@type": "Quiz",
+      "@id": `https://study.mihora.tech/mcqs/${set.id}#quiz`,
+      "name": `${set.courseCode} ${set.termLabel} MCQs – ${set.courseTitle}`,
+      "description": set.description,
+      "numberOfQuestions": set.questions.length,
+      "educationalAlignment": {
+        "@type": "AlignmentObject",
+        "targetName": `${set.courseCode} ${set.termLabel}`
+      }
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <nav style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">
+          <a href="/" style="color: #1d4ed8; text-decoration: none;">Home</a> &gt;
+          <a href="/mcqs" style="color: #1d4ed8; text-decoration: none;">MCQs</a> &gt;
+          <span>${set.courseCode} ${set.termLabel}</span>
+        </nav>
+        <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
+          ${set.courseCode} – ${set.courseTitle} (${set.termLabel} MCQs)
+        </h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          ${set.questions.length} Verified Questions · ${set.description}
+        </p>
+        <div style="margin-top: 1.5rem; padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+          <h2 style="font-size: 1.2rem; font-weight: 700; color: #0f172a;">Sample Practice Questions</h2>
+          <ol style="color: #334155; line-height: 1.7; margin-top: 0.75rem; padding-left: 1.25rem;">
+            ${set.questions.slice(0, 5).map(q => `<li>${q.question}</li>`).join('')}
+          </ol>
         </div>
       </div>
     `

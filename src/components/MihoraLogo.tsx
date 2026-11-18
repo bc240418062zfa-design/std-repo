@@ -64,14 +64,7 @@ export const MihoraLogo: React.FC<MihoraLogoProps> = ({
           />
           
           {/* Central Knowledge Spark */}
-          <circle cx="50" cy="50" r="4" fill="#F59E0B">
-            <animate 
-              attributeName="opacity" 
-              values="0.4;1;0.4" 
-              dur="3s" 
-              repeatCount="indefinite" 
-            />
-          </circle>
+          <circle cx="50" cy="50" r="4" fill="#F59E0B" />
 
           {/* Top Star of Excellence */}
           <path 

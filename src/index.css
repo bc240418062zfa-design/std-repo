@@ -1,24 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --font-sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-serif: 'Crimson Pro', Georgia, serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  
-  /* UI UX Pro Max Oxford Academic & Amber Gold Palette */
-  --oxford-950: #060D1A;
-  --oxford-900: #0A192F;
-  --oxford-800: #132742;
-  --oxford-700: #1E3A5F;
-  --royal-blue: #2563EB;
-  --royal-blue-hover: #1D4ED8;
-  --amber-gold: #D97706;
-  --amber-gold-light: #F59E0B;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --oxford-950: #091324;
+  --oxford-900: #0E1B33;
+  --oxford-800: #172847;
+  --royal-blue: #1D4ED8;
+  --amber-gold: #B45309;
   --academic-slate: #F8FAFC;
   --academic-card: #FFFFFF;
   --academic-border: #E2E8F0;
   --academic-text: #0F172A;
-  --academic-muted: #64748B;
+  --academic-muted: #475569;
 }
 
 @layer base {
@@ -34,8 +30,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2 {
     font-family: var(--font-serif);
+    letter-spacing: -0.02em;
+  }
+  h3, h4, h5, h6 {
+    font-family: var(--font-sans);
   }
   code, pre, .font-mono {
     font-family: var(--font-mono);
@@ -43,13 +43,22 @@
   }
 }
 
-/* Accessible focus visible outlines */
 :focus-visible {
   outline: 2px solid #2563EB;
   outline-offset: 2px;
 }
 
-/* Elegant academic scrollbar */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -63,16 +72,4 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
-}
-
-/* Subtle elevation cards */
-.academic-card-shadow {
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05);
-}
-.academic-card-hover {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
-}
-.academic-card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(10, 25, 47, 0.08), 0 8px 10px -6px rgba(10, 25, 47, 0.04);
 }

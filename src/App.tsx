@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Resource, Course, FilterState, DownloadSession } from './types';
 import { searchResources } from './search/searchEngine';
-import { antiDevTools, DevToolsDetectionDetail } from './security/antiDevTools';
-import { SecurityOverlay } from './security/SecurityOverlay';
 import { resolveResourceLocally } from './security/shardResolver';
+import { mcqSets } from './data/mcqs';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FilterBar } from './components/FilterBar';
@@ -25,7 +24,7 @@ import { VUCS619GuidePage } from './pages/VUCS619GuidePage';
 import { VUAssignmentGuidePage } from './pages/VUAssignmentGuidePage';
 import { PastPapersPage } from './pages/PastPapersPage';
 import { MCQsPage } from './pages/MCQsPage';
-import { Shield, Sparkles, BookOpen, Layers, CheckCircle2, AlertCircle, ExternalLink, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
+import { BookOpen, ExternalLink, ChevronDown, ChevronUp, ChevronRight } from 'lucide-react';
 
 // Static sanitized data compiled at build time
 import coursesData from './data/courses.json';
@@ -90,9 +89,13 @@ function getPageFromPath(): AppPage {
   ) return 'past-papers';
   if (
     pathname === '/mcqs' ||
+    pathname.startsWith('/mcqs/') ||
     pathname === '/mcq' ||
+    pathname.startsWith('/mcq/') ||
     pathname === '/quiz' ||
-    pathname === '/quizzes'
+    pathname.startsWith('/quiz/') ||
+    pathname === '/quizzes' ||
+    pathname.startsWith('/quizzes/')
   ) return 'mcqs';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
   if (pathname === '/about' || pathname === '/mission') return 'about';
@@ -118,8 +121,30 @@ function getPageFromPath(): AppPage {
   return 'home';
 }
 
+function getMcqSetIdFromPath(): string | null {
+  if (typeof window === 'undefined') return null;
+  const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  const parts = pathname.split('/').filter(Boolean);
+  if (parts.length < 2) return null;
+  if (!['mcqs', 'mcq', 'quiz', 'quizzes'].includes(parts[0])) return null;
+
+  const slug = parts[1];
+  const exact = mcqSets.find((s) => s.id === slug);
+  if (exact) return exact.id;
+
+  const midAlias = mcqSets.find((s) => s.id === `${slug}-midterm`);
+  if (midAlias) return midAlias.id;
+
+  const finalAlias = mcqSets.find((s) => s.id === slug.replace(/-final$/, '-finalterm'));
+  if (finalAlias) return finalAlias.id;
+
+  const byCourse = mcqSets.find((s) => s.courseCode.toLowerCase() === slug);
+  return byCourse ? byCourse.id : null;
+}
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>(getPageFromPath);
+  const [selectedMcqSetId, setSelectedMcqSetId] = useState<string | null>(getMcqSetIdFromPath);
 
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({
@@ -134,22 +159,19 @@ export default function App() {
   const [limit, setLimit] = useState<number>(12);
   const [selectedRLHs, setSelectedRLHs] = useState<Set<string>>(new Set());
 
-  // Security & Download Session States
-  const [devToolsDetected, setDevToolsDetected] = useState(false);
-  const [devToolsDetail, setDevToolsDetail] = useState<DevToolsDetectionDetail | null>(null);
+  // Download Session States
   const [downloadSession, setDownloadSession] = useState<DownloadSession | null>(null);
   const [isDownloadingZip, setIsDownloadingZip] = useState(false);
   const [previewResource, setPreviewResource] = useState<Resource | null>(null);
   const [showAllCoursesFooter, setShowAllCoursesFooter] = useState(false);
 
   const searchResultsRef = useRef<HTMLDivElement>(null);
-  const downloadSessionRef = useRef<DownloadSession | null>(null);
-  downloadSessionRef.current = downloadSession;
 
   // Listen to popstate changes for real browser back/forward and clean URLs
   useEffect(() => {
     const handleLocationChange = () => {
       setCurrentPage(getPageFromPath());
+      setSelectedMcqSetId(getMcqSetIdFromPath());
     };
     window.addEventListener('popstate', handleLocationChange);
     window.addEventListener('hashchange', handleLocationChange);
@@ -188,7 +210,20 @@ export default function App() {
 
   const handleNavigate = (page: AppPage) => {
     setCurrentPage(page);
+    if (page === 'mcqs') {
+      setSelectedMcqSetId(null);
+    }
     const targetPath = pagePathMap[page] || '/';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectMcqSet = (setId: string | null) => {
+    setCurrentPage('mcqs');
+    setSelectedMcqSetId(setId);
+    const targetPath = setId ? `/mcqs/${setId}` : '/mcqs';
     if (window.location.pathname !== targetPath) {
       window.history.pushState(null, '', targetPath);
     }
@@ -227,8 +262,14 @@ export default function App() {
       title = 'VU Solved Past Papers – Midterm & Final Term Papers (Moaaz & Waqar Siddhu) | MIHORA VU';
       desc = 'Download verified Virtual University solved past papers: Moaaz & Waqar Siddhu midterm and final term papers, repeat MCQs, subjective question banks for all 411 courses.';
     } else if (currentPage === 'mcqs') {
-      title = 'Interactive VU Exam MCQs & Timed Mock Quizzes (Mid-Term & Final) | MIHORA VU';
-      desc = 'Practice verified Virtual University Midterm and Final-Term MCQs interactively with instant answers, timed mock exams, and rapid revision flash-sheets for CS201, CS301, CS304, CS403, CS504, and CS601.';
+      const activeSet = selectedMcqSetId ? mcqSets.find((s) => s.id === selectedMcqSetId) : null;
+      if (activeSet) {
+        title = `${activeSet.courseCode} ${activeSet.termLabel} MCQs (${activeSet.questions.length} Qs) – ${activeSet.courseTitle} | MIHORA VU`;
+        desc = `Practice ${activeSet.questions.length} verified ${activeSet.courseCode} (${activeSet.courseTitle}) ${activeSet.termLabel} MCQs online with instant answers, timed mock exam mode, and quick revision flash-sheets on MIHORA VU.`;
+      } else {
+        title = 'Interactive VU Exam MCQs & Subject Mock Quizzes (Mid-Term & Final) | MIHORA VU';
+        desc = 'Practice verified Virtual University Midterm and Final-Term MCQs on dedicated subject pages with instant answers, timed mock exams, and rapid revision flash-sheets for CS201, CS301, CS304, CS403, CS504, and CS601.';
+      }
     } else if (currentPage === 'handbook') {
       title = 'VU Student Handbook 2026 – 20% Passing Rule, Datesheet & Rules FAQs | MIHORA VU';
       desc = 'Official VU rules guide: Master the 20% two-half passing rule, datesheet creation, fee installments, CGPA probation, and paper reschedule policies on MIHORA VU.';
@@ -263,24 +304,22 @@ export default function App() {
     if (metaDesc) {
       metaDesc.setAttribute('content', desc);
     }
-  }, [currentPage, filters.course]);
-
-  // Initialize anti-DevTools deterrence & subscribe to detection signals
-  useEffect(() => {
-    antiDevTools.init();
-    const unsubscribe = antiDevTools.subscribe((detail) => {
-      setDevToolsDetected(detail.detected);
-      setDevToolsDetail(detail);
-      if (detail.detected && downloadSessionRef.current) {
-        // Invalidate active session if dev tools opened
-        setDownloadSession(null);
-      }
-    });
-    return () => {
-      unsubscribe();
-      antiDevTools.destroy();
-    };
-  }, []);
+    const canonicalPath =
+      currentPage === 'mcqs' && selectedMcqSetId
+        ? `/mcqs/${selectedMcqSetId}`
+        : pagePathMap[currentPage] || '/';
+    const canonicalUrl = `https://study.mihora.tech${canonicalPath}`;
+    const canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (canonicalEl) {
+      canonicalEl.setAttribute('href', canonicalUrl);
+    }
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', title);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', desc);
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+  }, [currentPage, filters.course, selectedMcqSetId]);
 
   // Compute search results with ranking algorithm
   const { resources: filteredResources, totalCount: totalMatchingCount } = useMemo(() => {
@@ -465,31 +504,13 @@ export default function App() {
   };
 
   return (
-    <>
-      {/* DevTools Deterrence Security Overlay */}
-      {devToolsDetected && (
-        <SecurityOverlay
-          detail={devToolsDetail}
-          onDismiss={() => {
-            setDevToolsDetected(false);
-            antiDevTools.resume();
-          }}
-        />
-      )}
-
-      <div
-        className={`min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans transition-all duration-300 ${
-          devToolsDetected
-            ? 'filter blur-md pointer-events-none select-none max-h-screen overflow-hidden opacity-30'
-            : ''
-        }`}
-      >
-        {/* Top Bar Navigation */}
-        <Navbar
-          currentPage={currentPage}
-          onNavigate={(p) => handleNavigate(p as AppPage)}
-          selectedCount={selectedRLHs.size}
-        />
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+      {/* Top Bar Navigation */}
+      <Navbar
+        currentPage={currentPage}
+        onNavigate={(p) => handleNavigate(p as AppPage)}
+        selectedCount={selectedRLHs.size}
+      />
 
         {/* 1. Page: Home / Search Catalog */}
         {currentPage === 'home' && (
@@ -601,24 +622,23 @@ export default function App() {
                 </div>
               )}
 
-              {/* Informational Callout */}
-              <div className="mt-14 relative overflow-hidden bg-slate-900 text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div className="space-y-2 max-w-2xl">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold">
-                    <Shield className="w-3.5 h-3.5 text-blue-400" />
-                    <span>Academic Curriculum Archive</span>
+              {/* Clean Editorial Curriculum Directory Callout */}
+              <div className="mt-14 bg-white rounded-xl p-6 sm:p-8 border border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="space-y-1.5 max-w-2xl">
+                  <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
+                    Curriculum Archive
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-                    Need past papers or handouts for a specific subject?
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                    Looking for past papers or handouts by subject?
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    Explore all 411 Virtual University courses categorized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    Browse all 411 Virtual University courses organized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => handleNavigate('courses')}
-                  className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm transition-all cursor-pointer shrink-0 shadow-md shadow-blue-600/30 active:scale-95 flex items-center gap-2"
+                  className="px-5 py-2.5 rounded-lg bg-[#0B1526] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap"
                 >
                   <span>Explore 411 Courses</span>
                   <ChevronRight className="w-4 h-4" />
@@ -686,9 +706,11 @@ export default function App() {
           />
         )}
 
-        {/* Page: Interactive MCQs & Timed Mock Quiz Studio */}
+        {/* Page: Interactive MCQs Hub & Dedicated Subject Pages */}
         {currentPage === 'mcqs' && (
           <MCQsPage
+            activeSetId={selectedMcqSetId}
+            onSelectSetId={handleSelectMcqSet}
             onSelectCourseInLibrary={handleSelectCourse}
           />
         )}
@@ -750,35 +772,33 @@ export default function App() {
           onClose={() => setPreviewResource(null)}
         />
 
-        {/* Enterprise Footer */}
-        <footer className="bg-gradient-to-b from-[#0A192F] to-[#060D1A] text-white border-t border-blue-900/40 mt-20 pt-14 pb-12">
+        {/* Clean Institutional Footer */}
+        <footer className="bg-[#0B1526] text-white border-t border-slate-800 mt-20 pt-14 pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
-              {/* Brand Column */}
               <div className="space-y-3">
                 <MihoraLogo variant="white" size="md" />
                 <p className="text-xs text-slate-300 max-w-sm leading-relaxed">
-                  MIHORA STUDY LIBRARY is an independent, non-commercial educational technology and CSR initiative engineered by <strong>MIHORA TECH</strong> to empower students of the Virtual University of Pakistan.
+                  MIHORA STUDY LIBRARY is an independent, non-commercial educational CSR initiative engineered by <strong>MIHORA TECH</strong> for students of the Virtual University of Pakistan.
                 </p>
-                <div className="pt-2">
+                <div className="pt-1">
                   <a
                     href="https://www.mihora.tech"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 font-semibold"
+                    className="inline-flex items-center gap-1.5 text-xs text-slate-200 hover:text-white font-medium"
                   >
-                    <span>Visit Official Website (www.mihora.tech)</span>
+                    <span>www.mihora.tech</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
 
-              {/* Portal Links Column */}
               <div className="space-y-3 text-xs">
-                <div className="font-bold text-white uppercase tracking-wider text-[11px]">
+                <div className="font-semibold text-white uppercase tracking-wider text-[11px]">
                   Academic Portal
                 </div>
-                <ul className="space-y-2 text-slate-400">
+                <ul className="space-y-2 text-slate-300">
                   <li>
                     <a
                       href="/"
@@ -786,7 +806,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('home');
                       }}
-                      className="hover:text-blue-400 transition-colors"
+                      className="hover:text-white transition-colors"
                     >
                       Search 28,328+ Documents
                     </a>
@@ -798,7 +818,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('courses');
                       }}
-                      className="hover:text-blue-400 transition-colors"
+                      className="hover:text-white transition-colors"
                     >
                       All 411 VU Courses
                     </a>
@@ -810,7 +830,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('handbook');
                       }}
-                      className="hover:text-blue-400 transition-colors font-medium text-emerald-400"
+                      className="hover:text-white transition-colors"
                     >
                       VU Student Handbook &amp; FAQs
                     </a>
@@ -822,7 +842,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('simulator');
                       }}
-                      className="hover:text-blue-400 transition-colors font-medium text-blue-300"
+                      className="hover:text-white transition-colors"
                     >
                       Exam Passing Marks Simulator
                     </a>
@@ -834,7 +854,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('sitemap');
                       }}
-                      className="hover:text-blue-400 transition-colors"
+                      className="hover:text-white transition-colors"
                     >
                       Curriculum Directory
                     </a>
@@ -842,12 +862,23 @@ export default function App() {
                 </ul>
               </div>
 
-              {/* Tools & Guides Column */}
               <div className="space-y-3 text-xs">
-                <div className="font-bold text-white uppercase tracking-wider text-[11px]">
-                  Tools &amp; Capstone Hub
+                <div className="font-semibold text-white uppercase tracking-wider text-[11px]">
+                  MCQs &amp; Study Tools
                 </div>
-                <ul className="space-y-2 text-slate-400">
+                <ul className="space-y-2 text-slate-300">
+                  <li>
+                    <a
+                      href="/mcqs"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleSelectMcqSet(null);
+                      }}
+                      className="hover:text-white transition-colors font-medium text-amber-300"
+                    >
+                      Interactive Subject MCQ Pages
+                    </a>
+                  </li>
                   <li>
                     <a
                       href="/vu-assignment-solution-2026"
@@ -855,22 +886,9 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('assignment-guide');
                       }}
-                      className="hover:text-blue-400 transition-colors font-semibold text-emerald-400 flex items-center gap-1.5"
+                      className="hover:text-white transition-colors"
                     >
-                      <span>VU Assignment Solution 2026</span>
-                      <span className="text-[9px] px-1.5 py-0.2 rounded-sm bg-emerald-500/20 text-emerald-300 font-mono font-bold">LATEST</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/mcqs"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleNavigate('mcqs');
-                      }}
-                      className="hover:text-blue-400 transition-colors font-semibold text-amber-300"
-                    >
-                      Interactive MCQs &amp; Mock Quiz Studio
+                      VU Assignment Solution 2026
                     </a>
                   </li>
                   <li>
@@ -880,7 +898,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('past-papers');
                       }}
-                      className="hover:text-blue-400 transition-colors font-medium text-blue-300"
+                      className="hover:text-white transition-colors"
                     >
                       Solved Past Papers (Moaaz &amp; Waqar)
                     </a>
@@ -892,7 +910,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('gpa-calculator');
                       }}
-                      className="hover:text-blue-400 transition-colors font-medium text-slate-300"
+                      className="hover:text-white transition-colors"
                     >
                       VU GPA &amp; CGPA Calculator (4.0)
                     </a>
@@ -904,7 +922,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('datesheet-guide');
                       }}
-                      className="hover:text-blue-400 transition-colors font-medium text-amber-300"
+                      className="hover:text-white transition-colors"
                     >
                       Datesheet Maker Guide &amp; Tips
                     </a>
@@ -916,7 +934,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('cs619-guide');
                       }}
-                      className="hover:text-blue-400 transition-colors font-medium text-indigo-300"
+                      className="hover:text-white transition-colors"
                     >
                       CS619 FYP Roadmap &amp; Viva Voce
                     </a>
@@ -924,12 +942,11 @@ export default function App() {
                 </ul>
               </div>
 
-              {/* Trust & Governance Column */}
               <div className="space-y-3 text-xs">
-                <div className="font-bold text-white uppercase tracking-wider text-[11px]">
+                <div className="font-semibold text-white uppercase tracking-wider text-[11px]">
                   Trust &amp; Governance
                 </div>
-                <ul className="space-y-2 text-slate-400">
+                <ul className="space-y-2 text-slate-300">
                   <li>
                     <a
                       href="/security"
@@ -937,7 +954,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('security');
                       }}
-                      className="hover:text-blue-400 transition-colors"
+                      className="hover:text-white transition-colors"
                     >
                       Trust &amp; Privacy Guarantee
                     </a>
@@ -949,7 +966,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('about');
                       }}
-                      className="hover:text-blue-400 transition-colors"
+                      className="hover:text-white transition-colors"
                     >
                       About MIHORA TECH Initiative
                     </a>
@@ -961,7 +978,7 @@ export default function App() {
                         e.preventDefault();
                         handleNavigate('disclaimer');
                       }}
-                      className="hover:text-blue-400 transition-colors"
+                      className="hover:text-white transition-colors"
                     >
                       Academic Notice &amp; Disclaimer
                     </a>
@@ -971,9 +988,9 @@ export default function App() {
                       href="/sitemap.xml"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-blue-400 transition-colors font-mono text-[11px]"
+                      className="hover:text-white transition-colors font-mono text-[11px]"
                     >
-                      XML Sitemap (Crawler Feed)
+                      XML Sitemap
                     </a>
                   </li>
                   <li>
@@ -981,32 +998,31 @@ export default function App() {
                       href="/robots.txt"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-blue-400 transition-colors font-mono text-[11px]"
+                      className="hover:text-white transition-colors font-mono text-[11px]"
                     >
-                      Robots.txt Protocol
+                      Robots.txt
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* Quick Access Course Directory / Accordion */}
-            <div className="pt-6 border-t border-slate-800/80 space-y-4">
+            <div className="pt-2 space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <div className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-blue-400" />
-                    <span>Virtual University All 411 Courses &amp; 2026 Solutions Directory</span>
+                  <div className="text-xs font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-slate-400" />
+                    <span>All 411 Courses Quick Index</span>
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    Click any course code below to instantly inspect verified solved past papers, lecture handouts, and assignment solutions.
+                  <div className="text-xs text-slate-400 mt-0.5">
+                    Jump directly to verified solved past papers, handouts, and assignment templates for any course code.
                   </div>
                 </div>
 
                 <button
                   type="button"
                   onClick={() => setShowAllCoursesFooter(!showAllCoursesFooter)}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-cyan-300 hover:text-white text-xs font-semibold border border-slate-800 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-medium border border-slate-700 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
                 >
                   <span>{showAllCoursesFooter ? 'Collapse 411 Courses' : 'Browse All 411 Courses'}</span>
                   {showAllCoursesFooter ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -1014,7 +1030,7 @@ export default function App() {
               </div>
 
               {showAllCoursesFooter && (
-                <div className="p-4 rounded-2xl bg-[#0B172A]/90 border border-blue-900/40 max-h-96 overflow-y-auto space-y-3 text-xs animate-in fade-in duration-150">
+                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 max-h-96 overflow-y-auto text-xs">
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
                     {courses.map((c) => (
                       <a
@@ -1024,13 +1040,13 @@ export default function App() {
                           e.preventDefault();
                           handleSelectCourse(c.code);
                         }}
-                        className="p-2 rounded-lg bg-[#060D1A]/90 hover:bg-blue-950/60 border border-slate-800 hover:border-amber-500/40 text-slate-300 hover:text-white transition-all group block text-left"
+                        className="p-2 rounded-lg bg-[#0B1526] hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-colors block text-left"
                         title={`${c.code} - ${c.title}`}
                       >
-                        <div className="font-mono font-bold text-sky-400 group-hover:text-amber-300 text-[11px]">
+                        <div className="font-mono font-semibold text-amber-300 text-[11px]">
                           {c.code}
                         </div>
-                        <div className="text-[10px] text-slate-400 line-clamp-1">
+                        <div className="text-[11px] text-slate-400 line-clamp-1">
                           {c.title}
                         </div>
                       </a>
@@ -1040,18 +1056,16 @@ export default function App() {
               )}
             </div>
 
-            {/* Bottom Copyright */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 pt-4 border-t border-slate-900">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 pt-4 border-t border-slate-800">
               <div>
-                &copy; {new Date().getFullYear()} MIHORA TECH. Educational Welfare Initiative. All rights reserved.
+                &copy; {new Date().getFullYear()} MIHORA TECH. Free Academic Resource Initiative.
               </div>
-              <div className="text-[11px] text-slate-400 text-center sm:text-right">
-                Study Portal: <span className="font-medium text-slate-300">study.mihora.tech</span> · Corporate: <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-400 hover:underline">www.mihora.tech</a>
+              <div className="text-xs text-slate-400 text-center sm:text-right">
+                study.mihora.tech · <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="text-slate-300 hover:text-white hover:underline">www.mihora.tech</a>
               </div>
             </div>
           </div>
         </footer>
       </div>
-    </>
   );
 }
