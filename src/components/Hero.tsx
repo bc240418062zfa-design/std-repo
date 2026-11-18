@@ -18,6 +18,7 @@ import {
   CourseMarquee,
   EASE_OUT_EXPO
 } from './MotionPrimitives';
+import { CelestialStarfield, CelestialOrbitalRings } from './CelestialBackdrop';
 
 interface HeroProps {
   query: string;
@@ -175,30 +176,40 @@ export const Hero: React.FC<HeroProps> = ({
     <>
       <section
         ref={sectionRef}
-        className="relative overflow-hidden bg-studio-stage text-white pt-12 pb-16 sm:pt-16 sm:pb-20 border-b border-slate-800/80"
+        className="relative overflow-hidden bg-studio-stage text-white pt-12 pb-16 sm:pt-18 sm:pb-22 border-b border-slate-800/80"
       >
+        {/* Interactive Celestial Starfield & Constellation Threads */}
+        <CelestialStarfield density={1.1} />
+
+        {/* Rotating Orbital Astrolabe Geometry */}
+        <CelestialOrbitalRings />
+
         {/* Scroll-parallax architectural perspective grid */}
         <motion.div
           style={{ y: bgGridY }}
-          className="absolute inset-0 bg-academic-grid opacity-60 pointer-events-none"
+          className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none"
           aria-hidden="true"
         />
 
-        {/* Ambient floating + scroll-parallaxed light orbs */}
+        {/* Ambient floating + scroll-parallaxed aurora light orbs */}
         <motion.div
           style={{ y: orbLeftY }}
-          className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-600/20 blur-3xl animate-float-slow"
+          className="pointer-events-none absolute -top-28 -left-24 w-[440px] h-[440px] rounded-full bg-blue-600/25 blur-3xl animate-aurora-breathe"
           aria-hidden="true"
         />
         <motion.div
           style={{ y: orbRightY }}
-          className="pointer-events-none absolute top-10 -right-24 w-80 h-80 rounded-full bg-teal-500/15 blur-3xl animate-float-reverse"
+          className="pointer-events-none absolute top-8 -right-24 w-[380px] h-[380px] rounded-full bg-indigo-500/20 blur-3xl animate-float-reverse"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent"
           aria-hidden="true"
         />
 
         <motion.div
           style={{ y: contentY, opacity: contentOpacity }}
-          className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-9"
+          className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-9"
         >
           {/* Hero Headline & Staggered Entrance */}
           <motion.div
@@ -207,17 +218,17 @@ export const Hero: React.FC<HeroProps> = ({
             transition={{ duration: 0.48, ease: EASE_OUT_EXPO }}
             className="text-center space-y-4"
           >
-            <p className="text-xs sm:text-sm font-mono text-sky-300 tracking-wide tabular-nums">
+            <p className="text-xs sm:text-sm font-mono text-sky-300/95 tracking-wide tabular-nums">
               Virtual University Academic Studio · <AnimatedCounter value={totalCourses} /> Courses ·{' '}
               <AnimatedCounter value={totalResources} /> Verified Documents
             </p>
 
             <h1
-              className="text-3xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight text-white leading-[1.08] max-w-4xl mx-auto"
+              className="text-3xl sm:text-5xl lg:text-[58px] font-extrabold tracking-tight text-white leading-[1.06] max-w-4xl mx-auto drop-shadow-[0_4px_24px_rgba(2,6,23,0.65)]"
               style={{ textWrap: 'balance' }}
             >
               Solved Past Papers, Handouts &amp;{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-blue-200 to-amber-300 animate-gradient-text">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-sky-300 to-amber-200 animate-gradient-text">
                 Interactive Exam Practice
               </span>
             </h1>
@@ -232,7 +243,7 @@ export const Hero: React.FC<HeroProps> = ({
             </motion.p>
           </motion.div>
 
-          {/* Spotlight Command Search Bar */}
+          {/* Luminous Bezel Command Search Bar */}
           <motion.div
             ref={containerRef}
             initial={{ opacity: 0, y: 18, scale: 0.985 }}
@@ -240,7 +251,8 @@ export const Hero: React.FC<HeroProps> = ({
             transition={{ duration: 0.48, delay: 0.12, ease: EASE_OUT_EXPO }}
             className="max-w-3xl mx-auto relative"
           >
-            <div className="bg-white rounded-2xl border border-white/25 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.68)] overflow-hidden transition-all duration-200 focus-within:ring-2 focus-within:ring-sky-400 focus-within:shadow-[0_28px_70px_-12px_rgba(37,99,235,0.45)]">
+            <div className="p-[1.5px] rounded-[18px] bg-gradient-to-r from-sky-400/55 via-indigo-400/35 to-amber-300/50 shadow-[0_24px_65px_-12px_rgba(0,0,0,0.72),0_0_45px_-14px_rgba(56,189,248,0.35)] transition-all duration-300 focus-within:from-sky-400 focus-within:via-blue-400 focus-within:to-amber-300 focus-within:shadow-[0_28px_75px_-12px_rgba(37,99,235,0.55),0_0_55px_-10px_rgba(56,189,248,0.45)]">
+              <div className="bg-white rounded-2xl overflow-hidden">
               <form
                 onSubmit={handleFormSubmit}
                 className="flex items-center p-1.5 sm:p-2 gap-2"
@@ -382,6 +394,7 @@ export const Hero: React.FC<HeroProps> = ({
                   </motion.div>
                 )}
               </AnimatePresence>
+              </div>
             </div>
           </motion.div>
 

@@ -30,6 +30,7 @@ import {
   AnimatedButton,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
+import { CelestialOrbitalRings } from '../components/CelestialBackdrop';
 
 const allCourses = coursesData as Course[];
 
@@ -111,8 +112,10 @@ int main() {
 
       {/* Hero Header */}
       <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
+        <CelestialOrbitalRings compact />
         <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
         <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none animate-float-slow" />
+        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent" aria-hidden="true" />
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 text-emerald-300 text-xs font-mono font-semibold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />

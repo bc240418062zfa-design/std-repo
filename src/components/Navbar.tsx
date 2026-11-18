@@ -166,8 +166,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-300 border-b ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-lg border-slate-200/90 shadow-sm'
-          : 'bg-white/95 backdrop-blur-xs border-slate-200'
+          ? 'bg-white/85 backdrop-blur-xl border-slate-200/90 shadow-[0_6px_30px_-12px_rgba(15,23,42,0.12)]'
+          : 'bg-white/92 backdrop-blur-md border-slate-200/80'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-6">
@@ -204,7 +204,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <motion.span
                     layoutId="navbar-active-underline"
                     transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-                    className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-blue-700 rounded-full"
+                    className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 rounded-full shadow-[0_2px_10px_rgba(37,99,235,0.45)]"
                   />
                 )}
               </motion.a>

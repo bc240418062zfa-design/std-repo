@@ -155,7 +155,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
       whileHover={{ y: hoverLift }}
       whileTap={onClick ? { scale: 0.99 } : undefined}
       transition={{ duration: 0.22, ease: EASE_OUT_EXPO }}
-      className={`relative overflow-hidden ${className}`}
+      className={`celestial-top-glint relative overflow-hidden ${className}`}
     >
       <motion.div
         className="pointer-events-none absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
@@ -303,13 +303,13 @@ export const CourseMarquee: React.FC<CourseMarqueeProps> = ({ items, onSelectCou
   const doubled = [...items, ...items];
 
   return (
-    <div className="marquee-wrapper relative overflow-hidden py-3 border-y border-slate-200/80 bg-white/80 backdrop-blur-xs select-none">
+    <div className="marquee-wrapper relative overflow-hidden py-3.5 border-y border-slate-200/80 bg-white/85 backdrop-blur-md select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#F5F7FC] to-transparent z-10"
+        className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#F6F8FE] via-[#F6F8FE]/80 to-transparent z-10"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#F5F7FC] to-transparent z-10"
+        className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#F6F8FE] via-[#F6F8FE]/80 to-transparent z-10"
         aria-hidden="true"
       />
 
@@ -321,7 +321,7 @@ export const CourseMarquee: React.FC<CourseMarqueeProps> = ({ items, onSelectCou
             whileHover={{ y: -2, scale: 1.03 }}
             whileTap={{ scale: 0.96 }}
             onClick={() => onSelectCourse(item.code)}
-            className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-200/90 hover:border-blue-300 text-xs transition-colors cursor-pointer shrink-0 shadow-2xs"
+            className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50/70 border border-slate-200/90 hover:border-blue-400/70 text-xs transition-all cursor-pointer shrink-0 shadow-[0_2px_8px_-3px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_16px_-4px_rgba(37,99,235,0.14)]"
           >
             <span className="font-mono font-bold text-blue-700">{item.code}</span>
             <span className="text-slate-700 font-medium whitespace-nowrap">{item.label}</span>
@@ -372,7 +372,7 @@ export const FloatingScrollTop: React.FC<FloatingScrollTopProps> = ({ liftForBar
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll back to top"
           title="Back to top"
-          className="fixed bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-slate-950/90 hover:bg-blue-700 text-white shadow-xl border border-slate-700/80 backdrop-blur-md flex items-center justify-center cursor-pointer transition-colors"
+          className="fixed bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-[#060D1F]/95 hover:bg-blue-700 text-white shadow-[0_10px_30px_-6px_rgba(37,99,235,0.45)] border border-sky-400/25 backdrop-blur-md flex items-center justify-center cursor-pointer transition-colors"
         >
           <svg
             width="48"

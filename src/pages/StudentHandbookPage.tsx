@@ -38,6 +38,7 @@ import {
   AnimatedCounter,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
+import { CelestialOrbitalRings } from '../components/CelestialBackdrop';
 
 interface GuideItem {
   id: string;
@@ -1138,7 +1139,9 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
       <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Banner 1: Passing Simulator */}
         <div className="relative overflow-hidden p-6 sm:p-8 rounded-3xl bg-studio-stage text-white space-y-4 shadow-md flex flex-col justify-between border border-slate-800">
+          <CelestialOrbitalRings compact />
           <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
           <div className="relative z-10 space-y-2">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-300 uppercase tracking-wider">
               <Calculator className="w-4 h-4 text-amber-400" />

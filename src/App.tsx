@@ -19,6 +19,7 @@ import {
   FloatingScrollTop,
   EASE_OUT_EXPO
 } from './components/MotionPrimitives';
+import { CelestialStarfield, CelestialOrbitalRings } from './components/CelestialBackdrop';
 import { CoursesPage } from './pages/CoursesPage';
 import { SecurityPage } from './pages/SecurityPage';
 import { AboutPage } from './pages/AboutPage';
@@ -525,7 +526,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col bg-[#F5F7FC] text-slate-900 font-sans">
+      <div className="min-h-screen flex flex-col bg-celestial-canvas text-slate-900 font-sans">
         {/* Top Bar Navigation */}
         <Navbar
           currentPage={currentPage}
@@ -628,7 +629,7 @@ export default function App() {
                           }}
                           whileHover={{ y: -5, scale: 1.01 }}
                           whileTap={{ scale: 0.98 }}
-                          className="group bg-white rounded-2xl border border-slate-200/80 hover:border-blue-400 p-4 flex items-center justify-between gap-3 card-elevated transition-colors"
+                          className="celestial-top-glint group bg-white rounded-2xl border border-slate-200/85 hover:border-blue-400 p-4 flex items-center justify-between gap-3 card-elevated transition-colors"
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <div
@@ -844,21 +845,23 @@ export default function App() {
                   </div>
                 </section>
 
-                {/* Clean Editorial Curriculum Directory Callout */}
+                {/* Dark Celestial Observatory Curriculum Callout */}
                 <ScrollReveal
                   direction="up"
                   distance={22}
-                  className="mt-14 relative overflow-hidden bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-elevated flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+                  className="mt-14 relative overflow-hidden bg-studio-stage text-white rounded-3xl p-7 sm:p-10 border border-slate-800 shadow-[0_24px_60px_-15px_rgba(4,8,20,0.65)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
                 >
-                  <div className="absolute inset-0 bg-dot-matrix opacity-45 pointer-events-none" aria-hidden="true" />
-                  <div className="relative z-10 space-y-1.5 max-w-2xl">
-                    <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
-                      Curriculum Archive
+                  <CelestialOrbitalRings compact />
+                  <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" aria-hidden="true" />
+                  <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/55 to-transparent" aria-hidden="true" />
+                  <div className="relative z-10 space-y-2 max-w-2xl">
+                    <div className="text-xs font-mono font-semibold uppercase tracking-wider text-sky-300">
+                      Curriculum Archive · 411 Accredited Subjects
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
                       Looking for past papers or handouts by subject?
                     </h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm text-slate-300 leading-relaxed">
                       Browse all 411 Virtual University courses organized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
                     </p>
                   </div>
@@ -867,7 +870,7 @@ export default function App() {
                     shimmer
                     type="button"
                     onClick={() => handleNavigate('courses')}
-                    className="relative z-10 group px-5 py-3 rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap shadow-sm"
+                    className="relative z-10 group px-6 py-3.5 rounded-xl bg-gradient-to-r from-white to-sky-50 hover:from-sky-300 hover:to-amber-200 text-slate-950 font-bold text-xs sm:text-sm transition-all cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap shadow-[0_10px_30px_-8px_rgba(56,189,248,0.45)]"
                   >
                     <span>Explore 411 Courses</span>
                     <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -1002,9 +1005,11 @@ export default function App() {
           onClose={() => setPreviewResource(null)}
         />
 
-        {/* Clean Institutional Footer */}
+        {/* Clean Institutional Celestial Footer */}
         <footer className="relative bg-studio-stage text-white border-t border-slate-800 mt-20 pt-14 pb-12 overflow-hidden">
-          <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
+          <CelestialStarfield density={0.45} interactive={false} />
+          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
+          <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { mcqSets } from '../data/mcqs';
 import { ExamTerm, McqQuestion, McqSet } from '../types';
+import { CelestialStarfield, CelestialOrbitalRings } from '../components/CelestialBackdrop';
 
 interface MCQsPageProps {
   activeSetId: string | null;
@@ -632,11 +633,14 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
     ];
 
     return (
-      <div className="min-h-screen bg-[#F5F7FC]">
+      <div className="min-h-screen bg-celestial-canvas">
         {/* Atmospheric Split Studio Hero */}
         <section className="relative overflow-hidden bg-studio-stage text-white border-b border-slate-800">
-          <div className="absolute inset-0 bg-academic-grid opacity-50 pointer-events-none" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+          <CelestialStarfield density={0.75} />
+          <CelestialOrbitalRings compact />
+          <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+          <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <motion.div
                 initial={{ opacity: 0, y: 16 }}

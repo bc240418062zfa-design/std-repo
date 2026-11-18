@@ -105,10 +105,10 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
       }}
       whileHover={{ y: -5 }}
       onPointerMove={handlePointerMove}
-      className={`group relative overflow-hidden bg-white border rounded-2xl p-5 transition-colors flex flex-col justify-between gap-4 card-elevated ${
+      className={`celestial-top-glint group relative overflow-hidden bg-white border rounded-2xl p-5 transition-colors flex flex-col justify-between gap-4 card-elevated ${
         isSelected
-          ? 'border-blue-600 ring-2 ring-blue-600/20 bg-blue-50/15'
-          : 'border-slate-200/80 hover:border-blue-300'
+          ? 'border-blue-600 ring-2 ring-blue-600/20 bg-blue-50/20'
+          : 'border-slate-200/85 hover:border-blue-300/90'
       }`}
     >
       {/* Subtle cursor spotlight */}
@@ -185,7 +185,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           type="button"
           disabled={isDownloading}
           onClick={() => onDownload(resource)}
-          className="btn-shimmer group/dl inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-slate-950 hover:bg-blue-600 text-white transition-colors cursor-pointer disabled:opacity-50 whitespace-nowrap shadow-2xs"
+          className="btn-shimmer group/dl inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-[#070E1F] to-slate-900 hover:from-blue-700 hover:to-indigo-600 text-white transition-all cursor-pointer disabled:opacity-50 whitespace-nowrap shadow-[0_4px_12px_-4px_rgba(7,14,31,0.4)] hover:shadow-[0_6px_16px_-4px_rgba(37,99,235,0.45)]"
         >
           <Download className="w-3.5 h-3.5 transition-transform duration-200 group-hover/dl:translate-y-0.5" />
           <span>{isDownloading ? 'Resolving...' : 'Download'}</span>
