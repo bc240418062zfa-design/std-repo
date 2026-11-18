@@ -38,7 +38,7 @@ import {
   AnimatedCounter,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
-import { CelestialOrbitalRings } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialPageHeader, CelestialStarfield } from '../components/CelestialBackdrop';
 
 interface GuideItem {
   id: string;
@@ -711,54 +711,58 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
   }, [selectedCategory, searchQuery, viewMode]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
-      {/* 1. Page Header */}
-      <ScrollReveal className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-mono font-bold uppercase tracking-wider">
-          <GraduationCap className="w-4 h-4 text-blue-600" />
-          <span>VIRTUAL UNIVERSITY ACADEMIC HANDBOOK &amp; ESSENTIALS</span>
-        </div>
-
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          The Essential VU Student Knowledge Base &amp; FAQs
-        </h1>
-
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          Everything a Virtual University student normally needs to know: <strong>{TOP_VU_FAQS.length} most important student FAQs</strong>, verified examination rules, the <strong>20% Two-Half passing rule</strong>, missed paper rescheduling (PKR 2,000 policy), CGPA probation limits, and assignment grace periods.
-        </p>
-
-        {/* Quick Highlights Stats Grid */}
-        <StaggerGrid className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
-            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Top FAQs</span>
-            <strong className="text-sm sm:text-base font-black text-indigo-700 font-mono">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+      {/* 1. Celestial Observatory Page Header */}
+      <CelestialPageHeader
+        kickerIcon={<GraduationCap className="w-4 h-4" />}
+        kickerText="Virtual University Academic Handbook & Essentials"
+        badgeText="Updated 2026 Policy Reference"
+        title={
+          <>
+            The Essential VU Student{' '}
+            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+              Knowledge Base &amp; FAQs
+            </span>
+          </>
+        }
+        description={
+          <>
+            Everything a Virtual University student normally needs to know: <strong className="text-white">{TOP_VU_FAQS.length} most important student FAQs</strong>, verified examination rules, the <strong className="text-white">20% Two-Half passing rule</strong>, missed paper rescheduling (PKR 2,000 policy), CGPA probation limits, and assignment grace periods.
+          </>
+        }
+      >
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+            <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Top FAQs</span>
+            <strong className="text-sm sm:text-base font-black text-sky-300 font-mono">
               <AnimatedCounter value={TOP_VU_FAQS.length} /> Questions
             </strong>
             <span className="text-[10px] text-slate-400 block">Crucial Student Answers</span>
-          </StaggerItem>
+          </div>
 
-          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
-            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Two-Half Rule</span>
-            <strong className="text-sm sm:text-base font-black text-emerald-700 font-mono">Min 20% + 20%</strong>
+          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+            <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Two-Half Rule</span>
+            <strong className="text-sm sm:text-base font-black text-emerald-300 font-mono">Min 20% + 20%</strong>
             <span className="text-[10px] text-slate-400 block">Sessional &amp; Final Term</span>
-          </StaggerItem>
+          </div>
 
-          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
-            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Reschedule Fee</span>
-            <strong className="text-sm sm:text-base font-black text-blue-700 font-mono">PKR 2,000</strong>
+          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+            <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Reschedule Fee</span>
+            <strong className="text-sm sm:text-base font-black text-white font-mono">PKR 2,000</strong>
             <span className="text-[10px] text-slate-400 block">24-Hr Window on VULMS</span>
-          </StaggerItem>
+          </div>
 
-          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated">
-            <span className="text-[11px] font-bold text-slate-500 uppercase block mb-0.5">Grace Period</span>
-            <strong className="text-sm sm:text-base font-black text-amber-700 font-mono">24 Hours</strong>
+          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+            <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Grace Period</span>
+            <strong className="text-sm sm:text-base font-black text-amber-300 font-mono">24 Hours</strong>
             <span className="text-[10px] text-slate-400 block">Zero marks deduction</span>
-          </StaggerItem>
-        </StaggerGrid>
-      </ScrollReveal>
+          </div>
+        </div>
+      </CelestialPageHeader>
 
       {/* 2. Search & Filter Bar */}
-      <ScrollReveal delay={0.05} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
+      <ScrollReveal delay={0.05} className="celestial-bezel rounded-3xl shadow-[0_14px_34px_-12px_rgba(30,58,138,0.16)]">
+        <div className="surface-frosted rounded-[23px] p-6 sm:p-8 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Live Search Box */}
           <div className="relative flex-1 max-w-xl">
@@ -768,7 +772,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search e.g. assignment fail, reschedule, 20%, probation, grace period, installments..."
-              className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm font-medium rounded-2xl border border-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
+              className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm font-medium rounded-2xl celestial-input text-slate-900"
             />
           </div>
 
@@ -856,6 +860,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
             );
           })}
         </div>
+        </div>
       </ScrollReveal>
 
       {/* 3. SECTION A: Top Important Student FAQs */}
@@ -883,8 +888,8 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               return (
                 <div
                   key={faq.id}
-                  className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden ${
-                    isExpanded ? 'border-indigo-300 shadow-md ring-1 ring-indigo-100' : 'border-slate-200 hover:border-slate-300 shadow-2xs'
+                  className={`celestial-top-glint card-celestial rounded-3xl border transition-all duration-200 overflow-hidden ${
+                    isExpanded ? 'border-indigo-400 shadow-md ring-1 ring-indigo-200/70' : 'border-slate-200/80'
                   }`}
                 >
                   {/* FAQ Header Row */}
@@ -999,8 +1004,8 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               return (
                 <div
                   key={item.id}
-                  className={`bg-white rounded-3xl border transition-all duration-200 overflow-hidden ${
-                    isExpanded ? 'border-blue-300 shadow-md ring-1 ring-blue-100' : 'border-slate-200 hover:border-slate-300 shadow-2xs'
+                  className={`celestial-top-glint card-celestial rounded-3xl border transition-all duration-200 overflow-hidden ${
+                    isExpanded ? 'border-blue-400 shadow-md ring-1 ring-blue-200/70' : 'border-slate-200/80'
                   }`}
                 >
                   {/* Header Row */}
@@ -1138,7 +1143,8 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
       {/* 5. Interactive Callout Banners */}
       <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Banner 1: Passing Simulator */}
-        <div className="relative overflow-hidden p-6 sm:p-8 rounded-3xl bg-studio-stage text-white space-y-4 shadow-md flex flex-col justify-between border border-slate-800">
+        <div className="relative overflow-hidden p-6 sm:p-8 rounded-3xl bg-studio-stage text-white space-y-4 shadow-[0_24px_60px_-15px_rgba(4,8,20,0.65)] flex flex-col justify-between border border-slate-800">
+          <CelestialStarfield density={0.45} interactive={false} />
           <CelestialOrbitalRings compact />
           <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
           <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
@@ -1159,7 +1165,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
             type="button"
             magnetic
             onClick={onNavigateToSimulator}
-            className="relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-xs whitespace-nowrap"
+            className="btn-shimmer relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-lg whitespace-nowrap"
           >
             <span>Open Passing Marks Simulator</span>
             <ExternalLink className="w-4 h-4" />
@@ -1167,7 +1173,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         </div>
 
         {/* Banner 2: 411 Course Library */}
-        <SpotlightCard className="group p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 card-elevated">
+        <SpotlightCard className="group p-6 sm:p-8 rounded-3xl card-celestial border">
           <div className="space-y-4 h-full flex flex-col justify-between">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">

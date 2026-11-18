@@ -105,12 +105,17 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
       }}
       whileHover={{ y: -5 }}
       onPointerMove={handlePointerMove}
-      className={`celestial-top-glint group relative overflow-hidden bg-white border rounded-2xl p-5 transition-colors flex flex-col justify-between gap-4 card-elevated ${
+      className={`celestial-top-glint group relative overflow-hidden card-celestial border rounded-2xl p-5 flex flex-col justify-between gap-4 ${
         isSelected
-          ? 'border-blue-600 ring-2 ring-blue-600/20 bg-blue-50/20'
-          : 'border-slate-200/85 hover:border-blue-300/90'
+          ? 'border-blue-600 ring-2 ring-blue-600/20 bg-blue-50/40'
+          : 'border-slate-200/80 hover:border-sky-400/70'
       }`}
     >
+      {/* Subtle corner starlight ambient glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none -top-12 -right-12 w-28 h-28 rounded-full bg-sky-400/10 blur-xl absolute opacity-60 group-hover:opacity-100 transition-opacity"
+      />
       {/* Subtle cursor spotlight */}
       <motion.div
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -122,7 +127,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2.5 min-w-0">
             <div
-              className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${fmtVisual.box}`}
+              className={`w-8 h-8 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 shadow-2xs ${fmtVisual.box}`}
             >
               {fmtVisual.icon}
             </div>
@@ -163,14 +168,14 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
         </div>
       </div>
 
-      <div className="relative z-10 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+      <div className="relative z-10 pt-3 border-t border-slate-200/70 flex items-center justify-between gap-2">
         {onPreview ? (
           <motion.button
             whileHover={{ y: -1.5, scale: 1.02 }}
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => onPreview(resource)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors cursor-pointer border border-slate-200/80 whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-white/90 hover:bg-blue-50/70 text-slate-700 hover:text-blue-700 transition-colors cursor-pointer border border-slate-200/90 hover:border-blue-300 whitespace-nowrap"
           >
             <Eye className="w-3.5 h-3.5 text-slate-500" />
             <span>Preview</span>

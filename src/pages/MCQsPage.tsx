@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { mcqSets } from '../data/mcqs';
 import { ExamTerm, McqQuestion, McqSet } from '../types';
-import { CelestialStarfield, CelestialOrbitalRings } from '../components/CelestialBackdrop';
+import { CelestialStarfield, CelestialOrbitalRings, CelestialDivider } from '../components/CelestialBackdrop';
 
 interface MCQsPageProps {
   activeSetId: string | null;
@@ -633,12 +633,13 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
     ];
 
     return (
-      <div className="min-h-screen bg-celestial-canvas">
+      <div className="min-h-screen bg-celestial-canvas bg-star-dust">
         {/* Atmospheric Split Studio Hero */}
-        <section className="relative overflow-hidden bg-studio-stage text-white border-b border-slate-800">
+        <section className="relative overflow-hidden bg-studio-stage text-white border-b border-slate-800/90">
           <CelestialStarfield density={0.75} />
           <CelestialOrbitalRings compact />
-          <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+          <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
+          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
           <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -800,7 +801,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     ease: [0.16, 1, 0.3, 1]
                   }}
                   whileHover={{ y: -4 }}
-                  className={`group bg-white rounded-2xl border border-slate-200/80 ${theme.subtleRing} overflow-hidden flex flex-col justify-between card-elevated`}
+                  className={`group card-celestial celestial-top-glint rounded-2xl border ${theme.subtleRing} overflow-hidden flex flex-col justify-between`}
                 >
                   {/* Top Signature Color Accent Hairline */}
                   <div className={`h-1.5 w-full bg-gradient-to-r ${theme.accentBar}`} />
@@ -891,7 +892,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           e.preventDefault();
                           onSelectSetId(set.id);
                         }}
-                        className="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold transition-colors flex items-center justify-between"
+                        className="btn-shimmer w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-slate-950 via-slate-900 to-blue-950 hover:from-blue-600 hover:to-indigo-600 text-white text-xs sm:text-sm font-semibold transition-all flex items-center justify-between shadow-xs"
                       >
                         <span>{answeredCount > 0 ? 'Continue Practice' : 'Start Interactive Quiz'}</span>
                         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -919,15 +920,19 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
       : 0;
 
   return (
-    <div className="min-h-screen bg-[#F5F7FC]">
+    <div className="min-h-screen bg-celestial-canvas bg-star-dust">
       {/* Compact Focused Studio Top Ribbon */}
-      <section className="relative overflow-hidden bg-studio-stage text-white border-b border-slate-800">
-        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+      <section className="relative overflow-hidden bg-studio-stage text-white border-b border-slate-800/90">
+        <CelestialStarfield density={0.5} />
+        <CelestialOrbitalRings compact />
+        <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
+        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-          className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-7 space-y-4"
+          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-7 space-y-4"
         >
           {/* Breadcrumb & Share Controls Row */}
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1028,10 +1033,11 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
         {/* Streamlined Single-Row Studio Control Bar */}
-        <section className="bg-white rounded-2xl border border-slate-200/80 p-3 sm:p-4 card-elevated flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+        <section className="celestial-bezel rounded-2xl shadow-sm">
+          <div className="surface-frosted rounded-[15px] p-3 sm:p-4 flex flex-col xl:flex-row xl:items-center justify-between gap-3">
           {/* Study Mode Segmented Switcher */}
           <div
-            className="inline-flex flex-wrap p-1 rounded-xl bg-slate-100 border border-slate-200/70 self-start xl:self-auto"
+            className="inline-flex flex-wrap p-1 rounded-xl bg-slate-100/90 border border-slate-200/80 self-start xl:self-auto"
             role="tablist"
             aria-label="Study mode"
           >
@@ -1051,17 +1057,17 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   aria-selected={isActive}
                   onClick={() => setMode(id)}
                   className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                    isActive ? 'text-slate-950' : 'text-slate-600 hover:text-slate-950'
+                    isActive ? 'text-white' : 'text-slate-600 hover:text-slate-950'
                   }`}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="mcq-mode-selector"
                       transition={{ type: 'spring', stiffness: 450, damping: 34 }}
-                      className="absolute inset-0 bg-white rounded-lg shadow-xs border border-slate-200/70"
+                      className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg shadow-xs"
                     />
                   )}
-                  <Icon className={`relative z-10 w-3.5 h-3.5 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} />
+                  <Icon className={`relative z-10 w-3.5 h-3.5 ${isActive ? 'text-sky-200' : 'text-slate-400'}`} />
                   <span className="relative z-10">{label}</span>
                 </button>
               );
@@ -1082,7 +1088,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     setCurrentIndex(0);
                   }}
                   placeholder={`Search ${activeSet.courseCode}...`}
-                  className="h-9 w-full pl-8 pr-3 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  className="celestial-input h-9 w-full pl-8 pr-3 text-xs rounded-xl text-slate-900"
                   aria-label="Search questions"
                 />
               </div>
@@ -1096,7 +1102,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       setTopicFilter(e.target.value);
                       setCurrentIndex(0);
                     }}
-                    className="h-9 appearance-none pl-3 pr-8 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer max-w-[175px] truncate"
+                    className="celestial-input h-9 appearance-none pl-3 pr-8 text-xs rounded-xl text-slate-800 font-semibold cursor-pointer max-w-[175px] truncate"
                     aria-label="Filter by topic"
                   >
                     <option value="ALL">All Topics ({activeSet.questions.length})</option>
@@ -1122,7 +1128,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       setPracticeFilter(e.target.value as PracticeFilter);
                       setCurrentIndex(0);
                     }}
-                    className="h-9 appearance-none pl-3 pr-8 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 cursor-pointer"
+                    className="celestial-input h-9 appearance-none pl-3 pr-8 text-xs rounded-xl text-slate-800 font-semibold cursor-pointer"
                     aria-label="Filter by practice status"
                   >
                     <option value="all">All ({activeStats.total})</option>
@@ -1203,6 +1209,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 ))}
             </div>
           )}
+          </div>
         </section>
 
         {/* MODE 1: INTERACTIVE PRACTICE STUDIO */}
@@ -1211,7 +1218,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
             {/* Left Focus Question Canvas */}
             <div className="lg:col-span-8 space-y-4">
               {!currentQuestion ? (
-                <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4 card-elevated">
+                <div className="card-celestial celestial-top-glint rounded-2xl border p-12 text-center space-y-4">
                   <BookOpen className="w-10 h-10 text-slate-300 mx-auto" />
                   <div className="space-y-1">
                     <h3 className="text-lg font-bold text-slate-900">No matching questions in this filter</h3>
@@ -1226,7 +1233,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       setTopicFilter('ALL');
                       setPracticeFilter('all');
                     }}
-                    className="px-5 py-2.5 rounded-xl bg-slate-950 hover:bg-blue-600 text-white text-xs font-semibold cursor-pointer transition-colors"
+                    className="btn-shimmer px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-950 to-blue-950 hover:from-blue-600 hover:to-indigo-600 text-white text-xs font-semibold cursor-pointer transition-all"
                   >
                     Show All {activeSet.courseCode} Questions
                   </button>
@@ -1246,8 +1253,9 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -8 }}
                         transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                        className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden card-elevated"
+                        className="celestial-bezel rounded-2xl shadow-sm"
                       >
+                        <div className="card-celestial celestial-top-glint rounded-[15px] overflow-hidden">
                         {/* Integrated Top Session Hairline Progress */}
                         <div className="h-1.5 w-full bg-slate-100 overflow-hidden">
                           <motion.div
@@ -1448,12 +1456,13 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                               onClick={() =>
                                 setCurrentIndex((i) => Math.min(filteredQuestions.length - 1, i + 1))
                               }
-                              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-slate-950 hover:bg-blue-600 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-white transition-colors cursor-pointer min-h-[44px]"
+                              className="btn-shimmer inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-950 to-blue-950 hover:from-blue-600 hover:to-indigo-600 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-white transition-all cursor-pointer min-h-[44px]"
                             >
                               <span>Next Question</span>
                               <ChevronRight className="w-4 h-4" />
                             </motion.button>
                           </div>
+                        </div>
                         </div>
                       </motion.div>
                     </AnimatePresence>
@@ -1464,7 +1473,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
             {/* Right Rail: Live Mastery Telemetry & Question Jump Map */}
             <aside className="lg:col-span-4 space-y-4">
-              <div className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 space-y-5 card-elevated">
+              <div className="card-celestial celestial-top-glint rounded-2xl border p-5 sm:p-6 space-y-5">
                 <div className="flex items-center justify-between gap-4 pb-4 border-b border-slate-100">
                   <div className="space-y-1">
                     <div className="text-xs font-mono font-semibold text-blue-700 uppercase tracking-wider">
@@ -1562,7 +1571,8 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
         {mode === 'exam' && (
           <section>
             {examStatus === 'setup' && (
-              <div className="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-10 max-w-3xl mx-auto space-y-7 card-elevated">
+              <div className="celestial-bezel rounded-2xl max-w-3xl mx-auto shadow-sm">
+                <div className="card-celestial celestial-top-glint rounded-[15px] p-6 sm:p-10 space-y-7">
                 <div className="space-y-2">
                   <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
                     <Timer className="w-4 h-4" />
@@ -1597,10 +1607,10 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           key={i}
                           type="button"
                           onClick={() => setExamSize(count)}
-                          className={`p-4 rounded-2xl border-2 text-left transition-colors cursor-pointer ${
+                          className={`p-4 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                             isPicked
-                              ? 'bg-slate-950 border-slate-950 text-white shadow-md'
-                              : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-800'
+                              ? 'bg-gradient-to-br from-slate-950 to-blue-950 border-blue-500 text-white shadow-md'
+                              : 'surface-frosted hover:border-blue-300 border-slate-200/80 text-slate-800'
                           }`}
                         >
                           <div className="font-mono text-base font-bold tabular-nums">{label}</div>
@@ -1617,7 +1627,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-5 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100">
+                <div className="pt-5 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200/70">
                   <div className="text-xs text-slate-500">
                     Target benchmark: <strong className="text-slate-900">70%+</strong> for VU distinction.
                   </div>
@@ -1625,18 +1635,20 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     whileTap={{ scale: 0.97 }}
                     type="button"
                     onClick={handleStartExam}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors cursor-pointer min-h-[48px] shadow-sm"
+                    className="btn-shimmer inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm transition-all cursor-pointer min-h-[48px] shadow-sm"
                   >
                     <Timer className="w-4 h-4" />
                     <span>Begin Timed Mock Exam</span>
                   </motion.button>
+                </div>
                 </div>
               </div>
             )}
 
             {examStatus === 'running' && examActiveQuestion && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <div className="lg:col-span-8 bg-white rounded-2xl border border-slate-200/80 overflow-hidden card-elevated">
+                <div className="lg:col-span-8 celestial-bezel rounded-2xl shadow-sm">
+                  <div className="card-celestial celestial-top-glint rounded-[15px] overflow-hidden">
                   <div className="h-1.5 w-full bg-slate-100">
                     <div
                       className="h-full bg-blue-600 transition-all duration-300"
@@ -1762,9 +1774,10 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       </div>
                     </div>
                   </div>
+                  </div>
                 </div>
 
-                <aside className="lg:col-span-4 bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 space-y-5 card-elevated">
+                <aside className="lg:col-span-4 card-celestial celestial-top-glint rounded-2xl border p-5 sm:p-6 space-y-5">
                   <div className="flex items-center justify-between">
                     <h4 className="text-base font-bold text-slate-950">Exam Sheet</h4>
                     <span className="text-xs font-mono font-semibold text-slate-500 tabular-nums">
@@ -1845,10 +1858,13 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   initial={{ opacity: 0, scale: 0.98, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative overflow-hidden bg-studio-stage text-white rounded-2xl border border-slate-800 p-6 sm:p-8"
+                  className="relative overflow-hidden bg-studio-stage text-white rounded-2xl border border-slate-800/90 p-6 sm:p-8 shadow-xl"
                 >
-                  <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
-                  <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <CelestialStarfield density={0.55} />
+                  <CelestialOrbitalRings compact />
+                  <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
+                  <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+                  <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="flex items-center gap-5">
                       <MasteryRing
                         percent={examScoreSummary.pct}
@@ -1909,7 +1925,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h4 className="text-lg font-bold text-slate-950">Detailed Answer Review</h4>
-                  <div className="inline-flex p-1 rounded-xl bg-white border border-slate-200">
+                  <div className="inline-flex p-1 rounded-xl surface-frosted border border-slate-200/80">
                     {(
                       [
                         { id: 'all', label: `All (${examQuestions.length})` },
@@ -1923,7 +1939,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                         onClick={() => setExamReviewFilter(tab.id)}
                         className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer ${
                           examReviewFilter === tab.id
-                            ? 'bg-slate-950 text-white'
+                            ? 'bg-gradient-to-r from-slate-950 to-blue-950 text-white shadow-xs'
                             : 'text-slate-600 hover:text-slate-900'
                         }`}
                       >
@@ -1949,7 +1965,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       return (
                         <div
                           key={q.id}
-                          className="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 space-y-3 card-elevated"
+                          className="card-celestial celestial-top-glint rounded-2xl border p-5 sm:p-6 space-y-3"
                         >
                           <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
                             <span className="text-slate-500 font-semibold">
@@ -2026,7 +2042,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
             </div>
 
             {filteredQuestions.length === 0 ? (
-              <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center text-sm text-slate-500">
+              <div className="card-celestial celestial-top-glint rounded-2xl border p-10 text-center text-sm text-slate-500">
                 No questions match your search or topic filter.
               </div>
             ) : (
@@ -2044,7 +2060,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                         delay: Math.min((idx % 6) * 0.025, 0.14),
                         ease: [0.16, 1, 0.3, 1]
                       }}
-                      className="bg-white rounded-2xl border border-slate-200/80 p-5 space-y-3 flex flex-col justify-between card-elevated"
+                      className="card-celestial celestial-top-glint rounded-2xl border p-5 space-y-3 flex flex-col justify-between"
                     >
                       <div className="space-y-3">
                         <div className="flex items-center justify-between gap-2 text-xs font-mono text-slate-500">
@@ -2097,8 +2113,10 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
           </section>
         )}
 
+        <CelestialDivider className="pt-4" />
+
         {/* Cross-links to other dedicated Subject MCQ Pages */}
-        <section className="pt-8 border-t border-slate-200/80 space-y-4">
+        <section className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h2 className="text-xl font-bold text-slate-950">Other Subject MCQ Pages</h2>
@@ -2134,7 +2152,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     ease: [0.16, 1, 0.3, 1]
                   }}
                   whileHover={{ y: -3 }}
-                  className="bg-white rounded-2xl border border-slate-200/80 hover:border-blue-300 p-4 flex items-center justify-between gap-3 transition-colors card-elevated"
+                  className="card-celestial celestial-top-glint rounded-2xl border hover:border-blue-300 p-4 flex items-center justify-between gap-3 transition-colors"
                 >
                   <a
                     href={`/mcqs/${set.id}`}

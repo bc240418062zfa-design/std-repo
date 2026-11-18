@@ -16,6 +16,11 @@ import {
   AnimatedButton,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
+import {
+  CelestialPageHeader,
+  CelestialStarfield,
+  CelestialOrbitalRings
+} from '../components/CelestialBackdrop';
 
 export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavigateHome }) => {
   const pillars = [
@@ -42,28 +47,30 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
     },
     {
       icon: <Server className="w-5 h-5" />,
-      iconColor: 'text-slate-700',
-      glow: 'rgba(71, 85, 105, 0.08)',
+      iconColor: 'text-indigo-700',
+      glow: 'rgba(99, 102, 241, 0.08)',
       title: 'High-Availability Cloud CDN',
       desc: 'During high-stress midterm and final examination seasons, our distributed edge infrastructure ensures the portal stays online 24/7 with fast load times across PTCL, Nayatel, StormFiber, Jazz, Zong, and overseas connections.'
     }
   ];
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10">
-      {/* Editorial Header */}
-      <ScrollReveal direction="up" distance={18} className="space-y-3 max-w-3xl">
-        <div className="flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
-          <ShieldCheck className="w-4 h-4" />
-          <span>Student Trust &amp; Safety Guarantee</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-          Privacy, Security &amp; Resource Safety
-        </h1>
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          MIHORA STUDY LIBRARY is built with a student-first philosophy. We prioritize absolute user privacy, verified document safety, and zero commercial interruptions for every Virtual University student across Pakistan.
-        </p>
-      </ScrollReveal>
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-9">
+      {/* Celestial Observatory Header */}
+      <CelestialPageHeader
+        kickerIcon={<ShieldCheck className="w-4 h-4" />}
+        kickerText="Student Trust & Safety Guarantee"
+        badgeText="Zero Tracking · Verified Clean Files"
+        title={
+          <>
+            Privacy, Security &amp;{' '}
+            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+              Resource Safety
+            </span>
+          </>
+        }
+        description="MIHORA STUDY LIBRARY is built with a student-first philosophy. We prioritize absolute user privacy, verified document safety, and zero commercial interruptions for every Virtual University student across Pakistan."
+      />
 
       {/* Trust Pillars Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -77,10 +84,10 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
           >
             <SpotlightCard
               spotlightColor={item.glow}
-              className="group h-full bg-white rounded-2xl border border-slate-200 hover:border-blue-300 p-6 sm:p-7 card-elevated"
+              className="group h-full card-celestial rounded-2xl border p-6 sm:p-7"
             >
               <div className="space-y-3">
-                <div className={`w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${item.iconColor}`}>
+                <div className={`w-10 h-10 rounded-xl bg-white border border-slate-200/80 shadow-2xs flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${item.iconColor}`}>
                   {item.icon}
                 </div>
                 <h2 className="text-lg font-bold text-slate-900 font-sans">{item.title}</h2>
@@ -92,7 +99,7 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
       </div>
 
       {/* Educational Commitments List */}
-      <ScrollReveal direction="up" distance={20} className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
+      <ScrollReveal direction="up" distance={20} className="celestial-top-glint card-celestial rounded-3xl border p-6 sm:p-8 space-y-6">
         <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 font-sans">
           <HeartHandshake className="w-5 h-5 text-blue-700" />
           <span>Our Operational Commitments to Students</span>
@@ -123,7 +130,7 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 'some' }}
               transition={{ delay: idx * 0.05, ease: EASE_OUT_EXPO }}
-              className="flex items-start gap-3"
+              className="flex items-start gap-3 p-3.5 rounded-xl bg-white/85 border border-slate-200/70"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0 mt-1" />
               <div>
@@ -138,9 +145,12 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
       <ScrollReveal
         direction="up"
         distance={20}
-        className="p-6 sm:p-8 rounded-2xl bg-studio-stage text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-slate-800 shadow-lg"
+        className="relative overflow-hidden p-6 sm:p-9 rounded-3xl bg-studio-stage text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-slate-800 shadow-[0_24px_60px_-15px_rgba(4,8,20,0.65)]"
       >
-        <div className="space-y-1">
+        <CelestialStarfield density={0.45} interactive={false} />
+        <CelestialOrbitalRings compact />
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/55 to-transparent" aria-hidden="true" />
+        <div className="relative z-10 space-y-1">
           <h2 className="text-xl font-bold text-white font-sans">Ready to start studying?</h2>
           <p className="text-sm text-slate-300">
             Search 28,328+ course handouts, midterm papers, final papers, and solved MCQs.
@@ -151,7 +161,7 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
           shimmer
           type="button"
           onClick={onNavigateHome}
-          className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-colors cursor-pointer shrink-0 shadow-sm"
+          className="relative z-10 group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm transition-all cursor-pointer shrink-0 shadow-lg"
         >
           <span>Explore Library</span>
           <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />

@@ -23,6 +23,7 @@ import {
   AnimatedButton,
   AnimatedCounter
 } from '../components/MotionPrimitives';
+import { CelestialPageHeader } from '../components/CelestialBackdrop';
 
 interface AboutPageProps {
   onNavigateHome: () => void;
@@ -31,28 +32,34 @@ interface AboutPageProps {
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigateCourses }) => {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
-      {/* Hero / Corporate Identity Header */}
-      <ScrollReveal className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-mono font-bold uppercase tracking-wider">
-          <Building2 className="w-4 h-4" />
-          <span>ABOUT MIHORA TECH &amp; VU INITIATIVE</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Empowering Virtual University Students Across Pakistan
-        </h1>
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          MIHORA STUDY LIBRARY (<a href="https://study.mihora.tech" className="text-blue-600 font-semibold underline underline-offset-2">study.mihora.tech</a>) is a dedicated non-commercial academic social initiative engineered by <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="text-slate-900 font-bold hover:text-blue-600 transition-colors inline-flex items-center gap-1">MIHORA TECH <ExternalLink className="w-3.5 h-3.5" /></a> to solve the critical challenges of educational resource discovery for distance-learning university students.
-        </p>
-      </ScrollReveal>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+      {/* Celestial Hero Header */}
+      <CelestialPageHeader
+        kickerIcon={<Building2 className="w-4 h-4" />}
+        kickerText="About MIHORA TECH & VU Initiative"
+        badgeText="Official Corporate CSR Program"
+        title={
+          <>
+            Empowering Virtual University{' '}
+            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+              Students Across Pakistan
+            </span>
+          </>
+        }
+        description={
+          <>
+            MIHORA STUDY LIBRARY (<a href="https://study.mihora.tech" className="text-sky-300 font-semibold underline underline-offset-2">study.mihora.tech</a>) is a dedicated non-commercial academic social initiative engineered by <a href="https://www.mihora.tech" target="_blank" rel="noopener noreferrer" className="text-white font-bold hover:text-amber-200 transition-colors inline-flex items-center gap-1">MIHORA TECH <ExternalLink className="w-3.5 h-3.5" /></a> to solve educational resource discovery challenges for distance-learning university students.
+          </>
+        }
+      />
 
       {/* Corporate Overview Card */}
-      <ScrollReveal delay={0.05} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+      <ScrollReveal delay={0.05} className="celestial-top-glint card-celestial rounded-3xl border p-6 sm:p-10 space-y-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-200/70">
           <div className="space-y-1">
             <MihoraLogo variant="dark" size="lg" />
             <p className="text-xs text-slate-500 font-medium">
-              Enterprise Software & Academic Technology Innovations
+              Enterprise Software &amp; Academic Technology Innovations
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -60,12 +67,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
               href="https://www.mihora.tech"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-colors"
+              className="btn-shimmer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#070E1F] to-slate-900 hover:from-blue-700 hover:to-indigo-600 text-white font-semibold text-xs transition-all"
             >
               <span>Visit www.mihora.tech</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
-            <span className="px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold">
+            <span className="text-blue-700 text-xs font-mono font-bold">
               Official Corporate CSR Program
             </span>
           </div>
@@ -117,9 +124,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
 
         <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <StaggerItem>
-            <SpotlightCard className="group h-full bg-white rounded-2xl border border-slate-200 p-6 card-elevated">
+            <SpotlightCard className="group h-full card-celestial rounded-2xl border p-6">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
                   01
                 </div>
                 <h3 className="text-base font-bold text-slate-900">
@@ -133,9 +140,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
           </StaggerItem>
 
           <StaggerItem>
-            <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full bg-white rounded-2xl border border-slate-200 p-6 card-elevated">
+            <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full card-celestial rounded-2xl border p-6">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/70 flex items-center justify-center text-emerald-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
                   02
                 </div>
                 <h3 className="text-base font-bold text-slate-900">
@@ -149,9 +156,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
           </StaggerItem>
 
           <StaggerItem>
-            <SpotlightCard spotlightColor="rgba(147, 51, 234, 0.10)" className="group h-full bg-white rounded-2xl border border-slate-200 p-6 card-elevated">
+            <SpotlightCard spotlightColor="rgba(147, 51, 234, 0.10)" className="group h-full card-celestial rounded-2xl border p-6">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
+                <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200/70 flex items-center justify-center text-purple-600 font-bold text-sm font-mono transition-transform duration-300 group-hover:scale-110">
                   03
                 </div>
                 <h3 className="text-base font-bold text-slate-900">Zero Ads &amp; Zero Login</h3>
@@ -165,41 +172,43 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
       </div>
 
       {/* Key Guarantees & Code of Conduct */}
-      <ScrollReveal className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+      <ScrollReveal className="celestial-bezel rounded-3xl shadow-[0_14px_34px_-12px_rgba(30,58,138,0.14)]">
+        <div className="card-celestial rounded-[23px] p-6 sm:p-8 space-y-6">
         <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-blue-600" />
           <span>Our Integrity &amp; Operational Commitments</span>
         </h2>
 
         <StaggerGrid className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
-          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
+          <StaggerItem className="flex items-start gap-2.5 p-3.5 rounded-xl bg-white/90 border border-slate-200/80 shadow-2xs">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-800">100% Free Forever:</strong> We will never introduce paywalls, download throttling, or premium subscription tiers for educational materials.
             </div>
           </StaggerItem>
 
-          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
+          <StaggerItem className="flex items-start gap-2.5 p-3.5 rounded-xl bg-white/90 border border-slate-200/80 shadow-2xs">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-800">No Student Telemetry:</strong> We do not collect student roll numbers, phone numbers, email addresses, or personal identity information.
             </div>
           </StaggerItem>
 
-          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
+          <StaggerItem className="flex items-start gap-2.5 p-3.5 rounded-xl bg-white/90 border border-slate-200/80 shadow-2xs">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-800">Virus &amp; Malware Scanned:</strong> All repository items are validated against spam, broken links, and executable files to ensure safe downloads.
             </div>
           </StaggerItem>
 
-          <StaggerItem className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-slate-200/70">
+          <StaggerItem className="flex items-start gap-2.5 p-3.5 rounded-xl bg-white/90 border border-slate-200/80 shadow-2xs">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
             <div>
               <strong className="text-slate-800">High-Speed Static Delivery:</strong> Hosted on global edge CDN nodes guaranteeing sub-100ms load times across all Pakistani ISPs.
             </div>
           </StaggerItem>
         </StaggerGrid>
+        </div>
       </ScrollReveal>
 
       {/* Official Academic Disclaimer */}

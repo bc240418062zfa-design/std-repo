@@ -30,7 +30,7 @@ import {
   AnimatedButton,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
-import { CelestialOrbitalRings } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialStarfield, CelestialDivider } from '../components/CelestialBackdrop';
 
 const allCourses = coursesData as Course[];
 
@@ -111,10 +111,12 @@ int main() {
       </nav>
 
       {/* Hero Header */}
-      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
+      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]">
+        <CelestialStarfield density={0.62} />
         <CelestialOrbitalRings compact />
-        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+        <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
         <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none animate-float-slow" />
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/65 to-transparent" aria-hidden="true" />
         <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent" aria-hidden="true" />
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 text-emerald-300 text-xs font-mono font-semibold uppercase tracking-wider">
@@ -133,9 +135,9 @@ int main() {
       {/* Core Highlights Alert Bar */}
       <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <StaggerItem>
-          <SpotlightCard className="group h-full p-6 rounded-2xl bg-white border border-slate-200/90 card-elevated">
+          <SpotlightCard className="group h-full p-6 rounded-2xl card-celestial celestial-top-glint border">
             <div className="space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 transition-transform duration-300 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-xl bg-blue-50/90 text-blue-600 flex items-center justify-center border border-blue-200/70 transition-transform duration-300 group-hover:scale-110">
                 <Clock className="w-5 h-5" />
               </div>
               <h3 className="text-slate-900 font-bold text-sm">
@@ -149,9 +151,9 @@ int main() {
         </StaggerItem>
 
         <StaggerItem>
-          <SpotlightCard spotlightColor="rgba(225, 29, 72, 0.08)" className="group h-full p-6 rounded-2xl bg-white border border-slate-200/90 card-elevated">
+          <SpotlightCard spotlightColor="rgba(225, 29, 72, 0.08)" className="group h-full p-6 rounded-2xl card-celestial celestial-top-glint border">
             <div className="space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center border border-rose-100 transition-transform duration-300 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-xl bg-rose-50/90 text-rose-600 flex items-center justify-center border border-rose-200/70 transition-transform duration-300 group-hover:scale-110">
                 <ShieldAlert className="w-5 h-5" />
               </div>
               <h3 className="text-slate-900 font-bold text-sm">
@@ -165,9 +167,9 @@ int main() {
         </StaggerItem>
 
         <StaggerItem>
-          <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full p-6 rounded-2xl bg-white border border-slate-200/90 card-elevated">
+          <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full p-6 rounded-2xl card-celestial celestial-top-glint border">
             <div className="space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100 transition-transform duration-300 group-hover:scale-110">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50/90 text-emerald-600 flex items-center justify-center border border-emerald-200/70 transition-transform duration-300 group-hover:scale-110">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <h3 className="text-slate-900 font-bold text-sm">
@@ -182,7 +184,8 @@ int main() {
       </StaggerGrid>
 
       {/* Interactive Code Header Template Generator */}
-      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
+      <ScrollReveal className="celestial-bezel rounded-3xl shadow-sm">
+        <div className="card-celestial celestial-top-glint rounded-[23px] p-6 sm:p-10 space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
@@ -200,12 +203,12 @@ int main() {
               value={studentIdInput}
               onChange={(e) => setStudentIdInput(e.target.value.toUpperCase())}
               placeholder="e.g. BC230400000"
-              className="px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs font-bold text-slate-900 uppercase focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="celestial-input px-3 py-1.5 rounded-lg font-mono text-xs font-bold text-slate-900 uppercase"
             />
             <AnimatedButton
               type="button"
               onClick={handleCopyTemplate}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition-colors cursor-pointer whitespace-nowrap"
+              className="btn-shimmer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-gradient-to-r from-slate-950 to-blue-950 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold text-xs transition-all cursor-pointer whitespace-nowrap"
             >
               {copiedTemplate ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedTemplate ? 'Copied Header!' : 'Copy Template'}</span>
@@ -213,13 +216,14 @@ int main() {
           </div>
         </div>
 
-        <pre className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs overflow-x-auto leading-relaxed border border-slate-800">
+        <pre className="p-5 rounded-2xl bg-studio-stage text-sky-100 font-mono text-xs overflow-x-auto leading-relaxed border border-slate-800/90 shadow-lg">
           <code>{sampleTemplate}</code>
         </pre>
+        </div>
       </ScrollReveal>
 
       {/* Directory of All 411 Courses for 2026 Assignment Solutions */}
-      <section className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
+      <section className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-10 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
@@ -232,8 +236,8 @@ int main() {
           </div>
 
           {/* Quick Filter Counts */}
-          <div className="text-xs font-mono font-semibold text-slate-500 bg-slate-100 px-3 py-1 rounded-full self-start sm:self-auto">
-            Showing {filteredCourses.length} of {allCourses.length} Courses
+          <div className="text-xs font-mono font-semibold text-slate-600 self-start sm:self-auto tabular-nums">
+            Showing <strong className="text-slate-900">{filteredCourses.length}</strong> of {allCourses.length} Courses
           </div>
         </div>
 
@@ -246,7 +250,7 @@ int main() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search course code or title (e.g. CS101, MTH101, MGT101)..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium"
+              className="celestial-input w-full pl-10 pr-4 py-2.5 rounded-xl text-slate-900 text-xs sm:text-sm font-medium"
             />
           </div>
 
@@ -254,7 +258,7 @@ int main() {
             <select
               value={selectedFaculty}
               onChange={(e) => setSelectedFaculty(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+              className="celestial-input w-full px-3 py-2.5 rounded-xl text-slate-800 text-xs font-semibold cursor-pointer"
             >
               {faculties.map((f) => (
                 <option key={f} value={f}>
@@ -266,15 +270,15 @@ int main() {
         </div>
 
         {/* Courses Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto p-1">
+        <div className="bg-star-dust rounded-2xl p-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto border border-slate-200/70">
           {filteredCourses.map((c) => (
             <div 
               key={c.code}
-              className="p-4 rounded-2xl border border-slate-200/90 bg-white hover:border-emerald-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-150 flex items-start justify-between gap-3 group"
+              className="card-celestial celestial-top-glint p-4 rounded-2xl border hover:border-emerald-300 hover:-translate-y-0.5 transition-all duration-150 flex items-start justify-between gap-3 group"
             >
               <div className="space-y-1.5 flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-bold text-slate-900 text-xs px-2 py-0.5 rounded-lg bg-slate-100 group-hover:bg-emerald-50 group-hover:text-emerald-800 transition-colors">
+                  <span className="font-mono font-bold text-slate-900 text-xs px-2 py-0.5 rounded-lg bg-slate-100/90 group-hover:bg-emerald-50 group-hover:text-emerald-800 transition-colors">
                     {c.code}
                   </span>
                   <span className="text-[11px] font-mono text-slate-400">
@@ -326,8 +330,13 @@ int main() {
         </div>
       </section>
 
+      <CelestialDivider />
+
       {/* Turnitin & GDB Strategy FAQ Section */}
-      <ScrollReveal className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-10 space-y-6 border border-slate-800">
+      <ScrollReveal className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-10 space-y-6 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]">
+        <CelestialStarfield density={0.5} />
+        <CelestialOrbitalRings compact />
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" aria-hidden="true" />
         <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
         <div className="relative z-10">
           <h2 className="text-2xl font-black text-white flex items-center gap-2">

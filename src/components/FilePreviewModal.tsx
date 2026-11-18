@@ -181,9 +181,10 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
             }`}
           >
             {/* Top Header Bar */}
-            <div className="px-5 py-3.5 bg-slate-900 text-white flex items-center justify-between gap-4 shrink-0 border-b border-slate-800">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-8 h-8 rounded-xl bg-blue-600/30 border border-blue-400/30 text-blue-400 flex items-center justify-center shrink-0">
+            <div className="relative px-5 py-3.5 bg-studio-stage text-white flex items-center justify-between gap-4 shrink-0 border-b border-slate-800 overflow-hidden">
+              <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
+              <div className="relative z-10 flex items-center gap-3 min-w-0">
+                <div className="w-8 h-8 rounded-xl bg-sky-500/20 border border-sky-400/35 text-sky-300 flex items-center justify-center shrink-0">
                   {format === 'PDF' ? (
                     <FileText className="w-4 h-4" />
                   ) : format === 'DOC' || format === 'DOCX' ? (
@@ -203,7 +204,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
                       {resource.course}
                     </span>
                     <span className="text-slate-600" aria-hidden="true">·</span>
-                    <span className="font-semibold text-slate-400 uppercase tracking-wider">
+                    <span className="font-semibold text-amber-300/90 uppercase tracking-wider">
                       {resource.format} Reader
                     </span>
                   </div>
@@ -214,7 +215,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
               </div>
 
               {/* Action Tools */}
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="relative z-10 flex items-center gap-2 shrink-0">
                 {driveViewUrl && (
                   <motion.a
                     whileHover={{ y: -1 }}
@@ -222,10 +223,10 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
                     href={driveViewUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-colors cursor-pointer border border-slate-700"
+                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-colors cursor-pointer border border-slate-700"
                     title="Open in separate tab"
                   >
-                    <ExternalLink className="w-3.5 h-3.5 text-blue-400" />
+                    <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
                     <span>New Tab</span>
                   </motion.a>
                 )}
@@ -235,7 +236,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
                   whileTap={{ scale: 0.95 }}
                   type="button"
                   onClick={handleDownload}
-                  className="btn-shimmer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-2xs"
+                  className="btn-shimmer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs transition-all cursor-pointer shadow-sm"
                   title="Save document directly to your device"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -246,7 +247,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
                   whileTap={{ scale: 0.9 }}
                   type="button"
                   onClick={() => setIsFullscreen(!isFullscreen)}
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                   title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
                 >
                   {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
@@ -257,7 +258,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
                   whileTap={{ scale: 0.9 }}
                   type="button"
                   onClick={onClose}
-                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                   aria-label="Close document viewer"
                 >
                   <X className="w-5 h-5" />
@@ -266,7 +267,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
             </div>
 
             {/* Subheader Toolbar */}
-            <div className="px-5 py-2 bg-slate-50 border-b border-slate-200 flex items-center justify-between text-xs text-slate-600 shrink-0">
+            <div className="px-5 py-2 surface-frosted border-b border-slate-200/80 flex items-center justify-between text-xs text-slate-600 shrink-0">
               <div className="flex items-center gap-2">
                 <span className="flex items-center gap-1 text-emerald-700 font-semibold text-[11px]">
                   <ShieldCheck className="w-3.5 h-3.5" />
@@ -282,10 +283,10 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
             </div>
 
             {/* Main Embedded Viewer Area */}
-            <div className="flex-1 bg-slate-900 overflow-hidden relative flex flex-col">
+            <div className="flex-1 bg-[#040814] overflow-hidden relative flex flex-col">
               {loading && !error && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 space-y-4 bg-slate-900/90 backdrop-blur-xs z-20 text-white">
-                  <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 space-y-4 bg-[#040814]/92 backdrop-blur-xs z-20 text-white">
+                  <Loader2 className="w-10 h-10 text-sky-400 animate-spin" />
                   <div className="text-center space-y-1">
                     <h3 className="text-sm font-bold text-white">Connecting to Verified Document Stream...</h3>
                     <p className="text-xs text-slate-400 max-w-sm">

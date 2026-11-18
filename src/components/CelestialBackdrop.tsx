@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { motion } from 'motion/react';
 
 interface CelestialStarfieldProps {
   density?: number;
@@ -298,3 +299,97 @@ export const CelestialOrbitalRings: React.FC<CelestialOrbitalRingsProps> = ({
     </div>
   );
 };
+
+interface CelestialPageHeaderProps {
+  kickerIcon?: React.ReactNode;
+  kickerText: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  rightSlot?: React.ReactNode;
+  children?: React.ReactNode;
+  badgeText?: string;
+}
+
+export const CelestialPageHeader: React.FC<CelestialPageHeaderProps> = ({
+  kickerIcon,
+  kickerText,
+  title,
+  description,
+  rightSlot,
+  children,
+  badgeText
+}) => {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-9 lg:p-10 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]"
+    >
+      <CelestialStarfield density={0.62} />
+      <CelestialOrbitalRings compact />
+      <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" aria-hidden="true" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 -right-16 w-72 h-72 rounded-full bg-indigo-500/20 blur-[90px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-24 left-12 w-72 h-52 rounded-full bg-sky-500/15 blur-[90px]"
+      />
+
+      <div className="relative z-10 space-y-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-3 max-w-3xl">
+            <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-semibold uppercase tracking-wider text-sky-300">
+              <span className="inline-flex items-center gap-2">
+                {kickerIcon}
+                <span>{kickerText}</span>
+              </span>
+              {badgeText && (
+                <>
+                  <span aria-hidden="true" className="text-slate-600">·</span>
+                  <span className="text-amber-300">{badgeText}</span>
+                </>
+              )}
+            </div>
+
+            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight text-white">
+              {title}
+            </h1>
+
+            {description && (
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+                {description}
+              </p>
+            )}
+          </div>
+
+          {rightSlot && (
+            <div className="shrink-0">
+              {rightSlot}
+            </div>
+          )}
+        </div>
+
+        {children}
+      </div>
+    </motion.section>
+  );
+};
+
+export const CelestialDivider: React.FC<{ className?: string }> = ({ className = '' }) => (
+  <div aria-hidden="true" className={`relative flex items-center justify-center py-2 ${className}`}>
+    <div className="h-px w-full bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
+    <div className="absolute flex items-center justify-center w-6 h-6 rounded-full bg-[#F4F7FE] border border-sky-200/80 shadow-2xs">
+      <svg viewBox="0 0 24 24" className="w-3 h-3 text-blue-600" fill="currentColor">
+        <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
+      </svg>
+    </div>
+  </div>
+);
+

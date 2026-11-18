@@ -16,6 +16,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { ScrollReveal, StaggerGrid, StaggerItem, SpotlightCard, EASE_OUT_EXPO } from '../components/MotionPrimitives';
+import { CelestialPageHeader } from '../components/CelestialBackdrop';
 
 interface SitemapPageProps {
   courses: Course[];
@@ -117,20 +118,22 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
-      {/* Header */}
-      <ScrollReveal direction="up" className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-extrabold tracking-widest uppercase">
-          <Network className="w-4 h-4" />
-          <span>Portal & Curriculum Directory</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Academic Curriculum & Portal Directory
-        </h1>
-        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Quickly navigate all sections of the MIHORA STUDY LIBRARY, including the VU Student Handbook, all 411+ Virtual University courses, exam passing simulator, student trust guarantees, and academic guidelines.
-        </p>
-      </ScrollReveal>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+      {/* Celestial Observatory Header */}
+      <CelestialPageHeader
+        kickerIcon={<Network className="w-4 h-4" />}
+        kickerText="Portal & Curriculum Directory"
+        badgeText="411 Courses · 27 Faculties"
+        title={
+          <>
+            Academic Curriculum &amp;{' '}
+            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+              Portal Directory
+            </span>
+          </>
+        }
+        description="Quickly navigate all sections of the MIHORA STUDY LIBRARY, including the VU Student Handbook, all 411+ Virtual University courses, exam passing simulator, student trust guarantees, and academic guidelines."
+      />
 
       {/* Main Portal Section Links */}
       <div className="space-y-4">
@@ -145,7 +148,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
                 <SpotlightCard
                   onClick={() => onNavigate(section.id)}
                   spotlightColor={section.spotlight}
-                  className={`h-full p-5 rounded-2xl bg-white border border-slate-200 ${section.hoverBorder} card-elevated cursor-pointer group`}
+                  className={`h-full p-5 rounded-2xl card-celestial border ${section.hoverBorder} cursor-pointer group`}
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -212,7 +215,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
               value={sitemapSearch}
               onChange={(e) => setSitemapSearch(e.target.value)}
               placeholder="Filter courses..."
-              className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-600 transition-shadow"
+              className="w-full px-3.5 py-2 text-xs rounded-xl celestial-input text-slate-900"
             />
           </div>
         </ScrollReveal>
@@ -225,9 +228,9 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 'some' }}
               transition={{ duration: 0.4, delay: Math.min(groupIdx * 0.04, 0.2), ease: EASE_OUT_EXPO }}
-              className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4 shadow-xs"
+              className="celestial-top-glint card-celestial rounded-2xl border p-6 space-y-4"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200/70">
                 <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
                   <Layers className="w-4 h-4 text-blue-600" />
                   <span>{faculty}</span>
@@ -246,7 +249,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.16, ease: EASE_OUT_EXPO }}
                     onClick={() => onSelectCourse(c.code)}
-                    className="p-2.5 rounded-xl border border-slate-100 hover:border-blue-400 hover:bg-blue-50/50 hover:shadow-xs text-left transition-colors cursor-pointer group flex flex-col justify-between"
+                    className="p-2.5 rounded-xl bg-white/85 border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/70 hover:shadow-xs text-left transition-colors cursor-pointer group flex flex-col justify-between"
                   >
                     <span className="font-mono text-xs font-bold text-blue-700 group-hover:text-blue-800">
                       {c.code}

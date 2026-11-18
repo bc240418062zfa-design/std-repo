@@ -32,6 +32,7 @@ import {
   AnimatedCounter,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
+import { CelestialPageHeader } from '../components/CelestialBackdrop';
 
 interface PastPapersPageProps {
   initialCourse?: string;
@@ -139,49 +140,50 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
   const quickCourses = ['CS101', 'CS201', 'CS301', 'MTH101', 'ENG201', 'STA301', 'ISL202', 'PAK301', 'MGT101', 'ACC501'];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10">
-      {/* 1. Header & Anti-Scraping Protection Banner */}
-      <ScrollReveal className="space-y-4 max-w-4xl">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-mono text-slate-600">
-          <span className="inline-flex items-center gap-1.5 font-semibold text-indigo-700">
-            <GraduationCap className="w-4 h-4" />
-            <span>2026 MIDTERM &amp; EXAM PAPERS ARCHIVE</span>
-          </span>
-          <span aria-hidden="true" className="text-slate-300">·</span>
-          <span className="font-semibold text-emerald-700">
-            <AnimatedCounter value={265} /> VU Courses
-          </span>
-          <span aria-hidden="true" className="text-slate-300">·</span>
-          <span className="font-semibold text-slate-800">
-            <AnimatedCounter value={1780} suffix="+" /> Exam Reviews
-          </span>
-          <span aria-hidden="true" className="text-slate-300">·</span>
-          <span className="inline-flex items-center gap-1 text-slate-500">
-            <Lock className="w-3.5 h-3.5" />
-            <span>Anti-Scraping Stream Active</span>
-          </span>
-        </div>
-
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          2026 Past Papers &amp; Exam Reviews
-        </h1>
-
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          Ground-truth exam reviews, authentic memory-recalled questions, and subjective topics directly reported by Virtual University students across 265 courses.
-        </p>
-
-        {/* Security & Isolation Disclaimer */}
-        <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600 flex items-start gap-3 shadow-2xs">
-          <Lock className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-9">
+      {/* 1. Celestial Observatory Header & Anti-Scraping Protection Banner */}
+      <CelestialPageHeader
+        kickerIcon={<GraduationCap className="w-4 h-4" />}
+        kickerText="2026 Midterm & Exam Papers Archive"
+        badgeText="Anti-Scraping Stream Active"
+        title={
+          <>
+            2026 Past Papers &amp;{' '}
+            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+              Verified Exam Reviews
+            </span>
+          </>
+        }
+        description="Ground-truth exam reviews, authentic memory-recalled questions, and subjective topics directly reported by Virtual University students across 265 courses."
+        rightSlot={
+          <div className="grid grid-cols-2 gap-3 min-w-[240px]">
+            <div className="glass-panel-dark rounded-2xl p-3.5 text-center">
+              <div className="text-xl sm:text-2xl font-extrabold font-mono text-sky-300 tabular-nums">
+                <AnimatedCounter value={265} />
+              </div>
+              <div className="text-[11px] text-slate-300 mt-0.5">VU Courses</div>
+            </div>
+            <div className="glass-panel-dark rounded-2xl p-3.5 text-center">
+              <div className="text-xl sm:text-2xl font-extrabold font-mono text-amber-300 tabular-nums">
+                <AnimatedCounter value={1780} suffix="+" />
+              </div>
+              <div className="text-[11px] text-slate-300 mt-0.5">Exam Reviews</div>
+            </div>
+          </div>
+        }
+      >
+        <div className="glass-panel-dark p-3.5 rounded-2xl text-xs text-slate-300 flex items-start gap-3">
+          <Lock className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
           <p className="leading-relaxed">
-            <strong>Data Security &amp; Anti-Dumping Architecture:</strong> This archive enforces single-stream rate limiting and paginated access. Automated mass scraping and bulk extraction are restricted to preserve server availability and source integrity.
+            <strong className="text-white">Data Security &amp; Anti-Dumping Architecture:</strong> This archive enforces single-stream rate limiting and paginated access. Automated mass scraping and bulk extraction are restricted to preserve server availability and source integrity.
           </p>
         </div>
-      </ScrollReveal>
+      </CelestialPageHeader>
 
       {/* 2. Course Selection & Quick Shortcuts Cockpit */}
-      <ScrollReveal delay={0.05} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <ScrollReveal delay={0.05} className="celestial-bezel rounded-3xl shadow-[0_14px_34px_-12px_rgba(30,58,138,0.16)]">
+        <div className="card-celestial rounded-[23px] p-6 sm:p-8 space-y-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200/70">
           <div>
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-blue-600" />
@@ -207,14 +209,14 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                   className={`relative px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors cursor-pointer border ${
                     isSelected
                       ? 'border-blue-600 text-white'
-                      : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-700'
+                      : 'bg-white/90 hover:bg-blue-50/70 border-slate-200 text-slate-700'
                   }`}
                 >
                   {isSelected && (
                     <motion.span
                       layoutId="pastpapers-quick-course"
                       transition={{ type: 'spring', stiffness: 450, damping: 32 }}
-                      className="absolute inset-0 rounded-lg bg-blue-600 shadow-2xs"
+                      className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 shadow-2xs"
                     />
                   )}
                   <span className="relative z-10">{c}</span>
@@ -234,7 +236,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
               value={courseSearch}
               onChange={(e) => setCourseSearch(e.target.value)}
               placeholder="Filter course (e.g. CS101, MTH, English)..."
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-600"
+              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl celestial-input text-slate-900"
             />
           </div>
 
@@ -243,7 +245,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
             <select
               value={facultyFilter}
               onChange={(e) => setFacultyFilter(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium focus:outline-hidden focus:ring-2 focus:ring-blue-600 cursor-pointer appearance-none"
+              className="w-full px-3 py-2 text-xs rounded-xl celestial-input text-slate-800 font-medium cursor-pointer appearance-none"
             >
               <option value="ALL">All Academic Disciplines ({reviewsIndex.length})</option>
               {faculties.map((f) => (
@@ -259,7 +261,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
             <select
               value={selectedCourseCode}
               onChange={(e) => handleSelectCourse(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-blue-300 bg-blue-50/50 text-blue-900 font-bold focus:outline-hidden focus:ring-2 focus:ring-blue-600 cursor-pointer appearance-none"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-blue-300 bg-blue-50/70 text-blue-900 font-bold focus:outline-hidden focus:ring-2 focus:ring-blue-600 cursor-pointer appearance-none"
             >
               {filteredCourses.map((c) => (
                 <option key={c.code} value={c.code}>
@@ -269,11 +271,12 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
             </select>
           </div>
         </div>
+        </div>
       </ScrollReveal>
 
       {/* 3. Active Course Status & Topics Bar */}
-      <ScrollReveal delay={0.08} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-7 space-y-5 card-elevated">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <ScrollReveal delay={0.08} className="celestial-top-glint card-celestial border rounded-3xl p-6 sm:p-7 space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/70">
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="font-mono text-xl sm:text-2xl font-black text-blue-700">
@@ -429,7 +432,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                 >
                   <SpotlightCard
                     hoverLift={-3}
-                    className="group h-full bg-white rounded-2xl border border-slate-200/90 p-5 hover:border-blue-300 card-elevated"
+                    className="group h-full card-celestial rounded-2xl border p-5"
                   >
                     <div className="space-y-4">
                       {/* Review Header */}
@@ -524,7 +527,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
 
         {/* 5. Pagination Bar (Anti-Dumping Single Stream Navigation) */}
         {!loading && reviewsData && reviewsData.totalPages > 1 && (
-          <div className="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-2xs">
+          <div className="card-celestial rounded-2xl border p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <span className="text-xs text-slate-500 font-mono">
               Showing reviews {(reviewsData.page - 1) * 10 + 1} to{' '}
               {Math.min(reviewsData.page * 10, reviewsData.totalReviews)} of{' '}
@@ -537,7 +540,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                 whileTap={{ scale: 0.95 }}
                 disabled={reviewsData.page <= 1}
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none text-xs font-semibold text-slate-700 transition-colors cursor-pointer shadow-2xs"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 bg-white/90 hover:bg-blue-50/70 disabled:opacity-40 disabled:pointer-events-none text-xs font-semibold text-slate-700 transition-colors cursor-pointer shadow-2xs"
               >
                 <ChevronLeft className="w-3.5 h-3.5" />
                 <span>Previous</span>
@@ -560,8 +563,8 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                       onClick={() => setCurrentPage(pageNum)}
                       className={`w-8 h-8 rounded-xl text-xs font-mono font-bold transition-colors cursor-pointer ${
                         reviewsData.page === pageNum
-                          ? 'bg-blue-600 text-white shadow-2xs'
-                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200'
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs'
+                          : 'bg-white/90 hover:bg-blue-50/70 text-slate-700 border border-slate-200'
                       }`}
                     >
                       {pageNum}

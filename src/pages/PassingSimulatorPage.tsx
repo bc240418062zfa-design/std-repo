@@ -32,6 +32,7 @@ import {
   AnimatedButton,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
+import { CelestialPageHeader, CelestialStarfield } from '../components/CelestialBackdrop';
 
 const allCourses = coursesData as Course[];
 
@@ -371,59 +372,62 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
   const strokeDashoffset = 283 - (283 * gaugePercent) / 100;
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-12">
-      {/* 1. Header & Official Context */}
-      <ScrollReveal className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center gap-2 text-blue-700 text-xs font-mono font-bold uppercase tracking-wider">
-          <Award className="w-4 h-4 text-blue-600" />
-          <span>VIRTUAL UNIVERSITY ACADEMIC SIMULATION ENGINE</span>
-        </div>
-        
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-          Exam Passing Marks &amp; Grade Target Simulator
-        </h1>
-        
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-          Ground-truth simulator modeled on official Virtual University of Pakistan examination regulations: evaluate the <strong>Two-Half 20% Evaluation Rule</strong>, calculate required Final Term scores, and download an executive Academic Intelligence Report in PDF.
-        </p>
-
-        {/* Real Rules Key Facts Bar */}
-        <StaggerGrid className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+      {/* 1. Celestial Observatory Header & Official Context */}
+      <CelestialPageHeader
+        kickerIcon={<Award className="w-4 h-4" />}
+        kickerText="Virtual University Academic Simulation Engine"
+        badgeText="20% Two-Half Compliance Engine"
+        title={
+          <>
+            Exam Passing Marks &amp;{' '}
+            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+              Grade Target Simulator
+            </span>
+          </>
+        }
+        description={
+          <>
+            Ground-truth simulator modeled on official Virtual University of Pakistan examination regulations: evaluate the <strong className="text-white">Two-Half 20% Evaluation Rule</strong>, calculate required Final Term scores, and download an executive Academic Intelligence Report in PDF.
+          </>
+        }
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <div className="glass-panel-dark rounded-2xl p-3.5 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-400/35 text-emerald-300 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
               20%
             </div>
             <div className="text-xs">
-              <strong className="block text-slate-900 font-bold">First-Half Rule</strong>
-              <span className="text-slate-500">Min 20% in sessional &amp; mid</span>
+              <strong className="block text-white font-bold">First-Half Rule</strong>
+              <span className="text-slate-300">Min 20% in sessional &amp; mid</span>
             </div>
-          </StaggerItem>
+          </div>
 
-          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
+          <div className="glass-panel-dark rounded-2xl p-3.5 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-sky-500/20 border border-sky-400/35 text-sky-300 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
               20%
             </div>
             <div className="text-xs">
-              <strong className="block text-slate-900 font-bold">Final Term Rule</strong>
-              <span className="text-slate-500">Min 20% in final exam paper</span>
+              <strong className="block text-white font-bold">Final Term Rule</strong>
+              <span className="text-slate-300">Min 20% in final exam paper</span>
             </div>
-          </StaggerItem>
+          </div>
 
-          <StaggerItem className="p-3.5 rounded-2xl bg-white border border-slate-200 card-elevated flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
+          <div className="glass-panel-dark rounded-2xl p-3.5 flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/35 text-amber-300 flex items-center justify-center shrink-0 font-mono font-bold text-xs">
               50%
             </div>
             <div className="text-xs">
-              <strong className="block text-slate-900 font-bold">Aggregate Pass</strong>
-              <span className="text-slate-500">Official D-Grade Threshold</span>
+              <strong className="block text-white font-bold">Aggregate Pass</strong>
+              <span className="text-slate-300">Official D-Grade Threshold</span>
             </div>
-          </StaggerItem>
-        </StaggerGrid>
-      </ScrollReveal>
+          </div>
+        </div>
+      </CelestialPageHeader>
 
       {/* 2. Course Selection & Presets */}
-      <ScrollReveal delay={0.05} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <ScrollReveal delay={0.05} className="celestial-top-glint card-celestial rounded-3xl border p-6 sm:p-8 space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200/70">
           <div>
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-blue-600" />
@@ -581,8 +585,8 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
       </ScrollReveal>
 
       {/* 3. Weightage Scheme & Passing Policy Selector */}
-      <ScrollReveal delay={0.07} className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6 card-elevated">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <ScrollReveal delay={0.07} className="celestial-top-glint card-celestial rounded-3xl border p-6 sm:p-8 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/70">
           <div>
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
               <Sliders className="w-4 h-4 text-blue-600" />
@@ -736,7 +740,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Card 1: Quizzes */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-5 space-y-4 shadow-xs">
+          <div className="celestial-top-glint card-celestial rounded-3xl border p-5 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-900">Quizzes (All)</span>
               <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-100">
@@ -752,7 +756,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   max={quizMarks.total}
                   value={quizMarks.obtained}
                   onChange={(e) => setQuizMarks({ ...quizMarks, obtained: Math.max(0, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900"
                 />
               </div>
               <div>
@@ -762,18 +766,18 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   min="1"
                   value={quizMarks.total}
                   onChange={(e) => setQuizMarks({ ...quizMarks, total: Math.max(1, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900"
                 />
               </div>
             </div>
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+            <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between text-xs">
               <span className="text-slate-500">Contribution:</span>
               <strong className="text-emerald-700 font-bold">{calculations.qContrib.toFixed(2)}%</strong>
             </div>
           </div>
 
           {/* Card 2: Assignments */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-5 space-y-4 shadow-xs">
+          <div className="celestial-top-glint card-celestial rounded-3xl border p-5 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-900">Assignments (All)</span>
               <span className="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-100">
@@ -789,7 +793,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   max={assignMarks.total}
                   value={assignMarks.obtained}
                   onChange={(e) => setAssignMarks({ ...assignMarks, obtained: Math.max(0, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900"
                 />
               </div>
               <div>
@@ -799,18 +803,18 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   min="1"
                   value={assignMarks.total}
                   onChange={(e) => setAssignMarks({ ...assignMarks, total: Math.max(1, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900"
                 />
               </div>
             </div>
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+            <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between text-xs">
               <span className="text-slate-500">Contribution:</span>
               <strong className="text-blue-700 font-bold">{calculations.aContrib.toFixed(2)}%</strong>
             </div>
           </div>
 
           {/* Card 3: GDB */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-5 space-y-4 shadow-xs">
+          <div className="celestial-top-glint card-celestial rounded-3xl border p-5 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-900">GDB (Discussion)</span>
               <span className="text-[11px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded-lg border border-purple-100">
@@ -827,7 +831,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   disabled={activeWeights.gdb === 0}
                   value={activeWeights.gdb === 0 ? 0 : gdbMarks.obtained}
                   onChange={(e) => setGdbMarks({ ...gdbMarks, obtained: Math.max(0, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50 disabled:bg-slate-100"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900 disabled:bg-slate-100"
                 />
               </div>
               <div>
@@ -838,18 +842,18 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   disabled={activeWeights.gdb === 0}
                   value={activeWeights.gdb === 0 ? 0 : gdbMarks.total}
                   onChange={(e) => setGdbMarks({ ...gdbMarks, total: Math.max(1, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50 disabled:bg-slate-100"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900 disabled:bg-slate-100"
                 />
               </div>
             </div>
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+            <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between text-xs">
               <span className="text-slate-500">Contribution:</span>
               <strong className="text-purple-700 font-bold">{calculations.gContrib.toFixed(2)}%</strong>
             </div>
           </div>
 
           {/* Card 4: Midterm Examination */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-5 space-y-4 shadow-xs">
+          <div className="celestial-top-glint card-celestial rounded-3xl border p-5 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-900">Midterm Exam</span>
               <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-lg border border-indigo-100">
@@ -865,7 +869,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   max={midMarks.total}
                   value={midMarks.obtained}
                   onChange={(e) => setMidMarks({ ...midMarks, obtained: Math.max(0, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900"
                 />
               </div>
               <div>
@@ -875,11 +879,11 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
                   min="1"
                   value={midMarks.total}
                   onChange={(e) => setMidMarks({ ...midMarks, total: Math.max(1, Number(e.target.value)) })}
-                  className="w-full px-3 py-2 text-sm font-bold rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 text-slate-900 bg-slate-50/50"
+                  className="w-full px-3 py-2 text-sm font-bold rounded-xl celestial-input text-slate-900"
                 />
               </div>
             </div>
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+            <div className="pt-2 border-t border-slate-200/70 flex items-center justify-between text-xs">
               <span className="text-slate-500">Contribution:</span>
               <strong className="text-indigo-700 font-bold">{calculations.mContrib.toFixed(2)}%</strong>
             </div>
@@ -887,7 +891,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
         </div>
 
         {/* Final Exam Total Selector */}
-        <div className="p-4 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs">
+        <div className="p-4 rounded-2xl card-celestial border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="space-y-0.5">
             <span className="text-xs font-bold text-slate-900">Expected Final Term Paper Total Marks:</span>
             <p className="text-[11px] text-slate-500">Regular VU courses have 60 marks (MCQs + Subjective).</p>
@@ -913,9 +917,10 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
       </div>
 
       {/* 5. Live Analytical Dashboard with Circular Gauge & Two-Half Compliance */}
-      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 space-y-8 card-elevated">
+      <ScrollReveal className="celestial-bezel rounded-3xl shadow-[0_18px_42px_-14px_rgba(30,58,138,0.18)]">
+        <div className="card-celestial rounded-[23px] p-6 sm:p-10 space-y-8">
         {/* Header & Download Action */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-200/70">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
               <TrendingUp className="w-4 h-4" />
@@ -930,9 +935,9 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
             type="button"
             magnetic
             onClick={handleDownloadPDF}
-            className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-md whitespace-nowrap"
+            className="btn-shimmer inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#070E1F] via-blue-900 to-indigo-900 hover:from-blue-700 hover:to-indigo-600 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-md whitespace-nowrap"
           >
-            <Download className="w-4 h-4 text-blue-400" />
+            <Download className="w-4 h-4 text-sky-300" />
             <span>Download Official PDF Report</span>
           </AnimatedButton>
         </div>
@@ -940,7 +945,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
         {/* Circular Gauge & Status Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Circular SVG Gauge (4 cols) */}
-          <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-3xl bg-slate-50 border border-slate-200/80">
+          <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-3xl bg-white/85 border border-slate-200/80 shadow-2xs">
             <div className="relative w-44 h-44 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                 {/* Background Ring */}
@@ -1007,28 +1012,30 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
           {/* Core Findings & Pass Target Box (8 cols) */}
           <div className="lg:col-span-8 space-y-4">
             {/* Primary Pass Target Banner */}
-            <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900 to-blue-950 text-white space-y-3 shadow-md">
-              <div className="flex items-center justify-between">
-                <span className="text-xs uppercase tracking-wider text-blue-300 font-bold flex items-center gap-1.5">
+            <div className="relative overflow-hidden p-6 rounded-3xl bg-studio-stage text-white space-y-3 border border-slate-800 shadow-[0_20px_50px_-14px_rgba(4,8,20,0.65)]">
+              <CelestialStarfield density={0.35} interactive={false} />
+              <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" aria-hidden="true" />
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="text-xs uppercase tracking-wider text-sky-300 font-bold flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-amber-400" />
                   <span>Passing Target for {passingThreshold}% Aggregate</span>
                 </span>
-                <span className="px-3 py-1 rounded-xl bg-white/10 text-white text-[11px] font-bold">
+                <span className="px-3 py-1 rounded-xl glass-panel-dark text-white text-[11px] font-bold">
                   Final Exam: {finalTotalMarks} Marks
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:items-baseline gap-2">
+              <div className="relative z-10 flex flex-col sm:flex-row sm:items-baseline gap-2">
                 <h3 className="text-3xl sm:text-4xl font-black text-white font-mono">
                   {calculations.finalRawForPass} / {finalTotalMarks} Marks
                 </h3>
-                <span className="text-sm font-semibold text-blue-200">
+                <span className="text-sm font-semibold text-sky-200">
                   ({calculations.finalPercentForPass.toFixed(1)}% required in paper)
                 </span>
               </div>
 
-              <p className="text-xs text-slate-300 leading-relaxed max-w-xl">
-                To satisfy both the <strong>20% Final Term independent rule</strong> (min {calculations.final20PercentMarks} marks) and the <strong>{passingThreshold}% overall course passing aggregate</strong>, you must score at least <strong>{calculations.finalRawForPass} marks</strong> in the final examination.
+              <p className="relative z-10 text-xs text-slate-300 leading-relaxed max-w-xl">
+                To satisfy both the <strong className="text-white">20% Final Term independent rule</strong> (min {calculations.final20PercentMarks} marks) and the <strong className="text-white">{passingThreshold}% overall course passing aggregate</strong>, you must score at least <strong className="text-amber-300">{calculations.finalRawForPass} marks</strong> in the final examination.
               </p>
             </div>
 
@@ -1132,9 +1139,9 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
             <span className="text-xs text-slate-500 font-medium">Official 4.00 Grade Point Scale</span>
           </div>
 
-          <div className="overflow-x-auto border border-slate-200 rounded-2xl shadow-2xs">
+          <div className="overflow-x-auto border border-slate-200/80 rounded-2xl shadow-2xs bg-white/95">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+              <thead className="celestial-table-head border-b border-slate-800 text-sky-100 font-bold">
                 <tr>
                   <th className="py-3 px-4">Target Grade</th>
                   <th className="py-3 px-4">Grade Points</th>
@@ -1146,7 +1153,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {calculations.targets.map((tgt) => (
-                  <tr key={tgt.grade} className="hover:bg-slate-50/70 transition-colors">
+                  <tr key={tgt.grade} className="hover:bg-blue-50/40 transition-colors">
                     <td className="py-3 px-4 font-bold text-slate-900 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-blue-600" />
                       <span>{tgt.grade}</span>
@@ -1197,7 +1204,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
         </div>
 
         {/* Footer Actions */}
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-100">
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200/70">
           <div className="text-xs text-slate-500">
             All calculations strictly verify Virtual University Two-Half examination assessment guidelines.
           </div>
@@ -1205,44 +1212,45 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
             type="button"
             magnetic
             onClick={handleDownloadPDF}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-sm whitespace-nowrap"
+            className="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-sm whitespace-nowrap"
           >
             <Download className="w-4 h-4" />
             <span>Download Official PDF Report</span>
           </AnimatedButton>
         </div>
+        </div>
       </ScrollReveal>
 
       {/* 8. Official VU Regulations FAQ & Rules Guide */}
-      <ScrollReveal className="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+      <ScrollReveal className="card-celestial rounded-3xl border p-6 sm:p-8 space-y-6">
         <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
           <Info className="w-5 h-5 text-blue-600" />
           <span>Official Virtual University Examination Policies (Verified)</span>
         </h2>
 
         <StaggerGrid className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-600 leading-relaxed">
-          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+          <StaggerItem className="celestial-top-glint bg-white/90 p-5 rounded-2xl border border-slate-200/80 space-y-2 shadow-2xs">
             <h3 className="font-bold text-slate-900 text-sm">1. The Two-Half Evaluation Model</h3>
             <p>
               Under official Virtual University regulations, course assessment is split into two halves: <strong>First Half (Sessional work + Midterm)</strong> and <strong>Second Half (Final Term examination)</strong>. A student must achieve at least 20% in the First Half and at least 20% in the Second Half independently.
             </p>
           </StaggerItem>
 
-          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+          <StaggerItem className="celestial-top-glint bg-white/90 p-5 rounded-2xl border border-slate-200/80 space-y-2 shadow-2xs">
             <h3 className="font-bold text-slate-900 text-sm">2. Passing Aggregate Threshold</h3>
             <p>
               In addition to the 20% independent requirements, the total weighted cumulative score of both halves combined must equal or exceed <strong>50% (Standard D grade)</strong> or the university&apos;s <strong>40% floor rule</strong> depending on the course announcement.
             </p>
           </StaggerItem>
 
-          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+          <StaggerItem className="celestial-top-glint bg-white/90 p-5 rounded-2xl border border-slate-200/80 space-y-2 shadow-2xs">
             <h3 className="font-bold text-slate-900 text-sm">3. Missed Midterm Exam</h3>
             <p>
               If a student is unable to appear for the Midterm Exam on their scheduled date, they receive 0 marks for that component. However, they can apply for <strong>Rescheduled Examinations</strong> through the official VULMS link by paying the designated rescheduling fee within the announced window.
             </p>
           </StaggerItem>
 
-          <StaggerItem className="bg-white p-5 rounded-2xl border border-slate-200 space-y-2 shadow-2xs">
+          <StaggerItem className="celestial-top-glint bg-white/90 p-5 rounded-2xl border border-slate-200/80 space-y-2 shadow-2xs">
             <h3 className="font-bold text-slate-900 text-sm">4. Course Repeat &amp; Grade Improvement</h3>
             <p>
               Any course with an &ldquo;F&rdquo; grade must be repeated in a subsequent semester during Course Selection. Courses with &ldquo;D&rdquo; or &ldquo;D+&rdquo; grades can also be repeated to improve cumulative CGPA and escape academic probation.

@@ -19,7 +19,7 @@ import {
   FloatingScrollTop,
   EASE_OUT_EXPO
 } from './components/MotionPrimitives';
-import { CelestialStarfield, CelestialOrbitalRings } from './components/CelestialBackdrop';
+import { CelestialStarfield, CelestialOrbitalRings, CelestialDivider } from './components/CelestialBackdrop';
 import { CoursesPage } from './pages/CoursesPage';
 import { SecurityPage } from './pages/SecurityPage';
 import { AboutPage } from './pages/AboutPage';
@@ -526,7 +526,13 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-screen flex flex-col bg-celestial-canvas text-slate-900 font-sans">
+      <div className="relative min-h-screen flex flex-col bg-celestial-canvas bg-star-dust text-slate-900 font-sans">
+        {/* Subtle fixed ambient celestial aurora washes across light sections */}
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden z-0">
+          <div className="absolute -top-40 left-1/4 w-[520px] h-[360px] rounded-full bg-sky-400/[0.06] blur-[110px]" />
+          <div className="absolute top-1/2 -right-32 w-[460px] h-[420px] rounded-full bg-indigo-500/[0.06] blur-[120px]" />
+          <div className="absolute -bottom-32 -left-24 w-[420px] h-[340px] rounded-full bg-amber-400/[0.045] blur-[110px]" />
+        </div>
         {/* Top Bar Navigation */}
         <Navbar
           currentPage={currentPage}
@@ -539,7 +545,7 @@ export default function App() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, ease: EASE_OUT_EXPO }}
-          className="flex-1 flex flex-col"
+          className="relative z-10 flex-1 flex flex-col"
         >
           {/* 1. Page: Home / Search Catalog */}
           {currentPage === 'home' && (
@@ -629,7 +635,7 @@ export default function App() {
                           }}
                           whileHover={{ y: -5, scale: 1.01 }}
                           whileTap={{ scale: 0.98 }}
-                          className="celestial-top-glint group bg-white rounded-2xl border border-slate-200/85 hover:border-blue-400 p-4 flex items-center justify-between gap-3 card-elevated transition-colors"
+                          className="celestial-top-glint group card-celestial rounded-2xl border p-4 flex items-center justify-between gap-3"
                         >
                           <div className="flex items-center gap-3 min-w-0">
                             <div
@@ -658,11 +664,15 @@ export default function App() {
                 </ScrollReveal>
               </section>
 
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-6">
+                <CelestialDivider />
+              </div>
+
               {/* Main Interactive Catalog */}
               <main
                 ref={searchResultsRef}
                 id="catalog"
-                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full"
+                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full"
               >
                 {/* Filter Control Surface */}
                 <FilterBar
@@ -681,9 +691,9 @@ export default function App() {
                     <motion.div
                       initial={{ opacity: 0, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="bg-white rounded-2xl border border-slate-200 p-12 text-center space-y-4 card-elevated"
+                      className="celestial-top-glint card-celestial rounded-3xl border p-12 text-center space-y-4"
                     >
-                      <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+                      <div className="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200/80 flex items-center justify-center mx-auto text-blue-600">
                         <BookOpen className="w-6 h-6" />
                       </div>
                       <div className="space-y-1">
@@ -738,7 +748,7 @@ export default function App() {
                       shimmer
                       type="button"
                       onClick={() => setLimit((prev) => prev + 24)}
-                      className="px-6 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-blue-500 text-slate-800 hover:text-blue-700 font-semibold text-xs sm:text-sm card-elevated transition-colors cursor-pointer"
+                      className="px-6 py-2.5 rounded-xl card-celestial border border-sky-300/70 hover:border-blue-500 text-slate-800 hover:text-blue-700 font-semibold text-xs sm:text-sm cursor-pointer"
                     >
                       Load More Resources ({totalMatchingCount - filteredResources.length} remaining)
                     </AnimatedButton>
@@ -748,8 +758,10 @@ export default function App() {
                   </ScrollReveal>
                 )}
 
+                <CelestialDivider className="mt-12" />
+
                 {/* Scroll-Animated VU Student Toolkit Showcase */}
-                <section className="mt-16 space-y-5">
+                <section className="mt-10 space-y-5">
                   <ScrollReveal direction="up" distance={18} className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                     <div>
                       <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
@@ -817,7 +829,7 @@ export default function App() {
                         <SpotlightCard
                           onClick={() => handleNavigate(tool.page)}
                           spotlightColor={tool.glow}
-                          className="group h-full bg-white rounded-2xl border border-slate-200/80 hover:border-blue-400 p-5 card-elevated cursor-pointer"
+                          className="group h-full card-celestial rounded-2xl border p-5 cursor-pointer"
                         >
                           <div>
                             <div className="flex items-center justify-between gap-2">

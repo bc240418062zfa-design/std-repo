@@ -6,6 +6,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { ScrollReveal, AnimatedButton, EASE_OUT_EXPO } from '../components/MotionPrimitives';
+import { CelestialPageHeader } from '../components/CelestialBackdrop';
 
 interface DisclaimerPageProps {
   onNavigateHome: () => void;
@@ -14,25 +15,27 @@ interface DisclaimerPageProps {
 
 export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, onNavigateCourses }) => {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10">
-      {/* Header */}
-      <ScrollReveal direction="up" distance={18} className="space-y-3">
-        <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-amber-700">
-          <HelpCircle className="w-4 h-4" />
-          <span>Legal &amp; Academic Policies</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-          Academic Notice &amp; Disclaimer
-        </h1>
-        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-          Please review the operational principles, intellectual property attribution, and fair educational use terms governing the MIHORA STUDY LIBRARY.
-        </p>
-      </ScrollReveal>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-9">
+      {/* Celestial Observatory Header */}
+      <CelestialPageHeader
+        kickerIcon={<HelpCircle className="w-4 h-4" />}
+        kickerText="Legal & Academic Policies"
+        badgeText="Fair Educational Use"
+        title={
+          <>
+            Academic Notice &amp;{' '}
+            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+              Disclaimer
+            </span>
+          </>
+        }
+        description="Please review the operational principles, intellectual property attribution, and fair educational use terms governing the MIHORA STUDY LIBRARY."
+      />
 
       {/* Main Notice Card */}
       <ScrollReveal
         direction="scale"
-        className="p-6 sm:p-8 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 space-y-4 card-elevated"
+        className="celestial-top-glint p-6 sm:p-8 rounded-3xl bg-amber-50/90 border border-amber-200/90 text-amber-950 space-y-4 card-elevated"
       >
         <div className="flex items-center gap-2.5 font-bold text-amber-900 text-base">
           <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
@@ -79,7 +82,7 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, 
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 'some' }}
             transition={{ duration: 0.34, delay: idx * 0.05, ease: EASE_OUT_EXPO }}
-            className="bg-white rounded-2xl border border-slate-200/80 p-6 space-y-2.5 card-elevated"
+            className="celestial-top-glint card-celestial rounded-2xl border p-6 space-y-2.5"
           >
             <h2 className="text-base sm:text-lg font-bold text-slate-900">{sec.title}</h2>
             {sec.paragraphs.map((p, pIdx) => (
@@ -90,13 +93,13 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, 
       </div>
 
       {/* Action Footer */}
-      <ScrollReveal direction="up" className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200">
+      <ScrollReveal direction="up" className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200/80">
         <motion.button
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.96 }}
           type="button"
           onClick={onNavigateCourses}
-          className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition-colors cursor-pointer"
+          className="px-4 py-2.5 rounded-xl bg-white/90 hover:bg-blue-50/70 border border-slate-200 text-slate-800 font-semibold text-xs transition-colors cursor-pointer"
         >
           Browse All Courses
         </motion.button>
@@ -105,7 +108,7 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, 
           shimmer
           type="button"
           onClick={onNavigateHome}
-          className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors cursor-pointer shadow-xs"
+          className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs transition-all cursor-pointer shadow-sm"
         >
           <span>Return to Library</span>
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />

@@ -32,7 +32,8 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
           transition={{ type: 'spring', stiffness: 360, damping: 28 }}
           className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-2xl"
         >
-          <div className="bg-[#0A192F]/95 border border-blue-800/70 rounded-2xl shadow-2xl p-3.5 sm:p-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-lg">
+          <div className="celestial-bezel rounded-2xl shadow-[0_24px_54px_-12px_rgba(4,8,20,0.7)]">
+          <div className="bg-studio-stage rounded-[15px] p-3.5 sm:p-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-lg">
             {/* Selection Count Info */}
             <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
               <div className="flex items-center gap-2">
@@ -108,6 +109,7 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
                 <X className="w-4 h-4" />
               </motion.button>
             </div>
+          </div>
           </div>
         </motion.div>
       )}

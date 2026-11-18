@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ScrollReveal, StaggerGrid, StaggerItem, EASE_OUT_EXPO } from '../components/MotionPrimitives';
-import { CelestialOrbitalRings } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialStarfield, CelestialDivider } from '../components/CelestialBackdrop';
 
 interface VUDatesheetGuidePageProps {
   onNavigateHome: () => void;
@@ -79,10 +79,12 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
       </nav>
 
       {/* Hero Header */}
-      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800 shadow-xl">
+      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]">
+        <CelestialStarfield density={0.62} />
         <CelestialOrbitalRings compact />
-        <div className="absolute inset-0 bg-academic-grid opacity-45 pointer-events-none" />
+        <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
         <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none animate-float-slow" />
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
         <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
         <div className="relative z-10 max-w-3xl space-y-4">
           <div className="inline-flex items-center gap-2 text-sky-300 text-xs font-mono font-semibold uppercase tracking-wider">
@@ -99,7 +101,8 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
       </ScrollReveal>
 
       {/* Critical First-Hour Alert */}
-      <ScrollReveal delay={0.05} className="bg-amber-50/80 rounded-2xl border border-amber-200/90 p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <ScrollReveal delay={0.05} className="celestial-bezel rounded-2xl shadow-sm">
+        <div className="card-celestial celestial-top-glint bg-gradient-to-br from-amber-50/95 via-white/95 to-orange-50/80 rounded-[15px] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3">
           <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
           <div className="space-y-1">
@@ -117,15 +120,16 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
           href="https://datesheet.vu.edu.pk"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-shimmer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shrink-0 shadow-xs transition-colors whitespace-nowrap"
+          className="btn-shimmer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-xs shrink-0 shadow-xs transition-all whitespace-nowrap"
         >
           <span>Official Datesheet Portal</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </motion.a>
+        </div>
       </ScrollReveal>
 
       {/* Step-by-Step Interactive Checklist */}
-      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
+      <ScrollReveal className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-10 space-y-6">
         <div>
           <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
             <CheckCircle2 className="w-6 h-6 text-blue-600" />
@@ -146,10 +150,10 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
                   whileTap={{ scale: 0.99 }}
                   transition={{ duration: 0.2, ease: EASE_OUT_EXPO }}
                   onClick={() => toggleStep(idx)}
-                  className={`p-4 sm:p-5 rounded-2xl border transition-colors cursor-pointer ${
+                  className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
                     isDone 
-                      ? 'bg-blue-50/50 border-blue-200' 
-                      : 'bg-slate-50/70 border-slate-200 hover:border-blue-300'
+                      ? 'bg-gradient-to-r from-blue-50/90 to-sky-50/80 border-blue-300 shadow-2xs' 
+                      : 'surface-frosted border-slate-200/80 hover:border-blue-300'
                   }`}
                 >
                   <div className="flex items-start gap-3.5">
@@ -171,7 +175,7 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                         {step.desc}
                       </p>
-                      <div className="inline-block mt-1 text-[11px] font-medium text-blue-700 bg-blue-100/70 px-2.5 py-0.5 rounded-md">
+                      <div className="inline-block mt-1 text-[11px] font-medium text-blue-700 bg-blue-50/90 border border-blue-200/70 px-2.5 py-0.5 rounded-lg">
                         <strong>Pro-Tip:</strong> {step.tip}
                       </div>
                     </div>
@@ -184,7 +188,7 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
       </ScrollReveal>
 
       {/* Daily Time Slot Analysis Table */}
-      <ScrollReveal className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-10 card-elevated space-y-6">
+      <ScrollReveal className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-10 space-y-6">
         <div>
           <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
             <Clock className="w-6 h-6 text-emerald-600" />
@@ -195,28 +199,28 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
           </p>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-2xl border border-slate-200/80">
           <table className="w-full text-left text-xs sm:text-sm border-collapse">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-bold">
-                <th className="py-3 px-4">Session</th>
-                <th className="py-3 px-4">Exam Time Slot</th>
-                <th className="py-3 px-4">Recommendation</th>
-                <th className="py-3 px-4">Operational Notes</th>
+              <tr className="celestial-table-head font-bold">
+                <th className="py-3.5 px-4">Session</th>
+                <th className="py-3.5 px-4">Exam Time Slot</th>
+                <th className="py-3.5 px-4">Recommendation</th>
+                <th className="py-3.5 px-4">Operational Notes</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-200/70 bg-white/80">
               {TIME_SLOTS.map((slot, i) => (
-                <tr key={i} className="hover:bg-slate-50/70 transition-colors">
+                <tr key={i} className="hover:bg-sky-50/50 transition-colors">
                   <td className="py-3 px-4 font-bold text-slate-900 font-mono">{slot.session}</td>
                   <td className="py-3 px-4 text-slate-700 font-medium">{slot.time}</td>
                   <td className="py-3 px-4">
-                    <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                    <span className={`font-semibold text-xs ${
                       slot.status === 'Highly Recommended' 
-                        ? 'bg-emerald-100 text-emerald-800' 
+                        ? 'text-emerald-700' 
                         : slot.status === 'Popular Choice'
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-slate-100 text-slate-700'
+                        ? 'text-blue-700'
+                        : 'text-slate-600'
                     }`}>
                       {slot.status}
                     </span>
@@ -229,25 +233,30 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
         </div>
       </ScrollReveal>
 
+      <CelestialDivider />
+
       {/* Missed Exam & Rescheduling Policy */}
       <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-8 space-y-4 border border-slate-800">
-          <div className="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider flex items-center gap-2">
+        <div className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-8 space-y-4 border border-slate-800/90 shadow-xl">
+          <CelestialStarfield density={0.45} interactive={false} />
+          <CelestialOrbitalRings compact />
+          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" aria-hidden="true" />
+          <div className="relative z-10 text-xs font-mono font-bold text-sky-300 uppercase tracking-wider flex items-center gap-2">
             <ShieldCheck className="w-4 h-4" />
             Official Rescheduling Procedure
           </div>
-          <h3 className="text-xl font-bold">What if you miss an exam paper?</h3>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+          <h3 className="relative z-10 text-xl font-bold">What if you miss an exam paper?</h3>
+          <p className="relative z-10 text-xs sm:text-sm text-slate-300 leading-relaxed">
             If you miss an examination due to illness, travel, or unavoidable emergencies, Virtual University allows you to apply for a <strong>Rescheduled Paper</strong> through VULMS Student Services within 24–48 hours of the scheduled exam date.
           </p>
-          <ul className="text-xs text-slate-400 space-y-2 list-disc pl-4">
-            <li>Fee: <strong>PKR 2,000</strong> per paper (added to your fee voucher).</li>
+          <ul className="relative z-10 text-xs text-slate-300 space-y-2 list-disc pl-4">
+            <li>Fee: <strong className="text-white">PKR 2,000</strong> per paper (added to your fee voucher).</li>
             <li>All rescheduled papers take place on the single announced makeup day at the end of the exam schedule.</li>
             <li>You must reprint an updated examination slip for the makeup date.</li>
           </ul>
         </div>
 
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-4 shadow-sm">
+        <div className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-8 space-y-4">
           <div className="text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             Exam Day Essential Checklist

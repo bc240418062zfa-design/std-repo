@@ -62,40 +62,108 @@
   background-size: 24px 24px;
 }
 
+/* Subtle crisp celestial star-dust pattern for light editorial backgrounds */
+.bg-star-dust {
+  background-image:
+    radial-gradient(rgba(37, 99, 235, 0.085) 1px, transparent 1px),
+    radial-gradient(rgba(99, 102, 241, 0.065) 1px, transparent 1px);
+  background-size: 44px 44px, 68px 68px;
+  background-position: 0 0, 22px 26px;
+}
+
 /* Celestial Pearl Workspace Canvas */
 .bg-celestial-canvas {
-  background-color: #F6F8FE;
+  background-color: #F4F7FE;
   background-image:
-    radial-gradient(ellipse 75% 45% at 15% 0%, rgba(56, 189, 248, 0.06), transparent 60%),
-    radial-gradient(ellipse 65% 40% at 88% 8%, rgba(99, 102, 241, 0.05), transparent 60%);
+    radial-gradient(ellipse 80% 48% at 12% 0%, rgba(56, 189, 248, 0.11), transparent 62%),
+    radial-gradient(ellipse 68% 42% at 88% 6%, rgba(99, 102, 241, 0.095), transparent 62%),
+    radial-gradient(ellipse 52% 38% at 50% 52%, rgba(251, 191, 36, 0.045), transparent 68%);
 }
 
 /* Deep Celestial Observatory Stage */
 .bg-studio-stage {
   background-color: #040814;
   background-image:
-    radial-gradient(ellipse 85% 60% at 50% -18%, rgba(37, 99, 235, 0.42), transparent 72%),
-    radial-gradient(ellipse 52% 45% at 86% 12%, rgba(99, 102, 241, 0.24), transparent 66%),
-    radial-gradient(ellipse 46% 38% at 14% 78%, rgba(14, 165, 233, 0.18), transparent 64%),
-    radial-gradient(ellipse 35% 30% at 74% 88%, rgba(245, 158, 11, 0.10), transparent 62%);
+    radial-gradient(ellipse 85% 60% at 50% -18%, rgba(37, 99, 235, 0.44), transparent 72%),
+    radial-gradient(ellipse 52% 45% at 86% 12%, rgba(99, 102, 241, 0.26), transparent 66%),
+    radial-gradient(ellipse 46% 38% at 14% 78%, rgba(14, 165, 233, 0.2), transparent 64%),
+    radial-gradient(ellipse 35% 30% at 74% 88%, rgba(245, 158, 11, 0.12), transparent 62%);
 }
 
 /* Luminous Obsidian Glass Surface */
 .glass-panel-dark {
-  background: linear-gradient(155deg, rgba(16, 29, 56, 0.78) 0%, rgba(8, 15, 32, 0.72) 100%);
+  background: linear-gradient(155deg, rgba(16, 29, 56, 0.82) 0%, rgba(8, 15, 32, 0.76) 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(148, 163, 184, 0.20);
+  border: 1px solid rgba(148, 163, 184, 0.22);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    0 16px 38px -14px rgba(2, 6, 23, 0.55);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 38px -14px rgba(2, 6, 23, 0.58);
 }
 
-/* Frosted white sticky bar */
+/* Frosted celestial pearl sticky bar */
 .surface-frosted {
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 246, 255, 0.86) 100%);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 10px 30px -12px rgba(15, 23, 42, 0.08);
+}
+
+/* Celestial Pearl-Glass Light Card Surface */
+.card-celestial {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.97) 0%, rgba(241, 247, 255, 0.91) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(148, 163, 184, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 1px 2px rgba(15, 23, 42, 0.03),
+    0 10px 26px -10px rgba(30, 58, 138, 0.08);
+  transition:
+    box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 220ms ease,
+    transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-celestial:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 22px 44px -14px rgba(15, 23, 42, 0.14),
+    0 6px 20px -4px rgba(37, 99, 235, 0.14);
+}
+
+/* Luminous Celestial Gradient Bezel Wrapper */
+.celestial-bezel {
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.42) 0%,
+    rgba(99, 102, 241, 0.28) 50%,
+    rgba(251, 191, 36, 0.36) 100%
+  );
+}
+
+/* Observatory Table Header */
+.celestial-table-head {
+  background: linear-gradient(135deg, #070D1F 0%, #0F1C3A 60%, #162850 100%);
+  color: #F8FAFC;
+}
+
+/* Luminous Form Control */
+.celestial-input {
+  background: rgba(248, 250, 255, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.celestial-input:focus {
+  background: #FFFFFF;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+  outline: none;
 }
 
 /* Multi-layered editorial card elevation */
