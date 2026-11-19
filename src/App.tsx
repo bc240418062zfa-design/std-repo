@@ -613,7 +613,12 @@ export default function App() {
                         CS304: 'bg-violet-600 text-white',
                         CS403: 'bg-teal-600 text-white',
                         CS504: 'bg-sky-600 text-white',
-                        CS601: 'bg-amber-600 text-white'
+                        CS601: 'bg-amber-600 text-white',
+                        ENG101: 'bg-emerald-600 text-white',
+                        ENG201: 'bg-cyan-600 text-white',
+                        MGT301: 'bg-rose-600 text-white',
+                        MGT501: 'bg-fuchsia-600 text-white',
+                        PAK301: 'bg-green-700 text-white'
                       };
                       const badgeCls = badgeColors[set.courseCode] || 'bg-slate-900 text-white';
 

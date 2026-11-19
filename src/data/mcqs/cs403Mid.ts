@@ -2840,6 +2840,206 @@ export const cs403Mid: McqSet = {
       question: 'Which normal form deals with possible lossless join-dependency decompositions?',
       options: ['2NF', '3NF', '4NF', '5NF'],
       correctIndex: 3
+    },
+    {
+      id: 'cs403-mid-306',
+      num: 306,
+      topic: 'Database Fundamentals & Architecture',
+      question: "According to E.F. Codd's classification of DBMS services, which of the following is NOT considered a standard DBMS function?",
+      options: ["User-accessible data catalog or data dictionary","Concurrency control services","Failure response service","Support for data communication"],
+      correctIndex: 2
+    },
+    {
+      id: 'cs403-mid-307',
+      num: 307,
+      topic: 'Relational Model & Integrity Constraints',
+      question: "When mapping a Many-to-Many (M:M) relationship between two entity types into relational schemas, how many total tables are created?",
+      options: ["Three tables (two entity tables plus one associative junction table)","Two tables with cross-referencing foreign keys","One consolidated master table","Four tables including surrogate index tables"],
+      correctIndex: 0
+    },
+    {
+      id: 'cs403-mid-308',
+      num: 308,
+      topic: 'Relational Algebra',
+      question: "Which relational algebra join operation is equivalent to an equi-join, with the only difference being that duplicate join columns are eliminated from the resulting table?",
+      options: ["Semi-join","Outer join","Theta join","Natural join"],
+      correctIndex: 3
+    },
+    {
+      id: 'cs403-mid-309',
+      num: 309,
+      topic: 'Database Fundamentals & Architecture',
+      question: "With the help of _________ techniques, data values represented with smaller-sized codes can further reduce the secondary storage space needed by a database.",
+      options: ["Data expansion","Data compression","Data negation","Data denormalization"],
+      correctIndex: 1
+    },
+    {
+      id: 'cs403-mid-310',
+      num: 310,
+      topic: 'DFD & Database Development',
+      question: "In a Data Flow Diagram (DFD), which symbol or operator is used when data flows from a single source process exclusively to one of several alternative sinks?",
+      options: ["Ring Sum Operator (⊕)","Plus operator (+)","Asterisk operator (*)","Arrowhead operator"],
+      correctIndex: 0
+    },
+    {
+      id: 'cs403-mid-311',
+      num: 311,
+      topic: 'Database Fundamentals & Architecture',
+      question: "A major benefit of data sharing across multiple application programs in a centralized database system is that:",
+      options: ["All users can alter table schemas without administrator privileges","Physical storage indexing is no longer needed","Different applications need not store duplicated copies of the same data repeatedly","Network communication overhead is completely eliminated"],
+      correctIndex: 2
+    },
+    {
+      id: 'cs403-mid-312',
+      num: 312,
+      topic: 'Database Fundamentals & Architecture',
+      question: "In the ANSI/SPARC three-level database architecture, changes made at ________ levels of the architecture require ________ levels of user attention.",
+      options: ["Identical, identical","Different, different","Internal, maximum","Higher, zero"],
+      correctIndex: 1
+    },
+    {
+      id: 'cs403-mid-313',
+      num: 313,
+      topic: 'Database Fundamentals & Architecture',
+      question: "Which of the following best defines Database Modeling in database development?",
+      options: ["The physical formatting and partitioning of storage disks","The installation and patch management of database server software","Writing ad-hoc procedural scripts for client workstations","The process of creating the logical structure and abstract relationships of the data to be stored"],
+      correctIndex: 3
+    },
+    {
+      id: 'cs403-mid-314',
+      num: 314,
+      topic: 'Database Fundamentals & Architecture',
+      question: "Once data has been transported and mapped down to the physical storage level in a database system, it is then managed directly by the:",
+      options: ["Operating system and underlying file management subsystem","Conceptual schema analyst","Application frontend interface","Data flow diagram processor"],
+      correctIndex: 0
+    },
+    {
+      id: 'cs403-mid-315',
+      num: 315,
+      topic: 'Database Fundamentals & Architecture',
+      question: "Which of the following is INCORRECT with respect to traditional file systems versus database systems?",
+      options: ["Some physical file organizations use pointers to record blocks to locate records on disk.","A logical record is concerned with the efficient physical storage of information on secondary storage devices.","At the physical level, pointer or hashed address schemes can provide a degree of data independence.","File system efficiency depends on how fast retrieve, insert, update, and delete operations execute."],
+      correctIndex: 1
+    },
+    {
+      id: 'cs403-mid-316',
+      num: 316,
+      topic: 'Database Fundamentals & Architecture',
+      question: "Which of the following responsibilities is typically NOT performed by the Database Administrator (DBA)?",
+      options: ["Planning, designing, and implementing the physical database structures","Establishing standards and security authorization procedures for the database","Communicating directly with business end-users to gather operational requirements during business process analysis","Allocation of secondary storage locations and internal access paths"],
+      correctIndex: 2
+    },
+    {
+      id: 'cs403-mid-317',
+      num: 317,
+      topic: 'Database Fundamentals & Architecture',
+      question: "Select the correct statement regarding the conceptual level in the ANSI/SPARC architecture:",
+      options: ["The conceptual level acts as a level of indirection between the internal physical level and the external user views.","The internal level in every database implementation must be strictly relational.","A database has many conceptual schemas and only one external schema.","The external level is completely unconcerned with individual user perceptions."],
+      correctIndex: 0
+    },
+    {
+      id: 'cs403-mid-318',
+      num: 318,
+      topic: 'Functional Dependencies & Normalization',
+      question: "Consider a relation with functional dependencies: Emp_No → {Ename, Bdate, Address, Dept_No} and Dept_No → {Dname, Mgr_No}. Which additional functional dependency can be derived using the Transitivity inference rule?",
+      options: ["Emp_Name → Dept_No","Emp_Name → Dept_Name","Emp_Name, Dept_No → Mgr_No","Emp_No → {Dname, Mgr_No}"],
+      correctIndex: 3
+    },
+    {
+      id: 'cs403-mid-319',
+      num: 319,
+      topic: 'Functional Dependencies & Normalization',
+      question: "If W, X, Y, and Z are attribute sets in a relation, which of the following Armstrong inference rules for functional dependencies is formally correct?",
+      options: ["If (X, Z) → Y, then X → Y and Z → Y","If X → Y and X → Z, then X → YZ (Union rule)","If XY → Z, then Y → X","If X → Y, then (X, Z) → (Y, W)"],
+      correctIndex: 1
+    },
+    {
+      id: 'cs403-mid-320',
+      num: 320,
+      topic: 'Relational Algebra',
+      question: "Given relations Student(Fname, Lname) and Instructor(Fname, Lname), which relational algebra operation correctly determines the individuals who are simultaneously students and instructors?",
+      options: ["Instructor − Student (Difference)","Student ÷ Instructor (Division)","Student ∩ Instructor (Intersection)","Student ∪ Instructor (Union)"],
+      correctIndex: 2
+    },
+    {
+      id: 'cs403-mid-321',
+      num: 321,
+      topic: 'Database Fundamentals & Architecture',
+      question: "Consider the following statements regarding the ANSI/SPARC three-level database architecture:\n(A) Conceptual schema is a logical description of all data elements and relationships.\n(B) Internal schema describes the physical storage structures and access paths.\n(C) External schema provides the user-specific view.\nWhich of the statements are correct?",
+      options: ["Statements A, B, and C are all correct","Only statement A is correct","Only statement B is correct","Only statements B and C are correct"],
+      correctIndex: 0
+    },
+    {
+      id: 'cs403-mid-322',
+      num: 322,
+      topic: 'Relational Model & Integrity Constraints',
+      question: "Which of the following is the standard method for implementing a Many-to-Many (M:M) relationship in relational table design?",
+      options: ["Adding foreign keys to both entity tables directly referencing each other's primary keys","Merging both entities into a single flat unnormalized table","Creating three separate tables with no foreign key references","Creating a junction table whose composite primary key comprises foreign keys referencing both participating entities"],
+      correctIndex: 3
+    },
+    {
+      id: 'cs403-mid-323',
+      num: 323,
+      topic: 'Relational Model & Integrity Constraints',
+      question: "Which of the following is a true property of a mathematical relation in the Relational Data Model?",
+      options: ["Duplicate tuples are permissible in a base relation.","The sequence (order) of rows is irrelevant and insignificant.","Attributes in a single table can share identical names.","The column order determines which records can be updated."],
+      correctIndex: 1
+    },
+    {
+      id: 'cs403-mid-324',
+      num: 324,
+      topic: 'ER Modeling & Relationships',
+      question: "In a conceptual database model for an educational institute, what is the cardinality ratio between Student and Grade entities?",
+      options: ["1:M (One student can receive multiple course grades)","1:1 (One student receives only a single grade in total)","M:M (Multiple students share identical grade records)","Ternary relationship among student, grade, and course code"],
+      correctIndex: 0
+    },
+    {
+      id: 'cs403-mid-325',
+      num: 325,
+      topic: 'Relational Model & Integrity Constraints',
+      question: "Which statement correctly distinguishes entity integrity from referential integrity?",
+      options: ["Entity integrity is specified across multiple relations, while referential integrity applies only within one relation.","Entity integrity prevents composite keys from being defined.","Entity integrity applies to primary keys within an individual relation, while referential integrity applies across relations.","Referential integrity requires that all candidate key attributes be non-null."],
+      correctIndex: 2
+    },
+    {
+      id: 'cs403-mid-326',
+      num: 326,
+      topic: 'Functional Dependencies & Normalization',
+      question: "Which normal form is specifically designed to eliminate multivalued dependencies (MVDs) from a relational schema?",
+      options: ["3NF (Third Normal Form)","BCNF (Boyce-Codd Normal Form)","2NF (Second Normal Form)","4NF (Fourth Normal Form)"],
+      correctIndex: 3
+    },
+    {
+      id: 'cs403-mid-327',
+      num: 327,
+      topic: 'Relational Model & Integrity Constraints',
+      question: "Which of the following is the standard way to implement a 1:1 (One-to-One) relationship in relational database design?",
+      options: ["By always requiring a separate associative junction table","As a single combined table, or as two tables linked by primary and foreign keys with a UNIQUE constraint","By creating three separate tables connected by composite surrogate keys","By denormalizing the tables into nested multidimensional arrays"],
+      correctIndex: 1
+    },
+    {
+      id: 'cs403-mid-328',
+      num: 328,
+      topic: 'ER Modeling & Relationships',
+      question: "In database schema naming conventions, what linguistic pattern is standard for entity types and relationship types?",
+      options: ["Singular nouns are used for entity types, while verbs or verb phrases indicate relationship types.","Plural nouns are used for entity types, while adjectives indicate relationship types.","Verbs are used for entity types, while nouns represent relationship types.","Arbitrary abbreviations should always replace full entity names."],
+      correctIndex: 0
+    },
+    {
+      id: 'cs403-mid-329',
+      num: 329,
+      topic: 'Database Fundamentals & Architecture',
+      question: "A Database Management System (DBMS) provides all of the following advantages EXCEPT:",
+      options: ["Enforcing data integrity constraints and standardized security protocols","Minimizing data redundancy and inconsistency across multiple applications","Allowing unrestricted access to all company records by any user without authorization","Providing backup and recovery services to restore consistent database states"],
+      correctIndex: 2
+    },
+    {
+      id: 'cs403-mid-330',
+      num: 330,
+      topic: 'Functional Dependencies & Normalization',
+      question: "Consider relation R(EmpNo, DeptNo, ProjNo) with tuples: (1001, 01, 12), (1001, 01, 13), (1002, 01, 12), (1003, 01, 14). Which of the following functional dependencies does NOT hold over R?",
+      options: ["EmpNo → DeptNo","DeptNo → ProjNo","ProjNo → DeptNo","(EmpNo, ProjNo) → DeptNo"],
+      correctIndex: 1
     }
   ]
 };

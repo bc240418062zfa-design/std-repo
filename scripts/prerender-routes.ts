@@ -223,10 +223,10 @@ const ROUTES: RouteSEO[] = [
   // 2D. Interactive MCQs Directory Hub
   {
     path: 'mcqs',
-    title: 'Interactive VU Exam MCQs & Subject Pages (CS201, CS301, CS304, CS403, CS504, CS601) | MIHORA VU',
-    description: 'Dedicated interactive MCQ practice pages and timed mock quizzes for Virtual University Mid-Term and Final-Term courses including CS201, CS301, CS304, CS403, CS504, and CS601.',
+    title: 'Interactive VU Exam MCQs & Subject Studios (CS201, CS301, CS403, ENG101, ENG201, MGT301, MGT501, PAK301) | MIHORA VU',
+    description: 'Dedicated interactive MCQ practice pages and timed mock quizzes for Virtual University Midterm and Final-Term courses including CS201, CS301, CS304, CS403, CS504, CS601, ENG101, ENG201, MGT301, MGT501, and PAK301.',
     canonical: 'https://study.mihora.tech/mcqs',
-    keywords: 'mihora vu, vu interactive mcqs, cs201 midterm mcqs, cs301 midterm mcqs, cs304 midterm mcqs, cs403 midterm mcqs, cs504 midterm mcqs, cs601 midterm mcqs, cs201 final term mcqs, virtual university online quiz practice',
+    keywords: 'mihora vu, vu interactive mcqs, eng101 midterm mcqs, eng201 midterm mcqs, mgt301 midterm mcqs, mgt501 midterm mcqs, pak301 midterm mcqs, cs201 midterm mcqs, cs301 midterm mcqs, cs304 midterm mcqs, cs403 midterm mcqs, cs504 midterm mcqs, cs601 midterm mcqs, virtual university online quiz practice',
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
         <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a;">Interactive VU Exam MCQs – Subject Pages</h1>

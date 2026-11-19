@@ -93,6 +93,36 @@ const COURSE_THEMES: Record<string, CourseTheme> = {
     badgeText: 'text-white',
     accentBar: 'from-amber-600 to-orange-500',
     subtleRing: 'hover:border-amber-400'
+  },
+  ENG101: {
+    badgeBg: 'bg-emerald-600',
+    badgeText: 'text-white',
+    accentBar: 'from-emerald-600 to-teal-500',
+    subtleRing: 'hover:border-emerald-400'
+  },
+  ENG201: {
+    badgeBg: 'bg-cyan-600',
+    badgeText: 'text-white',
+    accentBar: 'from-cyan-600 to-blue-500',
+    subtleRing: 'hover:border-cyan-400'
+  },
+  MGT301: {
+    badgeBg: 'bg-rose-600',
+    badgeText: 'text-white',
+    accentBar: 'from-rose-600 to-pink-500',
+    subtleRing: 'hover:border-rose-400'
+  },
+  MGT501: {
+    badgeBg: 'bg-fuchsia-600',
+    badgeText: 'text-white',
+    accentBar: 'from-fuchsia-600 to-purple-500',
+    subtleRing: 'hover:border-fuchsia-400'
+  },
+  PAK301: {
+    badgeBg: 'bg-green-700',
+    badgeText: 'text-white',
+    accentBar: 'from-green-700 to-emerald-600',
+    subtleRing: 'hover:border-green-500'
   }
 };
 
