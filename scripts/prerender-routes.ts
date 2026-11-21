@@ -461,10 +461,10 @@ const ROUTES: RouteSEO[] = [
   // 3. VU Student Handbook & FAQs
   {
     path: 'handbook',
-    title: 'VU Student Handbook 2026 – 20% Passing Rule, Datesheet & Rules FAQs | MIHORA VU',
-    description: 'Official VU rules guide: Master the 20% two-half passing rule, datesheet creation, fee installments, CGPA probation, and paper reschedule policies on MIHORA VU.',
+    title: 'VU Student Handbook 2026 – 33 Authentic FAQs, Grading Scale, Rechecking & Rules | MIHORA VU',
+    description: 'Official VU Student Handbook: 33 authentic Q&As covering the 20% two-half rule, paper rechecking (PKR 500), merit/need scholarships, grading scheme (A+ to F), datesheet booking, CGPA probation, and paper rescheduling (PKR 2,000).',
     canonical: 'https://study.mihora.tech/handbook',
-    keywords: 'mihora vu, VU 20 percent rule, vu student handbook, vu passing rules, vu date sheet schedule, vu academic probation, vu fee installment, vu paper reschedule fee',
+    keywords: 'mihora vu, VU 20 percent rule, vu student handbook, vu passing rules, vu paper rechecking fee 500, vu merit scholarship cgpa, vu grading scheme, vu date sheet schedule, vu academic probation, vu fee installment, vu paper reschedule fee',
     extraJsonLd: {
       "@type": "FAQPage",
       "@id": "https://study.mihora.tech/handbook#faqs",
@@ -500,14 +500,46 @@ const ROUTES: RouteSEO[] = [
             "@type": "Answer",
             "text": "Students can apply for a Rescheduled Paper through VULMS Student Services within the announced window. A reschedule fee of PKR 2,000 per paper is charged, and all rescheduled papers are held on a designated makeup day."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "How much is the VU Paper Rechecking fee and when should I apply?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apply via VULMS > Student Services > Examinations Department within the announced 5 to 7 day window after result publication. The non-refundable fee is PKR 500 per paper (local) or $20 USD per paper (overseas), covering marks totalling and unmarked question verification."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the eligibility requirements for VU Merit-Based and Need-Based Scholarships?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Continuing students qualify automatically for Merit Scholarships with at least 3.00 CGPA, 3.25 Semester GPA, and full prescribed credits (1 scholarship per 50 students, max 10 per program). Need-Based Scholarships are applied per semester via VULMS > Student Services > Accounts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the official Virtual University grading scheme and is a D grade Pass?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, a D grade (50% to 60%, 1.00 to 1.99 GPA) is passing and unlocks prerequisite courses, though it may be repeated optionally to improve CGPA. Top grades are A+ (90-100%, 4.00), A (85-89%, 4.00), A- (80-84%), B+ (75-79%), B (71-74%), B- (68-70%), and C (61-67%)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if a student misses Course Selection or wants to Add/Drop courses?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Courses can be added, dropped, or replaced via VULMS Course Selection up to the academic calendar Add/Drop deadline before fee vouchers lock. Skipping enrollment entirely marks a continuing student as Inactive, triggering re-admission requirements."
+          }
         }
       ]
     },
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">Virtual University Academic Handbook &amp; Essential FAQs (2026)</h1>
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">Virtual University Academic Handbook &amp; 33 Essential Student FAQs (2026)</h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
-          Authoritative academic policies of Virtual University of Pakistan: The 20% Two-Half evaluation rule, first-come first-served datesheet seat allocation, 24-hour assignment grace period, fee installment conversion, and academic probation thresholds.
+          Authoritative academic policies of Virtual University of Pakistan: The 20% Two-Half evaluation rule, paper rechecking (PKR 500), merit &amp; need-based scholarships, official A+ to F grading scheme, Zero Semester &amp; credit transfer rules, 24-hour assignment grace period, fee installments, and missed paper rescheduling (PKR 2,000).
         </p>
       </div>
     `

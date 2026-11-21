@@ -383,6 +383,172 @@ const TOP_VU_FAQS: FAQItem[] = [
       'Agar maximum duration ke andar degree requirements poori na hon to student status terminate ho jata hai.'
     ],
     actionAdvice: 'Semesters ko bila-wajah freeze na karein taake maximum time limit exceed na ho.'
+  },
+
+  // 7. Authentic Essential FAQs (Rechecking, Add/Drop, Scholarships, Zero Semester, Credit Transfer, Weightage, Transcript)
+  {
+    id: 'faq-paper-rechecking',
+    category: 'exams',
+    question: 'How can I apply for Paper Rechecking if my exam marks seem lower than expected?',
+    urduQuestion: 'Agar exam marks umeed se kam ayein to Paper Rechecking kaisay aur kitni fee mein hoti hai?',
+    shortAnswer: 'Result aane ke 5 se 7 din ke andar VULMS Student Services se apply karein; fee PKR 500 (Local) aur $20 USD (Overseas) per paper hai.',
+    detailedPoints: [
+      'Apply karne ka rasta: VULMS > Student Services > Examinations Department > "Apply for Paper(s) Rechecking".',
+      'Time Window: Midterm ya Final-Term result announce honay ke baad sirf prescribed days (aam tor par 5 se 7 din) tak link open rehta hai.',
+      'Fee Schedule: Local students ke liye PKR 500 per paper aur Overseas students ke liye $20 USD per paper non-refundable challan hota hai.',
+      'Scope of Rechecking: Rechecking mein sirf marks totals aur un-checked/unmarked sawalon ki tasdeeq hoti hai; checked answers ki poori re-marking nahi hoti.'
+    ],
+    actionAdvice: 'Result notification par aakhri tareekh zaroor check karein; deadline guzarne par portal link automatic close ho jata hai.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-add-drop-inactive',
+    category: 'sessional',
+    question: 'Can I add, drop, or replace a subject after semester classes start, and what happens if I select no courses?',
+    urduQuestion: 'Classes shuru honay ke baad kya course add/drop ya change kar saktay hain, aur select na karne par kya hota hai?',
+    shortAnswer: 'Jee haan! Semester ke shuru mein Add/Drop deadline tak course change ho saktay hain; agar koi course select na karein to student "Inactive" ho jata hai.',
+    detailedPoints: [
+      'Course Selection link semester start honay se pehle khulta hai aur ibtadai hafton ki Add/Drop deadline tak aap subjects add, drop ya replace kar saktay hain.',
+      'Add/Drop deadline guzarne ke baad fee voucher lock ho jata hai aur us semester mein mazeed koi tabdeeli nahi ho sakti.',
+      'Agar continuing student deadline tak koi bhi course select na kare to wo us semester ke liye "Inactive Student" declare hota hai aur aglay semester Re-Admission rules aur fine lagu hoti hai.'
+    ],
+    actionAdvice: 'Agar aap parhai jaari nahi rakh saktay to course selection skip karne ke bajaye proper Semester Freeze apply karein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-merit-need-scholarship',
+    category: 'fee-freeze',
+    question: 'What are the exact eligibility rules for VU Merit-Based and Need-Based Scholarships?',
+    urduQuestion: 'VU mein Merit aur Need-Based Scholarship kab aur kin students ko milti hai?',
+    shortAnswer: 'Merit scholarship automatic milti hai (CGPA >= 3.00 + Semester GPA >= 3.25); Need-Based ke liye har semester VULMS Accounts se apply karna hota hai.',
+    detailedPoints: [
+      'Merit Scholarship (Continuing Students): Aapka minimum CGPA 3.00 aur current semester GPA kam az kam 3.25 hona chahiye, aur prescribed study-scheme credits complete honay chahiyen (alag form nahi bharna parta).',
+      'Allocation Limit: Har program ki separate merit list banti hai jisme per 50 students par 1 scholarship (maximum 10 per program) di jati hai.',
+      'New Admissions Merit: Entry qualification mein kam az kam 65% marks (ya 3.00/4.00 CGPA) honay par merit list mein shamil kiya jata hai.',
+      'Need-Based Scholarship: Deserving students har semester window khulnay par VULMS > Student Services > Accounts > "Need Based Scholarship" se apply karein. Yeh sirf tuition fee cover karti hai aur 1 semester ke liye valid hoti hai.'
+    ],
+    actionAdvice: 'Har semester course selection ke baad VU Notice Board check rakhein kyunke Need-Based scholarship link mehdood dino ke liye open hota hai.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-zero-semester-rules',
+    category: 'grading',
+    question: 'What is the Zero Semester in VU and can courses be exempted during or after it?',
+    urduQuestion: 'Zero Semester kya hota hai aur iske courses clear karne ka kya rule hai?',
+    shortAnswer: 'Zero Semester 18-week bridge semester hai jisme tamama foundational courses aik hi attempt mein >= 2.00 GPA ke sath pass karne hotay hain.',
+    detailedPoints: [
+      'Eligibility Target: Yeh un applicants ke liye hota hai jo basic degree rakhtay hon lekin unke marks/CGPA regular admission criteria (maslan 45% ya 2.0 CGPA) se kam hon.',
+      'Prescribed Courses: Aam tor par MTH001 (Elementary Math), ENG001 (Elementary English), aur CS001 (Computer Proficiency) parhaye jatay hain.',
+      'Pass Requirement: Zero Semester ke tamama subjects aik hi 18-week semester mein pass karna aur kam az kam 2.00 GPA lena lazmi hai tab regular degree admission milta hai.',
+      'No Exemption Rule: Zero Semester ke dauran ya iske zariye aane walay candidates ko kisi course ki exemption ya credit transfer nahi milta.'
+    ],
+    actionAdvice: 'Zero Semester ke kisi aik subject ko bhi halka na lein kyunke aik subject fail honay par poora eligibility attempt zaya ho jata hai.'
+  },
+  {
+    id: 'faq-credit-transfer-exemption',
+    category: 'grading',
+    question: 'Can I transfer credits or get course exemption in VU from another HEC-recognized university?',
+    urduQuestion: 'Doosri HEC university se parhay hue subjects ki VU mein Course Exemption ya Credit Transfer ho sakti hai?',
+    shortAnswer: 'Jee haan! Equivalence Committee minimum "B" grade (71%+) aur 75% syllabus similarity honay par course exemption approve kar sakti hai.',
+    detailedPoints: [
+      'Grade & Similarity Condition: Pichli HEC-recognized university se course kam az kam "B" grade (ya annual system mein 71%+) ke sath pass ho aur VU course outline se kam az kam 75% mutabiqat rakhta ho.',
+      'Non-Exemptible Subjects: Core Computing, Specialization subjects, aur Final Year Project / Thesis par kisi soorat exemption nahi milti.',
+      'Minimum Residency: Degree award honay ke liye VU mein kam az kam 2 saal ki resident study aur Equivalence Committee ki baqaida manzoori zaroori hoti hai.'
+    ],
+    actionAdvice: 'Admission ke foran baad apna official transcript aur syllabus outlines Equivalence portal par upload karein taake repeat courses par fee zaya na ho.'
+  },
+  {
+    id: 'faq-midterm-finalterm-weightage',
+    category: 'exams',
+    question: 'How are Midterm, Final-Term, and Sessional marks weighted in VU total course grades?',
+    urduQuestion: 'Course ke 100 marks mein Midterm, Final Term aur Assignments/Quizzes ki weightage kitni hoti hai?',
+    shortAnswer: 'Aam tor par Formative/First Half 35-40% (Sessional 15-20% + Midterm 20-25%) aur Final-Term Exam 60-65% weightage rakhta hai.',
+    detailedPoints: [
+      'First Half (Formative Assessment): Ismein Quizzes, Assignments, GDBs, aur Midterm Exam shamil hotay hain (kul mil kar taqreeban 35% se 40% course weightage).',
+      'Second Half (Summative Exam): Final-Term paper akele taqreeban 60% se 65% marks hold karta hai, is liye Final-Term mein acha score pooray grade ko A/B par le jata hai.',
+      'Course-Specific Check: Har subject ka exact breakdown (e.g. CS, MTH, ENG) us course ke VULMS "Grading Scheme" tab mein wazeh likha hota hai.'
+    ],
+    actionAdvice: 'Apne course ke VULMS Grading Scheme tab se exact % dekh kar hamare Passing Marks Simulator (/simulator) mein calculate karein.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-exam-time-distribution',
+    category: 'exams',
+    question: 'How much time and how many MCQs vs Subjective questions come in VU Midterm and Final exams?',
+    urduQuestion: 'VU Midterm aur Final Term paper ka time kitna hota hai aur kitne MCQs + Short/Long questions aatay hain?',
+    shortAnswer: 'Midterm aam tor par 60 minutes (MCQs + 2/3/5-mark questions) aur Final-Term 90-120 minutes (~40 MCQs + short/long subjective questions) ka hota hai.',
+    detailedPoints: [
+      'Midterm Pattern: Lectures 1–22 (ya first half syllabus) par mushtamil 60-minute paper jisme objective MCQs ke sath 2, 3, aur 5 marks ke mukhtasar aur long subjective sawal hotay hain.',
+      'Final-Term Pattern: 90 se 120 minutes ka paper jisme aam tor par ~40 MCQs aur 2, 3, aur 5 marks ke subjective questions shamil hotay hain (zyada hissa post-midterm lectures se aata hai).',
+      'Choice & Order: VU exam software mein aap kisi bhi question par direct jump kar saktay hain; subjective answers point-wise aur neat likhna examiner marks barhata hai.'
+    ],
+    actionAdvice: 'MCQs par max 25-30 seconds per question lagayein taake subjective 3 aur 5-mark sawalon ke liye poora waqt bachay.',
+    isHighFrequency: true
+  },
+  {
+    id: 'faq-d-grade-vs-f-grade',
+    category: 'grading',
+    question: 'Is a "D" grade considered Pass in VU, and when should I repeat a "D" grade course?',
+    urduQuestion: 'Kya VU mein "D" grade pass count hota hai aur kya "D" grade subject repeat karna zaroori hota hai?',
+    shortAnswer: 'Jee haan, "D" grade (50%-60% marks, 1.00-1.99 GPA) PASS hai! Repeat karna lazmi nahi, lekin CGPA 2.00 se barhane ke liye optional repeat helpful hai.',
+    detailedPoints: [
+      'Prerequisite Clearance: "D" grade milnay par subject pass count hota hai aur aglay semester ke prerequisite courses bhi unlock ho jatay hain.',
+      'Compulsory vs Optional: Sirf "F" grade course ko pass karne ke liye repeat karna lazmi hota hai; "D" grade repeat karna student ki apni marzi par hai.',
+      'Improvement Impact: Agar aap "D" grade repeat karke "B" ya "A" le ayein to naya highest grade CGPA mein calculate hota hai ("C" ya oopar grades repeat nahi hotay).'
+    ],
+    actionAdvice: 'Agar aapka CGPA 2.00 ke qareeb ya neechay ho to 1st ya 2nd semester ke 3-credit "D" grade subjects ko zaroor repeat karein.'
+  },
+  {
+    id: 'faq-vu-email-office365',
+    category: 'sessional',
+    question: 'How do I use my official @vu.edu.pk student email and free academic benefits?',
+    urduQuestion: 'Official VU Student Email (@vu.edu.pk) kahan milta hai aur iske kya faiday hain?',
+    shortAnswer: 'Har enrolled student ko VULMS Profile/Services mein bcXXXXXXXX@vu.edu.pk email milta hai jo official alerts aur free Microsoft Office / GitHub Pack deta hai.',
+    detailedPoints: [
+      'Identity Format: Aapka official email aam tor par aapki Student ID par mushtamil hota hai (e.g., bc240200000@vu.edu.pk).',
+      'Academic Perks: Is university email ke zariye Microsoft 365 Education aur GitHub Student Developer Pack jaisi international tools free verify ki ja sakti hain.',
+      'Access Issues: Agar password bhool jayein ya login na ho to VULMS Support System par IT Helpdesk category mein ticket open karke foran reset karwayein.'
+    ],
+    actionAdvice: 'Apne VU email ka recovery phone/email hamesha updated rakhein kyunke university announcements aur verification links wahin aatay hain.'
+  },
+  {
+    id: 'faq-unfreeze-readmission',
+    category: 'fee-freeze',
+    question: 'How do I unfreeze a frozen semester, and what happens if admission is cancelled after 2 freezes?',
+    urduQuestion: 'Freeze kiya hua semester unfreeze kaisay hota hai aur agar lagataar 2 se zyada semester miss ho jayein to kya hota hai?',
+    shortAnswer: 'VULMS > Student Services > Semester Unfreeze se deadline se pehle apply karein; 2 consecutive freezes ke baad miss honay par fresh re-admission lena parta hai.',
+    detailedPoints: [
+      'Unfreeze Window: Pichlay semester ke final exams khatam honay se le kar aglay semester ki course selection deadline tak Unfreeze link active rehta hai.',
+      'Procedure: VULMS > Student Services > "Semester Unfreeze" par ja kar reason darj karein aur submit karein.',
+      'Cancellation Recovery: Agar 2 lagataar freezes ke baad admission cancel bhi ho jaye to fresh admission apply karte waqt aapke pehle se pass kiye hue credit hours transfer/exempt ho saktay hain.'
+    ],
+    actionAdvice: 'Semester unfreeze karne ke baad course selection link khulnay par foran kam az kam 1 course enroll karna na bhoolen.'
+  },
+  {
+    id: 'faq-degree-transcript-apply',
+    category: 'overseas',
+    question: 'How do I apply for my Official Transcript or Degree Certificate after completing all credit hours?',
+    urduQuestion: 'Degree complete honay par Official Transcript aur Degree Certificate kaisay aur kahan se apply hota hai?',
+    shortAnswer: 'Tamam credit hours aur >= 2.00 CGPA poora honay par VULMS > Student Services > Examinations Department se Transcript aur Provisional/Degree apply karein.',
+    detailedPoints: [
+      'Audit Criteria: Final result aane ke baad verify karein ke study scheme ke tamama required credit hours, CS619/Project/Internship, aur cumulative CGPA >= 2.00 complete hain.',
+      'Portal Path: VULMS > Student Services > Examinations Department ke tehat Official Transcript, Provisional Certificate, aur Degree Issuance request submit hoti hai.',
+      'Clearance & Delivery: Accounts/Library clearance clear honay aur prescribed fee voucher pay karne ke baad document aapke selected VU campus ya mailing address par bheja jata hai.'
+    ],
+    actionAdvice: 'Transcript par apna naam, father name aur CNIC spelling pehle VULMS Profile mein check kar lein taake printing ke baad correction na karwani paray.'
+  },
+  {
+    id: 'faq-late-center-arrival',
+    category: 'exams',
+    question: 'What happens if I arrive late at the VU Examination Center on exam day?',
+    urduQuestion: 'Agar exam center par 10-15 minute late pohnchein to kya paper dene diya jata hai?',
+    shortAnswer: 'Allowed grace window mein entry mil bhi jaye to paper timer pehle se chal raha hota hai aur extra time nahi milta; zyada late honay par paper miss ho jata hai.',
+    detailedPoints: [
+      'Reporting Time: Exam Entrance Slip par darj reporting time ke mutabiq paper shuru honay se 15–20 minute pehle campus pohnchna zaroori hai.',
+      'Server Timer Rule: Agar late entry allow hoti bhi hai to exam software ka clock scheduled start time se chal chuka hota hai aur missed minutes wapis nahi miltay.',
+      'Missed Entry: Strict cut-off guzarne ke baad lab mein dakhla band ho jata hai aur paper miss consider hota hai (jisay 24 ghantay baad PKR 2,000 fee se reschedule karna parta hai).'
+    ],
+    actionAdvice: 'Traffic aur biometric verification ki wajah se subah/dopehar har slot ke liye kam az kam 30 minutes pehle nikalna safe rehta hai.'
   }
 ];
 
@@ -587,6 +753,82 @@ const GUIDE_ITEMS: GuideItem[] = [
       { label: 'VU Official Main Website', url: 'https://www.vu.edu.pk/' }
     ],
     tags: ['support', 'ticket', 'helpdesk', 'fee payment', '1link', 'helpline', 'uan']
+  },
+
+  // 9. Paper Rechecking & Result Verification
+  {
+    id: 'paper-rechecking-policy',
+    category: 'reschedule',
+    title: 'Paper Rechecking Policy, Fee & 5–7 Day Application Window',
+    shortDesc: 'PKR 500 per paper fee, result announcement window, and what rechecking actually covers.',
+    details: [
+      'Application Window: Students must apply within the strict announced window (typically 5 to 7 days) immediately following Midterm or Final-Term result declaration.',
+      'Portal Path: VULMS > Student Services > Examinations Department > "Apply for Paper(s) Rechecking".',
+      'Prescribed Fee: PKR 500 per paper for local students and $20 USD per paper for overseas students (non-refundable).',
+      'Verification Scope: Rechecking verifies addition/totalling of marks and ensures no answered question was left unmarked; complete subjective re-evaluation is not performed.'
+    ],
+    tips: 'Always pay the generated rechecking voucher before its due date; unpaid requests are automatically rejected.',
+    officialLinks: [
+      { label: 'VULMS Student Services', url: 'https://vulms.vu.edu.pk/' }
+    ],
+    tags: ['rechecking', '500 pkr', 'result', 'marks verification', 'examinations'],
+    isImportant: true
+  },
+
+  // 10. Official VU Grading Scale Table
+  {
+    id: 'vu-grading-scale-2026',
+    category: 'grading',
+    title: 'Official VU Letter Grades, Percentage Brackets & 4.00 GPA Scale',
+    shortDesc: 'Exact mapping from A+ (90–100%, 4.00) down to D (50–60%, 1.00–1.99) and F (<50%).',
+    details: [
+      'A+ (4.00 GPA): 90% – 100% | A (4.00 GPA): 85% – 89% | A- (3.66 – 3.99 GPA): 80% – 84%.',
+      'B+ (3.33 – 3.65 GPA): 75% – 79% | B (3.00 – 3.32 GPA): 71% – 74% | B- (2.66 – 2.99 GPA): 68% – 70%.',
+      'C Grade Band (2.00 – 2.65 GPA): 61% – 67% (includes C+, C, C- brackets depending on official fractional GPA points).',
+      'D Grade Band (1.00 – 1.99 GPA): 50% – 60% (Passing credit, unlocks prerequisite courses, eligible for optional repeat).',
+      'F Grade (0.00 GPA): Below 50% OR violating the mandatory 20% First-Half / 20% Final-Term Two-Half threshold.'
+    ],
+    tips: 'Even 1–2% improvement across quizzes and assignments can push a 79% (B+) into an 80% (A-) and boost semester GPA noticeably.',
+    officialLinks: [
+      { label: 'Open VU GPA Calculator', url: '/gpa-calculator' }
+    ],
+    tags: ['grading scheme', 'gpa scale', 'a+', 'd grade', 'percentage', '4.0'],
+    isImportant: true
+  },
+
+  // 11. Merit & Need-Based Scholarships
+  {
+    id: 'merit-need-scholarships',
+    category: 'services',
+    title: 'Merit-Based & Need-Based Scholarships Eligibility Guide',
+    shortDesc: 'Automatic Merit lists (CGPA >= 3.00 & Sem GPA >= 3.25) and semester Need-Based aid.',
+    details: [
+      'Merit Scholarship (Continuing Students): Automatically evaluated (no application needed) for students maintaining CGPA >= 3.00 AND Semester GPA >= 3.25 while taking the full prescribed study-scheme credits.',
+      'Merit Quota: Separate program-wise lists award 1 scholarship per 50 students (up to max 10 scholarships per degree program).',
+      'Newly Admitted Merit: Minimum 65% marks or 3.00/4.00 CGPA in prior qualification makes freshmen eligible for initial merit evaluation.',
+      'Need-Based Scholarship: Apply each semester when announced via VULMS > Student Services > Accounts > "Need Based Scholarship". Covers partial/full tuition fee only (valid for one semester).'
+    ],
+    tips: 'Keep supporting income/utility documents ready as PDF scans before the Need-Based Scholarship window opens on VULMS.',
+    officialLinks: [
+      { label: 'VULMS Accounts Portal', url: 'https://vulms.vu.edu.pk/' }
+    ],
+    tags: ['scholarship', 'merit', 'need based', 'cgpa 3.0', 'tuition waiver'],
+    isImportant: true
+  },
+
+  // 12. Zero Semester & Credit Transfer
+  {
+    id: 'zero-semester-exemption',
+    category: 'course-selection',
+    title: 'Zero Semester Bridge Rules & Course Exemption / Credit Transfer',
+    shortDesc: '18-week Zero Semester requirements and HEC credit transfer ("B" grade + 75% similarity).',
+    details: [
+      'Zero Semester: An 18-week foundational semester (typically MTH001, ENG001, CS001) for candidates slightly below regular admission percentage/CGPA cutoffs.',
+      'Clearance Condition: Students MUST pass all prescribed Zero Semester courses in a single semester with at least 2.00 GPA to qualify for regular admission; zero course exemptions apply.',
+      'Course Exemption / Credit Transfer: Prior courses from HEC-recognized universities require at least a "B" grade (71%+ annual) and >= 75% content similarity, approved by the Equivalence Committee.',
+      'Non-Exemptible Areas: Core computing, specialization courses, and Final Year Projects cannot be exempted, and at least 2 years of VU resident study are mandatory.'
+    ],
+    tags: ['zero semester', 'credit transfer', 'exemption', 'equivalence', 'mth001', 'eng001']
   }
 ];
 
@@ -1137,6 +1379,61 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
           </button>
         </div>
       )}
+
+      {/* 4B. Official VU Grading Scale & Credit Thresholds Quick Reference */}
+      <ScrollReveal className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-8 space-y-5 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-blue-700 uppercase tracking-wider">
+              <Award className="w-4 h-4 text-blue-700" />
+              <span>Official HEC / VU 4.0 Scale Reference</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">
+              Virtual University Grading Scheme &amp; Academic Thresholds
+            </h2>
+          </div>
+          <span className="text-xs font-mono font-semibold text-slate-500">
+            Min Graduation CGPA: 2.00 / 4.00
+          </span>
+        </div>
+
+        <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr className="bg-[#050B18] text-white font-mono text-[11px] uppercase tracking-wider">
+                <th className="py-3 px-4">Letter Grade</th>
+                <th className="py-3 px-4">Percentage</th>
+                <th className="py-3 px-4">Grade Points (4.0)</th>
+                <th className="py-3 px-4">Academic Standing / Policy Note</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {[
+                { grade: 'A+', pct: '90% – 100%', gpa: '4.00', note: 'Distinction · Qualifies toward Merit List evaluation', badge: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
+                { grade: 'A', pct: '85% – 89%', gpa: '4.00', note: 'Excellent · Full 4.00 GPA credit value', badge: 'bg-emerald-50 text-emerald-800 border-emerald-200' },
+                { grade: 'A-', pct: '80% – 84%', gpa: '3.66 – 3.99', note: 'High Honor · Strong Merit Scholarship range', badge: 'bg-sky-50 text-sky-800 border-sky-200' },
+                { grade: 'B+', pct: '75% – 79%', gpa: '3.33 – 3.65', note: 'Very Good · Eligible for 21 credit overload (>=3.00 CGPA)', badge: 'bg-sky-50 text-sky-800 border-sky-200' },
+                { grade: 'B', pct: '71% – 74%', gpa: '3.00 – 3.32', note: 'Good · Minimum benchmark for HEC Credit Transfer', badge: 'bg-blue-50 text-blue-800 border-blue-200' },
+                { grade: 'B-', pct: '68% – 70%', gpa: '2.66 – 2.99', note: 'Above Average · Standard 18 credit hours standing', badge: 'bg-blue-50 text-blue-800 border-blue-200' },
+                { grade: 'C+ / C / C-', pct: '61% – 67%', gpa: '2.00 – 2.65', note: 'Satisfactory Pass · Cannot be repeated for improvement', badge: 'bg-slate-100 text-slate-800 border-slate-300' },
+                { grade: 'D+ / D', pct: '50% – 60%', gpa: '1.00 – 1.99', note: 'Passing Floor · Unlocks prerequisites · Optional Repeat allowed', badge: 'bg-amber-50 text-amber-800 border-amber-200' },
+                { grade: 'F', pct: 'Below 50% (or <20% Half)', gpa: '0.00', note: 'Fail · Mandatory Repeat · Triggered if either Half < 20%', badge: 'bg-rose-50 text-rose-800 border-rose-200' }
+              ].map((row) => (
+                <tr key={row.grade} className="hover:bg-slate-50/80 transition-colors">
+                  <td className="py-2.5 px-4 font-mono font-bold">
+                    <span className={`inline-block px-2 py-0.5 rounded-md border text-xs ${row.badge}`}>
+                      {row.grade}
+                    </span>
+                  </td>
+                  <td className="py-2.5 px-4 font-mono font-semibold text-slate-800 tabular-nums">{row.pct}</td>
+                  <td className="py-2.5 px-4 font-mono font-bold text-blue-700 tabular-nums">{row.gpa}</td>
+                  <td className="py-2.5 px-4 text-slate-600">{row.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </ScrollReveal>
 
       {/* 5. Interactive Callout Banners */}
       <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-6">
