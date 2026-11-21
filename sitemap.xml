@@ -45,6 +45,30 @@
     <priority>0.95</priority>
   </url>
   <url>
+    <loc>https://study.mihora.tech/vu-mcqs-bank</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://study.mihora.tech/live-mids-mcqs</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://study.mihora.tech/vu-handouts-pdf</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://study.mihora.tech/vu-subjective-solved</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://study.mihora.tech/handbook</loc>
     <lastmod>2026-11-21</lastmod>
     <changefreq>daily</changefreq>
