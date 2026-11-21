@@ -171,54 +171,101 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-B_rjjtNB.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-FLni_K2z.css">
+    <script type="module" crossorigin src="/assets/index-49228UkF.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Km3NwXlo.css">
   
     <script type="application/ld+json">
     {
-  "@type": "FAQPage",
-  "@id": "https://study.mihora.tech/subjective/cs201-subjective#qa",
-  "name": "CS201 Subjective Fast-Learning – Introduction to Programming",
-  "mainEntity": [
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "Differentiate between Call by Value, Call by Pointer, and Call by Reference in C++ with how each affects original variables.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Value = copy (safe); Pointer = memory address (* & ->); Reference = alias (direct rename). Call by Value passes a copy; changes inside the function do NOT affect the caller variable. Call by Pointer passes the address (&x) into a pointer parameter (*p); dereferencing *p modifies the original variable. Call by Reference passes an alias (int &r); inside the function, modifying r directly mutates the caller variable with clean syntax."
+      "@type": "WebPage",
+      "@id": "https://study.mihora.tech/subjective/cs201-subjective#webpage",
+      "url": "https://study.mihora.tech/subjective/cs201-subjective",
+      "name": "CS201 Subjective Fast-Learning (8 Q&As) – Introduction to Programming | MIHORA VU",
+      "description": "Fast-learn 8 high-yield CS201 (Introduction to Programming) 2, 3, and 5-mark subjective questions with 10-second memory hooks, examiner marking keys, and model answers on MIHORA VU.",
+      "inLanguage": "en-PK",
+      "isPartOf": {
+        "@id": "https://study.mihora.tech/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "[data-speakable=\"true\"]",
+          "h1"
+        ]
       }
     },
     {
-      "@type": "Question",
-      "name": "What is the difference between malloc() and calloc() in C/C++, and what problem occurs if dynamically allocated memory is not deallocated?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "malloc = 1 arg, garbage values; calloc = 2 args, zero-initialized; forgetting free/delete = Memory Leak. malloc(size) takes total bytes as a single argument and leaves memory uninitialized (garbage values). calloc(count, size) takes two arguments (number of blocks, size per block) and initializes all bits to 0. Failing to deallocate via free() or delete causes a Memory Leak, exhausting available heap RAM until program slowdown or crash."
-      }
+      "@type": "BreadcrumbList",
+      "@id": "https://study.mihora.tech/subjective/cs201-subjective#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Library",
+          "item": "https://study.mihora.tech/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Subjective Fast-Learning",
+          "item": "https://study.mihora.tech/subjective"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "CS201-SUBJECTIVE",
+          "item": "https://study.mihora.tech/subjective/cs201-subjective"
+        }
+      ]
     },
     {
-      "@type": "Question",
-      "name": "Why is seekg(0, ios::end) called before tellg() when determining the length of a file in C++?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "tellg() only tells WHERE the get pointer is right now — seekg(0, ios::end) moves it to the end so position == total bytes. tellg() returns the current byte offset of the input (get) pointer from the start of the file. When a file first opens, the pointer is at byte 0, so tellg() alone would return 0. seekg(0, ios::end) repositions the get pointer to the exact end of the file, making tellg() return the total file size in bytes."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Write a C++ program that opens a file data.txt in read/write mode (or writes A–Z characters to a file using a loop) and displays its contents safely.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Use fstream with ios::in | ios::out (or ofstream/ifstream), always check !file before reading/writing, then file.close(). Include <iostream> and <fstream> headers. Open file with fstream using ios::in | ios::out | ios::trunc (or separate ofstream/ifstream). Verify file stream opened cleanly, loop characters, reset pointer with seekg(0) before reading, and call close()."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Explain the roles of Default Constructor, Copy Constructor, and Destructor in a C++ class, and state what happens when a constructor is omitted.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Default sets initial values; Copy clones existing object (Class &obj); Destructor (~Class) cleans up memory on scope exit. Default Constructor has no parameters and initializes member variables when an object is declared. Copy Constructor takes a const reference (const ClassName &obj) to perform member-by-member or deep copy during initialization. Destructor (~ClassName) takes no parameters/return type and executes automatically when an object goes out of scope or is deleted. If no constructor is written, the compiler supplies an implicit trivial default constructor—except when any parameterized constructor is explicitly defined."
-      }
+      "@type": "FAQPage",
+      "@id": "https://study.mihora.tech/subjective/cs201-subjective#qa",
+      "name": "CS201 Subjective Fast-Learning – Introduction to Programming",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Differentiate between Call by Value, Call by Pointer, and Call by Reference in C++ with how each affects original variables.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Value = copy (safe); Pointer = memory address (* & ->); Reference = alias (direct rename). Call by Value passes a copy; changes inside the function do NOT affect the caller variable. Call by Pointer passes the address (&x) into a pointer parameter (*p); dereferencing *p modifies the original variable. Call by Reference passes an alias (int &r); inside the function, modifying r directly mutates the caller variable with clean syntax."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between malloc() and calloc() in C/C++, and what problem occurs if dynamically allocated memory is not deallocated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "malloc = 1 arg, garbage values; calloc = 2 args, zero-initialized; forgetting free/delete = Memory Leak. malloc(size) takes total bytes as a single argument and leaves memory uninitialized (garbage values). calloc(count, size) takes two arguments (number of blocks, size per block) and initializes all bits to 0. Failing to deallocate via free() or delete causes a Memory Leak, exhausting available heap RAM until program slowdown or crash."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is seekg(0, ios::end) called before tellg() when determining the length of a file in C++?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "tellg() only tells WHERE the get pointer is right now — seekg(0, ios::end) moves it to the end so position == total bytes. tellg() returns the current byte offset of the input (get) pointer from the start of the file. When a file first opens, the pointer is at byte 0, so tellg() alone would return 0. seekg(0, ios::end) repositions the get pointer to the exact end of the file, making tellg() return the total file size in bytes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Write a C++ program that opens a file data.txt in read/write mode (or writes A–Z characters to a file using a loop) and displays its contents safely.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use fstream with ios::in | ios::out (or ofstream/ifstream), always check !file before reading/writing, then file.close(). Include <iostream> and <fstream> headers. Open file with fstream using ios::in | ios::out | ios::trunc (or separate ofstream/ifstream). Verify file stream opened cleanly, loop characters, reset pointer with seekg(0) before reading, and call close()."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Explain the roles of Default Constructor, Copy Constructor, and Destructor in a C++ class, and state what happens when a constructor is omitted.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Default sets initial values; Copy clones existing object (Class &obj); Destructor (~Class) cleans up memory on scope exit. Default Constructor has no parameters and initializes member variables when an object is declared. Copy Constructor takes a const reference (const ClassName &obj) to perform member-by-member or deep copy during initialization. Destructor (~ClassName) takes no parameters/return type and executes automatically when an object goes out of scope or is deleted. If no constructor is written, the compiler supplies an implicit trivial default constructor—except when any parameterized constructor is explicitly defined."
+          }
+        }
+      ]
     }
   ]
 }
@@ -228,26 +275,31 @@
     <!-- Static pre-rendered semantic fallback for search engines (hydrated by React) -->
     <div id="root">
       <header style="padding: 1rem; border-bottom: 1px solid #e2e8f0; background: #ffffff;">
-        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif;">
-          <a href="/" style="font-weight: 800; color: #001738; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
-          <div>
-            <a href="/courses" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Courses (411)</a>
-            <a href="/vu-assignment-solution-2026" style="margin-right: 1rem; color: #059669; text-decoration: none; font-weight: 700;">Assignments 2026</a>
-            <a href="/past-papers" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Past Papers</a>
-            <a href="/handbook" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">VU Handbook</a>
-            <a href="/simulator" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Passing Simulator</a>
-            <a href="/sitemap" style="color: #475569; text-decoration: none; font-weight: 600;">Sitemap</a>
+        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-family: sans-serif;">
+          <a href="/" style="font-weight: 800; color: #050B18; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            <a href="/courses" style="color: #475569; text-decoration: none; font-weight: 600;">Courses (411)</a>
+            <a href="/mcqs" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">MCQs</a>
+            <a href="/subjective" style="color: #b45309; text-decoration: none; font-weight: 600;">Subjective Studio</a>
+            <a href="/vu-assignment-solution-2026" style="color: #059669; text-decoration: none; font-weight: 700;">Assignments 2026</a>
+            <a href="/past-papers" style="color: #475569; text-decoration: none; font-weight: 600;">Past Papers</a>
+            <a href="/handbook" style="color: #475569; text-decoration: none; font-weight: 600;">VU Handbook</a>
+            <a href="/simulator" style="color: #475569; text-decoration: none; font-weight: 600;">Passing Simulator</a>
           </div>
         </nav>
       </header>
+      
+      <div style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 0.55rem 1rem; font-family: sans-serif;">
+        <nav aria-label="Breadcrumb" style="max-width: 1200px; margin: 0 auto; font-size: 0.8rem;">
+          <ol style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;">
+            <li style="display: inline-flex; align-items: center; gap: 0.4rem;"><a href="/" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Library</a></li><li style="display: inline-flex; align-items: center; gap: 0.4rem;"><span aria-hidden="true" style="color: #94a3b8;">&rsaquo;</span><a href="/subjective" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Subjective Fast-Learning</a></li><li style="display: inline-flex; align-items: center; gap: 0.4rem;"><span aria-hidden="true" style="color: #94a3b8;">&rsaquo;</span><span aria-current="page" style="color: #0f172a; font-weight: 700;">CS201-SUBJECTIVE</span></li>
+          </ol>
+        </nav>
+      </div>
+    
       <main>
         
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <nav style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">
-          <a href="/" style="color: #1d4ed8; text-decoration: none;">Home</a> &gt;
-          <a href="/subjective" style="color: #1d4ed8; text-decoration: none;">Subjective Studio</a> &gt;
-          <span>CS201</span>
-        </nav>
         <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
           CS201 – Introduction to Programming (Subjective Fast-Learning)
         </h1>

@@ -171,54 +171,101 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-B_rjjtNB.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-FLni_K2z.css">
+    <script type="module" crossorigin src="/assets/index-49228UkF.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Km3NwXlo.css">
   
     <script type="application/ld+json">
     {
-  "@type": "FAQPage",
-  "@id": "https://study.mihora.tech/subjective/cs403-subjective#qa",
-  "name": "CS403 Subjective Fast-Learning – Database Management Systems",
-  "mainEntity": [
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "Distinguish between Horizontal Partitioning and Vertical Partitioning, and name the three types of Horizontal Partitioning.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Horizontal splits ROWS (Range, List, Hash); Vertical splits COLUMNS (often paired with PK). Horizontal Partitioning splits table rows (tuples) across partitions with identical columns. Three Horizontal Partitioning methods: Range Partitioning, List Partitioning, and Hash Partitioning. Vertical Partitioning splits table columns (attributes) into separate tables sharing the Primary Key."
+      "@type": "WebPage",
+      "@id": "https://study.mihora.tech/subjective/cs403-subjective#webpage",
+      "url": "https://study.mihora.tech/subjective/cs403-subjective",
+      "name": "CS403 Subjective Fast-Learning (5 Q&As) – Database Management Systems | MIHORA VU",
+      "description": "Fast-learn 5 high-yield CS403 (Database Management Systems) 2, 3, and 5-mark subjective questions with 10-second memory hooks, examiner marking keys, and model answers on MIHORA VU.",
+      "inLanguage": "en-PK",
+      "isPartOf": {
+        "@id": "https://study.mihora.tech/#website"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "[data-speakable=\"true\"]",
+          "h1"
+        ]
       }
     },
     {
-      "@type": "Question",
-      "name": "Differentiate between Clustered Index and Non-Clustered Index with one real example.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Clustered = physically sorts the table rows (only 1 per table, like a dictionary); Non-Clustered = separate pointer lookup (many allowed, like a book index). A Clustered Index determines the physical storage order of actual data rows on disk; therefore, a table can have ONLY ONE clustered index. A Non-Clustered Index builds a separate index structure containing index keys and row pointers; a table can have multiple non-clustered indexes. Example of Clustered Index: Primary Key Student_ID sorting records sequentially on disk (analogous to an alphabetical dictionary)."
-      }
+      "@type": "BreadcrumbList",
+      "@id": "https://study.mihora.tech/subjective/cs403-subjective#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Library",
+          "item": "https://study.mihora.tech/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Subjective Fast-Learning",
+          "item": "https://study.mihora.tech/subjective"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "CS403-SUBJECTIVE",
+          "item": "https://study.mihora.tech/subjective/cs403-subjective"
+        }
+      ]
     },
     {
-      "@type": "Question",
-      "name": "Write SQL statements to: (a) create table Accounts with Account_ID INT Primary Key and Account_Type VARCHAR(30) NOT NULL, and (b) create a view ST_LIST showing all columns from Student.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "DDL creates objects: CREATE TABLE Name (col type constraint) and CREATE VIEW Name AS SELECT ... Use CREATE TABLE Accounts with PRIMARY KEY on Account_ID and NOT NULL constraint on Account_Type. Use CREATE VIEW ST_LIST AS SELECT * FROM Student; Remember ALTER TABLE ... ADD ... for adding columns later and SELECT ... WHERE ... LIKE \"A%\" for pattern matching."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Given ORDER(OrderID, CustomerID, CustomerName): identify why it violates Third Normal Form (3NF) and show the normalized decomposition.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "OrderID -> CustomerID -> CustomerName is a Transitive Dependency (non-key -> non-key); split Customer out! OrderID is the Primary Key, so OrderID -> CustomerID and CustomerID -> CustomerName. CustomerName depends transitively on OrderID via non-key attribute CustomerID, violating 3NF. Fix: Remove CustomerName into a separate Customer(CustomerID, CustomerName) table, keeping CustomerID as a Foreign Key in ORDER."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "List the 4 ACID properties of database transactions and name three problems caused by uncontrolled concurrent transaction execution.",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "ACID = Atomicity, Consistency, Isolation, Durability; Concurrency problems = Lost Update, Uncommitted Update (Dirty Read), Inconsistent Analysis. Atomicity: all operations succeed (COMMIT) or none take effect (ROLLBACK). Consistency: transaction moves database from one valid state to another. Isolation: concurrent transactions execute without interfering with each other (Two-Phase Locking ensures serializability). Durability: committed changes persist in log/disk even after system crash. Three concurrency problems: Lost Update Problem, Uncommitted Update (Dirty Read) Problem, and Inconsistent Analysis Problem."
-      }
+      "@type": "FAQPage",
+      "@id": "https://study.mihora.tech/subjective/cs403-subjective#qa",
+      "name": "CS403 Subjective Fast-Learning – Database Management Systems",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Distinguish between Horizontal Partitioning and Vertical Partitioning, and name the three types of Horizontal Partitioning.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Horizontal splits ROWS (Range, List, Hash); Vertical splits COLUMNS (often paired with PK). Horizontal Partitioning splits table rows (tuples) across partitions with identical columns. Three Horizontal Partitioning methods: Range Partitioning, List Partitioning, and Hash Partitioning. Vertical Partitioning splits table columns (attributes) into separate tables sharing the Primary Key."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Differentiate between Clustered Index and Non-Clustered Index with one real example.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clustered = physically sorts the table rows (only 1 per table, like a dictionary); Non-Clustered = separate pointer lookup (many allowed, like a book index). A Clustered Index determines the physical storage order of actual data rows on disk; therefore, a table can have ONLY ONE clustered index. A Non-Clustered Index builds a separate index structure containing index keys and row pointers; a table can have multiple non-clustered indexes. Example of Clustered Index: Primary Key Student_ID sorting records sequentially on disk (analogous to an alphabetical dictionary)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Write SQL statements to: (a) create table Accounts with Account_ID INT Primary Key and Account_Type VARCHAR(30) NOT NULL, and (b) create a view ST_LIST showing all columns from Student.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DDL creates objects: CREATE TABLE Name (col type constraint) and CREATE VIEW Name AS SELECT ... Use CREATE TABLE Accounts with PRIMARY KEY on Account_ID and NOT NULL constraint on Account_Type. Use CREATE VIEW ST_LIST AS SELECT * FROM Student; Remember ALTER TABLE ... ADD ... for adding columns later and SELECT ... WHERE ... LIKE \"A%\" for pattern matching."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Given ORDER(OrderID, CustomerID, CustomerName): identify why it violates Third Normal Form (3NF) and show the normalized decomposition.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "OrderID -> CustomerID -> CustomerName is a Transitive Dependency (non-key -> non-key); split Customer out! OrderID is the Primary Key, so OrderID -> CustomerID and CustomerID -> CustomerName. CustomerName depends transitively on OrderID via non-key attribute CustomerID, violating 3NF. Fix: Remove CustomerName into a separate Customer(CustomerID, CustomerName) table, keeping CustomerID as a Foreign Key in ORDER."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "List the 4 ACID properties of database transactions and name three problems caused by uncontrolled concurrent transaction execution.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ACID = Atomicity, Consistency, Isolation, Durability; Concurrency problems = Lost Update, Uncommitted Update (Dirty Read), Inconsistent Analysis. Atomicity: all operations succeed (COMMIT) or none take effect (ROLLBACK). Consistency: transaction moves database from one valid state to another. Isolation: concurrent transactions execute without interfering with each other (Two-Phase Locking ensures serializability). Durability: committed changes persist in log/disk even after system crash. Three concurrency problems: Lost Update Problem, Uncommitted Update (Dirty Read) Problem, and Inconsistent Analysis Problem."
+          }
+        }
+      ]
     }
   ]
 }
@@ -228,26 +275,31 @@
     <!-- Static pre-rendered semantic fallback for search engines (hydrated by React) -->
     <div id="root">
       <header style="padding: 1rem; border-bottom: 1px solid #e2e8f0; background: #ffffff;">
-        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif;">
-          <a href="/" style="font-weight: 800; color: #001738; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
-          <div>
-            <a href="/courses" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Courses (411)</a>
-            <a href="/vu-assignment-solution-2026" style="margin-right: 1rem; color: #059669; text-decoration: none; font-weight: 700;">Assignments 2026</a>
-            <a href="/past-papers" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Past Papers</a>
-            <a href="/handbook" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">VU Handbook</a>
-            <a href="/simulator" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Passing Simulator</a>
-            <a href="/sitemap" style="color: #475569; text-decoration: none; font-weight: 600;">Sitemap</a>
+        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-family: sans-serif;">
+          <a href="/" style="font-weight: 800; color: #050B18; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            <a href="/courses" style="color: #475569; text-decoration: none; font-weight: 600;">Courses (411)</a>
+            <a href="/mcqs" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">MCQs</a>
+            <a href="/subjective" style="color: #b45309; text-decoration: none; font-weight: 600;">Subjective Studio</a>
+            <a href="/vu-assignment-solution-2026" style="color: #059669; text-decoration: none; font-weight: 700;">Assignments 2026</a>
+            <a href="/past-papers" style="color: #475569; text-decoration: none; font-weight: 600;">Past Papers</a>
+            <a href="/handbook" style="color: #475569; text-decoration: none; font-weight: 600;">VU Handbook</a>
+            <a href="/simulator" style="color: #475569; text-decoration: none; font-weight: 600;">Passing Simulator</a>
           </div>
         </nav>
       </header>
+      
+      <div style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 0.55rem 1rem; font-family: sans-serif;">
+        <nav aria-label="Breadcrumb" style="max-width: 1200px; margin: 0 auto; font-size: 0.8rem;">
+          <ol style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;">
+            <li style="display: inline-flex; align-items: center; gap: 0.4rem;"><a href="/" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Library</a></li><li style="display: inline-flex; align-items: center; gap: 0.4rem;"><span aria-hidden="true" style="color: #94a3b8;">&rsaquo;</span><a href="/subjective" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Subjective Fast-Learning</a></li><li style="display: inline-flex; align-items: center; gap: 0.4rem;"><span aria-hidden="true" style="color: #94a3b8;">&rsaquo;</span><span aria-current="page" style="color: #0f172a; font-weight: 700;">CS403-SUBJECTIVE</span></li>
+          </ol>
+        </nav>
+      </div>
+    
       <main>
         
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <nav style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">
-          <a href="/" style="color: #1d4ed8; text-decoration: none;">Home</a> &gt;
-          <a href="/subjective" style="color: #1d4ed8; text-decoration: none;">Subjective Studio</a> &gt;
-          <span>CS403</span>
-        </nav>
         <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
           CS403 – Database Management Systems (Subjective Fast-Learning)
         </h1>
