@@ -70,9 +70,9 @@ export function syncRouteSeo({
   } else if (page === 'home' && selectedCourseCode) {
     const match = courses.find((c) => c.code === selectedCourseCode);
     const titleSuffix = match ? ` – ${match.title}` : '';
-    title = `${selectedCourseCode}${titleSuffix} Past Papers, Live Mids MCQs, Handouts PDF & Solutions | MIHORA VU`;
-    desc = `Download verified ${selectedCourseCode}${match ? ` (${match.title})` : ''} solved midterm & final past papers, live quiz MCQs bank, handouts PDF, and 2026 assignment guides free on MIHORA VU.`;
-    keywords = `${selectedCourseCode} past papers, ${selectedCourseCode} mcqs bank, ${selectedCourseCode} live mids mcqs, ${selectedCourseCode} handouts pdf, ${selectedCourseCode} midterm solved, ${selectedCourseCode} finalterm solved, ${selectedCourseCode} assignment solution 2026`;
+    title = `${selectedCourseCode}${titleSuffix} Assignment 1 & 2 Solution 2026, Past Papers & Live Mids MCQs | MIHORA VU`;
+    desc = `Download verified ${selectedCourseCode}${match ? ` (${match.title})` : ''} Assignment 1 & 2 Solution 2026, GDB solutions, solved midterm & final past papers, live quiz MCQs bank, handouts PDF, and subjective notes free on MIHORA VU.`;
+    keywords = `${selectedCourseCode} assignment 1 solution 2026, ${selectedCourseCode} assignment 2 solution 2026, ${selectedCourseCode} assignment solution 2026, ${selectedCourseCode} gdb solution 2026, ${selectedCourseCode} past papers, ${selectedCourseCode} mcqs bank, ${selectedCourseCode} live mids mcqs, ${selectedCourseCode} handouts pdf, ${selectedCourseCode} midterm solved, ${selectedCourseCode} finalterm solved, ${selectedCourseCode} subjective`;
     canonicalPath = `/courses/${selectedCourseCode.toLowerCase()}`;
     breadcrumbs.push(
       { name: 'Courses', item: `${BASE_URL}/courses` },
@@ -96,8 +96,9 @@ export function syncRouteSeo({
       }
     });
   } else if (page === 'courses') {
-    title = `All ${courses.length} VU Courses Directory – Past Papers & Handouts | MIHORA VU`;
-    desc = `Browse all ${courses.length} Virtual University courses organized by faculty with solved midterm papers, final term files, handouts, and 2026 assignment guides.`;
+    title = `VU Course List (${courses.length} Subject Codes) – Past Papers, Assignments & Handouts | MIHORA VU`;
+    desc = `Complete Virtual University course list covering all ${courses.length} subject codes (CS, MTH, MGT, ENG, PAK, PSY, ZOO, EDU) with solved midterm papers, final term files, handouts PDF, and 2026 assignment guides.`;
+    keywords = 'vu course list, virtual university all courses list, vu course codes, vu subjects directory, vu past papers list, vu assignment solution 2026';
     canonicalPath = '/courses';
     breadcrumbs.push({ name: `Courses (${courses.length})`, item: `${BASE_URL}/courses` });
     graphNodes.push({
@@ -208,13 +209,15 @@ export function syncRouteSeo({
       { name: 'Assignments 2026', item: `${BASE_URL}${canonicalPath}` }
     );
   } else if (page === 'handbook') {
-    title = 'VU Student Handbook 2026 – 20% Passing Rule & Policies | MIHORA VU';
-    desc = 'Official VU student rules: Master the 20% Two-Half passing rule, datesheet seat allocation, fee installments, CGPA probation, and paper rescheduling.';
+    title = 'VU Student Handbook 2026 – 33 Authentic FAQs, 20% Rule & Policies | MIHORA VU';
+    desc = 'Official Virtual University Student Handbook guide: Master the 20% Two-Half rule, paper rechecking (PKR 500), merit & need-based scholarships, A+ to F grading scheme, datesheet booking, CGPA probation, and paper rescheduling (PKR 2,000).';
+    keywords = 'vu student handbook, handbook vu edu pk guide, virtual university student handbook, vu 20 percent passing rule, vu paper rechecking fee 500, vu merit scholarship cgpa, vu grading scale, vu paper reschedule fee';
     canonicalPath = '/handbook';
     breadcrumbs.push({ name: 'VU Handbook', item: `${BASE_URL}/handbook` });
   } else if (page === 'simulator') {
-    title = 'VU Passing Marks Simulator – 20% Two-Half Rule Calculator | MIHORA VU';
-    desc = 'Calculate exact Final-Term marks needed to pass any Virtual University course under the official 20% Two-Half rule and forecast your grade.';
+    title = 'VU Mid & Final Passing Marks Calculator (20% Two-Half Rule Simulator) | MIHORA VU';
+    desc = 'Official VU Mid Calculator & Passing Marks Simulator: Calculate your midterm, sessional, and exact Final-Term marks required to pass or reach an A grade under Virtual University 20% Two-Half rules.';
+    keywords = 'vu mid calculator, vu midterm calculator, vu passing marks simulator, vu final term marks calculator, vu 20 percent rule calculator, virtual university grade calculator';
     canonicalPath = '/simulator';
     breadcrumbs.push({ name: 'Passing Marks Simulator', item: `${BASE_URL}/simulator` });
     graphNodes.push({

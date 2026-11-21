@@ -99,9 +99,9 @@ const pagePathMap: Record<AppPage, string> = {
 function getPageFromPath(): AppPage {
   if (typeof window === 'undefined') return 'home';
   const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
-  if (pathname === '/courses' || pathname.startsWith('/courses/')) return 'courses';
-  if (pathname === '/simulator' || pathname === '/calculator') return 'simulator';
-  if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules') return 'handbook';
+  if (pathname === '/courses' || pathname.startsWith('/courses/') || pathname === '/vu-course-list' || pathname === '/course-list') return 'courses';
+  if (pathname === '/simulator' || pathname === '/calculator' || pathname === '/mid-calculator' || pathname === '/vu-mid-calculator') return 'simulator';
+  if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules' || pathname === '/vu-student-handbook') return 'handbook';
   if (pathname === '/gpa-calculator' || pathname === '/cgpa-calculator' || pathname === '/gpa') return 'gpa-calculator';
   if (pathname === '/datesheet-guide' || pathname === '/datesheet' || pathname === '/datesheet-maker') return 'datesheet-guide';
   if (pathname === '/cs619-guide' || pathname === '/cs619' || pathname === '/fyp') return 'cs619-guide';

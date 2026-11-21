@@ -37,15 +37,25 @@ if (fs.existsSync(coursesJsonPath)) {
   }
 }
 
+const perCourseCounts: Record<string, Record<string, number>> = {};
+
 if (fs.existsSync(resourcesJsonPath)) {
   try {
     const parsedResources = JSON.parse(fs.readFileSync(resourcesJsonPath, 'utf-8'));
     if (Array.isArray(parsedResources)) {
       totalResourceCount = parsedResources.length;
       const computed: Record<string, number> = {};
-      for (const item of parsedResources as Array<{ type?: string }>) {
+      for (const item of parsedResources as Array<{ type?: string; course?: string }>) {
         if (item.type) {
           computed[item.type] = (computed[item.type] || 0) + 1;
+        }
+        if (item.course) {
+          const code = item.course.toUpperCase();
+          if (!perCourseCounts[code]) {
+            perCourseCounts[code] = {};
+          }
+          const t = item.type || 'OTHER';
+          perCourseCounts[code][t] = (perCourseCounts[code][t] || 0) + 1;
         }
       }
       Object.assign(typeCounts, computed);
@@ -64,10 +74,10 @@ const ROUTES: RouteSEO[] = [
   // 1. Course Directory (ALL 411 Courses)
   {
     path: 'courses',
-    title: 'All 411+ VU Courses Directory – VU Assignment Solution 2026, Past Papers & Handouts | MIHORA VU',
-    description: 'Complete directory of 411+ Virtual University of Pakistan courses. Access verified past papers, solved midterms, finals, lecture handouts, and 2026 assignment solutions for CS, MTH, MGT, ENG, and more.',
+    title: 'VU Course List (All 411+ Subject Codes) – Assignment Solution 2026, Past Papers & Handouts | MIHORA VU',
+    description: 'Complete Virtual University course list covering all 411+ subject codes (CS, MTH, MGT, ENG, PAK, PSY, ZOO, EDU). Access verified past papers, solved midterms, finals, lecture handouts PDF, and 2026 assignment 1 & 2 solutions.',
     canonical: 'https://study.mihora.tech/courses',
-    keywords: 'mihora vu, vu courses directory, virtual university all subjects, vu cs courses, vu mth courses, vu assignment solution 2026, vu past papers list, vu syllabus handouts',
+    keywords: 'mihora vu, vu course list, virtual university all course codes, vu courses directory, virtual university all subjects, vu cs courses, vu mth courses, vu assignment solution 2026, vu past papers list, vu syllabus handouts',
     extraJsonLd: {
       "@type": "ItemList",
       "@id": "https://study.mihora.tech/courses#catalog",
@@ -464,7 +474,7 @@ const ROUTES: RouteSEO[] = [
     title: 'VU Student Handbook 2026 – 33 Authentic FAQs, Grading Scale, Rechecking & Rules | MIHORA VU',
     description: 'Official VU Student Handbook: 33 authentic Q&As covering the 20% two-half rule, paper rechecking (PKR 500), merit/need scholarships, grading scheme (A+ to F), datesheet booking, CGPA probation, and paper rescheduling (PKR 2,000).',
     canonical: 'https://study.mihora.tech/handbook',
-    keywords: 'mihora vu, VU 20 percent rule, vu student handbook, vu passing rules, vu paper rechecking fee 500, vu merit scholarship cgpa, vu grading scheme, vu date sheet schedule, vu academic probation, vu fee installment, vu paper reschedule fee',
+    keywords: 'mihora vu, vu student handbook, handbook vu edu pk guide, virtual university student handbook, VU 20 percent rule, vu passing rules, vu paper rechecking fee 500, vu merit scholarship cgpa, vu grading scheme, vu date sheet schedule, vu academic probation, vu fee installment, vu paper reschedule fee',
     extraJsonLd: {
       "@type": "FAQPage",
       "@id": "https://study.mihora.tech/handbook#faqs",
@@ -545,18 +555,18 @@ const ROUTES: RouteSEO[] = [
     `
   },
 
-  // 4. Exam Passing Marks Simulator
+  // 4. Exam Passing Marks Simulator / VU Mid Calculator
   {
     path: 'simulator',
-    title: 'VU Passing Marks Simulator – 20% Two-Half Rule & Finalterm Calculator | MIHORA VU',
-    description: 'Calculate exact marks needed in VU Final Term exams. Check compliance with the official 20% Two-Half rule and download your free academic PDF report on MIHORA VU.',
+    title: 'VU Mid Calculator & Final Passing Marks Simulator (20% Two-Half Rule) | MIHORA VU',
+    description: 'Calculate exact midterm and Final-Term marks needed in Virtual University exams. Check compliance with the official 20% Two-Half passing rule and download your free academic PDF report on MIHORA VU.',
     canonical: 'https://study.mihora.tech/simulator',
-    keywords: 'mihora vu, VU passing marks simulator, vu final term marks calculator, vu 20 percent rule calculator, vu gpa target simulator, vu exam grading calculator',
+    keywords: 'mihora vu, vu mid calculator, vu midterm calculator, VU passing marks simulator, vu final term marks calculator, vu 20 percent rule calculator, vu gpa target simulator, vu exam grading calculator',
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">Virtual University Exam Passing Marks &amp; Grade Simulator</h1>
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">VU Mid Calculator &amp; Exam Passing Marks Simulator</h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
-          Real-time academic simulator calculating the exact Final Term examination score required to pass any VU course or achieve target grades (A, B, C, D) under the official 20% Two-Half Passing Rule.
+          Real-time academic calculator calculating your Midterm standing and exact Final-Term examination score required to pass any VU course or achieve target grades (A, B, C, D) under the official 20% Two-Half Passing Rule.
         </p>
       </div>
     `
@@ -684,18 +694,26 @@ const ROUTES: RouteSEO[] = [
 
 // Add ALL 411 Courses as dedicated, high-ranking static routes
 for (const course of allCoursesList) {
+  const cCounts = perCourseCounts[course.code.toUpperCase()] || {};
+  const finalCnt = cCounts['FINALTERM'] || 0;
+  const midCnt = cCounts['MIDTERM'] || 0;
+  const quizCnt = cCounts['QUIZ'] || 0;
+  const mcqCnt = cCounts['MCQFILE'] || 0;
+  const handoutCnt = cCounts['HANDOUT'] || 0;
+  const assignCnt = cCounts['ASSIGNMENT'] || 0;
+
   ROUTES.push({
     path: `courses/${course.code.toLowerCase()}`,
-    title: `${course.code} – ${course.title} VU Assignment Solution 2026, Solved Past Papers & Handouts | MIHORA VU`,
-    description: `Download verified ${course.code} (${course.title}) Virtual University 2026 assignment solution, GDB solution, solved midterm past papers (Moaaz, Waqar Siddhu), final term papers, and lecture handouts. 100% free direct download on MIHORA VU.`,
+    title: `${course.code} – ${course.title} Assignment 1 & 2 Solution 2026, Past Papers & Handouts PDF | MIHORA VU`,
+    description: `Download verified ${course.code} (${course.title}) VU Assignment 1 & 2 Solution 2026, GDB solution, ${midCnt} midterm & ${finalCnt} final-term past papers (Moaaz, Waqar Siddhu), ${quizCnt + mcqCnt} quiz/MCQ files, and ${handoutCnt} lecture handouts PDF free on MIHORA VU.`,
     canonical: `https://study.mihora.tech/courses/${course.code.toLowerCase()}`,
-    keywords: `mihora vu, ${course.code} assignment solution 2026, ${course.code} assignment solution latest, ${course.code} gdb solution 2026, ${course.code} past papers, ${course.code} solved midterm, ${course.code} final term papers, ${course.code} handouts, ${course.code} mcqs, ${course.code} vu, mihora vu ${course.code}, virtual university ${course.code}`,
+    keywords: `mihora vu, ${course.code} assignment 1 solution 2026, ${course.code} assignment 2 solution 2026, ${course.code} assignment solution 2026, ${course.code} assignment solution latest, ${course.code} gdb solution 2026, ${course.code} past papers, ${course.code} solved midterm, ${course.code} final term papers, ${course.code} handouts pdf, ${course.code} mcqs bank, ${course.code} live mids mcqs, ${course.code} subjective, ${course.code} vu, virtual university ${course.code}`,
     extraJsonLd: {
       "@type": "Course",
       "@id": `https://study.mihora.tech/courses/${course.code.toLowerCase()}#course`,
       "name": `${course.code} - ${course.title}`,
       "courseCode": course.code,
-      "description": `Academic course study archive for ${course.code} (${course.title}) including solved past papers, lecture handouts, MCQs, and 2026 assignment solutions.`,
+      "description": `Complete study archive for ${course.code} (${course.title}) featuring ${course.fileCount} verified documents: ${finalCnt} Final-Term, ${midCnt} Midterm, ${quizCnt + mcqCnt} Quiz/MCQ files, ${handoutCnt} Handouts PDF, and 2026 Assignment 1 & 2 solutions.`,
       "provider": {
         "@type": "Organization",
         "name": "Virtual University of Pakistan"
@@ -711,26 +729,32 @@ for (const course of allCoursesList) {
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
         <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a; margin-bottom: 0.5rem;">
-          ${course.code} – ${course.title} VU Assignment Solution 2026 &amp; Solved Past Papers
+          ${course.code} – ${course.title}: Assignment 1 &amp; 2 Solution 2026, Past Papers &amp; Handouts PDF
         </h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
-          Department: <strong>${course.faculty}</strong> • Resource Collection: <strong>${course.fileCount} Verified Files</strong>.
+          Department: <strong>${course.faculty}</strong> • Total Verified Collection: <strong>${course.fileCount} Files</strong> (${finalCnt} Final-Term, ${midCnt} Midterm, ${quizCnt} Quizzes, ${mcqCnt} MCQ Banks, ${handoutCnt} Handouts PDF, ${assignCnt} Assignments).
         </p>
         <div style="margin-top: 1.5rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-          <h2 style="font-size: 1.3rem; font-weight: 700; color: #0066ff;">Available Study Materials for ${course.code}:</h2>
+          <h2 style="font-size: 1.3rem; font-weight: 700; color: #0066ff;">Verified Study Resources for ${course.code} (${course.title}):</h2>
           <ul style="color: #475569; line-height: 1.8; margin-top: 0.5rem;">
-            <li><strong>2026 Assignment &amp; GDB Solutions:</strong> Guidance on scoring 100% with Turnitin plagiarism defense (&lt;19%) and 24-hour grace periods.</li>
-            <li><strong>Midterm Solved Past Papers:</strong> Moaaz, Waqar Siddhu &amp; VU topper verified midterm papers.</li>
-            <li><strong>Final Term Solved Past Papers:</strong> Comprehensive subjective questions &amp; objective past exams.</li>
-            <li><strong>Lecture Handouts &amp; Books:</strong> Complete official course handouts in high-resolution PDF.</li>
-            <li><strong>Grand Quizzes &amp; Solved MCQs:</strong> Repeat MCQ files with correct answer keys.</li>
+            <li><strong>${course.code} Assignment 1 &amp; 2 Solution 2026 + GDB:</strong> Formatting templates, Turnitin &lt;19% originality defense, and 24-hour grace period calendar (${assignCnt} archived assignment files).</li>
+            <li><strong>${course.code} Midterm &amp; Live Mids MCQs (${midCnt + quizCnt} Files):</strong> Solved midterm past papers (Moaaz &amp; Waqar Siddhu) and current quiz/MCQ banks.</li>
+            <li><strong>${course.code} Final-Term Solved Papers (${finalCnt} Files):</strong> Complete subjective 2/3/5-mark answers and objective mega files.</li>
+            <li><strong>${course.code} Lecture Handouts PDF (${handoutCnt} Files):</strong> Official Virtual University handouts, highlighted short notes, and syllabus guides.</li>
+            <li><strong>${course.code} Mega MCQs &amp; Subjective Prep (${mcqCnt} MCQ Files):</strong> Practice repeat objective MCQs and 10-second subjective memory hooks.</li>
           </ul>
           <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem;">
-            <a href="/courses?course=${course.code}" style="display: inline-block; padding: 0.75rem 1.5rem; background: #0066ff; color: #ffffff; font-weight: 700; text-decoration: none; border-radius: 8px;">
-              Open ${course.code} Library Archive (${course.fileCount} Files)
+            <a href="/courses?course=${course.code}" style="display: inline-block; padding: 0.75rem 1.25rem; background: #0066ff; color: #ffffff; font-weight: 700; text-decoration: none; border-radius: 8px;">
+              Download ${course.code} Files (${course.fileCount})
             </a>
-            <a href="/vu-assignment-solution-2026?course=${course.code}" style="display: inline-block; padding: 0.75rem 1.5rem; background: #f0fdf4; color: #166534; font-weight: 700; text-decoration: none; border-radius: 8px; border: 1px solid #bbf7d0;">
-              ${course.code} 2026 Assignment Solution Guide
+            <a href="/vu-assignment-solution-2026?course=${course.code}" style="display: inline-block; padding: 0.75rem 1.25rem; background: #f0fdf4; color: #166534; font-weight: 700; text-decoration: none; border-radius: 8px; border: 1px solid #bbf7d0;">
+              ${course.code} 2026 Assignment Solutions
+            </a>
+            <a href="/vu-mcqs-bank" style="display: inline-block; padding: 0.75rem 1.25rem; background: #eff6ff; color: #1d4ed8; font-weight: 700; text-decoration: none; border-radius: 8px; border: 1px solid #bfdbfe;">
+              MCQs Bank &amp; Live Mids
+            </a>
+            <a href="/simulator" style="display: inline-block; padding: 0.75rem 1.25rem; background: #fffbeb; color: #b45309; font-weight: 700; text-decoration: none; border-radius: 8px; border: 1px solid #fde68a;">
+              ${course.code} Mid Calculator
             </a>
           </div>
         </div>
@@ -1145,12 +1169,12 @@ ${subjectiveSets
   )
   .join('\n')}
 
-## Accredited Virtual University Courses Directory (${allCoursesList.length} Courses)
+## Accredited Virtual University Courses Directory (${allCoursesList.length} Courses — Assignments, Mid/Final Past Papers, Handouts & MCQs)
 ${allCoursesList
-  .map(
-    (c) =>
-      `- [${c.code} – ${c.title}](https://study.mihora.tech/courses/${c.code.toLowerCase()}) (${c.faculty} · ${c.fileCount} files)`
-  )
+  .map((c) => {
+    const cc = perCourseCounts[c.code.toUpperCase()] || {};
+    return `- [${c.code} – ${c.title}](https://study.mihora.tech/courses/${c.code.toLowerCase()}) (${c.faculty} · ${c.fileCount} files: ${cc['FINALTERM'] || 0} final, ${cc['MIDTERM'] || 0} midterm, ${(cc['QUIZ'] || 0) + (cc['MCQFILE'] || 0)} quiz/MCQ, ${cc['HANDOUT'] || 0} handouts, ${cc['ASSIGNMENT'] || 0} assignments)`;
+  })
   .join('\n')}
 `;
 
