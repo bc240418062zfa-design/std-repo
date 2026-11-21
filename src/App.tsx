@@ -6,6 +6,7 @@ import { resolveResourceLocally } from './security/shardResolver';
 import { mcqSets } from './data/mcqs';
 import { subjectiveSets } from './data/subjective';
 import { Navbar } from './components/Navbar';
+import { BreadcrumbBar, BreadcrumbItem } from './components/BreadcrumbBar';
 import { Hero } from './components/Hero';
 import { FilterBar } from './components/FilterBar';
 import { ResourceCard } from './components/ResourceCard';
@@ -21,6 +22,8 @@ import {
   EASE_OUT_EXPO
 } from './components/MotionPrimitives';
 import { CelestialStarfield, CelestialOrbitalRings, CelestialDivider } from './components/CelestialBackdrop';
+import { syncRouteSeo } from './utils/seoManager';
+import observatoryArt from './assets/images/mihora_observatory_art_1795287185839.jpg';
 import { CoursesPage } from './pages/CoursesPage';
 import { SecurityPage } from './pages/SecurityPage';
 import { AboutPage } from './pages/AboutPage';
@@ -312,96 +315,27 @@ export default function App() {
     }, 80);
   };
 
-  // Dynamically synchronize document title and meta description for SEO & browser history
+  // Dynamically synchronize document title, OpenGraph, canonical URL, and JSON-LD (SEO + AEO Speakable)
   useEffect(() => {
-    let title = 'MIHORA VU – VU Assignment Solution 2026 Latest & Solved Past Papers (All 411+ Courses)';
-    let desc = 'Official MIHORA VU Study Library: Direct download VU Assignment Solution 2026 (Latest Spring & Fall), 28,328+ solved past papers (Moaaz, Waqar Siddhu), handouts & quizzes for all 411+ Virtual University courses.';
-    
-    if (currentPage === 'home' && filters.course) {
-      const match = courses.find((c) => c.code === filters.course);
-      const titleSuffix = match ? ` – ${match.title}` : '';
-      title = `${filters.course}${titleSuffix} VU Assignment Solution 2026, Solved Past Papers & Handouts | MIHORA VU`;
-      desc = `Download verified ${filters.course} (${match ? match.title : 'VU Course'}) 2026 assignment solutions, solved midterm past papers, final term papers, and lecture handouts with 100% direct download on MIHORA VU.`;
-    } else if (currentPage === 'courses') {
-      title = 'All 411+ VU Courses Directory – VU Assignment Solution 2026, Past Papers & Handouts | MIHORA VU';
-      desc = 'Browse all 411 Virtual University courses. Download CS101, MTH101, MGT101, ENG101, and CS201 handouts, solved papers, and 2026 assignment solution guides.';
-    } else if (currentPage === 'assignment-guide') {
-      title = 'VU Assignment Solution 2026 Latest – All 411 Courses Solved Assignments & GDBs | MIHORA VU';
-      desc = 'Download verified Virtual University Assignment Solution 2026 (Latest Spring & Fall Semesters), GDB solutions, quiz files, and Turnitin plagiarism-free templates (<19%) for all 411 courses.';
-    } else if (currentPage === 'past-papers') {
-      title = 'VU Solved Past Papers – Midterm & Final Term Papers (Moaaz & Waqar Siddhu) | MIHORA VU';
-      desc = 'Download verified Virtual University solved past papers: Moaaz & Waqar Siddhu midterm and final term papers, repeat MCQs, subjective question banks for all 411 courses.';
-    } else if (currentPage === 'mcqs') {
-      const activeSet = selectedMcqSetId ? mcqSets.find((s) => s.id === selectedMcqSetId) : null;
-      if (activeSet) {
-        title = `${activeSet.courseCode} ${activeSet.termLabel} MCQs (${activeSet.questions.length} Qs) – ${activeSet.courseTitle} | MIHORA VU`;
-        desc = `Practice ${activeSet.questions.length} verified ${activeSet.courseCode} (${activeSet.courseTitle}) ${activeSet.termLabel} MCQs online with instant answers, timed mock exam mode, and quick revision flash-sheets on MIHORA VU.`;
-      } else {
-        title = 'Interactive VU Exam MCQs & Subject Mock Quizzes (Mid-Term & Final) | MIHORA VU';
-        desc = 'Practice verified Virtual University Midterm and Final-Term MCQs on dedicated subject pages with instant answers, timed mock exams, and rapid revision flash-sheets.';
-      }
-    } else if (currentPage === 'subjective') {
-      const activeSub = selectedSubjectiveSetId
-        ? subjectiveSets.find((s) => s.id === selectedSubjectiveSetId)
-        : null;
-      if (activeSub) {
-        title = `${activeSub.courseCode} Subjective Fast-Learning (${activeSub.questions.length} Q&As) – ${activeSub.courseTitle} | MIHORA VU`;
-        desc = `Fast-learn ${activeSub.questions.length} high-yield ${activeSub.courseCode} (${activeSub.courseTitle}) 2, 3, and 5-mark subjective questions with 10-second memory hooks, examiner rubrics, and write-and-compare drills on MIHORA VU.`;
-      } else {
-        title = 'VU Subjective Fast-Learning Studio – 10-Sec Hooks, Cram Sheets & Marking Rubrics | MIHORA VU';
-        desc = 'Master VU 2, 3, and 5-mark subjective exam questions using flash-recall cards, 10-second memory hooks, rapid cram sheets, and all 411 subject hubs on MIHORA VU.';
-      }
-    } else if (currentPage === 'handbook') {
-      title = 'VU Student Handbook 2026 – 20% Passing Rule, Datesheet & Rules FAQs | MIHORA VU';
-      desc = 'Official VU rules guide: Master the 20% two-half passing rule, datesheet creation, fee installments, CGPA probation, and paper reschedule policies on MIHORA VU.';
-    } else if (currentPage === 'simulator') {
-      title = 'VU Passing Marks Simulator – 20% Two-Half Rule & Finalterm Calculator | MIHORA VU';
-      desc = 'Calculate exact marks needed in VU Final Term exams. Check compliance with the official 20% Two-Half rule and download your free academic PDF report on MIHORA VU.';
-    } else if (currentPage === 'gpa-calculator') {
-      title = 'VU GPA & CGPA Calculator 4.0 – Academic Grade Forecaster | MIHORA VU';
-      desc = 'Calculate Virtual University semester GPA and forecast cumulative CGPA under the official HEC 4.0 scale. Includes academic probation checker and repeat policy guide.';
-    } else if (currentPage === 'datesheet-guide') {
-      title = 'VU Datesheet Maker & Seat Tracker Guide 2026 – Exam Slots Strategy | MIHORA VU';
-      desc = 'Official guide to VU datesheet opening, first-come first-served lab seat allocation, preferred timeslots, and paper rescheduling procedure.';
-    } else if (currentPage === 'cs619-guide') {
-      title = 'CS619 Final Year Project (FYP) Roadmap & Viva Voce Guide | VU MIHORA';
-      desc = 'Complete CS619 capstone project guide: Proposal, IEEE 830 SRS documentation, ERD database design, test phases, and top 25 viva voce defense questions.';
-    } else if (currentPage === 'security') {
-      title = 'Privacy & Trust Guarantee – Zero Student Data Collection | MIHORA VU';
-      desc = 'Our student safety commitment: zero cookies, zero telemetry, verified clean academic files, and instant direct downloads without login.';
-    } else if (currentPage === 'about') {
-      title = 'About MIHORA TECH – Free Academic Resource Initiative for VU Students';
-      desc = 'Learn about MIHORA TECH\'s non-commercial educational CSR mission to provide free, fast, and structured academic study archives for Pakistani students.';
-    } else if (currentPage === 'sitemap') {
-      title = 'VU Curriculum & Faculty Sitemap Directory – 411 Courses Index | MIHORA VU';
-      desc = 'Comprehensive portal map of all Virtual University faculties, departments, 411 courses, handbook guides, passing calculators, and XML sitemaps.';
-    } else if (currentPage === 'disclaimer') {
-      title = 'Academic Disclaimer & Fair Educational Use Notice | MIHORA VU';
-      desc = 'Fair educational use disclosures, copyright policies, student ethics, and independent non-affiliation notice with Virtual University.';
-    }
+    const activeMcqSet = selectedMcqSetId
+      ? mcqSets.find((s) => s.id === selectedMcqSetId) || null
+      : null;
+    const activeSubjectiveSet = selectedSubjectiveSetId
+      ? subjectiveSets.find((s) => s.id === selectedSubjectiveSetId) || null
+      : null;
+    const totalMcqQuestions = mcqSets.reduce((sum, s) => sum + s.questions.length, 0);
+    const totalSubjectiveQuestions = subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0);
 
-    document.title = title;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', desc);
-    }
-    const canonicalPath =
-      currentPage === 'mcqs' && selectedMcqSetId
-        ? `/mcqs/${selectedMcqSetId}`
-        : currentPage === 'subjective' && selectedSubjectiveSetId
-        ? `/subjective/${selectedSubjectiveSetId}`
-        : pagePathMap[currentPage] || '/';
-    const canonicalUrl = `https://study.mihora.tech${canonicalPath}`;
-    const canonicalEl = document.querySelector('link[rel="canonical"]');
-    if (canonicalEl) {
-      canonicalEl.setAttribute('href', canonicalUrl);
-    }
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute('content', title);
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.setAttribute('content', desc);
-    const ogUrl = document.querySelector('meta[property="og:url"]');
-    if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+    syncRouteSeo({
+      page: currentPage,
+      selectedMcqSet: activeMcqSet,
+      selectedSubjectiveSet: activeSubjectiveSet,
+      selectedCourseCode: filters.course,
+      courses,
+      totalResources: resources.length,
+      totalMcqQuestions,
+      totalSubjectiveQuestions
+    });
   }, [currentPage, filters.course, selectedMcqSetId, selectedSubjectiveSetId]);
 
   // Compute search results with ranking algorithm
@@ -586,13 +520,276 @@ export default function App() {
     searchResultsRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const breadcrumbConfig = useMemo<{
+    items: BreadcrumbItem[];
+    actionLabel?: string;
+    actionHref?: string;
+    onAction?: () => void;
+    actionVariant?: 'clear' | 'back';
+  }>(() => {
+    const homeCrumb: BreadcrumbItem = {
+      label: 'Library',
+      href: '/',
+      onClick: () => {
+        setFilters((prev) => ({ ...prev, course: '' }));
+        setQuery('');
+        handleNavigate('home');
+      }
+    };
+
+    if (currentPage === 'home') {
+      if (filters.course) {
+        const match = courses.find((c) => c.code === filters.course);
+        return {
+          items: [
+            homeCrumb,
+            {
+              label: `Courses (${courses.length})`,
+              href: '/courses',
+              onClick: () => handleNavigate('courses')
+            },
+            {
+              label: match ? `${filters.course} – ${match.title}` : filters.course
+            }
+          ],
+          actionLabel: `Clear ${filters.course}`,
+          onAction: () => {
+            setFilters((prev) => ({ ...prev, course: '' }));
+            if (window.location.pathname !== '/') {
+              window.history.pushState(null, '', '/');
+            }
+          },
+          actionVariant: 'clear'
+        };
+      }
+      if (query.trim()) {
+        return {
+          items: [
+            homeCrumb,
+            { label: `Search: "${query.trim()}"` }
+          ],
+          actionLabel: 'Clear Search',
+          onAction: () => setQuery(''),
+          actionVariant: 'clear'
+        };
+      }
+      return { items: [] };
+    }
+
+    if (currentPage === 'courses') {
+      return {
+        items: [homeCrumb, { label: `Courses Directory (${courses.length})` }],
+        actionLabel: 'Back to Library',
+        actionHref: '/',
+        onAction: () => handleNavigate('home')
+      };
+    }
+
+    if (currentPage === 'past-papers') {
+      return {
+        items: [homeCrumb, { label: 'Solved Past Papers' }],
+        actionLabel: 'All Courses',
+        actionHref: '/courses',
+        onAction: () => handleNavigate('courses')
+      };
+    }
+
+    if (currentPage === 'mcqs') {
+      const activeSet = selectedMcqSetId
+        ? mcqSets.find((s) => s.id === selectedMcqSetId) || null
+        : null;
+      if (activeSet) {
+        return {
+          items: [
+            homeCrumb,
+            {
+              label: 'Interactive MCQs',
+              href: '/mcqs',
+              onClick: () => handleSelectMcqSet(null)
+            },
+            { label: `${activeSet.courseCode} ${activeSet.termLabel} (${activeSet.questions.length} Qs)` }
+          ],
+          actionLabel: 'All MCQ Studios',
+          actionHref: '/mcqs',
+          onAction: () => handleSelectMcqSet(null)
+        };
+      }
+      return {
+        items: [homeCrumb, { label: 'Interactive MCQs' }],
+        actionLabel: 'Subjective Fast-Learning',
+        actionHref: '/subjective',
+        onAction: () => handleSelectSubjectiveSet(null)
+      };
+    }
+
+    if (currentPage === 'subjective') {
+      const activeSub = selectedSubjectiveSetId
+        ? subjectiveSets.find((s) => s.id === selectedSubjectiveSetId) || null
+        : null;
+      if (activeSub) {
+        return {
+          items: [
+            homeCrumb,
+            {
+              label: 'Subjective Fast-Learning',
+              href: '/subjective',
+              onClick: () => handleSelectSubjectiveSet(null)
+            },
+            { label: `${activeSub.courseCode} – ${activeSub.courseTitle}` }
+          ],
+          actionLabel: 'All Subjective Hubs',
+          actionHref: '/subjective',
+          onAction: () => handleSelectSubjectiveSet(null)
+        };
+      }
+      return {
+        items: [homeCrumb, { label: 'Subjective Fast-Learning' }],
+        actionLabel: 'Interactive MCQs',
+        actionHref: '/mcqs',
+        onAction: () => handleSelectMcqSet(null)
+      };
+    }
+
+    if (currentPage === 'assignment-guide') {
+      return {
+        items: [
+          homeCrumb,
+          {
+            label: 'VU Handbook',
+            href: '/handbook',
+            onClick: () => handleNavigate('handbook')
+          },
+          { label: 'Assignments 2026 & Turnitin Guide' }
+        ],
+        actionLabel: 'Back to Library',
+        actionHref: '/',
+        onAction: () => handleNavigate('home')
+      };
+    }
+
+    if (currentPage === 'handbook') {
+      return {
+        items: [homeCrumb, { label: 'VU Student Handbook & FAQs' }],
+        actionLabel: 'Passing Simulator',
+        actionHref: '/simulator',
+        onAction: () => handleNavigate('simulator')
+      };
+    }
+
+    if (currentPage === 'simulator') {
+      return {
+        items: [homeCrumb, { label: 'Passing Marks Simulator' }],
+        actionLabel: 'GPA Calculator',
+        actionHref: '/gpa-calculator',
+        onAction: () => handleNavigate('gpa-calculator')
+      };
+    }
+
+    if (currentPage === 'gpa-calculator') {
+      return {
+        items: [homeCrumb, { label: 'VU GPA & CGPA Calculator' }],
+        actionLabel: 'Passing Simulator',
+        actionHref: '/simulator',
+        onAction: () => handleNavigate('simulator')
+      };
+    }
+
+    if (currentPage === 'datesheet-guide') {
+      return {
+        items: [
+          homeCrumb,
+          {
+            label: 'VU Handbook',
+            href: '/handbook',
+            onClick: () => handleNavigate('handbook')
+          },
+          { label: 'Datesheet Seat Strategy Guide' }
+        ],
+        actionLabel: 'Back to Handbook',
+        actionHref: '/handbook',
+        onAction: () => handleNavigate('handbook')
+      };
+    }
+
+    if (currentPage === 'cs619-guide') {
+      return {
+        items: [
+          homeCrumb,
+          {
+            label: `Courses (${courses.length})`,
+            href: '/courses',
+            onClick: () => handleNavigate('courses')
+          },
+          { label: 'CS619 FYP Capstone Roadmap' }
+        ],
+        actionLabel: 'Browse Courses',
+        actionHref: '/courses',
+        onAction: () => handleNavigate('courses')
+      };
+    }
+
+    if (currentPage === 'security') {
+      return {
+        items: [
+          homeCrumb,
+          {
+            label: 'About MIHORA',
+            href: '/about',
+            onClick: () => handleNavigate('about')
+          },
+          { label: 'Privacy & Trust Guarantee' }
+        ],
+        actionLabel: 'Back to Library',
+        actionHref: '/',
+        onAction: () => handleNavigate('home')
+      };
+    }
+
+    if (currentPage === 'about') {
+      return {
+        items: [homeCrumb, { label: 'About MIHORA TECH' }],
+        actionLabel: 'Explore Courses',
+        actionHref: '/courses',
+        onAction: () => handleNavigate('courses')
+      };
+    }
+
+    if (currentPage === 'sitemap') {
+      return {
+        items: [homeCrumb, { label: 'Curriculum & Sitemap Directory' }],
+        actionLabel: 'Back to Library',
+        actionHref: '/',
+        onAction: () => handleNavigate('home')
+      };
+    }
+
+    if (currentPage === 'disclaimer') {
+      return {
+        items: [
+          homeCrumb,
+          {
+            label: 'About MIHORA',
+            href: '/about',
+            onClick: () => handleNavigate('about')
+          },
+          { label: 'Academic Disclaimer' }
+        ],
+        actionLabel: 'Back to Library',
+        actionHref: '/',
+        onAction: () => handleNavigate('home')
+      };
+    }
+
+    return { items: [] };
+  }, [currentPage, filters.course, query, selectedMcqSetId, selectedSubjectiveSetId]);
+
   return (
     <MotionConfig reducedMotion="user">
       <div className="relative min-h-screen flex flex-col bg-celestial-canvas bg-star-dust text-slate-900 font-sans">
-        {/* Subtle fixed ambient celestial aurora washes across light sections */}
+        {/* Subtle fixed ambient ivory-sky and warm brass washes across light sections */}
         <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-          <div className="absolute -top-40 left-1/4 w-[520px] h-[360px] rounded-full bg-sky-400/[0.06] blur-[110px]" />
-          <div className="absolute top-1/2 -right-32 w-[460px] h-[420px] rounded-full bg-indigo-500/[0.06] blur-[120px]" />
+          <div className="absolute -top-40 left-1/4 w-[520px] h-[360px] rounded-full bg-sky-400/[0.055] blur-[110px]" />
+          <div className="absolute top-1/2 -right-32 w-[420px] h-[380px] rounded-full bg-blue-600/[0.045] blur-[120px]" />
           <div className="absolute -bottom-32 -left-24 w-[420px] h-[340px] rounded-full bg-amber-400/[0.045] blur-[110px]" />
         </div>
         {/* Top Bar Navigation */}
@@ -600,6 +797,15 @@ export default function App() {
           currentPage={currentPage}
           onNavigate={(p) => handleNavigate(p as AppPage)}
           selectedCount={selectedRLHs.size}
+        />
+
+        {/* Contextual Accessible Breadcrumb Rail */}
+        <BreadcrumbBar
+          items={breadcrumbConfig.items}
+          actionLabel={breadcrumbConfig.actionLabel}
+          actionHref={breadcrumbConfig.actionHref}
+          onAction={breadcrumbConfig.onAction}
+          actionVariant={breadcrumbConfig.actionVariant}
         />
 
         <motion.div
@@ -767,8 +973,8 @@ export default function App() {
                       <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
                         {mcqSets.map((set, idx) => {
                           const badgeColors: Record<string, string> = {
-                            CS201: 'bg-blue-600 text-white',
-                            CS301: 'bg-indigo-600 text-white',
+                            CS201: 'bg-blue-700 text-white',
+                            CS301: 'bg-slate-800 text-white',
                             CS304: 'bg-sky-700 text-white',
                             CS403: 'bg-teal-600 text-white',
                             CS504: 'bg-sky-600 text-white',
@@ -867,8 +1073,8 @@ export default function App() {
                       <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {subjectiveSets.map((sub, idx) => {
                           const badgeColors: Record<string, string> = {
-                            CS201: 'bg-blue-600 text-white',
-                            CS301: 'bg-indigo-600 text-white',
+                            CS201: 'bg-blue-700 text-white',
+                            CS301: 'bg-slate-800 text-white',
                             CS403: 'bg-teal-600 text-white',
                             ENG201: 'bg-cyan-700 text-white',
                             MGT301: 'bg-rose-600 text-white',
@@ -1065,9 +1271,9 @@ export default function App() {
                         title: 'GPA & CGPA Forecaster',
                         kicker: 'HEC 4.0 Scale',
                         desc: 'Plan credit hours and predict your semester GPA and cumulative CGPA standing.',
-                        icon: <Award className="w-5 h-5 text-indigo-700" />,
-                        iconBg: 'bg-indigo-50 border-indigo-200/70',
-                        glow: 'rgba(99, 102, 241, 0.10)'
+                        icon: <Award className="w-5 h-5 text-sky-700" />,
+                        iconBg: 'bg-sky-50 border-sky-200/70',
+                        glow: 'rgba(14, 116, 144, 0.10)'
                       },
                       {
                         page: 'handbook' as AppPage,
@@ -1121,36 +1327,147 @@ export default function App() {
                   </div>
                 </section>
 
-                {/* Dark Celestial Observatory Curriculum Callout */}
+                {/* Direct Exam & Policy Quick Answers (AEO Briefing) */}
+                <section aria-labelledby="aeo-briefing-heading" className="mt-12 space-y-5">
+                  <ScrollReveal direction="up" distance={18} className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                      <div className="text-xs font-mono font-semibold uppercase tracking-wider text-amber-700">
+                        Verified Exam &amp; Policy Reference
+                      </div>
+                      <h2 id="aeo-briefing-heading" className="text-2xl sm:text-3xl font-bold text-slate-950 mt-0.5">
+                        Direct Exam &amp; Policy Quick Answers
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-500 max-w-md">
+                      Authoritative Virtual University evaluation, submission, and preparation standards at a glance.
+                    </p>
+                  </ScrollReveal>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                      {
+                        code: '01 · 20% TWO-HALF RULE',
+                        question: 'How does the VU 20% Two-Half Passing Rule work?',
+                        answer:
+                          'Students must score at least 20% in the First Half (Quizzes, Assignments, GDBs, and Midterm combined) AND independently at least 20% in the Final Term Exam paper. Missing 20% in either half causes an F grade regardless of total percentage.',
+                        cta: 'Simulate Marks',
+                        page: 'simulator' as AppPage
+                      },
+                      {
+                        code: '02 · 24H GRACE WINDOW',
+                        question: 'Is there any penalty during the VU 24-hour assignment grace period?',
+                        answer:
+                          'Virtual University provides an automatic 24-hour grace period immediately after every regular assignment due date with zero marks deduction. Once the grace timer ends, VULMS closes submissions permanently.',
+                        cta: 'Assignments 2026 Guide',
+                        page: 'assignment-guide' as AppPage
+                      },
+                      {
+                        code: '03 · TURNITIN < 19% LIMIT',
+                        question: 'What is the safe Turnitin similarity ceiling for VU assignments?',
+                        answer:
+                          'Assignments and GDBs must stay strictly below 19% Turnitin similarity. Uploading verbatim WhatsApp or YouTube files triggers automated zero marks. Always rewrite variable names, code comments with Student ID, and explanations.',
+                        cta: 'Read Full Handbook',
+                        page: 'handbook' as AppPage
+                      },
+                      {
+                        code: '04 · DUAL-TRACK PREP',
+                        question: 'How should I prepare both Objective MCQs and Subjective 2/3/5-mark prompts?',
+                        answer:
+                          'Combine rapid MCQ pattern drills with 10-second memory hooks and examiner key points. Practicing both tracks cuts subjective writing hesitation while locking in repeat Midterm and Final-Term MCQs.',
+                        cta: 'Open Subjective Studio',
+                        page: 'subjective' as AppPage
+                      }
+                    ].map((item) => (
+                      <article
+                        key={item.code}
+                        data-speakable="true"
+                        className="card-celestial rounded-2xl border border-slate-200/90 p-5 sm:p-6 flex flex-col justify-between gap-4"
+                      >
+                        <div className="space-y-2">
+                          <div className="text-[11px] font-mono font-semibold text-blue-700 tracking-wider">
+                            {item.code}
+                          </div>
+                          <h3 className="text-base font-bold text-slate-950 leading-snug">
+                            {item.question}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {item.answer}
+                          </p>
+                        </div>
+                        <div className="pt-3 border-t border-slate-100 flex justify-end">
+                          <button
+                            type="button"
+                            onClick={() => handleNavigate(item.page)}
+                            className="group inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 transition-colors cursor-pointer"
+                          >
+                            <span>{item.cta}</span>
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-1" />
+                          </button>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Dark Architectural Observatory Curriculum Callout */}
                 <ScrollReveal
                   direction="up"
                   distance={22}
-                  className="mt-14 relative overflow-hidden bg-studio-stage text-white rounded-3xl p-7 sm:p-10 border border-slate-800 shadow-[0_24px_60px_-15px_rgba(4,8,20,0.65)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+                  className="mt-14 relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-[0_24px_60px_-15px_rgba(4,8,20,0.65)] grid grid-cols-1 lg:grid-cols-12 items-center gap-8"
                 >
                   <CelestialOrbitalRings compact />
-                  <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" aria-hidden="true" />
-                  <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/55 to-transparent" aria-hidden="true" />
-                  <div className="relative z-10 space-y-2 max-w-2xl">
-                    <div className="text-xs font-mono font-semibold uppercase tracking-wider text-sky-300">
-                      Curriculum Archive · 411 Accredited Subjects
+                  <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" aria-hidden="true" />
+                  <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
+
+                  <div className="lg:col-span-7 relative z-10 space-y-4">
+                    <div className="text-xs font-mono font-semibold uppercase tracking-wider text-amber-300">
+                      Curriculum Archive · {courses.length} Accredited Subjects
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                      Looking for past papers or handouts by subject?
+                    <h3
+                      className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight"
+                      style={{ textWrap: 'balance' }}
+                    >
+                      Every Virtual University Subject Organized Under One Clean Archive
                     </h3>
-                    <p className="text-sm text-slate-300 leading-relaxed">
-                      Browse all 411 Virtual University courses organized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology.
+                    <p className="text-sm text-slate-300 leading-relaxed max-w-xl">
+                      Browse all {courses.length} accredited VU courses organized across Computer Science, Software Engineering, Mathematics, Management, Economics, and Zoology with instant direct downloads.
                     </p>
+                    <div className="pt-1 flex flex-wrap items-center gap-3">
+                      <AnimatedButton
+                        magnetic
+                        shimmer
+                        type="button"
+                        onClick={() => handleNavigate('courses')}
+                        className="group px-6 py-3 rounded-xl bg-white hover:bg-sky-50 text-slate-950 font-bold text-xs sm:text-sm transition-colors cursor-pointer inline-flex items-center gap-2 whitespace-nowrap shadow-sm"
+                      >
+                        <span>Explore {courses.length} Courses</span>
+                        <ChevronRight className="w-4 h-4 text-blue-700 transition-transform duration-150 group-hover:translate-x-1" />
+                      </AnimatedButton>
+                      <button
+                        type="button"
+                        onClick={() => handleNavigate('sitemap')}
+                        className="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
+                      >
+                        Faculty Sitemap
+                      </button>
+                    </div>
                   </div>
-                  <AnimatedButton
-                    magnetic
-                    shimmer
-                    type="button"
-                    onClick={() => handleNavigate('courses')}
-                    className="relative z-10 group px-6 py-3.5 rounded-xl bg-gradient-to-r from-white to-sky-50 hover:from-sky-300 hover:to-amber-200 text-slate-950 font-bold text-xs sm:text-sm transition-all cursor-pointer shrink-0 inline-flex items-center gap-2 whitespace-nowrap shadow-[0_10px_30px_-8px_rgba(56,189,248,0.45)]"
-                  >
-                    <span>Explore 411 Courses</span>
-                    <ChevronRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                  </AnimatedButton>
+
+                  <div className="lg:col-span-5 relative z-10">
+                    <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/15 bg-[#081226] shadow-2xl">
+                      <img
+                        src={observatoryArt}
+                        alt="Architectural illustration of MIHORA Academic Study Observatory"
+                        referrerPolicy="no-referrer"
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 px-3.5 py-2 bg-gradient-to-t from-[#050B18]/90 via-[#050B18]/50 to-transparent flex items-center justify-between text-[11px] font-mono text-slate-200">
+                        <span>MIHORA VU ARCHIVE</span>
+                        <span className="text-amber-300 tabular-nums">{resources.length.toLocaleString()} FILES</span>
+                      </div>
+                    </div>
+                  </div>
                 </ScrollReveal>
               </main>
             </>
@@ -1548,6 +1865,16 @@ export default function App() {
                       className="hover:text-white transition-colors font-mono text-[11px]"
                     >
                       Robots.txt
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/llms.txt"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors font-mono text-[11px] text-amber-300"
+                    >
+                      LLMs.txt (GEO Index)
                     </a>
                   </li>
                 </ul>

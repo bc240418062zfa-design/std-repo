@@ -38,7 +38,7 @@ import {
   AnimatedCounter,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
-import { CelestialOrbitalRings, CelestialPageHeader, CelestialStarfield } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialPageHeader } from '../components/CelestialBackdrop';
 
 interface GuideItem {
   id: string;
@@ -720,7 +720,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         title={
           <>
             The Essential VU Student{' '}
-            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+            <span className="text-amber-300">
               Knowledge Base &amp; FAQs
             </span>
           </>
@@ -732,37 +732,36 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         }
       >
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+          <div className="bg-[#132238] border border-white/10 p-3.5 rounded-xl">
             <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Top FAQs</span>
-            <strong className="text-sm sm:text-base font-black text-sky-300 font-mono">
+            <strong className="text-sm sm:text-base font-black text-amber-300 font-mono">
               <AnimatedCounter value={TOP_VU_FAQS.length} /> Questions
             </strong>
             <span className="text-[10px] text-slate-400 block">Crucial Student Answers</span>
           </div>
 
-          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+          <div className="bg-[#132238] border border-white/10 p-3.5 rounded-xl">
             <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Two-Half Rule</span>
             <strong className="text-sm sm:text-base font-black text-emerald-300 font-mono">Min 20% + 20%</strong>
             <span className="text-[10px] text-slate-400 block">Sessional &amp; Final Term</span>
           </div>
 
-          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+          <div className="bg-[#132238] border border-white/10 p-3.5 rounded-xl">
             <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Reschedule Fee</span>
             <strong className="text-sm sm:text-base font-black text-white font-mono">PKR 2,000</strong>
             <span className="text-[10px] text-slate-400 block">24-Hr Window on VULMS</span>
           </div>
 
-          <div className="glass-panel-dark celestial-top-glint p-3.5 rounded-2xl">
+          <div className="bg-[#132238] border border-white/10 p-3.5 rounded-xl">
             <span className="text-[11px] font-bold text-slate-300 uppercase block mb-0.5">Grace Period</span>
-            <strong className="text-sm sm:text-base font-black text-amber-300 font-mono">24 Hours</strong>
+            <strong className="text-sm sm:text-base font-black text-sky-200 font-mono">24 Hours</strong>
             <span className="text-[10px] text-slate-400 block">Zero marks deduction</span>
           </div>
         </div>
       </CelestialPageHeader>
 
       {/* 2. Search & Filter Bar */}
-      <ScrollReveal delay={0.05} className="celestial-bezel rounded-3xl shadow-[0_14px_34px_-12px_rgba(30,58,138,0.16)]">
-        <div className="surface-frosted rounded-[23px] p-6 sm:p-8 space-y-6">
+      <ScrollReveal delay={0.05} className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-8 space-y-6 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           {/* Live Search Box */}
           <div className="relative flex-1 max-w-xl">
@@ -860,7 +859,6 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
             );
           })}
         </div>
-        </div>
       </ScrollReveal>
 
       {/* 3. SECTION A: Top Important Student FAQs */}
@@ -868,15 +866,15 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
-              <div className="inline-flex items-center gap-2 text-xs font-bold text-indigo-700 uppercase tracking-wider">
-                <MessageSquare className="w-4 h-4 text-indigo-600" />
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
+                <MessageSquare className="w-4 h-4 text-blue-700" />
                 <span>Frequently Asked Student Questions</span>
               </div>
               <h2 className="text-2xl font-black text-slate-900 tracking-tight">
                 Most Important VU Questions & Direct Answers
               </h2>
             </div>
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
+            <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#F3EFE6] text-[#0D1B2A] border border-[#DDD6C8]">
               {filteredFAQs.length} Critical FAQs
             </span>
           </div>
@@ -888,8 +886,8 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               return (
                 <div
                   key={faq.id}
-                  className={`celestial-top-glint card-celestial rounded-3xl border transition-all duration-200 overflow-hidden ${
-                    isExpanded ? 'border-indigo-400 shadow-md ring-1 ring-indigo-200/70' : 'border-slate-200/80'
+                  className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+                    isExpanded ? 'border-blue-700 shadow-sm' : 'border-[#E5E0D5]'
                   }`}
                 >
                   {/* FAQ Header Row */}
@@ -900,11 +898,11 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
                     <div className="space-y-2 flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         {faq.isHighFrequency && (
-                          <span className="px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 font-bold text-[10px] uppercase tracking-wider">
+                          <span className="px-2 py-0.5 rounded-md bg-rose-50 text-rose-800 border border-rose-200 font-bold text-[10px] uppercase tracking-wider">
                             Most Asked Question
                           </span>
                         )}
-                        <span className="px-2 py-0.5 rounded-md bg-indigo-50 text-indigo-700 font-mono font-semibold text-[10px] uppercase tracking-wider">
+                        <span className="px-2 py-0.5 rounded-md bg-[#F3EFE6] text-[#0D1B2A] font-mono font-semibold text-[10px] uppercase tracking-wider">
                           {faq.category.replace('-', ' ')}
                         </span>
                       </div>
@@ -920,8 +918,8 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
                       </p>
 
                       {/* Immediate Short Answer Callout */}
-                      <div className="p-3 rounded-2xl bg-indigo-50/70 border border-indigo-100/80 text-xs sm:text-sm text-indigo-950 font-semibold leading-relaxed">
-                        <strong className="text-indigo-800 mr-1.5 font-bold">Answer:</strong>
+                      <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] text-xs sm:text-sm text-slate-900 font-semibold leading-relaxed">
+                        <strong className="text-blue-700 mr-1.5 font-bold">Answer:</strong>
                         <span>{faq.shortAnswer}</span>
                       </div>
                     </div>
@@ -1004,8 +1002,8 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               return (
                 <div
                   key={item.id}
-                  className={`celestial-top-glint card-celestial rounded-3xl border transition-all duration-200 overflow-hidden ${
-                    isExpanded ? 'border-blue-400 shadow-md ring-1 ring-blue-200/70' : 'border-slate-200/80'
+                  className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+                    isExpanded ? 'border-blue-700 shadow-sm' : 'border-[#E5E0D5]'
                   }`}
                 >
                   {/* Header Row */}
@@ -1143,14 +1141,11 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
       {/* 5. Interactive Callout Banners */}
       <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Banner 1: Passing Simulator */}
-        <div className="relative overflow-hidden p-6 sm:p-8 rounded-3xl bg-studio-stage text-white space-y-4 shadow-[0_24px_60px_-15px_rgba(4,8,20,0.65)] flex flex-col justify-between border border-slate-800">
-          <CelestialStarfield density={0.45} interactive={false} />
+        <div className="relative overflow-hidden p-6 sm:p-8 rounded-2xl bg-[#0D1B2A] text-white space-y-4 shadow-xl flex flex-col justify-between border border-white/10">
           <CelestialOrbitalRings compact />
-          <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
-          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
           <div className="relative z-10 space-y-2">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-300 uppercase tracking-wider">
-              <Calculator className="w-4 h-4 text-amber-400" />
+            <div className="inline-flex items-center gap-2 text-xs font-bold text-amber-300 uppercase tracking-wider">
+              <Calculator className="w-4 h-4 text-amber-300" />
               <span>Two-Half 20% Rule Engine</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-black tracking-tight">
@@ -1164,8 +1159,9 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
           <AnimatedButton
             type="button"
             magnetic
+            shimmer={false}
             onClick={onNavigateToSimulator}
-            className="btn-shimmer relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-lg whitespace-nowrap"
+            className="relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-amber-300 hover:bg-amber-200 text-[#0D1B2A] font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-sm whitespace-nowrap"
           >
             <span>Open Passing Marks Simulator</span>
             <ExternalLink className="w-4 h-4" />
@@ -1173,7 +1169,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
         </div>
 
         {/* Banner 2: 411 Course Library */}
-        <SpotlightCard className="group p-6 sm:p-8 rounded-3xl card-celestial border">
+        <SpotlightCard className="group p-6 sm:p-8 rounded-2xl bg-white border border-[#E5E0D5]">
           <div className="space-y-4 h-full flex flex-col justify-between">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">

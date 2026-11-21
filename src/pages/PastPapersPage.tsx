@@ -149,7 +149,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
         title={
           <>
             2026 Past Papers &amp;{' '}
-            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+            <span className="text-amber-300">
               Verified Exam Reviews
             </span>
           </>
@@ -157,14 +157,14 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
         description="Ground-truth exam reviews, authentic memory-recalled questions, and subjective topics directly reported by Virtual University students across 265 courses."
         rightSlot={
           <div className="grid grid-cols-2 gap-3 min-w-[240px]">
-            <div className="glass-panel-dark rounded-2xl p-3.5 text-center">
-              <div className="text-xl sm:text-2xl font-extrabold font-mono text-sky-300 tabular-nums">
+            <div className="bg-[#132238] border border-white/10 rounded-xl p-3.5 text-center">
+              <div className="text-xl sm:text-2xl font-extrabold font-mono text-amber-300 tabular-nums">
                 <AnimatedCounter value={265} />
               </div>
               <div className="text-[11px] text-slate-300 mt-0.5">VU Courses</div>
             </div>
-            <div className="glass-panel-dark rounded-2xl p-3.5 text-center">
-              <div className="text-xl sm:text-2xl font-extrabold font-mono text-amber-300 tabular-nums">
+            <div className="bg-[#132238] border border-white/10 rounded-xl p-3.5 text-center">
+              <div className="text-xl sm:text-2xl font-extrabold font-mono text-white tabular-nums">
                 <AnimatedCounter value={1780} suffix="+" />
               </div>
               <div className="text-[11px] text-slate-300 mt-0.5">Exam Reviews</div>
@@ -172,8 +172,8 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
           </div>
         }
       >
-        <div className="glass-panel-dark p-3.5 rounded-2xl text-xs text-slate-300 flex items-start gap-3">
-          <Lock className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+        <div className="bg-[#132238] border border-white/10 p-3.5 rounded-xl text-xs text-slate-300 flex items-start gap-3">
+          <Lock className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
           <p className="leading-relaxed">
             <strong className="text-white">Data Security &amp; Anti-Dumping Architecture:</strong> This archive enforces single-stream rate limiting and paginated access. Automated mass scraping and bulk extraction are restricted to preserve server availability and source integrity.
           </p>
@@ -181,22 +181,21 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
       </CelestialPageHeader>
 
       {/* 2. Course Selection & Quick Shortcuts Cockpit */}
-      <ScrollReveal delay={0.05} className="celestial-bezel rounded-3xl shadow-[0_14px_34px_-12px_rgba(30,58,138,0.16)]">
-        <div className="card-celestial rounded-[23px] p-6 sm:p-8 space-y-6">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200/70">
+      <ScrollReveal delay={0.05} className="bg-white border border-[#E5E0D5] rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#E5E0D5]">
           <div>
             <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-blue-600" />
+              <BookOpen className="w-4 h-4 text-blue-700" />
               <span>Select Virtual University Course ({reviewsIndex.length} Available)</span>
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-600 mt-0.5">
               Choose a course to load verified student exam memories, key questions, and topic distributions.
             </p>
           </div>
 
           {/* Quick Course Buttons */}
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[11px] font-mono font-bold text-slate-400 uppercase mr-1">Popular:</span>
+            <span className="text-[11px] font-mono font-bold text-slate-500 uppercase mr-1">Popular:</span>
             {quickCourses.map((c) => {
               const isSelected = selectedCourseCode === c;
               return (
@@ -204,22 +203,15 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                   key={c}
                   type="button"
                   whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.94 }}
+                  whileTap={{ scale: 0.96 }}
                   onClick={() => handleSelectCourse(c)}
                   className={`relative px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-colors cursor-pointer border ${
                     isSelected
-                      ? 'border-blue-600 text-white'
-                      : 'bg-white/90 hover:bg-blue-50/70 border-slate-200 text-slate-700'
+                      ? 'bg-[#0D1B2A] border-[#0D1B2A] text-white'
+                      : 'bg-[#FAF8F4] hover:bg-[#F3EFE6] border-[#E5E0D5] text-slate-700'
                   }`}
                 >
-                  {isSelected && (
-                    <motion.span
-                      layoutId="pastpapers-quick-course"
-                      transition={{ type: 'spring', stiffness: 450, damping: 32 }}
-                      className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 shadow-2xs"
-                    />
-                  )}
-                  <span className="relative z-10">{c}</span>
+                  <span>{c}</span>
                 </motion.button>
               );
             })}
@@ -236,7 +228,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
               value={courseSearch}
               onChange={(e) => setCourseSearch(e.target.value)}
               placeholder="Filter course (e.g. CS101, MTH, English)..."
-              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl celestial-input text-slate-900"
+              className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none text-slate-900"
             />
           </div>
 
@@ -245,7 +237,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
             <select
               value={facultyFilter}
               onChange={(e) => setFacultyFilter(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl celestial-input text-slate-800 font-medium cursor-pointer appearance-none"
+              className="w-full px-3 py-2 text-xs rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none text-slate-800 font-medium cursor-pointer appearance-none"
             >
               <option value="ALL">All Academic Disciplines ({reviewsIndex.length})</option>
               {faculties.map((f) => (
@@ -261,7 +253,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
             <select
               value={selectedCourseCode}
               onChange={(e) => handleSelectCourse(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-blue-300 bg-blue-50/70 text-blue-900 font-bold focus:outline-hidden focus:ring-2 focus:ring-blue-600 cursor-pointer appearance-none"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-blue-700/40 bg-[#F3EFE6] text-[#0D1B2A] font-bold focus:outline-none focus:ring-2 focus:ring-blue-700 cursor-pointer appearance-none"
             >
               {filteredCourses.map((c) => (
                 <option key={c.code} value={c.code}>
@@ -271,15 +263,14 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
             </select>
           </div>
         </div>
-        </div>
       </ScrollReveal>
 
       {/* 3. Active Course Status & Topics Bar */}
-      <ScrollReveal delay={0.08} className="celestial-top-glint card-celestial border rounded-3xl p-6 sm:p-7 space-y-5">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/70">
+      <ScrollReveal delay={0.08} className="bg-white border border-[#E5E0D5] rounded-2xl p-6 sm:p-7 space-y-5 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5E0D5]">
           <div className="space-y-1">
             <div className="flex flex-wrap items-center gap-2.5">
-              <span className="font-mono text-xl sm:text-2xl font-black text-blue-700">
+              <span className="font-mono text-xl sm:text-2xl font-black text-[#0D1B2A]">
                 {selectedCourseSummary.code}
               </span>
               <span className="text-xs text-slate-500 font-medium">
@@ -431,8 +422,8 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                   transition={{ duration: 0.32, delay: Math.min(idx * 0.04, 0.24), ease: EASE_OUT_EXPO }}
                 >
                   <SpotlightCard
-                    hoverLift={-3}
-                    className="group h-full card-celestial rounded-2xl border p-5"
+                    hoverLift={-2}
+                    className="group h-full bg-white rounded-2xl border border-[#E5E0D5] hover:border-blue-700 p-5 transition-colors"
                   >
                     <div className="space-y-4">
                       {/* Review Header */}
@@ -527,7 +518,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
 
         {/* 5. Pagination Bar (Anti-Dumping Single Stream Navigation) */}
         {!loading && reviewsData && reviewsData.totalPages > 1 && (
-          <div className="card-celestial rounded-2xl border p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="bg-white rounded-2xl border border-[#E5E0D5] shadow-xs p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <span className="text-xs text-slate-500 font-mono">
               Showing reviews {(reviewsData.page - 1) * 10 + 1} to{' '}
               {Math.min(reviewsData.page * 10, reviewsData.totalReviews)} of{' '}
@@ -561,10 +552,10 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                       type="button"
                       whileTap={{ scale: 0.92 }}
                       onClick={() => setCurrentPage(pageNum)}
-                      className={`w-8 h-8 rounded-xl text-xs font-mono font-bold transition-colors cursor-pointer ${
+                      className={`w-8 h-8 rounded-lg text-xs font-mono font-bold transition-colors cursor-pointer ${
                         reviewsData.page === pageNum
-                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs'
-                          : 'bg-white/90 hover:bg-blue-50/70 text-slate-700 border border-slate-200'
+                          ? 'bg-[#0D1B2A] text-white'
+                          : 'bg-[#FAF8F4] hover:bg-[#F3EFE6] text-slate-700 border border-[#E5E0D5]'
                       }`}
                     >
                       {pageNum}

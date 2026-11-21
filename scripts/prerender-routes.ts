@@ -15,7 +15,9 @@ interface RouteSEO {
 
 // Load ALL 411 accredited Virtual University courses from canonical data
 const coursesJsonPath = path.resolve('src/data/courses.json');
+const resourcesJsonPath = path.resolve('src/data/resources.json');
 let allCoursesList: Array<{ code: string; title: string; faculty: string; fileCount: number }> = [];
+let totalResourceCount = 28328;
 
 if (fs.existsSync(coursesJsonPath)) {
   try {
@@ -25,6 +27,19 @@ if (fs.existsSync(coursesJsonPath)) {
     console.error('Failed to parse courses.json:', err);
   }
 }
+
+if (fs.existsSync(resourcesJsonPath)) {
+  try {
+    const parsedResources = JSON.parse(fs.readFileSync(resourcesJsonPath, 'utf-8'));
+    if (Array.isArray(parsedResources)) {
+      totalResourceCount = parsedResources.length;
+    }
+  } catch (err) {
+    console.error('Failed to parse resources.json:', err);
+  }
+}
+
+const BUILD_DATE = new Date().toISOString().split('T')[0];
 
 // High-frequency searched courses for instant index prominence
 const TOP_COURSES = allCoursesList.slice(0, 40);
@@ -499,11 +514,6 @@ for (const course of allCoursesList) {
     },
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <nav style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">
-          <a href="/" style="color: #0066ff; text-decoration: none;">Home</a> &gt; 
-          <a href="/courses" style="color: #0066ff; text-decoration: none;">Courses</a> &gt; 
-          <span>${course.code}</span>
-        </nav>
         <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a; margin-bottom: 0.5rem;">
           ${course.code} – ${course.title} VU Assignment Solution 2026 &amp; Solved Past Papers
         </h1>
@@ -554,11 +564,6 @@ for (const set of mcqSets) {
     },
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <nav style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">
-          <a href="/" style="color: #1d4ed8; text-decoration: none;">Home</a> &gt;
-          <a href="/mcqs" style="color: #1d4ed8; text-decoration: none;">MCQs</a> &gt;
-          <span>${set.courseCode} ${set.termLabel}</span>
-        </nav>
         <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
           ${set.courseCode} – ${set.courseTitle} (${set.termLabel} MCQs)
         </h1>
@@ -599,11 +604,6 @@ for (const sub of subjectiveSets) {
     },
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <nav style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">
-          <a href="/" style="color: #1d4ed8; text-decoration: none;">Home</a> &gt;
-          <a href="/subjective" style="color: #1d4ed8; text-decoration: none;">Subjective Studio</a> &gt;
-          <span>${sub.courseCode}</span>
-        </nav>
         <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
           ${sub.courseCode} – ${sub.courseTitle} (Subjective Fast-Learning)
         </h1>
@@ -693,27 +693,117 @@ export function prerenderAllRoutes() {
       `<meta name="twitter:description" content="${route.description.replace(/"/g, '&quot;')}" />`
     );
 
-    // 6. Inject Extra JSON-LD if present
-    if (route.extraJsonLd) {
-      const extraScript = `\n    <script type="application/ld+json">\n    ${JSON.stringify(route.extraJsonLd, null, 2)}\n    </script>`;
-      pageHtml = pageHtml.replace('</head>', `${extraScript}\n  </head>`);
+    // 6. Inject Route-Level WebPage (AEO Speakable), BreadcrumbList, & Extra JSON-LD
+    const routeBreadcrumbs: Array<{ name: string; item: string }> = [
+      { name: 'Library', item: 'https://study.mihora.tech/' }
+    ];
+    if (route.path.startsWith('courses/')) {
+      routeBreadcrumbs.push(
+        { name: 'Courses', item: 'https://study.mihora.tech/courses' },
+        { name: route.path.split('/')[1]?.toUpperCase() || 'Course', item: route.canonical }
+      );
+    } else if (route.path.startsWith('mcqs/')) {
+      routeBreadcrumbs.push(
+        { name: 'Interactive MCQs', item: 'https://study.mihora.tech/mcqs' },
+        { name: route.path.split('/')[1]?.toUpperCase() || 'Quiz', item: route.canonical }
+      );
+    } else if (route.path.startsWith('subjective/')) {
+      routeBreadcrumbs.push(
+        { name: 'Subjective Fast-Learning', item: 'https://study.mihora.tech/subjective' },
+        { name: route.path.split('/')[1]?.toUpperCase() || 'Subjective', item: route.canonical }
+      );
+    } else if (route.path === 'vu-assignment-solution-2026' || route.path === 'assignment-guide' || route.path === 'datesheet-guide') {
+      routeBreadcrumbs.push(
+        { name: 'VU Handbook', item: 'https://study.mihora.tech/handbook' },
+        { name: route.title.split('|')[0].trim(), item: route.canonical }
+      );
+    } else if (route.path === 'cs619-guide') {
+      routeBreadcrumbs.push(
+        { name: 'Courses', item: 'https://study.mihora.tech/courses' },
+        { name: 'CS619 FYP Roadmap', item: route.canonical }
+      );
+    } else if (route.path === 'security' || route.path === 'disclaimer') {
+      routeBreadcrumbs.push(
+        { name: 'About MIHORA', item: 'https://study.mihora.tech/about' },
+        { name: route.title.split('|')[0].trim(), item: route.canonical }
+      );
+    } else {
+      routeBreadcrumbs.push({ name: route.title.split('|')[0].trim(), item: route.canonical });
     }
 
-    // 7. Inject Semantic Pre-rendered Content into <div id="root">
+    const perRouteGraphNodes: Array<Record<string, unknown>> = [
+      {
+        '@type': 'WebPage',
+        '@id': `${route.canonical}#webpage`,
+        url: route.canonical,
+        name: route.title,
+        description: route.description,
+        inLanguage: 'en-PK',
+        isPartOf: { '@id': 'https://study.mihora.tech/#website' },
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['[data-speakable="true"]', 'h1']
+        }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${route.canonical}#breadcrumb`,
+        itemListElement: routeBreadcrumbs.map((b, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: b.name,
+          item: b.item
+        }))
+      }
+    ];
+    if (route.extraJsonLd) {
+      perRouteGraphNodes.push(route.extraJsonLd as Record<string, unknown>);
+    }
+
+    const extraScript = `\n    <script type="application/ld+json">\n    ${JSON.stringify(
+      { '@context': 'https://schema.org', '@graph': perRouteGraphNodes },
+      null,
+      2
+    )}\n    </script>`;
+    pageHtml = pageHtml.replace('</head>', `${extraScript}\n  </head>`);
+
+    // 7. Inject Semantic Pre-rendered Content + Accessible Breadcrumb Rail into <div id="root">
+    const staticBreadcrumbHtml = `
+      <div style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 0.55rem 1rem; font-family: sans-serif;">
+        <nav aria-label="Breadcrumb" style="max-width: 1200px; margin: 0 auto; font-size: 0.8rem;">
+          <ol style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;">
+            ${routeBreadcrumbs
+              .map((b, idx) => {
+                const isLast = idx === routeBreadcrumbs.length - 1;
+                const sep = idx > 0 ? '<span aria-hidden="true" style="color: #94a3b8;">&rsaquo;</span>' : '';
+                if (isLast) {
+                  return `<li style="display: inline-flex; align-items: center; gap: 0.4rem;">${sep}<span aria-current="page" style="color: #0f172a; font-weight: 700;">${b.name}</span></li>`;
+                }
+                const relHref = b.item.replace('https://study.mihora.tech', '') || '/';
+                return `<li style="display: inline-flex; align-items: center; gap: 0.4rem;">${sep}<a href="${relHref}" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">${b.name}</a></li>`;
+              })
+              .join('')}
+          </ol>
+        </nav>
+      </div>
+    `;
+
     const semanticContent = `
       <header style="padding: 1rem; border-bottom: 1px solid #e2e8f0; background: #ffffff;">
-        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif;">
-          <a href="/" style="font-weight: 800; color: #001738; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
-          <div>
-            <a href="/courses" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Courses (411)</a>
-            <a href="/vu-assignment-solution-2026" style="margin-right: 1rem; color: #059669; text-decoration: none; font-weight: 700;">Assignments 2026</a>
-            <a href="/past-papers" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Past Papers</a>
-            <a href="/handbook" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">VU Handbook</a>
-            <a href="/simulator" style="margin-right: 1rem; color: #475569; text-decoration: none; font-weight: 600;">Passing Simulator</a>
-            <a href="/sitemap" style="color: #475569; text-decoration: none; font-weight: 600;">Sitemap</a>
+        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-family: sans-serif;">
+          <a href="/" style="font-weight: 800; color: #050B18; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
+          <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+            <a href="/courses" style="color: #475569; text-decoration: none; font-weight: 600;">Courses (${allCoursesList.length})</a>
+            <a href="/mcqs" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">MCQs</a>
+            <a href="/subjective" style="color: #b45309; text-decoration: none; font-weight: 600;">Subjective Studio</a>
+            <a href="/vu-assignment-solution-2026" style="color: #059669; text-decoration: none; font-weight: 700;">Assignments 2026</a>
+            <a href="/past-papers" style="color: #475569; text-decoration: none; font-weight: 600;">Past Papers</a>
+            <a href="/handbook" style="color: #475569; text-decoration: none; font-weight: 600;">VU Handbook</a>
+            <a href="/simulator" style="color: #475569; text-decoration: none; font-weight: 600;">Passing Simulator</a>
           </div>
         </nav>
       </header>
+      ${staticBreadcrumbHtml}
       <main>
         ${route.preRenderedHtml}
       </main>
@@ -729,13 +819,15 @@ export function prerenderAllRoutes() {
       .replace(/href="\.\/assets\//g, 'href="/assets/')
       .replace(/src="\.\/assets\//g, 'src="/assets/')
       .replace(/href="\.\/logo\.svg"/g, 'href="/logo.svg"')
-      .replace(/src="\.\/logo\.svg"/g, 'src="/logo.svg"');
+      .replace(/src="\.\/logo\.svg"/g, 'src="/logo.svg"')
+      .replace(/href="\.\/og-cover\.jpg"/g, 'href="/og-cover.jpg"')
+      .replace(/src="\.\/og-cover\.jpg"/g, 'src="/og-cover.jpg"');
 
     const outFilePath = path.join(routeDir, 'index.html');
     fs.writeFileSync(outFilePath, pageHtml, 'utf-8');
   }
 
-  // Generate Comprehensive XML Sitemap containing all core pages and ALL 411 courses
+  // Generate Comprehensive XML Sitemap containing all core pages and ALL courses
   const sitemapItems = ROUTES.map((r) => {
     let priority = '0.85';
     let freq = 'weekly';
@@ -756,7 +848,7 @@ export function prerenderAllRoutes() {
     const loc = r.canonical || `https://study.mihora.tech/${r.path}`;
     return `  <url>
     <loc>${loc}</loc>
-    <lastmod>2026-10-17</lastmod>
+    <lastmod>${BUILD_DATE}</lastmod>
     <changefreq>${freq}</changefreq>
     <priority>${priority}</priority>
   </url>`;
@@ -768,7 +860,7 @@ export function prerenderAllRoutes() {
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://study.mihora.tech/</loc>
-    <lastmod>2026-10-17</lastmod>
+    <lastmod>${BUILD_DATE}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
@@ -780,7 +872,77 @@ ${sitemapItems.join('\n')}
   if (fs.existsSync(publicPath)) {
     fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), fullSitemapXml, 'utf-8');
   }
-  console.log(`🗺️ Generated master sitemap.xml with ${ROUTES.length + 1} indexed URLs in dist/ and public/`);
+
+  // Generate GEO LLM Context Dossiers (llms.txt & llms-full.txt)
+  const totalMcqQuestions = mcqSets.reduce((sum, s) => sum + s.questions.length, 0);
+  const totalSubjectiveQuestions = subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0);
+
+  const llmsTxt = `# MIHORA VU Study Library
+
+> Free, zero-telemetry academic study archive for students of the Virtual University of Pakistan (VU). Hosts ${totalResourceCount.toLocaleString()} verified study files across ${allCoursesList.length} courses, ${mcqSets.length} interactive MCQ studios (${totalMcqQuestions.toLocaleString()} questions), and ${subjectiveSets.length} Subjective Fast-Learning studios (${totalSubjectiveQuestions} high-yield 2/3/5-mark Q&As), engineered as an independent educational CSR initiative by MIHORA TECH.
+
+## Core Academic Studios
+- [Main Archive & Instant Search](https://study.mihora.tech/): Instant filterable catalog of ${totalResourceCount.toLocaleString()} study documents across handouts, midterms, final terms, and Moaaz/Waqar Siddhu solved archives.
+- [All ${allCoursesList.length} VU Courses Directory](https://study.mihora.tech/courses): Complete index of Virtual University degree courses organized by faculty.
+- [Interactive MCQ Practice Studio](https://study.mihora.tech/mcqs): ${mcqSets.length} subject-specific MCQ banks totaling ${totalMcqQuestions.toLocaleString()} questions with Practice, 45s Timed Mock Exam, and Quick Revision Sheet modes.
+- [Subjective Fast-Learning Studio](https://study.mihora.tech/subjective): Structured 2, 3, and 5-mark subjective preparation with 10-second memory hooks, examiner rubrics, cram sheets, and all ${allCoursesList.length} subject hubs.
+- [Solved Past Papers Hub](https://study.mihora.tech/past-papers): Curated Moaaz, Waqar Siddhu, and student exam memory archives.
+
+## Policy & Academic Calculators
+- [20% Two-Half Passing Marks Simulator](https://study.mihora.tech/simulator): Calculates minimum Final-Term marks required under VU's mandatory 20% First-Half and 20% Final-Term rule.
+- [VU GPA & CGPA Calculator (4.0 Scale)](https://study.mihora.tech/gpa-calculator): HEC 4.0 grading scale calculator and probation threshold analyzer.
+- [VU Assignments 2026 & Turnitin Guide](https://study.mihora.tech/vu-assignment-solution-2026): Explains the 24-hour assignment grace period (0 marks penalty) and Turnitin <19% similarity rules.
+- [VU Student Handbook & FAQs](https://study.mihora.tech/handbook): Official grading, rescheduling (PKR 2,000 fee), and datesheet booking rules.
+- [Datesheet Seat Booking Strategy](https://study.mihora.tech/datesheet-guide): First-come, first-served VULMS exam seat booking workflow.
+- [CS619 Final Year Project Roadmap](https://study.mihora.tech/cs619-guide): Proposal, IEEE 830 SRS, ERD design, and viva defense checklist.
+
+## Key Virtual University Academic Facts (Canonical)
+- **VU 20% Two-Half Passing Rule**: Students must achieve at least 20% marks in the First Half (Quizzes, Assignments, GDBs, Midterm combined) AND independently at least 20% in the Final-Term exam paper.
+- **24-Hour Assignment Grace Period**: VULMS provides an automatic 24-hour grace window after every assignment due date with zero marks deduction.
+- **Turnitin Originality Ceiling**: Submissions must remain strictly under 19% similarity to avoid automated zero marks.
+
+## Optional Deep Context
+- [Full Catalog Dossier (llms-full.txt)](https://study.mihora.tech/llms-full.txt): Complete list of interactive MCQ studios, Subjective Fast-Learning sets, and top accredited VU courses.
+- [XML Sitemap](https://study.mihora.tech/sitemap.xml): Full index of ${ROUTES.length + 1} canonical routes.
+`;
+
+  const llmsFullTxt = `${llmsTxt}
+---
+
+## Interactive MCQ Studios (${mcqSets.length} Sets · ${totalMcqQuestions.toLocaleString()} MCQs)
+${mcqSets
+  .map(
+    (s) =>
+      `- [${s.courseCode} ${s.termLabel} – ${s.courseTitle}](https://study.mihora.tech/mcqs/${s.id}): ${s.questions.length} verified MCQs`
+  )
+  .join('\n')}
+
+## Subjective Fast-Learning Studios (${subjectiveSets.length} Starter Sets · ${totalSubjectiveQuestions} Q&As)
+${subjectiveSets
+  .map(
+    (s) =>
+      `- [${s.courseCode} – ${s.courseTitle} Subjective](https://study.mihora.tech/subjective/${s.id}): ${s.questions.length} structured 2/3/5-mark questions`
+  )
+  .join('\n')}
+
+## Accredited Virtual University Courses Directory (${allCoursesList.length} Courses)
+${allCoursesList
+  .map(
+    (c) =>
+      `- [${c.code} – ${c.title}](https://study.mihora.tech/courses/${c.code.toLowerCase()}) (${c.faculty} · ${c.fileCount} files)`
+  )
+  .join('\n')}
+`;
+
+  fs.writeFileSync(path.join(distPath, 'llms.txt'), llmsTxt, 'utf-8');
+  fs.writeFileSync(path.join(distPath, 'llms-full.txt'), llmsFullTxt, 'utf-8');
+  if (fs.existsSync(publicPath)) {
+    fs.writeFileSync(path.join(publicPath, 'llms.txt'), llmsTxt, 'utf-8');
+    fs.writeFileSync(path.join(publicPath, 'llms-full.txt'), llmsFullTxt, 'utf-8');
+  }
+
+  console.log(`🤖 Generated llms.txt and llms-full.txt (GEO context) in dist/ and public/`);
+  console.log(`🗺️ Generated master sitemap.xml with ${ROUTES.length + 1} indexed URLs in dist/ and public/ (lastmod ${BUILD_DATE})`);
   console.log(`✅ Successfully pre-rendered ${ROUTES.length} static routes in dist/ (Zero 404s guaranteed).`);
 }
 

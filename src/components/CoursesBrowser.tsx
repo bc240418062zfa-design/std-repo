@@ -56,24 +56,18 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-3 sm:p-6"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            initial={{ opacity: 0, scale: 0.96, y: 14 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 12 }}
-            transition={{ duration: 0.28, ease: EASE_OUT_EXPO }}
-            className="w-full max-w-4xl bg-[#F4F7FE] rounded-3xl shadow-2xl border border-slate-700/60 flex flex-col max-h-[85vh] overflow-hidden"
+            exit={{ opacity: 0, scale: 0.96, y: 10 }}
+            transition={{ duration: 0.24, ease: EASE_OUT_EXPO }}
+            className="w-full max-w-4xl bg-[#FAF8F4] rounded-2xl shadow-2xl border border-[#DDD6C8] flex flex-col max-h-[85vh] overflow-hidden"
           >
             {/* Modal Header */}
-            <div className="relative p-4 sm:p-6 bg-studio-stage text-white border-b border-slate-800 flex items-center justify-between gap-4 overflow-hidden">
-              <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" aria-hidden="true" />
+            <div className="relative p-4 sm:p-6 bg-[#0D1B2A] text-white border-b border-white/10 flex items-center justify-between gap-4">
               <div className="relative z-10 flex items-center gap-3">
-                <motion.div
-                  initial={{ rotate: -10, scale: 0.9 }}
-                  animate={{ rotate: 0, scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 360, damping: 22 }}
-                  className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/35 flex items-center justify-center text-sky-300"
-                >
+                <div className="w-10 h-10 rounded-xl bg-[#132238] border border-white/15 flex items-center justify-center text-amber-300">
                   <GraduationCap className="w-5 h-5" />
-                </motion.div>
+                </div>
                 <div>
                   <h2 id="course-browser-title" className="text-lg sm:text-xl font-bold text-white leading-tight">
                     Curated Course Directory
@@ -86,7 +80,7 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
 
               <motion.button
                 type="button"
-                whileHover={{ rotate: 90, scale: 1.05 }}
+                whileHover={{ rotate: 90 }}
                 whileTap={{ scale: 0.92 }}
                 transition={{ duration: 0.18 }}
                 onClick={onClose}
@@ -98,7 +92,7 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
             </div>
 
             {/* Search & Faculty Tabs */}
-            <div className="p-4 surface-frosted border-b border-slate-200/80 space-y-3">
+            <div className="p-4 bg-white border-b border-[#E5E0D5] space-y-3">
               <div className="relative">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
@@ -106,7 +100,7 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
                   value={courseSearch}
                   onChange={(e) => setCourseSearch(e.target.value)}
                   placeholder="Search course code or title (e.g. CS302, Digital Logic, Calculus)..."
-                  className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm celestial-input rounded-xl text-slate-900 placeholder-slate-400"
+                  className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none rounded-xl text-slate-900 placeholder-slate-400"
                 />
               </div>
 
@@ -120,20 +114,13 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
                       type="button"
                       whileTap={{ scale: 0.96 }}
                       onClick={() => setSelectedFaculty(fac)}
-                      className={`relative px-3 py-1.5 rounded-lg font-medium whitespace-nowrap transition-colors cursor-pointer ${
+                      className={`relative px-3 py-1.5 rounded-lg font-medium whitespace-nowrap transition-colors cursor-pointer border ${
                         isActive
-                          ? 'text-white'
-                          : 'bg-white/90 border border-slate-200 text-slate-600 hover:bg-blue-50/70'
+                          ? 'bg-[#0D1B2A] border-[#0D1B2A] text-white'
+                          : 'bg-[#FAF8F4] border-[#E5E0D5] text-slate-700 hover:border-slate-400'
                       }`}
                     >
-                      {isActive && (
-                        <motion.span
-                          layoutId="browser-faculty-pill"
-                          transition={{ type: 'spring', stiffness: 420, damping: 30 }}
-                          className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg shadow-xs"
-                        />
-                      )}
-                      <span className="relative z-10">{fac}</span>
+                      <span>{fac}</span>
                     </motion.button>
                   );
                 })}
@@ -141,9 +128,9 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
             </div>
 
             {/* Course Grid */}
-            <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-star-dust grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#FAF8F4] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {filteredCourses.length === 0 ? (
-                <div className="col-span-full py-12 text-center text-slate-400 text-sm">
+                <div className="col-span-full py-12 text-center text-slate-500 text-sm">
                   No courses matching your filter.
                 </div>
               ) : (
@@ -151,32 +138,32 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
                   <motion.button
                     key={c.code}
                     type="button"
-                    whileHover={{ y: -3 }}
+                    whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     transition={{ duration: 0.16, ease: EASE_OUT_EXPO }}
                     onClick={() => {
                       onSelectCourse(c.code);
                       onClose();
                     }}
-                    className="celestial-top-glint text-left card-celestial border hover:border-blue-400 rounded-xl p-3.5 group flex flex-col justify-between gap-2 cursor-pointer"
+                    className="text-left bg-white border border-[#E5E0D5] hover:border-blue-700 rounded-xl p-3.5 group flex flex-col justify-between gap-2 cursor-pointer transition-colors"
                   >
                     <div>
-                      <div className="flex items-center justify-between gap-1 mb-1">
-                        <span className="font-mono font-bold text-xs text-blue-700">
+                      <div className="flex items-center justify-between gap-1 mb-1.5">
+                        <span className="font-mono font-bold text-xs px-2 py-0.5 rounded-md bg-[#F3EFE6] text-[#0D1B2A] border border-[#DDD6C8] group-hover:bg-blue-700 group-hover:text-white group-hover:border-blue-700 transition-colors">
                           {c.code}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-medium">
+                        <span className="text-[10px] text-slate-500 font-medium truncate">
                           {c.faculty}
                         </span>
                       </div>
-                      <h4 className="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 line-clamp-2 transition-colors">
+                      <h4 className="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-blue-700 line-clamp-2 transition-colors">
                         {c.title}
                       </h4>
                     </div>
 
-                    <div className="flex items-center justify-between text-[11px] text-slate-400 pt-2 border-t border-slate-200/70">
+                    <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-[#E5E0D5]">
                       <span>{c.fileCount ? `${c.fileCount} files available` : 'Explore files'}</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-700 group-hover:translate-x-0.5 transition-all" />
                     </div>
                   </motion.button>
                 ))
@@ -184,7 +171,7 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-3 surface-frosted border-t border-slate-200/80 text-center text-xs text-slate-500">
+            <div className="p-3 bg-white border-t border-[#E5E0D5] text-center text-xs text-slate-500">
               Click any course to load its dedicated resource archive.
             </div>
           </motion.div>

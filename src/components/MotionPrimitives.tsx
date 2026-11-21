@@ -303,13 +303,13 @@ export const CourseMarquee: React.FC<CourseMarqueeProps> = ({ items, onSelectCou
   const doubled = [...items, ...items];
 
   return (
-    <div className="marquee-wrapper relative overflow-hidden py-3.5 border-y border-slate-200/80 bg-white/85 backdrop-blur-md select-none shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+    <div className="marquee-wrapper relative overflow-hidden py-3 border-y border-slate-200/85 bg-white select-none">
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#F6F8FE] via-[#F6F8FE]/80 to-transparent z-10"
+        className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#F7F9FC] via-[#F7F9FC]/80 to-transparent z-10"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#F6F8FE] via-[#F6F8FE]/80 to-transparent z-10"
+        className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#F7F9FC] via-[#F7F9FC]/80 to-transparent z-10"
         aria-hidden="true"
       />
 

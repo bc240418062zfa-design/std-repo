@@ -88,9 +88,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 'some' }}
       transition={{ duration: 0.36, ease: EASE_OUT_EXPO }}
-      className="celestial-bezel rounded-2xl sticky top-16 z-20 shadow-[0_12px_32px_-12px_rgba(30,58,138,0.16)]"
+      className="surface-frosted border border-slate-200/90 rounded-2xl sticky top-16 z-20 shadow-[0_12px_28px_-14px_rgba(15,23,42,0.14)]"
     >
-      <div className="surface-frosted rounded-[15px] py-3 px-4 sm:px-5">
+      <div className="py-3 px-4 sm:px-5">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         {/* Filters Selectors */}
         <div className="flex flex-wrap items-center gap-2">
@@ -161,8 +161,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onFilterChange({ ...filters, solvedOnly: !filters.solvedOnly })}
             className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
               filters.solvedOnly
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-blue-600 text-white shadow-[0_6px_16px_-4px_rgba(37,99,235,0.45)]'
-                : 'bg-white/90 border-slate-200/90 text-slate-700 hover:bg-blue-50/70 hover:border-blue-300'
+                ? 'bg-blue-700 border-blue-700 text-white shadow-xs'
+                : 'bg-white/95 border-slate-200/90 text-slate-700 hover:bg-sky-50/70 hover:border-sky-300'
             }`}
           >
             <AnimatePresence mode="popLayout">
@@ -187,8 +187,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={() => onFilterChange({ ...filters, pastPapersOnly: !filters.pastPapersOnly })}
             className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
               filters.pastPapersOnly
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-blue-600 text-white shadow-[0_6px_16px_-4px_rgba(37,99,235,0.45)]'
-                : 'bg-white/90 border-slate-200/90 text-slate-700 hover:bg-blue-50/70 hover:border-blue-300'
+                ? 'bg-blue-700 border-blue-700 text-white shadow-xs'
+                : 'bg-white/95 border-slate-200/90 text-slate-700 hover:bg-sky-50/70 hover:border-sky-300'
             }`}
           >
             <AnimatePresence mode="popLayout">
@@ -213,8 +213,8 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             onClick={handleToggleMcq}
             className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
               isMcqActive
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-blue-600 text-white shadow-[0_6px_16px_-4px_rgba(37,99,235,0.45)]'
-                : 'bg-white/90 border-slate-200/90 text-slate-700 hover:bg-blue-50/70 hover:border-blue-300'
+                ? 'bg-blue-700 border-blue-700 text-white shadow-xs'
+                : 'bg-white/95 border-slate-200/90 text-slate-700 hover:bg-sky-50/70 hover:border-sky-300'
             }`}
           >
             <AnimatePresence mode="popLayout">
@@ -274,7 +274,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                     <motion.span
                       layoutId="filter-limit-pill"
                       transition={{ type: 'spring', stiffness: 450, damping: 32 }}
-                      className="absolute inset-0 bg-gradient-to-r from-[#070E1F] to-blue-900 rounded-lg shadow-xs"
+                      className="absolute inset-0 bg-[#0B1526] rounded-lg shadow-xs"
                     />
                   )}
                   <span className="relative z-10">{l}</span>

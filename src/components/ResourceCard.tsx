@@ -67,8 +67,8 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
       case 'JPG':
       case 'JPEG':
         return {
-          icon: <ImageIcon className="w-4 h-4 text-indigo-600" />,
-          box: 'bg-indigo-50 border-indigo-200/70'
+          icon: <ImageIcon className="w-4 h-4 text-sky-700" />,
+          box: 'bg-sky-50 border-sky-200/70'
         };
       case 'XLS':
       case 'XLSX':
@@ -111,11 +111,6 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           : 'border-slate-200/80 hover:border-sky-400/70'
       }`}
     >
-      {/* Subtle corner starlight ambient glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none -top-12 -right-12 w-28 h-28 rounded-full bg-sky-400/10 blur-xl absolute opacity-60 group-hover:opacity-100 transition-opacity"
-      />
       {/* Subtle cursor spotlight */}
       <motion.div
         className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -190,7 +185,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           type="button"
           disabled={isDownloading}
           onClick={() => onDownload(resource)}
-          className="btn-shimmer group/dl inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-[#070E1F] to-slate-900 hover:from-blue-700 hover:to-indigo-600 text-white transition-all cursor-pointer disabled:opacity-50 whitespace-nowrap shadow-[0_4px_12px_-4px_rgba(7,14,31,0.4)] hover:shadow-[0_6px_16px_-4px_rgba(37,99,235,0.45)]"
+          className="btn-shimmer group/dl inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white transition-colors cursor-pointer disabled:opacity-50 whitespace-nowrap shadow-xs"
         >
           <Download className="w-3.5 h-3.5 transition-transform duration-200 group-hover/dl:translate-y-0.5" />
           <span>{isDownloading ? 'Resolving...' : 'Download'}</span>

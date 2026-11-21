@@ -29,24 +29,23 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            initial={{ opacity: 0, scale: 0.95, y: 14 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.94, y: 12 }}
-            transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-            className="w-full max-w-md card-celestial rounded-3xl shadow-2xl border border-slate-300/60 overflow-hidden text-slate-900 relative"
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="w-full max-w-md bg-white rounded-2xl shadow-2xl border border-[#DDD6C8] overflow-hidden text-slate-900 relative"
           >
-            {/* Dark Celestial Header */}
-            <div className="relative bg-studio-stage text-white px-6 py-4 flex items-center justify-between gap-3 border-b border-slate-800">
-              <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
+            {/* Ink Navy Header */}
+            <div className="relative bg-[#0D1B2A] text-white px-6 py-4 flex items-center justify-between gap-3 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/35 flex items-center justify-center text-sky-300 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#132238] border border-white/15 flex items-center justify-center text-amber-300 shrink-0">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 id="download-modal-title" className="font-bold text-base text-white leading-tight">
                     Secure Resource Relay
                   </h3>
-                  <p className="text-xs text-sky-300/80 font-mono">
+                  <p className="text-xs text-slate-300 font-mono">
                     dl.study.mihora.tech
                   </p>
                 </div>
@@ -65,13 +64,13 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
               </motion.button>
             </div>
 
-            <div className="p-6 space-y-5">
+            <div className="p-6 space-y-5 bg-[#FAF8F4]">
             {/* Resource Details */}
-            <div className="bg-white/90 rounded-2xl p-3.5 border border-slate-200/90 space-y-1 shadow-2xs">
-              <div className="text-xs font-semibold text-blue-700 font-mono">
+            <div className="bg-white rounded-xl p-3.5 border border-[#E5E0D5] space-y-1">
+              <div className="text-xs font-bold text-blue-700 font-mono">
                 {session.course}
               </div>
-              <div className="text-sm font-semibold text-slate-800 line-clamp-2">
+              <div className="text-sm font-semibold text-slate-900 line-clamp-2">
                 {session.name}
               </div>
             </div>
@@ -87,8 +86,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
                 className="space-y-3"
               >
                 {session.status === 'resolving' && (
-                  <div className="flex items-center gap-3 p-3 bg-blue-50/70 rounded-xl text-blue-900 text-xs border border-blue-200/70">
-                    <Loader2 className="w-4 h-4 text-blue-600 animate-spin shrink-0" />
+                  <div className="flex items-center gap-3 p-3 bg-blue-50/70 rounded-xl text-blue-900 text-xs border border-blue-200">
+                    <Loader2 className="w-4 h-4 text-blue-700 animate-spin shrink-0" />
                     <span>Resolving Resource Locator Hash via encrypted relay shards...</span>
                   </div>
                 )}
@@ -100,11 +99,11 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
                       <span>Short-lived download token issued (valid 120s). Ready to stream.</span>
                     </div>
                     <motion.button
-                      whileHover={{ y: -1.5, scale: 1.01 }}
+                      whileHover={{ y: -1 }}
                       whileTap={{ scale: 0.97 }}
                       type="button"
                       onClick={onTriggerDownload}
-                      className="btn-shimmer w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#070E1F] via-blue-700 to-indigo-600 text-white font-bold text-sm shadow-lg shadow-blue-500/25 transition-all cursor-pointer"
+                      className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white font-bold text-sm shadow-sm transition-colors cursor-pointer"
                     >
                       <Download className="w-4 h-4" />
                       <span>Save to Device</span>
@@ -113,8 +112,8 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
                 )}
 
                 {session.status === 'downloading' && (
-                  <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl text-blue-900 text-xs font-medium border border-blue-200/70">
-                    <Loader2 className="w-4 h-4 text-blue-600 animate-spin shrink-0" />
+                  <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl text-blue-900 text-xs font-medium border border-blue-200">
+                    <Loader2 className="w-4 h-4 text-blue-700 animate-spin shrink-0" />
                     <span>Streaming resource directly from relay server...</span>
                   </div>
                 )}
@@ -122,9 +121,9 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
                 {session.status === 'complete' && (
                   <div className="space-y-3 text-center">
                     <motion.div
-                      initial={{ scale: 0.92 }}
+                      initial={{ scale: 0.94 }}
                       animate={{ scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+                      transition={{ duration: 0.2 }}
                       className="p-3 bg-emerald-50 rounded-xl text-emerald-800 text-xs font-medium flex items-center justify-center gap-2 border border-emerald-200"
                     >
                       <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -135,7 +134,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
                       whileTap={{ scale: 0.97 }}
                       type="button"
                       onClick={onClose}
-                      className="w-full py-2.5 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+                      className="w-full py-2.5 text-xs font-semibold rounded-xl bg-white border border-[#DDD6C8] hover:bg-[#F3EFE6] text-slate-800 transition-colors cursor-pointer"
                     >
                       Done
                     </motion.button>
@@ -152,7 +151,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
                       whileTap={{ scale: 0.97 }}
                       type="button"
                       onClick={onClose}
-                      className="w-full py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
+                      className="w-full py-2 text-xs font-semibold rounded-xl bg-white border border-[#DDD6C8] hover:bg-[#F3EFE6] text-slate-800 transition-colors cursor-pointer"
                     >
                       Dismiss
                     </motion.button>
@@ -162,7 +161,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
             </AnimatePresence>
 
             {/* Security Note */}
-            <div className="pt-2 text-[11px] text-slate-400 text-center leading-normal border-t border-slate-200/80">
+            <div className="pt-2.5 text-[11px] text-slate-500 text-center leading-normal border-t border-[#E5E0D5]">
               Downloads are streamed directly without public storage redirects.
             </div>
             </div>

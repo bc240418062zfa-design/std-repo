@@ -31,7 +31,7 @@ import {
 import { mcqSets } from '../data/mcqs';
 import { subjectiveSets } from '../data/subjective';
 import { ExamTerm, McqQuestion, McqSet } from '../types';
-import { CelestialStarfield, CelestialOrbitalRings, CelestialDivider } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialDivider } from '../components/CelestialBackdrop';
 
 interface MCQsPageProps {
   activeSetId: string | null;
@@ -60,84 +60,14 @@ interface CourseTheme {
   subtleRing: string;
 }
 
-const COURSE_THEMES: Record<string, CourseTheme> = {
-  CS201: {
-    badgeBg: 'bg-blue-600',
-    badgeText: 'text-white',
-    accentBar: 'from-blue-600 to-sky-500',
-    subtleRing: 'hover:border-blue-400'
-  },
-  CS301: {
-    badgeBg: 'bg-indigo-600',
-    badgeText: 'text-white',
-    accentBar: 'from-indigo-600 to-blue-500',
-    subtleRing: 'hover:border-indigo-400'
-  },
-  CS304: {
-    badgeBg: 'bg-sky-700',
-    badgeText: 'text-white',
-    accentBar: 'from-sky-700 to-cyan-500',
-    subtleRing: 'hover:border-sky-400'
-  },
-  CS403: {
-    badgeBg: 'bg-teal-600',
-    badgeText: 'text-white',
-    accentBar: 'from-teal-600 to-emerald-500',
-    subtleRing: 'hover:border-teal-400'
-  },
-  CS504: {
-    badgeBg: 'bg-sky-600',
-    badgeText: 'text-white',
-    accentBar: 'from-sky-600 to-cyan-500',
-    subtleRing: 'hover:border-sky-400'
-  },
-  CS601: {
-    badgeBg: 'bg-amber-600',
-    badgeText: 'text-white',
-    accentBar: 'from-amber-600 to-orange-500',
-    subtleRing: 'hover:border-amber-400'
-  },
-  ENG101: {
-    badgeBg: 'bg-emerald-600',
-    badgeText: 'text-white',
-    accentBar: 'from-emerald-600 to-teal-500',
-    subtleRing: 'hover:border-emerald-400'
-  },
-  ENG201: {
-    badgeBg: 'bg-cyan-600',
-    badgeText: 'text-white',
-    accentBar: 'from-cyan-600 to-blue-500',
-    subtleRing: 'hover:border-cyan-400'
-  },
-  MGT301: {
-    badgeBg: 'bg-rose-600',
-    badgeText: 'text-white',
-    accentBar: 'from-rose-600 to-pink-500',
-    subtleRing: 'hover:border-rose-400'
-  },
-  MGT501: {
-    badgeBg: 'bg-orange-600',
-    badgeText: 'text-white',
-    accentBar: 'from-orange-600 to-amber-500',
-    subtleRing: 'hover:border-orange-400'
-  },
-  PAK301: {
-    badgeBg: 'bg-green-700',
-    badgeText: 'text-white',
-    accentBar: 'from-green-700 to-emerald-600',
-    subtleRing: 'hover:border-green-500'
-  }
-};
-
-function getCourseTheme(code: string): CourseTheme {
-  return (
-    COURSE_THEMES[code.toUpperCase()] || {
-      badgeBg: 'bg-slate-900',
-      badgeText: 'text-white',
-      accentBar: 'from-blue-600 to-indigo-500',
-      subtleRing: 'hover:border-blue-400'
-    }
-  );
+function getCourseTheme(_code: string, term?: ExamTerm): CourseTheme {
+  const isFinal = term === 'finalterm';
+  return {
+    badgeBg: 'bg-[#F3EFE6] border border-[#DDD6C8] group-hover:bg-[#0D1B2A] group-hover:border-[#0D1B2A] transition-colors',
+    badgeText: 'text-[#0D1B2A] group-hover:text-amber-300',
+    accentBar: isFinal ? 'bg-amber-700' : 'bg-blue-700',
+    subtleRing: 'hover:border-[#0D1B2A]/40'
+  };
 }
 
 function loadProgress(): StoredProgress {
@@ -667,35 +597,29 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
     ];
 
     return (
-      <div className="min-h-screen bg-celestial-canvas bg-star-dust">
-        {/* Atmospheric Split Studio Hero */}
-        <section className="relative overflow-hidden bg-studio-stage text-white border-b border-slate-800/90">
-          <CelestialStarfield density={0.75} />
+      <div className="min-h-screen bg-[#FAF8F4]">
+        {/* Editorial Studio Header */}
+        <section className="relative overflow-hidden bg-[#0D1B2A] text-white border-b border-white/10">
           <CelestialOrbitalRings compact />
-          <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
-          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
-          <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
+          <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <motion.div
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                 className="lg:col-span-7 space-y-4"
               >
-                <p className="text-xs sm:text-sm font-mono text-sky-300 tracking-wide tabular-nums">
-                  Interactive Assessment Studio · {bankSummary.totalSubjects} Subjects · {bankSummary.totalCount} Verified MCQs
+                <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.14em] text-amber-300 font-semibold tabular-nums">
+                  Interactive Assessment Studio · {bankSummary.totalSubjects} Subjects · {bankSummary.totalCount.toLocaleString()} Verified MCQs
                 </p>
 
                 <h1
-                  className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-[1.08]"
+                  className="text-3xl sm:text-5xl font-semibold tracking-tight text-white leading-[1.08]"
                   style={{ textWrap: 'balance' }}
                 >
                   Practice Subject MCQs,{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-amber-300">
-                    Timed Mock Exams
-                  </span>{' '}
-                  &amp; Flash Sheets
+                  <span className="text-amber-300">Timed Mock Exams</span> &amp; Flash Sheets
                 </h1>
 
                 <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
@@ -705,7 +629,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 {/* Term Filter Switcher */}
                 <div className="pt-2">
                   <div
-                    className="inline-flex p-1 rounded-xl glass-panel-dark"
+                    className="inline-flex p-1 rounded-xl bg-[#132238] border border-white/10"
                     role="tablist"
                     aria-label="Filter MCQ subjects by term"
                   >
@@ -719,16 +643,14 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           aria-selected={active}
                           onClick={() => setTermFilter(tab.id)}
                           className={`relative px-4 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                            active ? 'text-white' : 'text-slate-300 hover:text-white'
+                            active ? 'text-[#0D1B2A]' : 'text-slate-300 hover:text-white'
                           }`}
                         >
                           {active && (
                             <motion.span
                               layoutId="mcq-term-filter"
-                              transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-                              className={`absolute inset-0 rounded-lg ${
-                                tab.id === 'all' ? 'bg-slate-700' : 'bg-blue-600'
-                              }`}
+                              transition={{ type: 'spring', stiffness: 450, damping: 34 }}
+                              className="absolute inset-0 rounded-lg bg-white"
                             />
                           )}
                           <span className="relative z-10">{tab.label}</span>
@@ -739,16 +661,16 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 </div>
               </motion.div>
 
-              {/* Right Bento: Live Practice Telemetry Console */}
+              {/* Right Panel: Live Practice Readiness Overview */}
               <motion.div
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.42, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="lg:col-span-5 glass-panel-dark rounded-2xl p-6 space-y-5"
+                transition={{ duration: 0.3, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-5 bg-[#132238] border border-white/10 rounded-2xl p-6 space-y-5"
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="space-y-1">
-                    <div className="text-xs font-mono uppercase tracking-wider text-sky-300 font-semibold">
+                    <div className="text-[11px] font-mono uppercase tracking-[0.14em] text-amber-300 font-semibold">
                       Your Readiness Overview
                     </div>
                     <div className="text-2xl font-bold text-white font-mono tabular-nums">
@@ -763,25 +685,25 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     percent={bankSummary.overallAcc}
                     size={84}
                     strokeWidth={7}
-                    strokeColor="#38BDF8"
+                    strokeColor="#FBBF24"
                     sublabel="Accuracy"
                   />
                 </div>
 
                 <div className="grid grid-cols-3 gap-2.5 pt-3 border-t border-white/10 text-center">
-                  <div className="p-2.5 rounded-xl bg-white/5">
+                  <div className="p-2.5 rounded-xl bg-[#0D1B2A] border border-white/5">
                     <div className="font-mono text-base font-bold text-white tabular-nums">
                       {mcqSets.length}
                     </div>
                     <div className="text-[11px] text-slate-400">Subject Pages</div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-white/5">
+                  <div className="p-2.5 rounded-xl bg-[#0D1B2A] border border-white/5">
                     <div className="font-mono text-base font-bold text-emerald-300 tabular-nums">
                       {bankSummary.correctTotal}
                     </div>
                     <div className="text-[11px] text-slate-400">Verified Right</div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-white/5">
+                  <div className="p-2.5 rounded-xl bg-[#0D1B2A] border border-white/5">
                     <div className="font-mono text-base font-bold text-amber-300 tabular-nums">
                       3 Modes
                     </div>
@@ -793,20 +715,23 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
           </div>
         </section>
 
-        {/* Subject Cards Bento Grid */}
+        {/* Subject Cards Directory Grid */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-4 border-b border-[#E5E0D5]">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-950">
+              <h2 className="text-2xl sm:text-3xl font-semibold text-[#0D1B2A]">
                 {termFilter === 'midterm'
                   ? 'Mid-Term Subject Studios'
                   : termFilter === 'finalterm'
                   ? 'Final-Term Subject Studios'
                   : 'All Interactive MCQ Subjects'}
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
                 Pick a subject below to start practicing, or copy its direct URL to share with study groups.
               </p>
+            </div>
+            <div className="text-xs font-mono text-slate-500 tabular-nums">
+              {visibleHubSets.length} active studios
             </div>
           </div>
 
@@ -821,38 +746,41 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
               const pct = Math.round((answeredCount / set.questions.length) * 100);
               const acc = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
               const isCopied = copiedSetId === set.id;
-              const theme = getCourseTheme(set.courseCode);
+              const theme = getCourseTheme(set.courseCode, set.term);
 
               return (
                 <motion.div
                   key={set.id}
-                  initial={{ opacity: 0, y: 18 }}
+                  initial={{ opacity: 0, y: 12 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 'some' }}
                   transition={{
-                    duration: 0.32,
-                    delay: Math.min(idx * 0.04, 0.2),
+                    duration: 0.24,
+                    delay: Math.min(idx * 0.03, 0.16),
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  whileHover={{ y: -4 }}
-                  className={`group card-celestial celestial-top-glint rounded-2xl border ${theme.subtleRing} overflow-hidden flex flex-col justify-between`}
+                  whileHover={{ y: -3 }}
+                  className={`group bg-white rounded-2xl border border-[#E5E0D5] ${theme.subtleRing} overflow-hidden flex flex-col justify-between transition-all shadow-[0_1px_2px_rgba(13,27,42,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(13,27,42,0.12)]`}
                 >
-                  {/* Top Signature Color Accent Hairline */}
-                  <div className={`h-1.5 w-full bg-gradient-to-r ${theme.accentBar}`} />
+                  {/* Semantic Term Rule (Cobalt = Midterm, Warm Brass = Finalterm) */}
+                  <div className={`h-1 w-full ${theme.accentBar}`} />
 
                   <div className="p-6 flex-1 flex flex-col justify-between gap-6">
                     <div className="space-y-4">
-                      {/* Monogram Badge + Unboxed Term Info */}
+                      {/* Monogram Plate + Unboxed Term Info */}
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-center gap-3 min-w-0">
                           <div
-                            className={`w-12 h-12 rounded-xl ${theme.badgeBg} ${theme.badgeText} font-mono font-bold text-xs flex items-center justify-center shrink-0 shadow-xs`}
+                            className={`w-12 h-12 rounded-xl ${theme.badgeBg} ${theme.badgeText} font-mono font-bold text-xs flex items-center justify-center shrink-0`}
                           >
                             {set.courseCode}
                           </div>
                           <div className="min-w-0">
                             <div className="text-xs font-mono text-slate-500 tabular-nums">
-                              {set.termLabel} · {set.questions.length} MCQs
+                              <span className={set.term === 'finalterm' ? 'text-amber-700 font-semibold' : 'text-blue-700 font-semibold'}>
+                                {set.termLabel}
+                              </span>{' '}
+                              · {set.questions.length} MCQs
                             </div>
                             <a
                               href={`/mcqs/${set.id}`}
@@ -862,15 +790,14 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                               }}
                               className="block"
                             >
-                              <h3 className="text-lg font-bold text-slate-950 group-hover:text-blue-700 transition-colors leading-snug truncate">
+                              <h3 className="text-lg font-bold text-[#0D1B2A] group-hover:text-blue-700 transition-colors leading-snug truncate">
                                 {set.courseTitle}
                               </h3>
                             </a>
                           </div>
                         </div>
 
-                        <motion.button
-                          whileTap={{ scale: 0.92 }}
+                        <button
                           type="button"
                           onClick={(e) => handleCopyShareLink(set.id, e)}
                           title="Copy shareable subject link"
@@ -878,11 +805,11 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           className={`p-2.5 rounded-xl border transition-colors cursor-pointer shrink-0 ${
                             isCopied
                               ? 'bg-emerald-50 border-emerald-300 text-emerald-700'
-                              : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-500 hover:text-slate-800'
+                              : 'bg-[#FAF8F4] hover:bg-[#F3EFE6] border-[#E5E0D5] text-slate-500 hover:text-[#0D1B2A]'
                           }`}
                         >
                           {isCopied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
-                        </motion.button>
+                        </button>
                       </div>
 
                       <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">
@@ -901,36 +828,35 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between text-xs font-mono text-slate-500 tabular-nums">
                           <span>
-                            <strong className="text-slate-900">{answeredCount}</strong>/{set.questions.length} solved
+                            <strong className="text-[#0D1B2A]">{answeredCount}</strong>/{set.questions.length} solved
                           </span>
                           <span>
                             {answeredCount > 0 ? `${acc}% accuracy` : 'Ready to start'}
                           </span>
                         </div>
-                        <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+                        <div className="h-2 w-full rounded-full bg-[#F3EFE6] overflow-hidden">
                           <motion.div
-                            className={`h-full rounded-full bg-gradient-to-r ${theme.accentBar}`}
+                            className={`h-full rounded-full ${theme.accentBar}`}
                             initial={{ width: 0 }}
                             whileInView={{ width: `${pct}%` }}
                             viewport={{ once: true, amount: 'some' }}
-                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                           />
                         </div>
                       </div>
 
                       {/* Primary Card Launch Action */}
-                      <motion.a
-                        whileTap={{ scale: 0.98 }}
+                      <a
                         href={`/mcqs/${set.id}`}
                         onClick={(e) => {
                           e.preventDefault();
                           onSelectSetId(set.id);
                         }}
-                        className="btn-shimmer w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-slate-950 via-slate-900 to-blue-950 hover:from-blue-600 hover:to-indigo-600 text-white text-xs sm:text-sm font-semibold transition-all flex items-center justify-between shadow-xs"
+                        className="w-full py-2.5 px-4 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold transition-colors flex items-center justify-between"
                       >
                         <span>{answeredCount > 0 ? 'Continue Practice' : 'Start Interactive Quiz'}</span>
-                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      </motion.a>
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                      </a>
                     </div>
                   </div>
                 </motion.div>
@@ -947,7 +873,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
   // =========================================================================
   const isCopiedActive = copiedSetId === activeSet.id;
   const otherSets = mcqSets.filter((s) => s.id !== activeSet.id);
-  const courseTheme = getCourseTheme(activeSet.courseCode);
+  const courseTheme = getCourseTheme(activeSet.courseCode, activeSet.term);
   const matchingSubjective = subjectiveSets.find(
     (s) => s.courseCode.toUpperCase() === activeSet.courseCode.toUpperCase()
   );
@@ -957,18 +883,15 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
       : 0;
 
   return (
-    <div className="min-h-screen bg-celestial-canvas bg-star-dust">
+    <div className="min-h-screen bg-[#FAF8F4]">
       {/* Compact Focused Studio Top Ribbon */}
-      <section className="relative overflow-hidden bg-studio-stage text-white border-b border-slate-800/90">
-        <CelestialStarfield density={0.5} />
+      <section className="relative overflow-hidden bg-[#0D1B2A] text-white border-b border-white/10">
         <CelestialOrbitalRings compact />
-        <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
-        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
-        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
           className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-7 space-y-4"
         >
           {/* Breadcrumb & Share Controls Row */}
@@ -986,7 +909,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 <span>All Subjects</span>
               </a>
               <span aria-hidden="true">/</span>
-              <span className="font-mono text-sky-300 font-semibold">
+              <span className="font-mono text-amber-300 font-semibold">
                 {activeSet.courseCode} · {activeSet.termLabel}
               </span>
             </nav>
@@ -1000,73 +923,67 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     e.preventDefault();
                     onSelectSetId(sib.id);
                   }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg glass-panel-dark hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-medium transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#132238] hover:bg-[#192D48] border border-white/10 text-slate-200 hover:text-white text-xs font-medium transition-colors"
                 >
                   <span>Switch to {sib.termLabel} ({sib.questions.length})</span>
                   <ChevronRight className="w-3.5 h-3.5" />
                 </a>
               ))}
 
-              <motion.button
-                whileTap={{ scale: 0.96 }}
+              <button
                 type="button"
                 onClick={() => handleCopyShareLink(activeSet.id)}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
                   isCopiedActive
                     ? 'bg-emerald-600 border-emerald-500 text-white'
-                    : 'glass-panel-dark hover:bg-slate-800 text-white'
+                    : 'bg-[#132238] hover:bg-[#192D48] border-white/15 text-white'
                 }`}
               >
-                {isCopiedActive ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5 text-sky-300" />}
+                {isCopiedActive ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5 text-amber-300" />}
                 <span>{isCopiedActive ? 'Copied Link' : 'Copy Link'}</span>
-              </motion.button>
+              </button>
 
-              <motion.button
-                whileTap={{ scale: 0.96 }}
+              <button
                 type="button"
                 onClick={() => handleNativeShare(activeSet)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-600 text-white text-xs font-semibold transition-colors cursor-pointer"
               >
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Share</span>
-              </motion.button>
+              </button>
 
               {matchingSubjective && onOpenSubjectiveSet && (
-                <motion.button
-                  whileTap={{ scale: 0.96 }}
+                <button
                   type="button"
                   onClick={() => onOpenSubjectiveSet(matchingSubjective.id)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-[#0D1B2A] text-xs font-bold transition-colors cursor-pointer"
                 >
                   <Flame className="w-3.5 h-3.5" />
                   <span>Subjective Fast-Prep</span>
-                </motion.button>
+                </button>
               )}
 
               {onSelectCourseInLibrary && (
-                <motion.button
-                  whileTap={{ scale: 0.96 }}
+                <button
                   type="button"
                   onClick={() => onSelectCourseInLibrary(activeSet.courseCode)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-900 text-xs font-semibold transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-[#FAF8F4] text-[#0D1B2A] text-xs font-semibold transition-colors cursor-pointer"
                 >
                   <FileText className="w-3.5 h-3.5 text-blue-700" />
                   <span>{activeSet.courseCode} Notes</span>
-                </motion.button>
+                </button>
               )}
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-center gap-4 min-w-0">
-              <div
-                className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${courseTheme.badgeBg} ${courseTheme.badgeText} font-mono font-extrabold text-sm flex items-center justify-center shrink-0 shadow-lg`}
-              >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-[#132238] border border-white/15 text-amber-300 font-mono font-bold text-sm flex items-center justify-center shrink-0">
                 {activeSet.courseCode}
               </div>
               <div className="min-w-0 space-y-1">
                 <h1
-                  className="text-xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight truncate"
+                  className="text-xl sm:text-3xl font-semibold tracking-tight text-white leading-tight truncate"
                   style={{ textWrap: 'balance' }}
                 >
                   {activeSet.courseTitle}
@@ -1082,11 +999,10 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
         {/* Streamlined Single-Row Studio Control Bar */}
-        <section className="celestial-bezel rounded-2xl shadow-sm">
-          <div className="surface-frosted rounded-[15px] p-3 sm:p-4 flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+        <section className="bg-white rounded-2xl border border-[#E5E0D5] p-3 sm:p-4 flex flex-col xl:flex-row xl:items-center justify-between gap-3">
           {/* Study Mode Segmented Switcher */}
           <div
-            className="inline-flex flex-wrap p-1 rounded-xl bg-slate-100/90 border border-slate-200/80 self-start xl:self-auto"
+            className="inline-flex flex-wrap p-1 rounded-xl bg-[#F3EFE6] border border-[#DDD6C8] self-start xl:self-auto"
             role="tablist"
             aria-label="Study mode"
           >
@@ -1106,17 +1022,17 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   aria-selected={isActive}
                   onClick={() => setMode(id)}
                   className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
-                    isActive ? 'text-white' : 'text-slate-600 hover:text-slate-950'
+                    isActive ? 'text-white' : 'text-slate-700 hover:text-[#0D1B2A]'
                   }`}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="mcq-mode-selector"
                       transition={{ type: 'spring', stiffness: 450, damping: 34 }}
-                      className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg shadow-xs"
+                      className="absolute inset-0 bg-[#0D1B2A] rounded-lg"
                     />
                   )}
-                  <Icon className={`relative z-10 w-3.5 h-3.5 ${isActive ? 'text-sky-200' : 'text-slate-400'}`} />
+                  <Icon className={`relative z-10 w-3.5 h-3.5 ${isActive ? 'text-amber-300' : 'text-slate-500'}`} />
                   <span className="relative z-10">{label}</span>
                 </button>
               );
@@ -1258,7 +1174,6 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 ))}
             </div>
           )}
-          </div>
         </section>
 
         {/* MODE 1: INTERACTIVE PRACTICE STUDIO */}
@@ -1267,11 +1182,11 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
             {/* Left Focus Question Canvas */}
             <div className="lg:col-span-8 space-y-4">
               {!currentQuestion ? (
-                <div className="card-celestial celestial-top-glint rounded-2xl border p-12 text-center space-y-4">
+                <div className="bg-white rounded-2xl border border-[#E5E0D5] p-12 text-center space-y-4">
                   <BookOpen className="w-10 h-10 text-slate-300 mx-auto" />
                   <div className="space-y-1">
-                    <h3 className="text-lg font-bold text-slate-900">No matching questions in this filter</h3>
-                    <p className="text-sm text-slate-500 max-w-md mx-auto">
+                    <h3 className="text-lg font-bold text-[#0D1B2A]">No matching questions in this filter</h3>
+                    <p className="text-sm text-slate-600 max-w-md mx-auto">
                       Clear the search keyword or switch your filter back to All questions to continue practicing.
                     </p>
                   </div>
@@ -1282,7 +1197,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       setTopicFilter('ALL');
                       setPracticeFilter('all');
                     }}
-                    className="btn-shimmer px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-950 to-blue-950 hover:from-blue-600 hover:to-indigo-600 text-white text-xs font-semibold cursor-pointer transition-all"
+                    className="px-5 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs font-semibold cursor-pointer transition-colors"
                   >
                     Show All {activeSet.courseCode} Questions
                   </button>
@@ -1298,20 +1213,19 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={currentQuestion.id}
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                        className="celestial-bezel rounded-2xl shadow-sm"
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
+                        className="bg-white rounded-2xl border border-[#E5E0D5] overflow-hidden shadow-[0_1px_2px_rgba(13,27,42,0.04)]"
                       >
-                        <div className="card-celestial celestial-top-glint rounded-[15px] overflow-hidden">
                         {/* Integrated Top Session Hairline Progress */}
-                        <div className="h-1.5 w-full bg-slate-100 overflow-hidden">
+                        <div className="h-1 w-full bg-[#F3EFE6] overflow-hidden">
                           <motion.div
-                            className={`h-full bg-gradient-to-r ${courseTheme.accentBar}`}
+                            className={`h-full ${courseTheme.accentBar}`}
                             initial={{ width: 0 }}
                             animate={{ width: `${positionPct}%` }}
-                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                           />
                         </div>
 
@@ -1391,19 +1305,17 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                               }
 
                               return (
-                                <motion.button
+                                <button
                                   key={idx}
-                                  whileHover={!isAnswered ? { x: 4 } : undefined}
-                                  whileTap={{ scale: 0.99 }}
                                   type="button"
                                   role="radio"
                                   aria-checked={isSelected}
                                   onClick={() => handleSelectAnswer(currentQuestion.id, idx)}
-                                  className={`w-full min-h-[56px] p-4 rounded-2xl border-2 text-left transition-colors flex items-center justify-between gap-3 cursor-pointer ${containerStyle}`}
+                                  className={`w-full min-h-[54px] p-4 rounded-xl border text-left transition-colors flex items-center justify-between gap-3 cursor-pointer ${containerStyle}`}
                                 >
                                   <div className="flex items-start gap-3.5 min-w-0">
                                     <span
-                                      className={`w-8 h-8 rounded-xl border font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 ${letterBadgeStyle}`}
+                                      className={`w-8 h-8 rounded-lg border font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5 ${letterBadgeStyle}`}
                                     >
                                       {OPTION_LETTERS[idx]}
                                     </span>
@@ -1426,7 +1338,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                                       <span className="hidden sm:inline">{statusLabel}</span>
                                     </span>
                                   )}
-                                </motion.button>
+                                </button>
                               );
                             })}
                           </div>
@@ -1439,8 +1351,8 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                                   initial={{ opacity: 0, y: 6 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   exit={{ opacity: 0, y: -4 }}
-                                  transition={{ duration: 0.2 }}
-                                  className={`p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm ${
+                                  transition={{ duration: 0.16 }}
+                                  className={`p-4 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm ${
                                     isCorrect
                                       ? 'bg-emerald-50 border-emerald-200 text-emerald-950'
                                       : 'bg-rose-50 border-rose-200 text-rose-950'
@@ -1481,37 +1393,34 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           </div>
 
                           {/* Navigation Footer */}
-                          <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                            <motion.button
-                              whileTap={{ scale: 0.96 }}
+                          <div className="pt-4 border-t border-[#F0ECE3] flex items-center justify-between gap-3">
+                            <button
                               type="button"
                               disabled={currentIndex <= 0}
                               onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
-                              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-slate-700 cursor-pointer min-h-[44px]"
+                              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-[#DDD6C8] bg-white hover:bg-[#FAF8F4] disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-slate-700 cursor-pointer min-h-[44px]"
                             >
                               <ChevronLeft className="w-4 h-4" />
                               <span>Previous</span>
-                            </motion.button>
+                            </button>
 
                             <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
                               <Keyboard className="w-3.5 h-3.5" />
                               <span>A–D / 1–4 Answer · ← → Step · F Save</span>
                             </div>
 
-                            <motion.button
-                              whileTap={{ scale: 0.96 }}
+                            <button
                               type="button"
                               disabled={currentIndex >= filteredQuestions.length - 1}
                               onClick={() =>
                                 setCurrentIndex((i) => Math.min(filteredQuestions.length - 1, i + 1))
                               }
-                              className="btn-shimmer inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-slate-950 to-blue-950 hover:from-blue-600 hover:to-indigo-600 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-white transition-all cursor-pointer min-h-[44px]"
+                              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-white transition-colors cursor-pointer min-h-[44px]"
                             >
                               <span>Next Question</span>
                               <ChevronRight className="w-4 h-4" />
-                            </motion.button>
+                            </button>
                           </div>
-                        </div>
                         </div>
                       </motion.div>
                     </AnimatePresence>
@@ -1522,7 +1431,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
             {/* Right Rail: Live Mastery Telemetry & Question Jump Map */}
             <aside className="lg:col-span-4 space-y-4">
-              <div className="card-celestial celestial-top-glint rounded-2xl border p-5 sm:p-6 space-y-5">
+              <div className="bg-white rounded-2xl border border-[#E5E0D5] p-5 sm:p-6 space-y-5">
                 <div className="flex items-center justify-between gap-4 pb-4 border-b border-slate-100">
                   <div className="space-y-1">
                     <div className="text-xs font-mono font-semibold text-blue-700 uppercase tracking-wider">
@@ -1620,14 +1529,13 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
         {mode === 'exam' && (
           <section>
             {examStatus === 'setup' && (
-              <div className="celestial-bezel rounded-2xl max-w-3xl mx-auto shadow-sm">
-                <div className="card-celestial celestial-top-glint rounded-[15px] p-6 sm:p-10 space-y-7">
+              <div className="bg-white rounded-2xl border border-[#E5E0D5] max-w-3xl mx-auto p-6 sm:p-10 space-y-7">
                 <div className="space-y-2">
-                  <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
+                  <div className="inline-flex items-center gap-2 text-[11px] font-mono font-semibold uppercase tracking-[0.14em] text-blue-700">
                     <Timer className="w-4 h-4" />
                     <span>VU Exam Simulation</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-950">
+                  <h2 className="text-2xl sm:text-3xl font-semibold text-[#0D1B2A]">
                     Configure {activeSet.courseCode} Timed Mock Exam
                   </h2>
                   <p className="text-sm text-slate-600 leading-relaxed">
@@ -1656,16 +1564,16 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           key={i}
                           type="button"
                           onClick={() => setExamSize(count)}
-                          className={`p-4 rounded-2xl border-2 text-left transition-all cursor-pointer ${
+                          className={`p-4 rounded-xl border text-left transition-colors cursor-pointer ${
                             isPicked
-                              ? 'bg-gradient-to-br from-slate-950 to-blue-950 border-blue-500 text-white shadow-md'
-                              : 'surface-frosted hover:border-blue-300 border-slate-200/80 text-slate-800'
+                              ? 'bg-[#0D1B2A] border-[#0D1B2A] text-white'
+                              : 'bg-[#FAF8F4] hover:border-[#0D1B2A]/40 border-[#DDD6C8] text-[#0D1B2A]'
                           }`}
                         >
                           <div className="font-mono text-base font-bold tabular-nums">{label}</div>
                           <div
                             className={`text-xs mt-1 font-mono tabular-nums ${
-                              isPicked ? 'text-sky-300' : 'text-slate-500'
+                              isPicked ? 'text-amber-300' : 'text-slate-500'
                             }`}
                           >
                             ~{mins} min timer
@@ -1676,31 +1584,28 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-5 flex flex-wrap items-center justify-between gap-4 border-t border-slate-200/70">
-                  <div className="text-xs text-slate-500">
-                    Target benchmark: <strong className="text-slate-900">70%+</strong> for VU distinction.
+                <div className="pt-5 flex flex-wrap items-center justify-between gap-4 border-t border-[#E5E0D5]">
+                  <div className="text-xs text-slate-600">
+                    Target benchmark: <strong className="text-[#0D1B2A]">70%+</strong> for VU distinction.
                   </div>
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
+                  <button
                     type="button"
                     onClick={handleStartExam}
-                    className="btn-shimmer inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm transition-all cursor-pointer min-h-[48px] shadow-sm"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm transition-colors cursor-pointer min-h-[48px]"
                   >
                     <Timer className="w-4 h-4" />
                     <span>Begin Timed Mock Exam</span>
-                  </motion.button>
-                </div>
+                  </button>
                 </div>
               </div>
             )}
 
             {examStatus === 'running' && examActiveQuestion && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <div className="lg:col-span-8 celestial-bezel rounded-2xl shadow-sm">
-                  <div className="card-celestial celestial-top-glint rounded-[15px] overflow-hidden">
-                  <div className="h-1.5 w-full bg-slate-100">
+                <div className="lg:col-span-8 bg-white rounded-2xl border border-[#E5E0D5] overflow-hidden">
+                  <div className="h-1 w-full bg-[#F3EFE6]">
                     <div
-                      className="h-full bg-blue-600 transition-all duration-300"
+                      className="h-full bg-blue-700 transition-all duration-300"
                       style={{
                         width: `${Math.round(((examIndex + 1) / examQuestions.length) * 100)}%`
                       }}
@@ -1768,17 +1673,17 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                                 [examActiveQuestion.id]: idx
                               }))
                             }
-                            className={`w-full min-h-[56px] p-4 rounded-2xl border-2 text-left transition-colors flex items-center gap-3.5 cursor-pointer ${
+                            className={`w-full min-h-[54px] p-4 rounded-xl border text-left transition-colors flex items-center gap-3.5 cursor-pointer ${
                               isChosen
-                                ? 'bg-blue-50/90 border-blue-600 text-blue-950'
-                                : 'bg-slate-50/40 border-slate-200 hover:border-blue-400 hover:bg-slate-50 text-slate-800'
+                                ? 'bg-blue-50 border-blue-700 text-blue-950'
+                                : 'bg-[#FAF8F4] border-[#E5E0D5] hover:border-blue-700 hover:bg-white text-slate-800'
                             }`}
                           >
                             <span
-                              className={`w-8 h-8 rounded-xl border font-mono text-xs font-bold flex items-center justify-center shrink-0 ${
+                              className={`w-8 h-8 rounded-lg border font-mono text-xs font-bold flex items-center justify-center shrink-0 ${
                                 isChosen
-                                  ? 'bg-blue-600 border-blue-600 text-white'
-                                  : 'bg-white border-slate-200 text-slate-700'
+                                  ? 'bg-blue-700 border-blue-700 text-white'
+                                  : 'bg-white border-[#DDD6C8] text-[#0D1B2A]'
                               }`}
                             >
                               {OPTION_LETTERS[idx]}
@@ -1789,12 +1694,12 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       })}
                     </div>
 
-                    <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-[#F0ECE3] flex flex-wrap items-center justify-between gap-3">
                       <button
                         type="button"
                         disabled={examIndex <= 0}
                         onClick={() => setExamIndex((i) => Math.max(0, i - 1))}
-                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-slate-700 cursor-pointer min-h-[44px]"
+                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-[#DDD6C8] bg-white hover:bg-[#FAF8F4] disabled:opacity-40 disabled:pointer-events-none text-xs sm:text-sm font-semibold text-slate-700 cursor-pointer min-h-[44px]"
                       >
                         <ChevronLeft className="w-4 h-4" />
                         <span>Previous</span>
@@ -1805,7 +1710,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           <button
                             type="button"
                             onClick={() => setExamIndex((i) => i + 1)}
-                            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-slate-950 hover:bg-blue-600 text-white text-xs sm:text-sm font-semibold cursor-pointer min-h-[44px]"
+                            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold cursor-pointer min-h-[44px] transition-colors"
                           >
                             <span>Save &amp; Next</span>
                             <ChevronRight className="w-4 h-4" />
@@ -1814,7 +1719,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           <button
                             type="button"
                             onClick={() => setConfirmSubmitExam(true)}
-                            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold cursor-pointer min-h-[44px]"
+                            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs sm:text-sm font-semibold cursor-pointer min-h-[44px] transition-colors"
                           >
                             <Check className="w-4 h-4" />
                             <span>Finish &amp; Grade</span>
@@ -1823,12 +1728,11 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       </div>
                     </div>
                   </div>
-                  </div>
                 </div>
 
-                <aside className="lg:col-span-4 card-celestial celestial-top-glint rounded-2xl border p-5 sm:p-6 space-y-5">
+                <aside className="lg:col-span-4 bg-white rounded-2xl border border-[#E5E0D5] p-5 sm:p-6 space-y-5">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-base font-bold text-slate-950">Exam Sheet</h4>
+                    <h4 className="text-base font-bold text-[#0D1B2A]">Exam Sheet</h4>
                     <span className="text-xs font-mono font-semibold text-slate-500 tabular-nums">
                       {Object.keys(examAnswers).length}/{examQuestions.length} Answered
                     </span>
@@ -1840,8 +1744,8 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       const flagged = examFlagged.has(q.id);
                       const isCur = idx === examIndex;
 
-                      let cls = 'bg-slate-50 border-slate-200 text-slate-700';
-                      if (answered) cls = 'bg-blue-600 border-blue-600 text-white font-bold';
+                      let cls = 'bg-[#FAF8F4] border-[#DDD6C8] text-slate-700';
+                      if (answered) cls = 'bg-blue-700 border-blue-700 text-white font-bold';
                       if (flagged && !answered) cls = 'bg-amber-50 border-amber-300 text-amber-900 font-bold';
                       if (isCur) cls += ' ring-2 ring-amber-500';
 
@@ -1861,12 +1765,12 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     })}
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 space-y-3">
+                  <div className="pt-3 border-t border-[#F0ECE3] space-y-3">
                     {!confirmSubmitExam ? (
                       <button
                         type="button"
                         onClick={() => setConfirmSubmitExam(true)}
-                        className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm cursor-pointer transition-colors"
+                        className="w-full py-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs sm:text-sm cursor-pointer transition-colors"
                       >
                         Submit Mock Exam
                       </button>
@@ -1882,14 +1786,14 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                               setExamStatus('submitted');
                               setConfirmSubmitExam(false);
                             }}
-                            className="flex-1 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold cursor-pointer"
+                            className="flex-1 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-semibold cursor-pointer"
                           >
                             Yes, Submit
                           </button>
                           <button
                             type="button"
                             onClick={() => setConfirmSubmitExam(false)}
-                            className="flex-1 py-2 rounded-lg bg-white border border-slate-200 text-slate-700 font-medium cursor-pointer"
+                            className="flex-1 py-2 rounded-lg bg-white border border-[#DDD6C8] text-slate-700 font-medium cursor-pointer"
                           >
                             Keep Going
                           </button>
@@ -1903,31 +1807,24 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
 
             {examStatus === 'submitted' && (
               <div className="space-y-6">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.98, y: 10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative overflow-hidden bg-studio-stage text-white rounded-2xl border border-slate-800/90 p-6 sm:p-8 shadow-xl"
-                >
-                  <CelestialStarfield density={0.55} />
+                <div className="relative overflow-hidden bg-[#0D1B2A] text-white rounded-2xl border border-white/10 p-6 sm:p-8">
                   <CelestialOrbitalRings compact />
-                  <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
-                  <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
+                  <div className="absolute inset-0 bg-academic-grid opacity-25 pointer-events-none" />
                   <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="flex items-center gap-5">
                       <MasteryRing
                         percent={examScoreSummary.pct}
                         size={92}
                         strokeWidth={8}
-                        strokeColor={examScoreSummary.pct >= 70 ? '#34D399' : '#38BDF8'}
+                        strokeColor={examScoreSummary.pct >= 70 ? '#34D399' : '#FBBF24'}
                         sublabel="Result"
                       />
                       <div className="space-y-1.5">
-                        <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-sky-300">
+                        <div className="inline-flex items-center gap-2 text-[11px] font-mono font-semibold uppercase tracking-[0.14em] text-amber-300">
                           <Award className="w-4 h-4" />
                           <span>{activeSet.courseCode} Mock Result</span>
                         </div>
-                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white tabular-nums">
+                        <h3 className="text-2xl sm:text-3xl font-bold text-white tabular-nums">
                           {examScoreSummary.correct} / {examScoreSummary.total} Correct
                         </h3>
                         <p className="text-sm text-slate-300">
@@ -1941,40 +1838,39 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3">
-                      <div className="px-4 py-3 rounded-xl glass-panel-dark text-center">
+                      <div className="px-4 py-3 rounded-xl bg-[#132238] border border-white/10 text-center">
                         <div className="font-mono text-lg font-bold text-emerald-400 tabular-nums">
                           {examScoreSummary.correct}
                         </div>
                         <div className="text-[11px] text-slate-400">Correct</div>
                       </div>
-                      <div className="px-4 py-3 rounded-xl glass-panel-dark text-center">
+                      <div className="px-4 py-3 rounded-xl bg-[#132238] border border-white/10 text-center">
                         <div className="font-mono text-lg font-bold text-rose-400 tabular-nums">
                           {examScoreSummary.wrong + examScoreSummary.unanswered}
                         </div>
                         <div className="text-[11px] text-slate-400">Missed</div>
                       </div>
-                      <div className="px-4 py-3 rounded-xl glass-panel-dark text-center">
-                        <div className="font-mono text-lg font-bold text-sky-300 tabular-nums">
+                      <div className="px-4 py-3 rounded-xl bg-[#132238] border border-white/10 text-center">
+                        <div className="font-mono text-lg font-bold text-amber-300 tabular-nums">
                           {formatTimer(examScoreSummary.usedSecs)}
                         </div>
                         <div className="text-[11px] text-slate-400">Time</div>
                       </div>
 
-                      <motion.button
-                        whileTap={{ scale: 0.96 }}
+                      <button
                         type="button"
                         onClick={() => setExamStatus('setup')}
-                        className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm cursor-pointer"
+                        className="px-5 py-3 rounded-xl bg-white hover:bg-[#FAF8F4] text-[#0D1B2A] font-bold text-xs sm:text-sm cursor-pointer transition-colors"
                       >
                         Retake Mock Exam
-                      </motion.button>
+                      </button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <h4 className="text-lg font-bold text-slate-950">Detailed Answer Review</h4>
-                  <div className="inline-flex p-1 rounded-xl surface-frosted border border-slate-200/80">
+                  <h4 className="text-lg font-bold text-[#0D1B2A]">Detailed Answer Review</h4>
+                  <div className="inline-flex p-1 rounded-xl bg-[#F3EFE6] border border-[#DDD6C8]">
                     {(
                       [
                         { id: 'all', label: `All (${examQuestions.length})` },
@@ -1986,10 +1882,10 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                         key={tab.id}
                         type="button"
                         onClick={() => setExamReviewFilter(tab.id)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer transition-colors ${
                           examReviewFilter === tab.id
-                            ? 'bg-gradient-to-r from-slate-950 to-blue-950 text-white shadow-xs'
-                            : 'text-slate-600 hover:text-slate-900'
+                            ? 'bg-[#0D1B2A] text-white'
+                            : 'text-slate-700 hover:text-[#0D1B2A]'
                         }`}
                       >
                         {tab.label}
@@ -2014,7 +1910,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       return (
                         <div
                           key={q.id}
-                          className="card-celestial celestial-top-glint rounded-2xl border p-5 sm:p-6 space-y-3"
+                          className="bg-white rounded-2xl border border-[#E5E0D5] p-5 sm:p-6 space-y-3"
                         >
                           <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
                             <span className="text-slate-500 font-semibold">
@@ -2091,7 +1987,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
             </div>
 
             {filteredQuestions.length === 0 ? (
-              <div className="card-celestial celestial-top-glint rounded-2xl border p-10 text-center text-sm text-slate-500">
+              <div className="bg-white rounded-2xl border border-[#E5E0D5] shadow-xs p-10 text-center text-sm text-slate-500">
                 No questions match your search or topic filter.
               </div>
             ) : (
@@ -2109,7 +2005,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                         delay: Math.min((idx % 6) * 0.025, 0.14),
                         ease: [0.16, 1, 0.3, 1]
                       }}
-                      className="card-celestial celestial-top-glint rounded-2xl border p-5 space-y-3 flex flex-col justify-between"
+                      className="bg-white rounded-2xl border border-[#E5E0D5] shadow-xs p-5 space-y-3 flex flex-col justify-between"
                     >
                       <div className="space-y-3">
                         <div className="flex items-center justify-between gap-2 text-xs font-mono text-slate-500">
@@ -2186,22 +2082,12 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            {otherSets.map((set, idx) => {
+            {otherSets.map((set) => {
               const isCopied = copiedSetId === set.id;
-              const t = getCourseTheme(set.courseCode);
               return (
-                <motion.div
+                <div
                   key={set.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 'some' }}
-                  transition={{
-                    duration: 0.25,
-                    delay: Math.min(idx * 0.04, 0.2),
-                    ease: [0.16, 1, 0.3, 1]
-                  }}
-                  whileHover={{ y: -3 }}
-                  className="card-celestial celestial-top-glint rounded-2xl border hover:border-blue-300 p-4 flex items-center justify-between gap-3 transition-colors"
+                  className="group bg-white rounded-xl border border-[#E5E0D5] hover:border-[#0D1B2A]/40 p-4 flex items-center justify-between gap-3 transition-all"
                 >
                   <a
                     href={`/mcqs/${set.id}`}
@@ -2209,18 +2095,16 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                       e.preventDefault();
                       onSelectSetId(set.id);
                     }}
-                    className="flex items-center gap-3 min-w-0 group"
+                    className="flex items-center gap-3 min-w-0"
                   >
-                    <div
-                      className={`w-10 h-10 rounded-xl ${t.badgeBg} ${t.badgeText} font-mono font-bold text-[11px] flex items-center justify-center shrink-0`}
-                    >
+                    <div className="w-10 h-10 rounded-lg bg-[#F3EFE6] border border-[#DDD6C8] group-hover:bg-[#0D1B2A] group-hover:border-[#0D1B2A] text-[#0D1B2A] group-hover:text-amber-300 font-mono font-bold text-[11px] flex items-center justify-center shrink-0 transition-colors">
                       {set.courseCode}
                     </div>
                     <div className="min-w-0">
                       <div className="text-[11px] font-mono font-semibold text-slate-500">
                         {set.termLabel} · {set.questions.length} MCQs
                       </div>
-                      <div className="text-sm font-bold text-slate-900 group-hover:text-blue-700 truncate">
+                      <div className="text-sm font-bold text-[#0D1B2A] group-hover:text-blue-700 truncate">
                         {set.courseTitle}
                       </div>
                     </div>
@@ -2230,15 +2114,15 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                     type="button"
                     onClick={(e) => handleCopyShareLink(set.id, e)}
                     aria-label={`Copy link for ${set.courseCode} ${set.termLabel}`}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-semibold shrink-0 cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-lg border text-xs font-semibold shrink-0 cursor-pointer transition-colors ${
                       isCopied
                         ? 'bg-emerald-50 border-emerald-300 text-emerald-800'
-                        : 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
+                        : 'bg-[#FAF8F4] hover:bg-[#F3EFE6] border-[#DDD6C8] text-slate-600'
                     }`}
                   >
                     {isCopied ? 'Copied' : 'Copy'}
                   </button>
-                </motion.div>
+                </div>
               );
             })}
           </div>

@@ -236,15 +236,15 @@ export const CelestialOrbitalRings: React.FC<CelestialOrbitalRingsProps> = ({
         fill="none"
         className={`${
           compact
-            ? 'w-[540px] h-[540px] -right-24 -top-24 absolute opacity-45'
-            : 'w-[980px] h-[980px] sm:w-[1160px] sm:h-[1160px] opacity-40'
+            ? 'w-[500px] h-[500px] -right-24 -top-24 absolute opacity-30'
+            : 'w-[960px] h-[960px] sm:w-[1120px] sm:h-[1120px] opacity-28'
         }`}
       >
         <defs>
           <linearGradient id="celestial-ring-grad" x1="0" y1="0" x2="900" y2="900" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="rgba(56, 189, 248, 0.34)" />
-            <stop offset="50%" stopColor="rgba(129, 140, 248, 0.14)" />
-            <stop offset="100%" stopColor="rgba(251, 191, 36, 0.28)" />
+            <stop offset="0%" stopColor="rgba(56, 189, 248, 0.28)" />
+            <stop offset="50%" stopColor="rgba(148, 163, 184, 0.12)" />
+            <stop offset="100%" stopColor="rgba(217, 119, 6, 0.24)" />
           </linearGradient>
         </defs>
 
@@ -258,8 +258,8 @@ export const CelestialOrbitalRings: React.FC<CelestialOrbitalRingsProps> = ({
             strokeWidth="1"
             strokeDasharray="4 10"
           />
-          <circle cx="450" cy="40" r="3.5" fill="rgba(125, 211, 252, 0.85)" />
-          <circle cx="860" cy="450" r="2.5" fill="rgba(253, 230, 138, 0.8)" />
+          <circle cx="450" cy="40" r="3" fill="rgba(125, 211, 252, 0.75)" />
+          <circle cx="860" cy="450" r="2.2" fill="rgba(253, 230, 138, 0.75)" />
         </g>
 
         {/* Middle counter-rotating astrolabe arc */}
@@ -268,22 +268,22 @@ export const CelestialOrbitalRings: React.FC<CelestialOrbitalRingsProps> = ({
             cx="450"
             cy="450"
             r="315"
-            stroke="rgba(148, 163, 184, 0.14)"
+            stroke="rgba(148, 163, 184, 0.12)"
             strokeWidth="1"
           />
           <path
             d="M 450 135 A 315 315 0 0 1 735 320"
-            stroke="rgba(56, 189, 248, 0.4)"
+            stroke="rgba(56, 189, 248, 0.34)"
             strokeWidth="1.25"
             strokeLinecap="round"
           />
           <path
             d="M 450 765 A 315 315 0 0 1 165 580"
-            stroke="rgba(251, 191, 36, 0.32)"
+            stroke="rgba(217, 119, 6, 0.26)"
             strokeWidth="1.25"
             strokeLinecap="round"
           />
-          <circle cx="735" cy="320" r="2.5" fill="rgba(56, 189, 248, 0.9)" />
+          <circle cx="735" cy="320" r="2.2" fill="rgba(56, 189, 248, 0.8)" />
         </g>
 
         {/* Inner hairline ring */}
@@ -291,7 +291,7 @@ export const CelestialOrbitalRings: React.FC<CelestialOrbitalRingsProps> = ({
           cx="450"
           cy="450"
           r="210"
-          stroke="rgba(125, 211, 252, 0.1)"
+          stroke="rgba(125, 211, 252, 0.08)"
           strokeWidth="1"
           strokeDasharray="2 8"
         />
@@ -324,22 +324,22 @@ export const CelestialPageHeader: React.FC<CelestialPageHeaderProps> = ({
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-9 lg:p-10 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]"
+      className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-9 lg:p-10 border border-slate-800/90 shadow-[0_24px_56px_-18px_rgba(4,8,20,0.65)]"
     >
-      <CelestialStarfield density={0.62} />
+      <CelestialStarfield density={0.45} />
       <CelestialOrbitalRings compact />
-      <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 bg-academic-grid opacity-25 pointer-events-none" aria-hidden="true" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent"
+        className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/55 to-transparent"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 -right-16 w-72 h-72 rounded-full bg-indigo-500/20 blur-[90px]"
+        className="pointer-events-none absolute -top-24 -right-16 w-72 h-72 rounded-full bg-amber-500/10 blur-[90px]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-24 left-12 w-72 h-52 rounded-full bg-sky-500/15 blur-[90px]"
+        className="pointer-events-none absolute -bottom-24 left-12 w-72 h-52 rounded-full bg-sky-500/12 blur-[90px]"
       />
 
       <div className="relative z-10 space-y-6">
@@ -384,11 +384,9 @@ export const CelestialPageHeader: React.FC<CelestialPageHeaderProps> = ({
 
 export const CelestialDivider: React.FC<{ className?: string }> = ({ className = '' }) => (
   <div aria-hidden="true" className={`relative flex items-center justify-center py-2 ${className}`}>
-    <div className="h-px w-full bg-gradient-to-r from-transparent via-sky-400/40 to-transparent" />
-    <div className="absolute flex items-center justify-center w-6 h-6 rounded-full bg-[#F4F7FE] border border-sky-200/80 shadow-2xs">
-      <svg viewBox="0 0 24 24" className="w-3 h-3 text-blue-600" fill="currentColor">
-        <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
-      </svg>
+    <div className="h-px w-full bg-gradient-to-r from-transparent via-slate-300/75 to-transparent" />
+    <div className="absolute flex items-center justify-center w-5 h-5 rounded-full bg-[#F7F9FC] border border-slate-200">
+      <div className="w-1.5 h-1.5 rounded-full bg-blue-700" />
     </div>
   </div>
 );

@@ -32,17 +32,16 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
           transition={{ type: 'spring', stiffness: 360, damping: 28 }}
           className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-2xl"
         >
-          <div className="celestial-bezel rounded-2xl shadow-[0_24px_54px_-12px_rgba(4,8,20,0.7)]">
-          <div className="bg-studio-stage rounded-[15px] p-3.5 sm:p-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-lg">
+          <div className="bg-[#0D1B2A] border border-white/15 rounded-2xl shadow-[0_24px_54px_-12px_rgba(13,27,42,0.55)] p-3.5 sm:p-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3">
             {/* Selection Count Info */}
             <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <motion.span
                   key={selectedCount}
                   initial={{ scale: 0.7 }}
                   animate={{ scale: 1 }}
                   transition={{ type: 'spring', stiffness: 450, damping: 22 }}
-                  className="w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center tabular-nums"
+                  className="w-6 h-6 rounded-full bg-amber-300 text-[#0D1B2A] font-mono font-bold text-xs flex items-center justify-center tabular-nums"
                 >
                   {selectedCount}
                 </motion.span>
@@ -54,7 +53,7 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
               <button
                 type="button"
                 onClick={onSelectAllVisible}
-                className="sm:hidden text-xs text-blue-400 hover:text-blue-300 font-medium cursor-pointer"
+                className="sm:hidden text-xs text-amber-300 hover:text-amber-200 font-medium cursor-pointer"
               >
                 {isAllSelected ? 'Deselect All' : 'Select All'}
               </button>
@@ -68,7 +67,7 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
                 transition={{ duration: 0.16, ease: EASE_OUT_EXPO }}
                 type="button"
                 onClick={onSelectAllVisible}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors cursor-pointer"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-[#132238] border border-white/15 hover:bg-white/10 text-slate-200 transition-colors cursor-pointer"
               >
                 {isAllSelected ? (
                   <>
@@ -84,12 +83,12 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
               </motion.button>
 
               <motion.button
-                whileHover={{ y: -1.5, scale: 1.02 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.96 }}
                 type="button"
                 disabled={isDownloadingZip}
                 onClick={onDownloadZip}
-                className="btn-shimmer flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-colors cursor-pointer shadow-md shadow-blue-500/30 disabled:opacity-50"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold rounded-lg bg-blue-700 hover:bg-blue-600 text-white transition-colors cursor-pointer shadow-sm disabled:opacity-50"
               >
                 <Archive className="w-4 h-4" />
                 <span>
@@ -102,14 +101,13 @@ export const MultiDownloadBar: React.FC<MultiDownloadBarProps> = ({
                 whileTap={{ scale: 0.9 }}
                 type="button"
                 onClick={onClear}
-                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
+                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
                 aria-label="Clear selection"
                 title="Clear selection"
               >
                 <X className="w-4 h-4" />
               </motion.button>
             </div>
-          </div>
           </div>
         </motion.div>
       )}

@@ -59,7 +59,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
         title={
           <>
             Virtual University{' '}
-            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+            <span className="text-amber-300">
               All 411 Courses Directory
             </span>
           </>
@@ -69,17 +69,17 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-2">
           {[
             { val: courses.length, suffix: '', color: 'text-white', label: 'Total VU Courses' },
-            { val: totalFiles, suffix: '', color: 'text-sky-300', label: 'Verified Documents' },
+            { val: totalFiles, suffix: '', color: 'text-amber-300', label: 'Verified Documents' },
             { val: faculties.length - 1, suffix: '', color: 'text-emerald-300', label: 'Academic Faculties' },
-            { val: 100, suffix: '% Free', color: 'text-amber-300', label: 'Open Student Access' }
+            { val: 100, suffix: '% Free', color: 'text-sky-200', label: 'Open Student Access' }
           ].map((stat, idx) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.34, delay: 0.08 + idx * 0.05, ease: EASE_OUT_EXPO }}
-              whileHover={{ y: -3 }}
-              className="glass-panel-dark celestial-top-glint p-4 rounded-2xl"
+              whileHover={{ y: -2 }}
+              className="bg-[#132238] border border-white/10 p-4 rounded-xl"
             >
               <div className={`text-2xl sm:text-3xl font-extrabold font-mono tabular-nums ${stat.color}`}>
                 <AnimatedCounter value={stat.val} suffix={stat.suffix} />
@@ -91,8 +91,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
       </CelestialPageHeader>
 
       {/* Search and Faculty Filter Bar */}
-      <ScrollReveal direction="up" distance={16} className="celestial-bezel rounded-2xl shadow-[0_14px_34px_-12px_rgba(30,58,138,0.16)]">
-        <div className="surface-frosted rounded-[15px] p-4 sm:p-6 space-y-4">
+      <ScrollReveal direction="up" distance={14} className="bg-white border border-[#E5E0D5] rounded-2xl p-4 sm:p-6 space-y-4 shadow-xs">
           <div className="relative">
             <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
@@ -100,14 +99,14 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by course code (e.g. CS101, MTH101, MGT101) or title..."
-              className="w-full pl-11 pr-4 py-3 rounded-xl celestial-input text-sm text-slate-900 font-medium"
+              className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none text-sm text-slate-900 font-medium"
             />
           </div>
 
           {/* Faculty Buttons */}
           <div className="flex flex-wrap items-center gap-1.5 pt-1">
-            <span className="text-xs font-semibold text-slate-500 flex items-center gap-1 mr-1 select-none">
-              <Filter className="w-3.5 h-3.5 text-blue-600" />
+            <span className="text-xs font-semibold text-slate-600 flex items-center gap-1 mr-1 select-none">
+              <Filter className="w-3.5 h-3.5 text-blue-700" />
               <span>Faculty:</span>
             </span>
             {faculties.map((fac) => {
@@ -115,14 +114,14 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
               return (
                 <motion.button
                   key={fac}
-                  whileHover={{ y: -1.5 }}
-                  whileTap={{ scale: 0.94 }}
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.96 }}
                   type="button"
                   onClick={() => setSelectedFaculty(fac)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap border ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors duration-150 cursor-pointer whitespace-nowrap border ${
                     isSelected
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-blue-600 text-white shadow-[0_6px_16px_-4px_rgba(37,99,235,0.45)]'
-                      : 'bg-white/90 hover:bg-blue-50/70 border-slate-200/80 text-slate-700'
+                      ? 'bg-[#0D1B2A] border-[#0D1B2A] text-white'
+                      : 'bg-[#FAF8F4] hover:bg-[#F3EFE6] border-[#E5E0D5] text-slate-700'
                   }`}
                 >
                   {fac === 'ALL' ? 'All Faculties (411)' : fac}
@@ -130,21 +129,20 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
               );
             })}
           </div>
-        </div>
       </ScrollReveal>
 
       {/* Courses Grid */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between text-xs text-slate-500 px-1">
+        <div className="flex items-center justify-between text-xs text-slate-600 px-1">
           <span>
-            Showing <strong className="text-slate-800 font-mono tabular-nums">{filteredCourses.length}</strong> of <strong className="text-slate-800 font-mono tabular-nums">{courses.length}</strong> courses
+            Showing <strong className="text-slate-900 font-mono tabular-nums">{filteredCourses.length}</strong> of <strong className="text-slate-900 font-mono tabular-nums">{courses.length}</strong> courses
           </span>
           {searchQuery && (
             <motion.button
               whileTap={{ scale: 0.95 }}
               type="button"
               onClick={() => setSearchQuery('')}
-              className="text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
+              className="text-blue-700 hover:text-blue-800 font-semibold cursor-pointer"
             >
               Clear search filter
             </motion.button>
@@ -155,11 +153,11 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="celestial-top-glint p-12 text-center card-celestial rounded-3xl border space-y-3"
+            className="p-12 text-center bg-white border border-[#E5E0D5] rounded-2xl space-y-3"
           >
-            <BookOpen className="w-10 h-10 text-blue-500/50 mx-auto" />
-            <h3 className="text-base font-bold text-slate-800">No matching courses found</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <BookOpen className="w-10 h-10 text-slate-400 mx-auto" />
+            <h3 className="text-base font-bold text-slate-900">No matching courses found</h3>
+            <p className="text-xs text-slate-600 max-w-sm mx-auto">
               We couldn't find a course matching &ldquo;{searchQuery}&rdquo;. Try searching by course number or select All Faculties.
             </p>
           </motion.div>
@@ -168,22 +166,22 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
             {filteredCourses.map((c, idx) => (
               <motion.div
                 key={c.code}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 'some' }}
                 transition={{
-                  duration: 0.3,
-                  delay: Math.min((idx % 12) * 0.025, 0.22),
+                  duration: 0.28,
+                  delay: Math.min((idx % 12) * 0.02, 0.2),
                   ease: EASE_OUT_EXPO
                 }}
               >
                 <SpotlightCard
                   onClick={() => onSelectCourse(c.code)}
-                  className="group h-full p-5 rounded-2xl card-celestial border cursor-pointer"
+                  className="group h-full p-5 rounded-2xl bg-white border border-[#E5E0D5] hover:border-blue-700 cursor-pointer transition-colors"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-sm font-extrabold px-2.5 py-1 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 border border-blue-200/80 group-hover:from-blue-600 group-hover:to-indigo-600 group-hover:text-white group-hover:border-blue-600 transition-all">
+                      <span className="font-mono text-sm font-extrabold px-2.5 py-1 rounded-lg bg-[#F3EFE6] text-[#0D1B2A] border border-[#DDD6C8] group-hover:bg-[#0D1B2A] group-hover:text-amber-300 group-hover:border-[#0D1B2A] transition-colors">
                         {c.code}
                       </span>
                       <span className="text-xs font-mono font-medium text-slate-500 flex items-center gap-1 tabular-nums">
@@ -201,9 +199,9 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 mt-4 border-t border-slate-200/70 text-xs text-slate-500">
-                    <span className="text-[11px] font-medium text-slate-400">Direct Download</span>
-                    <span className="font-semibold text-blue-600 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                  <div className="flex items-center justify-between pt-3 mt-4 border-t border-[#E5E0D5] text-xs text-slate-500">
+                    <span className="text-[11px] font-medium text-slate-500">Direct Download</span>
+                    <span className="font-semibold text-blue-700 group-hover:translate-x-1 transition-transform flex items-center gap-1">
                       <span>Open Library</span>
                       <ChevronRight className="w-3.5 h-3.5" />
                     </span>

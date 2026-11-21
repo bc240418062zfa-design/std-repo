@@ -24,7 +24,7 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, 
         title={
           <>
             Academic Notice &amp;{' '}
-            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+            <span className="text-amber-300">
               Disclaimer
             </span>
           </>
@@ -35,7 +35,7 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, 
       {/* Main Notice Card */}
       <ScrollReveal
         direction="scale"
-        className="celestial-top-glint p-6 sm:p-8 rounded-3xl bg-amber-50/90 border border-amber-200/90 text-amber-950 space-y-4 card-elevated"
+        className="p-6 sm:p-8 rounded-2xl bg-[#F3EFE6] border border-[#DDD6C8] text-slate-900 space-y-4"
       >
         <div className="flex items-center gap-2.5 font-bold text-amber-900 text-base">
           <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
@@ -82,7 +82,7 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, 
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 'some' }}
             transition={{ duration: 0.34, delay: idx * 0.05, ease: EASE_OUT_EXPO }}
-            className="celestial-top-glint card-celestial rounded-2xl border p-6 space-y-2.5"
+            className="bg-white rounded-2xl border border-[#E5E0D5] p-6 space-y-2.5"
           >
             <h2 className="text-base sm:text-lg font-bold text-slate-900">{sec.title}</h2>
             {sec.paragraphs.map((p, pIdx) => (
@@ -93,22 +93,22 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigateHome, 
       </div>
 
       {/* Action Footer */}
-      <ScrollReveal direction="up" className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200/80">
+      <ScrollReveal direction="up" className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-[#E5E0D5]">
         <motion.button
-          whileHover={{ y: -2 }}
+          whileHover={{ y: -1 }}
           whileTap={{ scale: 0.96 }}
           type="button"
           onClick={onNavigateCourses}
-          className="px-4 py-2.5 rounded-xl bg-white/90 hover:bg-blue-50/70 border border-slate-200 text-slate-800 font-semibold text-xs transition-colors cursor-pointer"
+          className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#F3EFE6] border border-[#DDD6C8] text-slate-800 font-semibold text-xs transition-colors cursor-pointer"
         >
           Browse All Courses
         </motion.button>
         <AnimatedButton
           magnetic
-          shimmer
+          shimmer={false}
           type="button"
           onClick={onNavigateHome}
-          className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs transition-all cursor-pointer shadow-sm"
+          className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white font-semibold text-xs transition-colors cursor-pointer shadow-xs"
         >
           <span>Return to Library</span>
           <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />

@@ -59,60 +59,60 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
       title: `Course Directory (${courses.length})`,
       description: 'Full directory of 411 courses categorized by CS, Math, Management, Economics, and Mass Media.',
       icon: BookOpen,
-      iconBg: 'bg-indigo-50 text-indigo-600',
-      hoverBorder: 'hover:border-indigo-400',
-      hoverText: 'group-hover:text-indigo-600',
-      spotlight: 'rgba(79, 70, 229, 0.12)'
+      iconBg: 'bg-[#F3EFE6] text-[#0D1B2A]',
+      hoverBorder: 'hover:border-blue-700',
+      hoverText: 'group-hover:text-blue-700',
+      spotlight: 'rgba(29, 78, 216, 0.08)'
     },
     {
       id: 'handbook',
       title: 'VU Student Handbook & Rules',
       description: 'Official student guide covering datesheet creation, 20% two-half rule, reschedule fee, CGPA probation, and VULMS services.',
       icon: GraduationCap,
-      iconBg: 'bg-emerald-50 text-emerald-600',
-      hoverBorder: 'hover:border-emerald-400',
-      hoverText: 'group-hover:text-emerald-600',
-      spotlight: 'rgba(16, 185, 129, 0.12)'
+      iconBg: 'bg-emerald-50 text-emerald-700',
+      hoverBorder: 'hover:border-emerald-700',
+      hoverText: 'group-hover:text-emerald-700',
+      spotlight: 'rgba(16, 185, 129, 0.08)'
     },
     {
       id: 'simulator',
       title: 'Exam Passing Marks Simulator',
       description: 'Calculate required Final Term exam marks, evaluate VU 20% & 50% passing rules, and download official PDF report.',
       icon: Calculator,
-      iconBg: 'bg-slate-100 text-slate-700',
-      hoverBorder: 'hover:border-slate-400',
-      hoverText: 'group-hover:text-blue-600',
-      spotlight: 'rgba(71, 85, 105, 0.10)'
+      iconBg: 'bg-[#F3EFE6] text-slate-800',
+      hoverBorder: 'hover:border-blue-700',
+      hoverText: 'group-hover:text-blue-700',
+      spotlight: 'rgba(13, 27, 42, 0.08)'
     },
     {
       id: 'security',
       title: 'Privacy & Trust Guarantee',
       description: 'Zero student data collection, safe verified documents, and ad-free high-speed downloads.',
       icon: ShieldCheck,
-      iconBg: 'bg-emerald-50 text-emerald-600',
-      hoverBorder: 'hover:border-emerald-400',
-      hoverText: 'group-hover:text-emerald-600',
-      spotlight: 'rgba(16, 185, 129, 0.12)'
+      iconBg: 'bg-emerald-50 text-emerald-700',
+      hoverBorder: 'hover:border-emerald-700',
+      hoverText: 'group-hover:text-emerald-700',
+      spotlight: 'rgba(16, 185, 129, 0.08)'
     },
     {
       id: 'about',
       title: 'About Mihora Tech & VU Mission',
       description: 'Corporate profile of MIHORA TECH and the background behind the non-commercial VU student welfare initiative.',
       icon: Building2,
-      iconBg: 'bg-purple-50 text-purple-600',
-      hoverBorder: 'hover:border-purple-400',
-      hoverText: 'group-hover:text-purple-600',
-      spotlight: 'rgba(147, 51, 234, 0.12)'
+      iconBg: 'bg-[#F3EFE6] text-amber-700',
+      hoverBorder: 'hover:border-amber-700',
+      hoverText: 'group-hover:text-amber-700',
+      spotlight: 'rgba(180, 83, 9, 0.08)'
     },
     {
       id: 'disclaimer',
       title: 'Academic Disclaimer & Terms',
       description: 'Fair educational use policies, copyright disclosures, student revision guidelines, and ethical conduct.',
       icon: HelpCircle,
-      iconBg: 'bg-amber-50 text-amber-600',
-      hoverBorder: 'hover:border-amber-400',
-      hoverText: 'group-hover:text-amber-600',
-      spotlight: 'rgba(217, 119, 6, 0.12)',
+      iconBg: 'bg-amber-50 text-amber-700',
+      hoverBorder: 'hover:border-amber-700',
+      hoverText: 'group-hover:text-amber-700',
+      spotlight: 'rgba(217, 119, 6, 0.08)',
       spanClass: 'sm:col-span-2 lg:col-span-1'
     }
   ];
@@ -127,7 +127,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
         title={
           <>
             Academic Curriculum &amp;{' '}
-            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+            <span className="text-amber-300">
               Portal Directory
             </span>
           </>
@@ -148,11 +148,11 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
                 <SpotlightCard
                   onClick={() => onNavigate(section.id)}
                   spotlightColor={section.spotlight}
-                  className={`h-full p-5 rounded-2xl card-celestial border ${section.hoverBorder} cursor-pointer group`}
+                  className={`h-full p-5 rounded-2xl bg-white border border-[#E5E0D5] ${section.hoverBorder} cursor-pointer group transition-colors`}
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <div className={`w-9 h-9 rounded-xl ${section.iconBg} flex items-center justify-center font-bold transition-transform duration-300 group-hover:scale-110`}>
+                      <div className={`w-9 h-9 rounded-xl ${section.iconBg} flex items-center justify-center font-bold transition-transform duration-200 group-hover:scale-105`}>
                         <Icon className="w-4 h-4" />
                       </div>
                       <ChevronRight className={`w-4 h-4 text-slate-400 ${section.hoverText} group-hover:translate-x-0.5 transition-all`} />
@@ -160,7 +160,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
                     <h3 className={`text-sm font-bold text-slate-900 ${section.hoverText} transition-colors`}>
                       {section.title}
                     </h3>
-                    <p className="text-xs text-slate-500 leading-relaxed">
+                    <p className="text-xs text-slate-600 leading-relaxed">
                       {section.description}
                     </p>
                   </div>
@@ -179,7 +179,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             href="/sitemap.xml"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-700 text-slate-700 font-mono transition-colors shadow-2xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
           >
             <span>XML Sitemap (RFC-compliant)</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
@@ -190,7 +190,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             href="/robots.txt"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-blue-400 hover:text-blue-700 text-slate-700 font-mono transition-colors shadow-2xs"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
           >
             <span>Robots.txt Policy</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
@@ -205,7 +205,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             <h2 className="text-xl font-bold text-slate-900">
               Departmental Course Index ({courses.length} Courses)
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-slate-600">
               Select any course to view its handouts, midterm & final past papers, and solved MCQs.
             </p>
           </div>
@@ -215,7 +215,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
               value={sitemapSearch}
               onChange={(e) => setSitemapSearch(e.target.value)}
               placeholder="Filter courses..."
-              className="w-full px-3.5 py-2 text-xs rounded-xl celestial-input text-slate-900"
+              className="w-full px-3.5 py-2 text-xs rounded-xl bg-white border border-[#DDD6C8] focus:border-blue-700 focus:outline-none text-slate-900"
             />
           </div>
         </ScrollReveal>
@@ -224,18 +224,18 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
           {facultyGroups.map(([faculty, facultyCourses], groupIdx) => (
             <motion.div
               key={faculty}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 'some' }}
-              transition={{ duration: 0.4, delay: Math.min(groupIdx * 0.04, 0.2), ease: EASE_OUT_EXPO }}
-              className="celestial-top-glint card-celestial rounded-2xl border p-6 space-y-4"
+              transition={{ duration: 0.35, delay: Math.min(groupIdx * 0.03, 0.18), ease: EASE_OUT_EXPO }}
+              className="bg-white rounded-2xl border border-[#E5E0D5] p-6 space-y-4 shadow-xs"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-slate-200/70">
+              <div className="flex items-center justify-between pb-3 border-b border-[#E5E0D5]">
                 <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-blue-600" />
+                  <Layers className="w-4 h-4 text-blue-700" />
                   <span>{faculty}</span>
                 </h3>
-                <span className="text-xs font-semibold text-slate-600 tabular-nums">
+                <span className="text-xs font-mono font-semibold text-slate-600 tabular-nums">
                   {facultyCourses.length} courses
                 </span>
               </div>
@@ -245,13 +245,13 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
                   <motion.button
                     key={c.code}
                     type="button"
-                    whileHover={{ y: -2 }}
+                    whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.97 }}
-                    transition={{ duration: 0.16, ease: EASE_OUT_EXPO }}
+                    transition={{ duration: 0.15, ease: EASE_OUT_EXPO }}
                     onClick={() => onSelectCourse(c.code)}
-                    className="p-2.5 rounded-xl bg-white/85 border border-slate-200/80 hover:border-blue-400 hover:bg-blue-50/70 hover:shadow-xs text-left transition-colors cursor-pointer group flex flex-col justify-between"
+                    className="p-2.5 rounded-xl bg-[#FAF8F4] border border-[#E5E0D5] hover:border-blue-700 hover:bg-white text-left transition-colors cursor-pointer group flex flex-col justify-between"
                   >
-                    <span className="font-mono text-xs font-bold text-blue-700 group-hover:text-blue-800">
+                    <span className="font-mono text-xs font-bold text-[#0D1B2A] group-hover:text-blue-700">
                       {c.code}
                     </span>
                     <span className="text-[11px] text-slate-600 line-clamp-1 mt-0.5 group-hover:text-slate-900">

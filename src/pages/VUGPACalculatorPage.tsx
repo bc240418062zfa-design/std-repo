@@ -10,7 +10,6 @@ import {
   RotateCcw, 
   BookOpen, 
   HelpCircle, 
-  ChevronRight,
   ShieldCheck,
   GraduationCap,
   Sparkles,
@@ -18,7 +17,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ScrollReveal, AnimatedButton, SpotlightCard, EASE_OUT_EXPO } from '../components/MotionPrimitives';
-import { CelestialOrbitalRings, CelestialStarfield, CelestialDivider } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialDivider } from '../components/CelestialBackdrop';
 
 interface SemesterCourse {
   id: string;
@@ -39,11 +38,11 @@ const VU_GRADE_POINTS: Record<string, { points: number; label: string; marksRang
 };
 
 interface VUGPACalculatorPageProps {
-  onNavigateHome: () => void;
+  onNavigateHome?: () => void;
   onSelectCourse?: (code: string) => void;
 }
 
-export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavigateHome, onSelectCourse }) => {
+export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onSelectCourse }) => {
   // Semester Calculator State
   const [courses, setCourses] = useState<SemesterCourse[]>([
     { id: '1', name: 'CS101', creditHours: 3, grade: 'A' },
@@ -122,25 +121,11 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
-      {/* Breadcrumbs */}
-      <nav className="flex items-center gap-2 text-xs text-slate-500 font-medium">
-        <a href="/" onClick={(e) => { e.preventDefault(); onNavigateHome(); }} className="hover:text-blue-600 transition-colors">
-          Home
-        </a>
-        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-        <span className="text-slate-900 font-semibold">VU GPA &amp; CGPA Calculator</span>
-      </nav>
-
       {/* Hero Header */}
-      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]">
-        <CelestialStarfield density={0.62} />
+      <ScrollReveal className="relative overflow-hidden rounded-2xl bg-[#0D1B2A] text-white p-6 sm:p-10 border border-white/10 shadow-xl">
         <CelestialOrbitalRings compact />
-        <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
-        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none animate-float-slow" />
-        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
-        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 text-sky-300 text-xs font-mono font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 text-amber-300 text-xs font-mono font-semibold uppercase tracking-wider">
             <Calculator className="w-3.5 h-3.5" />
             <span>OFFICIAL 4.0 SCALE · HEC &amp; VU GRADING SCHEME</span>
           </div>
@@ -157,15 +142,14 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Col (8 cols): Semester Calculator Tool */}
         <div className="lg:col-span-8 space-y-6">
-          <ScrollReveal delay={0.05} className="celestial-bezel rounded-2xl shadow-sm">
-            <div className="card-celestial celestial-top-glint rounded-[15px] p-6 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200/70 pb-4">
+          <ScrollReveal delay={0.05} className="bg-white rounded-2xl border border-[#E5E0D5] p-6 space-y-6 shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E5E0D5] pb-4">
               <div>
                 <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <GraduationCap className="w-5 h-5 text-blue-600" />
+                  <GraduationCap className="w-5 h-5 text-blue-700" />
                   Semester Courses &amp; Grade Points
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-slate-600 mt-0.5">
                   Enter your enrolled courses, credit hours, and expected letter grades.
                 </p>
               </div>
@@ -174,15 +158,16 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
                   type="button"
                   whileTap={{ scale: 0.94 }}
                   onClick={resetToDefault}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 text-xs font-medium transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#DDD6C8] text-slate-700 hover:text-slate-900 hover:bg-[#FAF8F4] text-xs font-medium transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   Reset
                 </motion.button>
                 <AnimatedButton
                   type="button"
+                  shimmer={false}
                   onClick={addCourse}
-                  className="btn-shimmer inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-xs transition-all cursor-pointer whitespace-nowrap"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer whitespace-nowrap"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   Add Course
@@ -276,29 +261,28 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
             </div>
 
             {/* Quick Summary Bar */}
-            <div className="pt-4 border-t border-slate-200/70 flex flex-wrap items-center justify-between gap-4">
-              <div className="text-xs text-slate-500">
-                Total Semester Credits: <strong className="text-slate-900 tabular-nums">{semesterStats.totalCredits} Cr. Hrs</strong>
+            <div className="pt-4 border-t border-[#E5E0D5] flex flex-wrap items-center justify-between gap-4">
+              <div className="text-xs text-slate-600">
+                Total Semester Credits: <strong className="text-slate-900 tabular-nums font-mono">{semesterStats.totalCredits} Cr. Hrs</strong>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold text-slate-500 uppercase">Calculated Semester GPA:</span>
+                <span className="text-xs font-semibold text-slate-600 uppercase">Calculated Semester GPA:</span>
                 <motion.span
                   key={semesterStats.gpa.toFixed(2)}
                   initial={{ scale: 0.88, opacity: 0.6 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ type: 'spring', stiffness: 420, damping: 24 }}
-                  className="text-2xl font-black text-blue-600 font-mono tabular-nums"
+                  className="text-2xl font-black text-blue-700 font-mono tabular-nums"
                 >
                   {semesterStats.gpa.toFixed(2)}
                 </motion.span>
-                <span className="text-xs text-slate-400 font-mono">/ 4.00</span>
+                <span className="text-xs text-slate-500 font-mono">/ 4.00</span>
               </div>
-            </div>
             </div>
           </ScrollReveal>
 
           {/* Cumulative CGPA Forecaster Card */}
-          <ScrollReveal delay={0.08} className="card-celestial celestial-top-glint rounded-2xl border p-6 space-y-5">
+          <ScrollReveal delay={0.08} className="bg-white rounded-2xl border border-[#E5E0D5] p-6 space-y-5 shadow-xs">
             <div className="flex items-center gap-2 border-b border-slate-200/70 pb-3">
               <TrendingUp className="w-5 h-5 text-emerald-600" />
               <div>
@@ -374,20 +358,20 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
         {/* Right Col (4 cols): Official VU Grading Scale & Rules Reference */}
         <ScrollReveal direction="left" delay={0.1} className="lg:col-span-4 space-y-6">
           {/* Grading Scale Table */}
-          <div className="card-celestial celestial-top-glint rounded-2xl border p-5 space-y-4">
+          <div className="bg-white rounded-2xl border border-[#E5E0D5] p-5 space-y-4 shadow-xs">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-              <Award className="w-4 h-4 text-amber-500" />
+              <Award className="w-4 h-4 text-amber-700" />
               Official VU Grading Scale
             </h3>
             
-            <div className="divide-y divide-slate-200/70 text-xs">
+            <div className="divide-y divide-[#E5E0D5] text-xs">
               {Object.entries(VU_GRADE_POINTS).map(([grade, info]) => (
                 <div key={grade} className="py-2 flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-900 w-7">{grade}</span>
-                    <span className="text-slate-500">{info.marksRange}</span>
+                    <span className="text-slate-600">{info.marksRange}</span>
                   </div>
-                  <span className="font-mono font-bold text-blue-700 bg-blue-50/90 border border-blue-100 px-2 py-0.5 rounded-lg">
+                  <span className="font-mono font-bold text-[#0D1B2A] bg-[#F3EFE6] border border-[#DDD6C8] px-2 py-0.5 rounded-md tabular-nums">
                     {info.points.toFixed(2)}
                   </span>
                 </div>
@@ -396,12 +380,12 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
           </div>
 
           {/* Academic Probation Alert Box */}
-          <div className="card-celestial celestial-top-glint bg-gradient-to-br from-amber-50/90 via-white/95 to-orange-50/75 rounded-2xl border border-amber-200/80 p-5 space-y-3">
-            <div className="flex items-center gap-2 text-amber-900 font-bold text-sm">
-              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+          <div className="bg-[#F3EFE6] rounded-2xl border border-[#DDD6C8] p-5 space-y-3">
+            <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
+              <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
               VU Academic Probation Rules
             </div>
-            <ul className="text-xs text-amber-800/90 space-y-1.5 leading-relaxed">
+            <ul className="text-xs text-slate-700 space-y-1.5 leading-relaxed">
               <li><strong>1st Semester:</strong> Must maintain CGPA &gt;= <strong>1.75</strong> to avoid probation.</li>
               <li><strong>2nd &amp; Subsequent Semesters:</strong> Must maintain CGPA &gt;= <strong>2.00</strong>.</li>
               <li><strong>Consecutive Probations:</strong> 3 consecutive academic probations will result in degree dismissal.</li>
@@ -409,11 +393,9 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
           </div>
 
           {/* Course Repeat Quick Link */}
-          <div className="relative overflow-hidden bg-studio-stage text-white rounded-2xl p-5 space-y-3 border border-slate-800/90 shadow-lg">
-            <CelestialStarfield density={0.35} interactive={false} />
-            <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/55 to-transparent" aria-hidden="true" />
+          <div className="relative overflow-hidden bg-[#0D1B2A] text-white rounded-2xl p-5 space-y-3 border border-white/10 shadow-md">
             <div className="relative z-10 text-sm font-bold flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-sky-400" />
+              <ShieldCheck className="w-4 h-4 text-amber-300" />
               Course Repeat Policy
             </div>
             <p className="relative z-10 text-xs text-slate-300 leading-relaxed">
@@ -426,7 +408,7 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
       <CelestialDivider />
 
       {/* Comprehensive Academic Guide & Documentation Section */}
-      <ScrollReveal className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-10 space-y-8">
+      <ScrollReveal className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-10 space-y-8 shadow-xs">
         <div className="max-w-3xl space-y-3">
           <h2 className="text-2xl font-black text-slate-900">
             How GPA and CGPA Are Calculated at Virtual University of Pakistan
@@ -439,38 +421,38 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-slate-600 leading-relaxed">
           <div className="space-y-4">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-blue-600" />
+              <BookOpen className="w-4 h-4 text-blue-700" />
               1. Semester GPA (Grade Point Average) Formula
             </h3>
             <p>
               GPA measures academic performance in a single semester. For each course, its credit hours are multiplied by the grade point earned. The sum of these quality points is then divided by the total number of credit hours attempted during that semester.
             </p>
-            <div className="p-3.5 bg-studio-stage text-sky-200 rounded-xl font-mono text-xs border border-slate-800 shadow-xs">
+            <div className="p-3.5 bg-[#0D1B2A] text-amber-200 rounded-xl font-mono text-xs border border-white/10">
               GPA = &sum;(Course Credit Hours &times; Grade Points) / Total Semester Credit Hours
             </div>
           </div>
 
           <div className="space-y-4">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-emerald-600" />
+              <TrendingUp className="w-4 h-4 text-emerald-700" />
               2. Cumulative CGPA Calculation
             </h3>
             <p>
               CGPA reflects cumulative academic performance across all completed semesters. It is calculated by dividing the sum of all quality points earned across all semesters by the total number of credit hours completed up to that point.
             </p>
-            <div className="p-3.5 bg-studio-stage text-emerald-200 rounded-xl font-mono text-xs border border-slate-800 shadow-xs">
+            <div className="p-3.5 bg-[#0D1B2A] text-emerald-200 rounded-xl font-mono text-xs border border-white/10">
               CGPA = &sum;(All Quality Points Earned) / Total Completed Degree Credit Hours
             </div>
           </div>
         </div>
 
         {/* High Frequency Questions */}
-        <div className="pt-6 border-t border-slate-200/70 space-y-4">
+        <div className="pt-6 border-t border-[#E5E0D5] space-y-4">
           <h3 className="text-lg font-bold text-slate-900">
             Frequently Asked Questions on VU GPA &amp; Degree Completion
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <SpotlightCard className="card-celestial celestial-top-glint p-5 rounded-2xl border space-y-2">
+            <SpotlightCard className="bg-[#FAF8F4] p-5 rounded-2xl border border-[#E5E0D5] space-y-2">
               <h4 className="font-bold text-slate-900 text-sm">
                 What is the minimum CGPA required to graduate from Virtual University?
               </h4>
@@ -479,7 +461,7 @@ export const VUGPACalculatorPage: React.FC<VUGPACalculatorPageProps> = ({ onNavi
               </p>
             </SpotlightCard>
 
-            <SpotlightCard className="card-celestial celestial-top-glint p-5 rounded-2xl border space-y-2">
+            <SpotlightCard className="bg-[#FAF8F4] p-5 rounded-2xl border border-[#E5E0D5] space-y-2">
               <h4 className="font-bold text-slate-900 text-sm">
                 Does an 'F' grade count towards CGPA calculation?
               </h4>

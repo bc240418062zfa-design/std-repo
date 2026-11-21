@@ -9,21 +9,20 @@ import {
   ExternalLink, 
   HelpCircle, 
   ShieldCheck, 
-  ChevronRight,
   Sparkles,
   Zap,
   Info
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ScrollReveal, StaggerGrid, StaggerItem, EASE_OUT_EXPO } from '../components/MotionPrimitives';
-import { CelestialOrbitalRings, CelestialStarfield, CelestialDivider } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialDivider } from '../components/CelestialBackdrop';
 
 interface VUDatesheetGuidePageProps {
-  onNavigateHome: () => void;
+  onNavigateHome?: () => void;
   onNavigateSimulator?: () => void;
 }
 
-export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNavigateHome, onNavigateSimulator }) => {
+export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNavigateSimulator }) => {
   const [completedSteps, setCompletedSteps] = useState<Record<number, boolean>>({});
 
   const toggleStep = (stepIndex: number) => {
@@ -69,25 +68,11 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
-      {/* Breadcrumbs */}
-      <nav className="flex items-center gap-2 text-xs text-slate-500 font-medium">
-        <a href="/" onClick={(e) => { e.preventDefault(); onNavigateHome(); }} className="hover:text-blue-600 transition-colors">
-          Home
-        </a>
-        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-        <span className="text-slate-900 font-semibold">VU Datesheet Guide &amp; Seat Strategy</span>
-      </nav>
-
       {/* Hero Header */}
-      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]">
-        <CelestialStarfield density={0.62} />
+      <ScrollReveal className="relative overflow-hidden rounded-2xl bg-[#0D1B2A] text-white p-6 sm:p-10 border border-white/10 shadow-xl">
         <CelestialOrbitalRings compact />
-        <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
-        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-blue-500/20 blur-3xl pointer-events-none animate-float-slow" />
-        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/65 to-transparent" aria-hidden="true" />
-        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent" aria-hidden="true" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 text-sky-300 text-xs font-mono font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 text-amber-300 text-xs font-mono font-semibold uppercase tracking-wider">
             <Calendar className="w-3.5 h-3.5" />
             <span>OFFICIAL EXAMINATION PROTOCOL · 2026</span>
           </div>
@@ -101,35 +86,33 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
       </ScrollReveal>
 
       {/* Critical First-Hour Alert */}
-      <ScrollReveal delay={0.05} className="celestial-bezel rounded-2xl shadow-sm">
-        <div className="card-celestial celestial-top-glint bg-gradient-to-br from-amber-50/95 via-white/95 to-orange-50/80 rounded-[15px] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <ScrollReveal delay={0.05} className="bg-[#F3EFE6] rounded-2xl border border-[#DDD6C8] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="w-6 h-6 text-amber-600 shrink-0 mt-0.5" />
+          <AlertTriangle className="w-6 h-6 text-amber-700 shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <h3 className="text-base font-bold text-amber-950">
+            <h3 className="text-base font-bold text-slate-900">
               The Golden Rule: Make Your Datesheet Within the First 60–120 Minutes
             </h3>
-            <p className="text-xs sm:text-sm text-amber-800/90 leading-relaxed max-w-3xl">
+            <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-3xl">
               Virtual University allocates exam computer terminals strictly on a <strong>first-come, first-served</strong> basis. If you delay making your datesheet, local campus slots fill up, and you may be forced to travel to other cities or accept awkward 6:30 PM evening slots.
             </p>
           </div>
         </div>
         <motion.a
-          whileHover={{ y: -2, scale: 1.02 }}
+          whileHover={{ y: -1 }}
           whileTap={{ scale: 0.96 }}
           href="https://datesheet.vu.edu.pk"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-shimmer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-xs shrink-0 shadow-xs transition-all whitespace-nowrap"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-amber-700 text-white font-bold text-xs shrink-0 shadow-xs transition-colors whitespace-nowrap"
         >
           <span>Official Datesheet Portal</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </motion.a>
-        </div>
       </ScrollReveal>
 
       {/* Step-by-Step Interactive Checklist */}
-      <ScrollReveal className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-10 space-y-6">
+      <ScrollReveal className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-10 space-y-6 shadow-xs">
         <div>
           <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
             <CheckCircle2 className="w-6 h-6 text-blue-600" />
@@ -188,10 +171,10 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
       </ScrollReveal>
 
       {/* Daily Time Slot Analysis Table */}
-      <ScrollReveal className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-10 space-y-6">
+      <ScrollReveal className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-10 space-y-6 shadow-xs">
         <div>
           <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
-            <Clock className="w-6 h-6 text-emerald-600" />
+            <Clock className="w-6 h-6 text-emerald-700" />
             VU Exam Daily Time Slots Analysis
           </h2>
           <p className="text-slate-600 text-sm mt-1">
@@ -199,19 +182,19 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-slate-200/80">
+        <div className="overflow-x-auto rounded-xl border border-[#E5E0D5]">
           <table className="w-full text-left text-xs sm:text-sm border-collapse">
             <thead>
-              <tr className="celestial-table-head font-bold">
+              <tr className="bg-[#0D1B2A] text-white font-bold">
                 <th className="py-3.5 px-4">Session</th>
                 <th className="py-3.5 px-4">Exam Time Slot</th>
                 <th className="py-3.5 px-4">Recommendation</th>
                 <th className="py-3.5 px-4">Operational Notes</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200/70 bg-white/80">
+            <tbody className="divide-y divide-[#E5E0D5] bg-white">
               {TIME_SLOTS.map((slot, i) => (
-                <tr key={i} className="hover:bg-sky-50/50 transition-colors">
+                <tr key={i} className="hover:bg-[#FAF8F4] transition-colors">
                   <td className="py-3 px-4 font-bold text-slate-900 font-mono">{slot.session}</td>
                   <td className="py-3 px-4 text-slate-700 font-medium">{slot.time}</td>
                   <td className="py-3 px-4">
@@ -225,7 +208,7 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
                       {slot.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-slate-500 text-xs">{slot.notes}</td>
+                  <td className="py-3 px-4 text-slate-600 text-xs">{slot.notes}</td>
                 </tr>
               ))}
             </tbody>
@@ -237,11 +220,9 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
 
       {/* Missed Exam & Rescheduling Policy */}
       <ScrollReveal className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-8 space-y-4 border border-slate-800/90 shadow-xl">
-          <CelestialStarfield density={0.45} interactive={false} />
+        <div className="relative overflow-hidden bg-[#0D1B2A] text-white rounded-2xl p-6 sm:p-8 space-y-4 border border-white/10 shadow-xl">
           <CelestialOrbitalRings compact />
-          <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" aria-hidden="true" />
-          <div className="relative z-10 text-xs font-mono font-bold text-sky-300 uppercase tracking-wider flex items-center gap-2">
+          <div className="relative z-10 text-xs font-mono font-bold text-amber-300 uppercase tracking-wider flex items-center gap-2">
             <ShieldCheck className="w-4 h-4" />
             Official Rescheduling Procedure
           </div>
@@ -256,7 +237,7 @@ export const VUDatesheetGuidePage: React.FC<VUDatesheetGuidePageProps> = ({ onNa
           </ul>
         </div>
 
-        <div className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-8 space-y-4">
+        <div className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-8 space-y-4 shadow-xs">
           <div className="text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             Exam Day Essential Checklist

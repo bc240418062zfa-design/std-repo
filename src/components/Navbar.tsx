@@ -163,7 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     {
       id: 'cs619-guide',
       href: '/cs619-guide',
-      icon: <FolderGit2 className="w-4 h-4 text-indigo-700 shrink-0 mt-0.5" />,
+      icon: <FolderGit2 className="w-4 h-4 text-sky-700 shrink-0 mt-0.5" />,
       title: 'CS619 FYP Capstone Hub',
       desc: 'Project milestones & viva preparation'
     }
@@ -211,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <motion.span
                     layoutId="navbar-active-underline"
                     transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-                    className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-600 rounded-full shadow-[0_2px_10px_rgba(37,99,235,0.45)]"
+                    className="absolute inset-x-0 -bottom-[1px] h-0.5 bg-blue-700 rounded-full"
                   />
                 )}
               </motion.a>
@@ -432,7 +432,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Smooth Scroll Reading Progress Bar */}
       <motion.div
         style={{ scaleX }}
-        className="h-[2.5px] w-full bg-gradient-to-r from-blue-600 via-sky-500 to-amber-500 origin-left"
+        className="h-[2px] w-full bg-gradient-to-r from-blue-700 via-sky-500 to-amber-500 origin-left"
         aria-hidden="true"
       />
 

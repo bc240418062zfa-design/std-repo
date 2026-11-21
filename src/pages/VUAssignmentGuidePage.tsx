@@ -7,7 +7,6 @@ import {
   AlertTriangle, 
   Code, 
   Binary, 
-  ChevronRight, 
   Search, 
   Copy, 
   Check, 
@@ -30,18 +29,17 @@ import {
   AnimatedButton,
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
-import { CelestialOrbitalRings, CelestialStarfield, CelestialDivider } from '../components/CelestialBackdrop';
+import { CelestialOrbitalRings, CelestialDivider } from '../components/CelestialBackdrop';
 
 const allCourses = coursesData as Course[];
 
 interface VUAssignmentGuidePageProps {
-  onNavigateHome: () => void;
+  onNavigateHome?: () => void;
   onNavigateHandbook?: () => void;
   onSelectCourse?: (code: string) => void;
 }
 
 export const VUAssignmentGuidePage: React.FC<VUAssignmentGuidePageProps> = ({ 
-  onNavigateHome, 
   onNavigateHandbook,
   onSelectCourse 
 }) => {
@@ -101,26 +99,12 @@ int main() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
-      {/* Breadcrumbs */}
-      <nav className="flex items-center gap-2 text-xs text-slate-500 font-medium">
-        <a href="/" onClick={(e) => { e.preventDefault(); onNavigateHome(); }} className="hover:text-blue-600 transition-colors">
-          Home
-        </a>
-        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-        <span className="text-slate-900 font-semibold">VU Assignment Solutions 2026 &amp; GDB Guide</span>
-      </nav>
-
       {/* Hero Header */}
-      <ScrollReveal className="relative overflow-hidden rounded-3xl bg-studio-stage text-white p-6 sm:p-10 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]">
-        <CelestialStarfield density={0.62} />
+      <ScrollReveal className="relative overflow-hidden rounded-2xl bg-[#0D1B2A] text-white p-6 sm:p-10 border border-white/10 shadow-xl">
         <CelestialOrbitalRings compact />
-        <div className="absolute inset-0 bg-academic-grid opacity-35 pointer-events-none" />
-        <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none animate-float-slow" />
-        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/65 to-transparent" aria-hidden="true" />
-        <div className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent" aria-hidden="true" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 text-emerald-300 text-xs font-mono font-semibold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="inline-flex items-center gap-2 text-amber-300 text-xs font-mono font-semibold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
             <span>2026 ACTIVE ACADEMIC SESSION · SPRING &amp; FALL</span>
           </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight" style={{ textWrap: 'balance' }}>
@@ -135,7 +119,7 @@ int main() {
       {/* Core Highlights Alert Bar */}
       <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <StaggerItem>
-          <SpotlightCard className="group h-full p-6 rounded-2xl card-celestial celestial-top-glint border">
+          <SpotlightCard className="group h-full p-6 rounded-2xl bg-white border border-[#E5E0D5] shadow-xs">
             <div className="space-y-2.5">
               <div className="w-10 h-10 rounded-xl bg-blue-50/90 text-blue-600 flex items-center justify-center border border-blue-200/70 transition-transform duration-300 group-hover:scale-110">
                 <Clock className="w-5 h-5" />
@@ -151,7 +135,7 @@ int main() {
         </StaggerItem>
 
         <StaggerItem>
-          <SpotlightCard spotlightColor="rgba(225, 29, 72, 0.08)" className="group h-full p-6 rounded-2xl card-celestial celestial-top-glint border">
+          <SpotlightCard spotlightColor="rgba(225, 29, 72, 0.08)" className="group h-full p-6 rounded-2xl bg-white border border-[#E5E0D5] shadow-xs">
             <div className="space-y-2.5">
               <div className="w-10 h-10 rounded-xl bg-rose-50/90 text-rose-600 flex items-center justify-center border border-rose-200/70 transition-transform duration-300 group-hover:scale-110">
                 <ShieldAlert className="w-5 h-5" />
@@ -167,7 +151,7 @@ int main() {
         </StaggerItem>
 
         <StaggerItem>
-          <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full p-6 rounded-2xl card-celestial celestial-top-glint border">
+          <SpotlightCard spotlightColor="rgba(16, 185, 129, 0.10)" className="group h-full p-6 rounded-2xl bg-white border border-[#E5E0D5] shadow-xs">
             <div className="space-y-2.5">
               <div className="w-10 h-10 rounded-xl bg-emerald-50/90 text-emerald-600 flex items-center justify-center border border-emerald-200/70 transition-transform duration-300 group-hover:scale-110">
                 <CheckCircle2 className="w-5 h-5" />
@@ -184,12 +168,11 @@ int main() {
       </StaggerGrid>
 
       {/* Interactive Code Header Template Generator */}
-      <ScrollReveal className="celestial-bezel rounded-3xl shadow-sm">
-        <div className="card-celestial celestial-top-glint rounded-[23px] p-6 sm:p-10 space-y-6">
+      <ScrollReveal className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-10 space-y-6 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
-              <Code className="w-6 h-6 text-blue-600" />
+              <Code className="w-6 h-6 text-blue-700" />
               2026 Solution Header &amp; Comment Generator
             </h2>
             <p className="text-slate-600 text-sm mt-1">
@@ -203,12 +186,13 @@ int main() {
               value={studentIdInput}
               onChange={(e) => setStudentIdInput(e.target.value.toUpperCase())}
               placeholder="e.g. BC230400000"
-              className="celestial-input px-3 py-1.5 rounded-lg font-mono text-xs font-bold text-slate-900 uppercase"
+              className="bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none px-3 py-1.5 rounded-lg font-mono text-xs font-bold text-slate-900 uppercase"
             />
             <AnimatedButton
               type="button"
+              shimmer={false}
               onClick={handleCopyTemplate}
-              className="btn-shimmer inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-gradient-to-r from-slate-950 to-blue-950 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold text-xs transition-all cursor-pointer whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#0D1B2A] hover:bg-blue-700 text-white font-semibold text-xs transition-colors cursor-pointer whitespace-nowrap"
             >
               {copiedTemplate ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copiedTemplate ? 'Copied Header!' : 'Copy Template'}</span>
@@ -216,14 +200,13 @@ int main() {
           </div>
         </div>
 
-        <pre className="p-5 rounded-2xl bg-studio-stage text-sky-100 font-mono text-xs overflow-x-auto leading-relaxed border border-slate-800/90 shadow-lg">
+        <pre className="p-5 rounded-xl bg-[#0D1B2A] text-amber-100 font-mono text-xs overflow-x-auto leading-relaxed border border-white/10">
           <code>{sampleTemplate}</code>
         </pre>
-        </div>
       </ScrollReveal>
 
       {/* Directory of All 411 Courses for 2026 Assignment Solutions */}
-      <section className="card-celestial celestial-top-glint rounded-3xl border p-6 sm:p-10 space-y-6">
+      <section className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-10 space-y-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
@@ -270,11 +253,11 @@ int main() {
         </div>
 
         {/* Courses Cards Grid */}
-        <div className="bg-star-dust rounded-2xl p-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto border border-slate-200/70">
+        <div className="bg-[#FAF8F4] rounded-2xl p-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[500px] overflow-y-auto border border-[#E5E0D5]">
           {filteredCourses.map((c) => (
             <div 
               key={c.code}
-              className="card-celestial celestial-top-glint p-4 rounded-2xl border hover:border-emerald-300 hover:-translate-y-0.5 transition-all duration-150 flex items-start justify-between gap-3 group"
+              className="bg-white p-4 rounded-xl border border-[#E5E0D5] hover:border-blue-700 transition-colors flex items-start justify-between gap-3 group"
             >
               <div className="space-y-1.5 flex-1 min-w-0">
                 <div className="flex items-center gap-2">
@@ -333,14 +316,11 @@ int main() {
       <CelestialDivider />
 
       {/* Turnitin & GDB Strategy FAQ Section */}
-      <ScrollReveal className="relative overflow-hidden bg-studio-stage text-white rounded-3xl p-6 sm:p-10 space-y-6 border border-slate-800/90 shadow-[0_26px_64px_-16px_rgba(4,8,20,0.68)]">
-        <CelestialStarfield density={0.5} />
+      <ScrollReveal className="relative overflow-hidden bg-[#0D1B2A] text-white rounded-2xl p-6 sm:p-10 space-y-6 border border-white/10 shadow-xl">
         <CelestialOrbitalRings compact />
-        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent" aria-hidden="true" />
-        <div className="absolute inset-0 bg-academic-grid opacity-30 pointer-events-none" />
         <div className="relative z-10">
           <h2 className="text-2xl font-black text-white flex items-center gap-2">
-            <HelpCircle className="w-6 h-6 text-emerald-400" />
+            <HelpCircle className="w-6 h-6 text-amber-300" />
             2026 VU Assignment &amp; GDB High-Scoring FAQs
           </h2>
           <p className="text-slate-300 text-sm mt-1">
@@ -349,8 +329,8 @@ int main() {
         </div>
 
         <StaggerGrid className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm">
-          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
-            <h3 className="font-bold text-emerald-400 text-sm">
+          <StaggerItem className="p-5 rounded-xl bg-[#132238] border border-white/10 space-y-2">
+            <h3 className="font-bold text-amber-300 text-sm">
               Why do YouTube assignment solutions get 0 marks?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">
@@ -358,8 +338,8 @@ int main() {
             </p>
           </StaggerItem>
 
-          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
-            <h3 className="font-bold text-emerald-400 text-sm">
+          <StaggerItem className="p-5 rounded-xl bg-[#132238] border border-white/10 space-y-2">
+            <h3 className="font-bold text-amber-300 text-sm">
               How does the 24-hour grace period work on VULMS?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">
@@ -367,8 +347,8 @@ int main() {
             </p>
           </StaggerItem>
 
-          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
-            <h3 className="font-bold text-emerald-400 text-sm">
+          <StaggerItem className="p-5 rounded-xl bg-[#132238] border border-white/10 space-y-2">
+            <h3 className="font-bold text-amber-300 text-sm">
               How to paste MathType equations into MS Word for MTH assignments?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">
@@ -376,8 +356,8 @@ int main() {
             </p>
           </StaggerItem>
 
-          <StaggerItem className="p-5 rounded-2xl glass-panel-dark space-y-2">
-            <h3 className="font-bold text-emerald-400 text-sm">
+          <StaggerItem className="p-5 rounded-xl bg-[#132238] border border-white/10 space-y-2">
+            <h3 className="font-bold text-amber-300 text-sm">
               What is the key rule for scoring 5/5 in a GDB?
             </h3>
             <p className="text-slate-300 text-xs leading-relaxed">

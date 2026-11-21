@@ -207,16 +207,16 @@ export const Hero: React.FC<HeroProps> = ({
         {/* Ambient floating + scroll-parallaxed aurora light orbs */}
         <motion.div
           style={{ y: orbLeftY }}
-          className="pointer-events-none absolute -top-28 -left-24 w-[440px] h-[440px] rounded-full bg-blue-600/25 blur-3xl animate-aurora-breathe"
+          className="pointer-events-none absolute -top-28 -left-24 w-[420px] h-[420px] rounded-full bg-blue-700/20 blur-3xl animate-aurora-breathe"
           aria-hidden="true"
         />
         <motion.div
           style={{ y: orbRightY }}
-          className="pointer-events-none absolute top-8 -right-24 w-[380px] h-[380px] rounded-full bg-indigo-500/20 blur-3xl animate-float-reverse"
+          className="pointer-events-none absolute top-10 -right-24 w-[340px] h-[340px] rounded-full bg-amber-500/10 blur-3xl animate-float-reverse"
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent"
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent"
           aria-hidden="true"
         />
 
@@ -264,7 +264,7 @@ export const Hero: React.FC<HeroProps> = ({
             transition={{ duration: 0.48, delay: 0.12, ease: EASE_OUT_EXPO }}
             className="max-w-3xl mx-auto relative"
           >
-            <div className="p-[1.5px] rounded-[18px] bg-gradient-to-r from-sky-400/55 via-indigo-400/35 to-amber-300/50 shadow-[0_24px_65px_-12px_rgba(0,0,0,0.72),0_0_45px_-14px_rgba(56,189,248,0.35)] transition-all duration-300 focus-within:from-sky-400 focus-within:via-blue-400 focus-within:to-amber-300 focus-within:shadow-[0_28px_75px_-12px_rgba(37,99,235,0.55),0_0_55px_-10px_rgba(56,189,248,0.45)]">
+            <div className="p-[1px] rounded-[17px] bg-gradient-to-r from-sky-400/45 via-slate-300/30 to-amber-300/45 shadow-[0_24px_60px_-14px_rgba(2,6,23,0.75)] transition-all duration-200 focus-within:from-sky-400 focus-within:via-blue-500 focus-within:to-amber-400 focus-within:shadow-[0_24px_68px_-12px_rgba(29,78,216,0.45)]">
               <div className="bg-white rounded-2xl overflow-hidden">
               <form
                 onSubmit={handleFormSubmit}
@@ -453,136 +453,138 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </motion.div>
 
-          {/* 4-Pillar Observatory Studio Dock */}
+          {/* Asymmetric 2+2 Architectural Studio Dock */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.46, delay: 0.22, ease: EASE_OUT_EXPO }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1"
+            transition={{ duration: 0.44, delay: 0.2, ease: EASE_OUT_EXPO }}
+            className="grid grid-cols-1 lg:grid-cols-12 gap-4 pt-1"
           >
-            {onOpenMcqs && (
-              <SpotlightCard
-                onClick={onOpenMcqs}
-                spotlightColor="rgba(56, 189, 248, 0.16)"
-                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-sky-400/60 cursor-pointer flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-sky-300 transition-transform duration-200 group-hover:scale-105">
-                      <ListChecks className="w-5 h-5" />
+            {/* Primary Interactive Exam Studios (7 cols) */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {onOpenMcqs && (
+                <SpotlightCard
+                  onClick={onOpenMcqs}
+                  spotlightColor="rgba(56, 189, 248, 0.16)"
+                  className="group glass-panel-dark rounded-2xl p-5 sm:p-6 text-left transition-colors hover:border-sky-400/60 cursor-pointer flex flex-col justify-between min-h-[188px]"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/35 flex items-center justify-center text-sky-300 transition-transform duration-150 group-hover:scale-105">
+                        <ListChecks className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs font-mono font-semibold text-sky-300 tabular-nums">
+                        {totalMcqQuestions.toLocaleString()} MCQs
+                      </span>
                     </div>
-                    <span className="text-xs font-mono text-sky-300 tabular-nums">
-                      {totalMcqQuestions.toLocaleString()} MCQs
+                    <div className="space-y-1.5 mt-4">
+                      <h2 className="text-base sm:text-lg font-bold text-white group-hover:text-sky-200 transition-colors">
+                        Interactive MCQ Studio
+                      </h2>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Practice {mcqSets.length} verified subject banks with 45s timed mock exams and rapid flash-sheets.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-xs">
+                    <span className="font-mono text-[11px] text-slate-400">Practice · Mock · Sheet</span>
+                    <span className="font-semibold text-sky-300 group-hover:text-white inline-flex items-center gap-1">
+                      <span>Launch</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-1" />
                     </span>
                   </div>
-                  <div className="space-y-1 mt-4">
-                    <h2 className="text-base font-bold text-white group-hover:text-sky-200 transition-colors">
-                      Interactive MCQ Studio
-                    </h2>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      Practice {mcqSets.length} subject banks with timed mock exams and instant answer keys.
-                    </p>
-                  </div>
-                </div>
-                <div className="text-xs font-semibold text-sky-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
-                  <span>Launch MCQ Studio</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
-                </div>
-              </SpotlightCard>
-            )}
+                </SpotlightCard>
+              )}
 
-            {onOpenSubjective && (
-              <SpotlightCard
-                onClick={onOpenSubjective}
-                spotlightColor="rgba(251, 191, 36, 0.16)"
-                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-amber-400/60 cursor-pointer flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 transition-transform duration-200 group-hover:scale-105">
-                      <Flame className="w-5 h-5" />
+              {onOpenSubjective && (
+                <SpotlightCard
+                  onClick={onOpenSubjective}
+                  spotlightColor="rgba(217, 119, 6, 0.18)"
+                  className="group glass-panel-dark rounded-2xl p-5 sm:p-6 text-left transition-colors hover:border-amber-400/60 cursor-pointer flex flex-col justify-between min-h-[188px]"
+                >
+                  <div>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/35 flex items-center justify-center text-amber-300 transition-transform duration-150 group-hover:scale-105">
+                        <Flame className="w-5 h-5" />
+                      </div>
+                      <span className="text-xs font-mono font-semibold text-amber-300 tabular-nums">
+                        {totalSubjectiveQuestions} Q&amp;As
+                      </span>
                     </div>
-                    <span className="text-xs font-mono text-amber-300 tabular-nums">
-                      {totalSubjectiveQuestions} Fast-Prep Qs
+                    <div className="space-y-1.5 mt-4">
+                      <h2 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-200 transition-colors">
+                        Subjective Fast-Learning
+                      </h2>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Master 2, 3 &amp; 5-mark prompts via 10-second memory hooks, cram sheets, and marking keys.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-xs">
+                    <span className="font-mono text-[11px] text-slate-400">Hooks · Rubric · Drill</span>
+                    <span className="font-semibold text-amber-300 group-hover:text-white inline-flex items-center gap-1">
+                      <span>Fast-Prep</span>
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-1" />
                     </span>
                   </div>
-                  <div className="space-y-1 mt-4">
-                    <h2 className="text-base font-bold text-white group-hover:text-amber-200 transition-colors">
-                      Subjective Fast-Learning
-                    </h2>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      Master 2, 3 &amp; 5-mark questions via 10-second memory hooks, cram sheets, and recall drills.
-                    </p>
-                  </div>
-                </div>
-                <div className="text-xs font-semibold text-amber-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
-                  <span>Open Fast-Prep</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
-                </div>
-              </SpotlightCard>
-            )}
+                </SpotlightCard>
+              )}
+            </div>
 
-            {onOpenPastPapers && (
-              <SpotlightCard
-                onClick={onOpenPastPapers}
-                spotlightColor="rgba(52, 211, 153, 0.15)"
-                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-emerald-400/60 cursor-pointer flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300 transition-transform duration-200 group-hover:scale-105">
+            {/* Secondary Compact Executive Utility Column (5 cols) */}
+            <div className="lg:col-span-5 flex flex-col justify-between gap-4">
+              {onOpenPastPapers && (
+                <SpotlightCard
+                  onClick={onOpenPastPapers}
+                  spotlightColor="rgba(52, 211, 153, 0.14)"
+                  className="group glass-panel-dark rounded-2xl p-4 sm:p-5 text-left transition-colors hover:border-emerald-400/55 cursor-pointer flex items-center justify-between gap-4 flex-1"
+                >
+                  <div className="flex items-start gap-3.5 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/18 border border-emerald-400/30 flex items-center justify-center text-emerald-300 shrink-0 transition-transform duration-150 group-hover:scale-105">
                       <Files className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-mono text-emerald-300 tabular-nums">
-                      Moaaz &amp; Waqar
-                    </span>
+                    <div className="min-w-0 space-y-1">
+                      <div className="text-[11px] font-mono text-emerald-300 uppercase tracking-wider">
+                        Moaaz &amp; Waqar · {totalCourses} Courses
+                      </div>
+                      <h2 className="text-sm sm:text-base font-bold text-white group-hover:text-emerald-200 transition-colors">
+                        Solved Past Paper Bank
+                      </h2>
+                      <p className="text-xs text-slate-300 line-clamp-1">
+                        Verified student exam memories, repeat MCQs &amp; subjective solutions.
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-1 mt-4">
-                    <h2 className="text-base font-bold text-white group-hover:text-emerald-200 transition-colors">
-                      Solved Past Paper Bank
-                    </h2>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      Real student exam memories, repeated questions, and past files across {totalCourses} courses.
-                    </p>
-                  </div>
-                </div>
-                <div className="text-xs font-semibold text-emerald-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
-                  <span>Browse Past Papers</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
-                </div>
-              </SpotlightCard>
-            )}
+                  <ArrowRight className="w-4 h-4 text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
+                </SpotlightCard>
+              )}
 
-            {onOpenSimulator && (
-              <SpotlightCard
-                onClick={onOpenSimulator}
-                spotlightColor="rgba(45, 212, 191, 0.16)"
-                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-teal-400/60 cursor-pointer flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center text-teal-300 transition-transform duration-200 group-hover:scale-105">
+              {onOpenSimulator && (
+                <SpotlightCard
+                  onClick={onOpenSimulator}
+                  spotlightColor="rgba(56, 189, 248, 0.14)"
+                  className="group glass-panel-dark rounded-2xl p-4 sm:p-5 text-left transition-colors hover:border-sky-400/55 cursor-pointer flex items-center justify-between gap-4 flex-1"
+                >
+                  <div className="flex items-start gap-3.5 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-teal-500/18 border border-teal-400/30 flex items-center justify-center text-teal-300 shrink-0 transition-transform duration-150 group-hover:scale-105">
                       <Calculator className="w-5 h-5" />
                     </div>
-                    <span className="text-xs font-mono text-teal-300 tabular-nums">
-                      20% Two-Half Rule
-                    </span>
+                    <div className="min-w-0 space-y-1">
+                      <div className="text-[11px] font-mono text-teal-300 uppercase tracking-wider">
+                        20% Two-Half Rule
+                      </div>
+                      <h2 className="text-sm sm:text-base font-bold text-white group-hover:text-teal-200 transition-colors">
+                        Passing Marks Simulator
+                      </h2>
+                      <p className="text-xs text-slate-300 line-clamp-1">
+                        Compute exact Final-Term scores required to pass or hit target GPA.
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-1 mt-4">
-                    <h2 className="text-base font-bold text-white group-hover:text-teal-200 transition-colors">
-                      Passing Marks Simulator
-                    </h2>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      Calculate exact Final-Term scores needed under the VU 20% rule and forecast GPA.
-                    </p>
-                  </div>
-                </div>
-                <div className="text-xs font-semibold text-teal-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
-                  <span>Open Calculator</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
-                </div>
-              </SpotlightCard>
-            )}
+                  <ArrowRight className="w-4 h-4 text-teal-300 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
+                </SpotlightCard>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       </section>

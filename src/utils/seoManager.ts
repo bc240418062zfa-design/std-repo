@@ -1,0 +1,302 @@
+import { Course, McqSet, SubjectiveSet } from '../types';
+
+export interface SeoSyncParams {
+  page: string;
+  selectedMcqSet: McqSet | null;
+  selectedSubjectiveSet: SubjectiveSet | null;
+  selectedCourseCode: string;
+  courses: Course[];
+  totalResources: number;
+  totalMcqQuestions: number;
+  totalSubjectiveQuestions: number;
+}
+
+const BASE_URL = 'https://study.mihora.tech';
+const DEFAULT_OG_IMAGE = `${BASE_URL}/og-cover.jpg`;
+
+function upsertMeta(selector: string, attrName: 'name' | 'property', key: string, content: string) {
+  let el = document.querySelector(selector) as HTMLMetaElement | null;
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attrName, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
+function upsertJsonLd(id: string, data: Record<string, unknown>) {
+  let script = document.getElementById(id) as HTMLScriptElement | null;
+  if (!script) {
+    script = document.createElement('script');
+    script.id = id;
+    script.type = 'application/ld+json';
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify(data);
+}
+
+export function syncRouteSeo({
+  page,
+  selectedMcqSet,
+  selectedSubjectiveSet,
+  selectedCourseCode,
+  courses,
+  totalResources,
+  totalMcqQuestions,
+  totalSubjectiveQuestions
+}: SeoSyncParams): void {
+  if (typeof document === 'undefined') return;
+
+  let title = 'MIHORA VU – VU Assignment Solution 2026 & Solved Past Papers (411 Courses)';
+  let desc = `Free direct downloads for ${totalResources.toLocaleString()}+ Virtual University solved past papers (Moaaz, Waqar Siddhu), handouts, ${totalMcqQuestions.toLocaleString()} interactive MCQs, and subjective fast-prep across ${courses.length} courses.`;
+  let canonicalPath = '/';
+  const breadcrumbs: Array<{ name: string; item: string }> = [
+    { name: 'Home', item: `${BASE_URL}/` }
+  ];
+  const graphNodes: Array<Record<string, unknown>> = [];
+
+  if (page === 'home' && selectedCourseCode) {
+    const match = courses.find((c) => c.code === selectedCourseCode);
+    const titleSuffix = match ? ` – ${match.title}` : '';
+    title = `${selectedCourseCode}${titleSuffix} Past Papers, Handouts & Solutions | MIHORA VU`;
+    desc = `Download verified ${selectedCourseCode}${match ? ` (${match.title})` : ''} solved midterm & final past papers, handouts, and 2026 assignment guides free on MIHORA VU.`;
+    canonicalPath = `/courses/${selectedCourseCode.toLowerCase()}`;
+    breadcrumbs.push(
+      { name: 'Courses', item: `${BASE_URL}/courses` },
+      { name: selectedCourseCode, item: `${BASE_URL}${canonicalPath}` }
+    );
+    graphNodes.push({
+      '@type': 'Course',
+      '@id': `${BASE_URL}${canonicalPath}#course`,
+      name: `${selectedCourseCode}${match ? ` - ${match.title}` : ''}`,
+      courseCode: selectedCourseCode,
+      description: desc,
+      provider: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Virtual University of Pakistan'
+      },
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'PKR',
+        availability: 'https://schema.org/InStock'
+      }
+    });
+  } else if (page === 'courses') {
+    title = `All ${courses.length} VU Courses Directory – Past Papers & Handouts | MIHORA VU`;
+    desc = `Browse all ${courses.length} Virtual University courses organized by faculty with solved midterm papers, final term files, handouts, and 2026 assignment guides.`;
+    canonicalPath = '/courses';
+    breadcrumbs.push({ name: `Courses (${courses.length})`, item: `${BASE_URL}/courses` });
+    graphNodes.push({
+      '@type': 'CollectionPage',
+      '@id': `${BASE_URL}/courses#collection`,
+      name: `All ${courses.length} Virtual University Courses`,
+      description: desc,
+      numberOfItems: courses.length
+    });
+  } else if (page === 'mcqs') {
+    if (selectedMcqSet) {
+      title = `${selectedMcqSet.courseCode} ${selectedMcqSet.termLabel} MCQs (${selectedMcqSet.questions.length} Qs) | MIHORA VU`;
+      desc = `Practice ${selectedMcqSet.questions.length} verified ${selectedMcqSet.courseCode} (${selectedMcqSet.courseTitle}) ${selectedMcqSet.termLabel} MCQs online with instant answers and timed mock exam simulation.`;
+      canonicalPath = `/mcqs/${selectedMcqSet.id}`;
+      breadcrumbs.push(
+        { name: 'Interactive MCQs', item: `${BASE_URL}/mcqs` },
+        { name: `${selectedMcqSet.courseCode} ${selectedMcqSet.termLabel}`, item: `${BASE_URL}${canonicalPath}` }
+      );
+      graphNodes.push({
+        '@type': 'Quiz',
+        '@id': `${BASE_URL}${canonicalPath}#quiz`,
+        name: `${selectedMcqSet.courseCode} ${selectedMcqSet.termLabel} MCQs`,
+        about: selectedMcqSet.courseTitle,
+        description: selectedMcqSet.description,
+        numberOfQuestions: selectedMcqSet.questions.length,
+        educationalAlignment: {
+          '@type': 'AlignmentObject',
+          alignmentType: 'educationalSubject',
+          targetName: `${selectedMcqSet.courseCode} – ${selectedMcqSet.courseTitle}`
+        }
+      });
+    } else {
+      title = `Interactive VU Exam MCQs (${totalMcqQuestions.toLocaleString()} Verified Qs) | MIHORA VU`;
+      desc = `Practice ${totalMcqQuestions.toLocaleString()} verified Virtual University Mid-Term & Final-Term MCQs online with timed mock exams and rapid flash-sheets.`;
+      canonicalPath = '/mcqs';
+      breadcrumbs.push({ name: 'Interactive MCQs', item: `${BASE_URL}/mcqs` });
+      graphNodes.push({
+        '@type': 'CollectionPage',
+        '@id': `${BASE_URL}/mcqs#hub`,
+        name: 'Interactive VU Exam MCQ Studios',
+        description: desc
+      });
+    }
+  } else if (page === 'subjective') {
+    if (selectedSubjectiveSet) {
+      title = `${selectedSubjectiveSet.courseCode} Subjective Fast-Learning (${selectedSubjectiveSet.questions.length} Q&As) | MIHORA VU`;
+      desc = `Fast-learn ${selectedSubjectiveSet.questions.length} high-yield ${selectedSubjectiveSet.courseCode} (${selectedSubjectiveSet.courseTitle}) 2, 3, and 5-mark subjective questions with 10-second memory hooks and examiner rubrics.`;
+      canonicalPath = `/subjective/${selectedSubjectiveSet.id}`;
+      breadcrumbs.push(
+        { name: 'Subjective Fast-Learning', item: `${BASE_URL}/subjective` },
+        { name: selectedSubjectiveSet.courseCode, item: `${BASE_URL}${canonicalPath}` }
+      );
+      graphNodes.push({
+        '@type': 'FAQPage',
+        '@id': `${BASE_URL}${canonicalPath}#faq`,
+        name: `${selectedSubjectiveSet.courseCode} Subjective Fast-Learning`,
+        mainEntity: selectedSubjectiveSet.questions.slice(0, 6).map((q) => ({
+          '@type': 'Question',
+          name: `[${q.marks} Marks] ${q.question}`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `${q.quickHook} Key points: ${q.keyPoints.join('; ')}`
+          }
+        }))
+      });
+    } else {
+      title = `VU Subjective Fast-Learning Studio (${totalSubjectiveQuestions} High-Yield Q&As) | MIHORA VU`;
+      desc = `Master Virtual University 2, 3, and 5-mark subjective questions using 10-second memory hooks, examiner rubrics, cram sheets, and all ${courses.length} subject hubs.`;
+      canonicalPath = '/subjective';
+      breadcrumbs.push({ name: 'Subjective Fast-Learning', item: `${BASE_URL}/subjective` });
+      graphNodes.push({
+        '@type': 'CollectionPage',
+        '@id': `${BASE_URL}/subjective#hub`,
+        name: 'VU Subjective Fast-Learning Studios',
+        description: desc
+      });
+    }
+  } else if (page === 'past-papers') {
+    title = 'VU Solved Past Papers – Moaaz & Waqar Siddhu Archives | MIHORA VU';
+    desc = 'Explore real Virtual University midterm & final-term student exam reviews, repeated subjective questions, and Moaaz/Waqar Siddhu solved archives across all 411 courses.';
+    canonicalPath = '/past-papers';
+    breadcrumbs.push({ name: 'Past Papers', item: `${BASE_URL}/past-papers` });
+  } else if (page === 'assignment-guide') {
+    title = 'VU Assignment Solution 2026 Latest – Turnitin & GDB Guides | MIHORA VU';
+    desc = 'Download verified 2026 VU assignment templates, Dev-C++ boilerplate, GDB word-count rubrics, 24-hour grace period guide, and Turnitin <19% originality checklist.';
+    canonicalPath = '/vu-assignment-solution-2026';
+    breadcrumbs.push(
+      { name: 'VU Handbook', item: `${BASE_URL}/handbook` },
+      { name: 'Assignments 2026', item: `${BASE_URL}${canonicalPath}` }
+    );
+  } else if (page === 'handbook') {
+    title = 'VU Student Handbook 2026 – 20% Passing Rule & Policies | MIHORA VU';
+    desc = 'Official VU student rules: Master the 20% Two-Half passing rule, datesheet seat allocation, fee installments, CGPA probation, and paper rescheduling.';
+    canonicalPath = '/handbook';
+    breadcrumbs.push({ name: 'VU Handbook', item: `${BASE_URL}/handbook` });
+  } else if (page === 'simulator') {
+    title = 'VU Passing Marks Simulator – 20% Two-Half Rule Calculator | MIHORA VU';
+    desc = 'Calculate exact Final-Term marks needed to pass any Virtual University course under the official 20% Two-Half rule and forecast your grade.';
+    canonicalPath = '/simulator';
+    breadcrumbs.push({ name: 'Passing Marks Simulator', item: `${BASE_URL}/simulator` });
+    graphNodes.push({
+      '@type': 'WebApplication',
+      '@id': `${BASE_URL}/simulator#app`,
+      name: 'VU Passing Marks Simulator',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'All',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'PKR' }
+    });
+  } else if (page === 'gpa-calculator') {
+    title = 'VU GPA & CGPA Calculator 4.0 – Grade Forecaster | MIHORA VU';
+    desc = 'Calculate Virtual University semester GPA and cumulative CGPA on the HEC 4.0 scale with probation warning checks and repeat course guidance.';
+    canonicalPath = '/gpa-calculator';
+    breadcrumbs.push({ name: 'GPA & CGPA Calculator', item: `${BASE_URL}/gpa-calculator` });
+    graphNodes.push({
+      '@type': 'WebApplication',
+      '@id': `${BASE_URL}/gpa-calculator#app`,
+      name: 'VU GPA & CGPA Calculator',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'All',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'PKR' }
+    });
+  } else if (page === 'datesheet-guide') {
+    title = 'VU Datesheet Maker & Exam Seat Strategy Guide 2026 | MIHORA VU';
+    desc = 'Step-by-step strategy for VU datesheet opening, first-come first-served lab seats, exam timeslots, and paper reschedule rules.';
+    canonicalPath = '/datesheet-guide';
+    breadcrumbs.push(
+      { name: 'VU Handbook', item: `${BASE_URL}/handbook` },
+      { name: 'Datesheet Guide', item: `${BASE_URL}/datesheet-guide` }
+    );
+  } else if (page === 'cs619-guide') {
+    title = 'CS619 Final Year Project (FYP) Roadmap & Viva Guide | MIHORA VU';
+    desc = 'Complete CS619 capstone guide covering SRS documentation, ERD design, prototype build phases, and top viva voce defense questions.';
+    canonicalPath = '/cs619-guide';
+    breadcrumbs.push(
+      { name: 'Courses', item: `${BASE_URL}/courses` },
+      { name: 'CS619 FYP Guide', item: `${BASE_URL}/cs619-guide` }
+    );
+  } else if (page === 'security') {
+    title = 'Privacy & Safety Guarantee – Zero Telemetry Archive | MIHORA VU';
+    desc = 'Zero login walls, zero analytics cookies, verified educational files, and direct instant downloads for Virtual University students.';
+    canonicalPath = '/security';
+    breadcrumbs.push(
+      { name: 'About MIHORA', item: `${BASE_URL}/about` },
+      { name: 'Privacy & Safety', item: `${BASE_URL}/security` }
+    );
+  } else if (page === 'about') {
+    title = 'About MIHORA TECH – Free VU Study Library Initiative | MIHORA VU';
+    desc = 'Learn about MIHORA TECH’s independent, non-commercial CSR initiative organizing Virtual University academic resources for Pakistani students.';
+    canonicalPath = '/about';
+    breadcrumbs.push({ name: 'About', item: `${BASE_URL}/about` });
+  } else if (page === 'sitemap') {
+    title = `VU Curriculum & Portal Sitemap (${courses.length} Courses) | MIHORA VU`;
+    desc = `Complete faculty-by-faculty index of all ${courses.length} Virtual University courses, interactive quiz studios, and academic calculators.`;
+    canonicalPath = '/sitemap';
+    breadcrumbs.push({ name: 'Curriculum Directory', item: `${BASE_URL}/sitemap` });
+  } else if (page === 'disclaimer') {
+    title = 'Academic Disclaimer & Fair Educational Use | MIHORA VU';
+    desc = 'Independent educational resource fair-use notice and non-affiliation disclosure for Virtual University students.';
+    canonicalPath = '/disclaimer';
+    breadcrumbs.push(
+      { name: 'About MIHORA', item: `${BASE_URL}/about` },
+      { name: 'Disclaimer', item: `${BASE_URL}/disclaimer` }
+    );
+  }
+
+  const canonicalUrl = `${BASE_URL}${canonicalPath}`;
+
+  document.title = title;
+  upsertMeta('meta[name="description"]', 'name', 'description', desc);
+  upsertMeta('meta[property="og:title"]', 'property', 'og:title', title);
+  upsertMeta('meta[property="og:description"]', 'property', 'og:description', desc);
+  upsertMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
+  upsertMeta('meta[property="og:image"]', 'property', 'og:image', DEFAULT_OG_IMAGE);
+  upsertMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
+  upsertMeta('meta[name="twitter:description"]', 'name', 'twitter:description', desc);
+  upsertMeta('meta[name="twitter:image"]', 'name', 'twitter:image', DEFAULT_OG_IMAGE);
+
+  let canonicalEl = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+  if (!canonicalEl) {
+    canonicalEl = document.createElement('link');
+    canonicalEl.rel = 'canonical';
+    document.head.appendChild(canonicalEl);
+  }
+  canonicalEl.href = canonicalUrl;
+
+  const webPageNode: Record<string, unknown> = {
+    '@type': 'WebPage',
+    '@id': `${canonicalUrl}#webpage`,
+    url: canonicalUrl,
+    name: title,
+    description: desc,
+    inLanguage: 'en-PK',
+    isPartOf: { '@id': `${BASE_URL}/#website` },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['[data-speakable="true"]', 'h1']
+    }
+  };
+
+  const breadcrumbNode: Record<string, unknown> = {
+    '@type': 'BreadcrumbList',
+    '@id': `${canonicalUrl}#breadcrumb`,
+    itemListElement: breadcrumbs.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: b.name,
+      item: b.item
+    }))
+  };
+
+  upsertJsonLd('mihora-dynamic-jsonld', {
+    '@context': 'https://schema.org',
+    '@graph': [webPageNode, breadcrumbNode, ...graphNodes]
+  });
+}

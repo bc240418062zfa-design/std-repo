@@ -18,7 +18,6 @@ import {
 } from '../components/MotionPrimitives';
 import {
   CelestialPageHeader,
-  CelestialStarfield,
   CelestialOrbitalRings
 } from '../components/CelestialBackdrop';
 
@@ -47,8 +46,8 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
     },
     {
       icon: <Server className="w-5 h-5" />,
-      iconColor: 'text-indigo-700',
-      glow: 'rgba(99, 102, 241, 0.08)',
+      iconColor: 'text-[#0D1B2A]',
+      glow: 'rgba(13, 27, 42, 0.08)',
       title: 'High-Availability Cloud CDN',
       desc: 'During high-stress midterm and final examination seasons, our distributed edge infrastructure ensures the portal stays online 24/7 with fast load times across PTCL, Nayatel, StormFiber, Jazz, Zong, and overseas connections.'
     }
@@ -64,7 +63,7 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
         title={
           <>
             Privacy, Security &amp;{' '}
-            <span className="bg-gradient-to-r from-sky-300 via-blue-200 to-amber-200 bg-clip-text text-transparent">
+            <span className="text-amber-300">
               Resource Safety
             </span>
           </>
@@ -84,10 +83,10 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
           >
             <SpotlightCard
               spotlightColor={item.glow}
-              className="group h-full card-celestial rounded-2xl border p-6 sm:p-7"
+              className="group h-full bg-white rounded-2xl border border-[#E5E0D5] hover:border-blue-700 p-6 sm:p-7 transition-colors"
             >
               <div className="space-y-3">
-                <div className={`w-10 h-10 rounded-xl bg-white border border-slate-200/80 shadow-2xs flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3 ${item.iconColor}`}>
+                <div className={`w-10 h-10 rounded-xl bg-[#F3EFE6] border border-[#DDD6C8] flex items-center justify-center transition-transform duration-200 group-hover:scale-105 ${item.iconColor}`}>
                   {item.icon}
                 </div>
                 <h2 className="text-lg font-bold text-slate-900 font-sans">{item.title}</h2>
@@ -99,7 +98,7 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
       </div>
 
       {/* Educational Commitments List */}
-      <ScrollReveal direction="up" distance={20} className="celestial-top-glint card-celestial rounded-3xl border p-6 sm:p-8 space-y-6">
+      <ScrollReveal direction="up" distance={16} className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-8 space-y-6 shadow-xs">
         <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 font-sans">
           <HeartHandshake className="w-5 h-5 text-blue-700" />
           <span>Our Operational Commitments to Students</span>
@@ -130,7 +129,7 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 'some' }}
               transition={{ delay: idx * 0.05, ease: EASE_OUT_EXPO }}
-              className="flex items-start gap-3 p-3.5 rounded-xl bg-white/85 border border-slate-200/70"
+              className="flex items-start gap-3 p-3.5 rounded-xl bg-[#FAF8F4] border border-[#E5E0D5]"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0 mt-1" />
               <div>
@@ -144,12 +143,10 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
       {/* Return to Library CTA */}
       <ScrollReveal
         direction="up"
-        distance={20}
-        className="relative overflow-hidden p-6 sm:p-9 rounded-3xl bg-studio-stage text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-slate-800 shadow-[0_24px_60px_-15px_rgba(4,8,20,0.65)]"
+        distance={16}
+        className="relative overflow-hidden p-6 sm:p-9 rounded-2xl bg-[#0D1B2A] text-white flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border border-white/10 shadow-xl"
       >
-        <CelestialStarfield density={0.45} interactive={false} />
         <CelestialOrbitalRings compact />
-        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/55 to-transparent" aria-hidden="true" />
         <div className="relative z-10 space-y-1">
           <h2 className="text-xl font-bold text-white font-sans">Ready to start studying?</h2>
           <p className="text-sm text-slate-300">
@@ -158,10 +155,10 @@ export const SecurityPage: React.FC<{ onNavigateHome: () => void }> = ({ onNavig
         </div>
         <AnimatedButton
           magnetic
-          shimmer
+          shimmer={false}
           type="button"
           onClick={onNavigateHome}
-          className="relative z-10 group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm transition-all cursor-pointer shrink-0 shadow-lg"
+          className="relative z-10 group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-300 hover:bg-amber-200 text-[#0D1B2A] font-bold text-sm transition-colors cursor-pointer shrink-0 shadow-sm"
         >
           <span>Explore Library</span>
           <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
