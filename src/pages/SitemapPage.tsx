@@ -13,7 +13,13 @@ import {
   FileText,
   Calculator,
   GraduationCap,
-  ExternalLink
+  ExternalLink,
+  ListChecks,
+  Flame,
+  Files,
+  Award,
+  Calendar,
+  FolderGit2
 } from 'lucide-react';
 import { ScrollReveal, StaggerGrid, StaggerItem, SpotlightCard, EASE_OUT_EXPO } from '../components/MotionPrimitives';
 import { CelestialPageHeader } from '../components/CelestialBackdrop';
@@ -65,6 +71,46 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
       spotlight: 'rgba(29, 78, 216, 0.08)'
     },
     {
+      id: 'mcqs',
+      title: 'Interactive MCQs Bank & Live Mids Practice',
+      description: 'Practice 1,112+ online subject MCQs, 45s mock exams, and browse 3,256 MCQ files & 5,733 live quiz files.',
+      icon: ListChecks,
+      iconBg: 'bg-sky-50 text-blue-700',
+      hoverBorder: 'hover:border-blue-700',
+      hoverText: 'group-hover:text-blue-700',
+      spotlight: 'rgba(29, 78, 216, 0.1)'
+    },
+    {
+      id: 'subjective',
+      title: 'Subjective Fast-Learning Studio (2/3/5 Marks)',
+      description: '10-second memory hooks, examiner rubrics, cram sheets, and write-compare drills across 411 subject hubs.',
+      icon: Flame,
+      iconBg: 'bg-amber-50 text-amber-700',
+      hoverBorder: 'hover:border-amber-600',
+      hoverText: 'group-hover:text-amber-700',
+      spotlight: 'rgba(217, 119, 6, 0.1)'
+    },
+    {
+      id: 'past-papers',
+      title: 'Solved Past Papers (Moaaz & Waqar Siddhu)',
+      description: 'Access 3,877 Midterm & 7,361 Final-Term solved past paper archives plus student exam memories.',
+      icon: Files,
+      iconBg: 'bg-emerald-50 text-emerald-700',
+      hoverBorder: 'hover:border-emerald-700',
+      hoverText: 'group-hover:text-emerald-700',
+      spotlight: 'rgba(16, 185, 129, 0.08)'
+    },
+    {
+      id: 'assignment-guide',
+      title: 'Assignments 2026 & Turnitin Guide',
+      description: 'Solved templates, Dev-C++ boilerplate, 24-hour grace period rules, and Turnitin <19% originality checklists.',
+      icon: FileText,
+      iconBg: 'bg-emerald-50 text-emerald-700',
+      hoverBorder: 'hover:border-emerald-700',
+      hoverText: 'group-hover:text-emerald-700',
+      spotlight: 'rgba(16, 185, 129, 0.08)'
+    },
+    {
       id: 'handbook',
       title: 'VU Student Handbook & Rules',
       description: 'Official student guide covering datesheet creation, 20% two-half rule, reschedule fee, CGPA probation, and VULMS services.',
@@ -83,6 +129,36 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
       hoverBorder: 'hover:border-blue-700',
       hoverText: 'group-hover:text-blue-700',
       spotlight: 'rgba(13, 27, 42, 0.08)'
+    },
+    {
+      id: 'gpa-calculator',
+      title: 'VU GPA & CGPA Calculator (4.0)',
+      description: 'Official HEC 4.0 scale semester GPA forecaster, cumulative CGPA tracker, and repeat course analyzer.',
+      icon: Award,
+      iconBg: 'bg-sky-50 text-sky-700',
+      hoverBorder: 'hover:border-sky-700',
+      hoverText: 'group-hover:text-sky-700',
+      spotlight: 'rgba(2, 132, 199, 0.08)'
+    },
+    {
+      id: 'datesheet-guide',
+      title: 'Datesheet Seat Strategy Guide',
+      description: 'First-come first-served lab booking checklist, preferred timeslot optimization, and reschedule rules.',
+      icon: Calendar,
+      iconBg: 'bg-amber-50 text-amber-700',
+      hoverBorder: 'hover:border-amber-700',
+      hoverText: 'group-hover:text-amber-700',
+      spotlight: 'rgba(217, 119, 6, 0.08)'
+    },
+    {
+      id: 'cs619-guide',
+      title: 'CS619 FYP Capstone Roadmap',
+      description: 'Milestone walkthrough for proposal, IEEE 830 SRS, ERD design, prototype build, and viva defense questions.',
+      icon: FolderGit2,
+      iconBg: 'bg-slate-100 text-slate-800',
+      hoverBorder: 'hover:border-slate-700',
+      hoverText: 'group-hover:text-slate-900',
+      spotlight: 'rgba(15, 23, 42, 0.08)'
     },
     {
       id: 'security',
@@ -193,6 +269,28 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
           >
             <span>Robots.txt Policy</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            href="/llms.txt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-amber-600 hover:text-amber-700 text-slate-700 font-mono transition-colors"
+          >
+            <span>LLMs.txt (GEO Summary)</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            href="/llms-full.txt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-amber-600 hover:text-amber-700 text-slate-700 font-mono transition-colors"
+          >
+            <span>LLMs-Full.txt (411 Courses)</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
           </motion.a>
         </ScrollReveal>

@@ -125,12 +125,15 @@ function getPageFromPath(): AppPage {
     pathname === '/quiz' ||
     pathname.startsWith('/quiz/') ||
     pathname === '/quizzes' ||
-    pathname.startsWith('/quizzes/')
+    pathname.startsWith('/quizzes/') ||
+    pathname === '/vu-mcqs-bank' ||
+    pathname === '/live-mids-mcqs'
   ) return 'mcqs';
   if (
     pathname === '/subjective' ||
     pathname.startsWith('/subjective/') ||
-    pathname === '/fast-learning'
+    pathname === '/fast-learning' ||
+    pathname === '/vu-subjective-solved'
   ) return 'subjective';
   if (pathname === '/security' || pathname === '/privacy') return 'security';
   if (pathname === '/about' || pathname === '/mission') return 'about';
@@ -198,6 +201,9 @@ function getSubjectiveSetIdFromPath(): string | null {
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<AppPage>(getPageFromPath);
+  const [currentPathname, setCurrentPathname] = useState<string>(() =>
+    typeof window !== 'undefined' ? window.location.pathname : '/'
+  );
   const [selectedMcqSetId, setSelectedMcqSetId] = useState<string | null>(getMcqSetIdFromPath);
   const [selectedSubjectiveSetId, setSelectedSubjectiveSetId] = useState<string | null>(
     getSubjectiveSetIdFromPath
@@ -226,12 +232,35 @@ export default function App() {
 
   const searchResultsRef = useRef<HTMLDivElement>(null);
 
+  const resourceTypeCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const r of resources) {
+      counts[r.type] = (counts[r.type] || 0) + 1;
+    }
+    return {
+      finalterm: counts['FINALTERM'] || 0,
+      quiz: counts['QUIZ'] || 0,
+      midterm: counts['MIDTERM'] || 0,
+      mcqfile: counts['MCQFILE'] || 0,
+      handout: counts['HANDOUT'] || 0,
+      assignment: counts['ASSIGNMENT'] || 0,
+      interactiveMcqs: mcqSets.reduce((sum, s) => sum + s.questions.length, 0),
+      interactiveSubjective: subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0)
+    };
+  }, []);
+
   // Listen to popstate changes for real browser back/forward and clean URLs
   useEffect(() => {
     const handleLocationChange = () => {
+      const nextPath = window.location.pathname;
+      const cleanPath = nextPath.toLowerCase().replace(/\/$/, '') || '/';
+      setCurrentPathname(nextPath);
       setCurrentPage(getPageFromPath());
       setSelectedMcqSetId(getMcqSetIdFromPath());
       setSelectedSubjectiveSetId(getSubjectiveSetIdFromPath());
+      if (cleanPath === '/vu-handouts-pdf') {
+        setFilters((prev) => ({ ...prev, course: '', type: 'HANDOUT' }));
+      }
     };
     window.addEventListener('popstate', handleLocationChange);
     window.addEventListener('hashchange', handleLocationChange);
@@ -241,11 +270,14 @@ export default function App() {
     };
   }, []);
 
-  // Support deep links from sitemap or external bookmarks (e.g. /courses/cs101, ?course=CS101 or ?q=midterm)
+  // Support deep links from sitemap or external bookmarks (e.g. /courses/cs101, /vu-handouts-pdf, ?course=CS101 or ?q=midterm)
   useEffect(() => {
     try {
       const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '');
-      if (pathname.startsWith('/courses/')) {
+      if (pathname === '/vu-handouts-pdf') {
+        setFilters((prev) => ({ ...prev, type: 'HANDOUT' }));
+        setCurrentPage('home');
+      } else if (pathname.startsWith('/courses/')) {
         const parts = pathname.split('/');
         const code = parts[2];
         if (code) {
@@ -268,7 +300,7 @@ export default function App() {
     }
   }, []);
 
-  const handleNavigate = (page: AppPage) => {
+  const handleNavigate = (page: AppPage, customPath?: string) => {
     setCurrentPage(page);
     if (page === 'mcqs') {
       setSelectedMcqSetId(null);
@@ -276,17 +308,40 @@ export default function App() {
     if (page === 'subjective') {
       setSelectedSubjectiveSetId(null);
     }
-    const targetPath = pagePathMap[page] || '/';
+    const targetPath = customPath || pagePathMap[page] || '/';
+    setCurrentPathname(targetPath);
     if (window.location.pathname !== targetPath) {
       window.history.pushState(null, '', targetPath);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleOpenCatalogFilter = (nextType: string, customPath = '/') => {
+    setCurrentPage('home');
+    setQuery('');
+    setFilters({
+      course: '',
+      type: nextType,
+      format: '',
+      tags: [],
+      solvedOnly: false,
+      pastPapersOnly: false,
+      currentOnly: false
+    });
+    setCurrentPathname(customPath);
+    if (window.location.pathname !== customPath) {
+      window.history.pushState(null, '', customPath);
+    }
+    setTimeout(() => {
+      scrollToSearch();
+    }, 80);
+  };
+
   const handleSelectMcqSet = (setId: string | null) => {
     setCurrentPage('mcqs');
     setSelectedMcqSetId(setId);
     const targetPath = setId ? `/mcqs/${setId}` : '/mcqs';
+    setCurrentPathname(targetPath);
     if (window.location.pathname !== targetPath) {
       window.history.pushState(null, '', targetPath);
     }
@@ -297,6 +352,7 @@ export default function App() {
     setCurrentPage('subjective');
     setSelectedSubjectiveSetId(setId);
     const targetPath = setId ? `/subjective/${setId}` : '/subjective';
+    setCurrentPathname(targetPath);
     if (window.location.pathname !== targetPath) {
       window.history.pushState(null, '', targetPath);
     }
@@ -307,6 +363,7 @@ export default function App() {
     setFilters((prev) => ({ ...prev, course: courseCode }));
     setQuery('');
     setCurrentPage('home');
+    setCurrentPathname('/');
     if (window.location.pathname !== '/') {
       window.history.pushState(null, '', '/');
     }
@@ -331,12 +388,14 @@ export default function App() {
       selectedMcqSet: activeMcqSet,
       selectedSubjectiveSet: activeSubjectiveSet,
       selectedCourseCode: filters.course,
+      activeFilterType: filters.type,
+      pathnameOverride: currentPathname,
       courses,
       totalResources: resources.length,
       totalMcqQuestions,
       totalSubjectiveQuestions
     });
-  }, [currentPage, filters.course, selectedMcqSetId, selectedSubjectiveSetId]);
+  }, [currentPage, currentPathname, filters.course, filters.type, selectedMcqSetId, selectedSubjectiveSetId]);
 
   // Compute search results with ranking algorithm
   const { resources: filteredResources, totalCount: totalMatchingCount } = useMemo(() => {
@@ -557,6 +616,32 @@ export default function App() {
             setFilters((prev) => ({ ...prev, course: '' }));
             if (window.location.pathname !== '/') {
               window.history.pushState(null, '', '/');
+              setCurrentPathname('/');
+            }
+          },
+          actionVariant: 'clear'
+        };
+      }
+      if (filters.type) {
+        const typeLabels: Record<string, string> = {
+          HANDOUT: 'Official Lecture Handouts PDF',
+          QUIZ: 'Live Quiz & Midterm MCQ Files',
+          MIDTERM: 'Midterm Solved Past Papers',
+          FINALTERM: 'Final-Term Solved Past Papers',
+          MCQFILE: 'Mega MCQ Document Bank',
+          ASSIGNMENT: '2026 Assignments & GDB Files'
+        };
+        return {
+          items: [
+            homeCrumb,
+            { label: typeLabels[filters.type] || filters.type }
+          ],
+          actionLabel: 'Clear Filter',
+          onAction: () => {
+            setFilters((prev) => ({ ...prev, type: '' }));
+            if (window.location.pathname !== '/') {
+              window.history.pushState(null, '', '/');
+              setCurrentPathname('/');
             }
           },
           actionVariant: 'clear'
@@ -595,6 +680,7 @@ export default function App() {
     }
 
     if (currentPage === 'mcqs') {
+      const cleanPath = currentPathname.toLowerCase().replace(/\/$/, '');
       const activeSet = selectedMcqSetId
         ? mcqSets.find((s) => s.id === selectedMcqSetId) || null
         : null;
@@ -615,7 +701,17 @@ export default function App() {
         };
       }
       return {
-        items: [homeCrumb, { label: 'Interactive MCQs' }],
+        items: [
+          homeCrumb,
+          {
+            label:
+              cleanPath === '/live-mids-mcqs'
+                ? 'Live Mids MCQs & Quiz Bank'
+                : cleanPath === '/vu-mcqs-bank'
+                ? 'VU MCQs Bank'
+                : 'Interactive MCQs'
+          }
+        ],
         actionLabel: 'Subjective Fast-Learning',
         actionHref: '/subjective',
         onAction: () => handleSelectSubjectiveSet(null)
@@ -623,6 +719,7 @@ export default function App() {
     }
 
     if (currentPage === 'subjective') {
+      const cleanPath = currentPathname.toLowerCase().replace(/\/$/, '');
       const activeSub = selectedSubjectiveSetId
         ? subjectiveSets.find((s) => s.id === selectedSubjectiveSetId) || null
         : null;
@@ -643,7 +740,15 @@ export default function App() {
         };
       }
       return {
-        items: [homeCrumb, { label: 'Subjective Fast-Learning' }],
+        items: [
+          homeCrumb,
+          {
+            label:
+              cleanPath === '/vu-subjective-solved'
+                ? 'Solved Subjective Questions (2/3/5 Marks)'
+                : 'Subjective Fast-Learning'
+          }
+        ],
         actionLabel: 'Interactive MCQs',
         actionHref: '/mcqs',
         onAction: () => handleSelectMcqSet(null)
@@ -781,7 +886,7 @@ export default function App() {
     }
 
     return { items: [] };
-  }, [currentPage, filters.course, query, selectedMcqSetId, selectedSubjectiveSetId]);
+  }, [currentPage, currentPathname, filters.course, filters.type, query, selectedMcqSetId, selectedSubjectiveSetId]);
 
   return (
     <MotionConfig reducedMotion="user">
@@ -1147,7 +1252,13 @@ export default function App() {
                 {/* Filter Control Surface */}
                 <FilterBar
                   filters={filters}
-                  onFilterChange={setFilters}
+                  onFilterChange={(next) => {
+                    setFilters(next);
+                    if (currentPathname.toLowerCase().replace(/\/$/, '') === '/vu-handouts-pdf' && next.type !== 'HANDOUT') {
+                      window.history.pushState(null, '', '/');
+                      setCurrentPathname('/');
+                    }
+                  }}
                   courses={courses}
                   limit={limit}
                   onLimitChange={setLimit}
@@ -1403,6 +1514,146 @@ export default function App() {
                             <span>{item.cta}</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-1" />
                           </button>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Complete Exam Banks & Live Mids Directory (Non-Branded SEO/AEO Hub) */}
+                <section aria-labelledby="exam-banks-directory-heading" className="mt-12 space-y-5">
+                  <ScrollReveal direction="up" distance={18} className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                      <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
+                        Verified Document Banks · {resources.length.toLocaleString()} Files Indexed
+                      </div>
+                      <h2 id="exam-banks-directory-heading" className="text-2xl sm:text-3xl font-bold text-slate-950 mt-0.5">
+                        Complete VU Exam Banks, Live Mids &amp; Handouts Index
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-500 max-w-md">
+                      Direct one-click entry to Interactive MCQs Banks, Live Midterm Quizzes, Official Lecture Handouts PDF, and Solved Final-Term Archives.
+                    </p>
+                  </ScrollReveal>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                      {
+                        kicker: 'OBJECTIVE MCQS BANK',
+                        title: 'VU Interactive MCQs Bank',
+                        stat: `${resourceTypeCounts.interactiveMcqs.toLocaleString()} Interactive MCQs · ${resourceTypeCounts.mcqfile.toLocaleString()} MCQ Files`,
+                        desc: 'Practice subject-wise repeat MCQs with 45-second exam timer mock tests, instant verification, and downloadable mega MCQ files.',
+                        cta: 'Open MCQs Bank',
+                        href: '/vu-mcqs-bank',
+                        icon: <ListChecks className="w-5 h-5 text-blue-700" />,
+                        iconBg: 'bg-blue-50 border-blue-200/70',
+                        onClick: () => handleNavigate('mcqs', '/vu-mcqs-bank')
+                      },
+                      {
+                        kicker: 'CURRENT MIDTERM & QUIZ',
+                        title: 'Live Mids MCQs & Quiz Bank',
+                        stat: `${resourceTypeCounts.quiz.toLocaleString()} Quiz Files · ${resourceTypeCounts.midterm.toLocaleString()} Midterm Papers`,
+                        desc: 'Access current semester quiz screenshots, live midterm repeated MCQs, and recent student exam memory files across 411 subjects.',
+                        cta: 'Filter Quiz & Midterm Files',
+                        href: '/live-mids-mcqs',
+                        secondaryCta: 'Launch Live Mock Quiz',
+                        onSecondaryClick: () => handleNavigate('mcqs', '/live-mids-mcqs'),
+                        icon: <Zap className="w-5 h-5 text-sky-700" />,
+                        iconBg: 'bg-sky-50 border-sky-200/70',
+                        onClick: () => handleOpenCatalogFilter('QUIZ')
+                      },
+                      {
+                        kicker: 'FINAL-TERM ARCHIVE',
+                        title: 'Final-Term Solved Papers Bank',
+                        stat: `${resourceTypeCounts.finalterm.toLocaleString()} Final-Term Files · Moaaz & Waqar`,
+                        desc: 'Verified solved final-term subjective & objective mega files compiled by Moaaz, Waqar Siddhu, and VU course toppers.',
+                        cta: 'Browse Final-Term Papers',
+                        href: '/past-papers',
+                        icon: <Award className="w-5 h-5 text-indigo-700" />,
+                        iconBg: 'bg-indigo-50 border-indigo-200/70',
+                        onClick: () => handleOpenCatalogFilter('FINALTERM')
+                      },
+                      {
+                        kicker: 'OFFICIAL PDF NOTES',
+                        title: 'Official Lecture Handouts PDF',
+                        stat: `${resourceTypeCounts.handout.toLocaleString()} Official Handouts & Highlighted PDFs`,
+                        desc: 'Download complete Virtual University lecture handouts, updated highlighted short notes, and syllabus PDF books with zero wait.',
+                        cta: 'Browse Handouts PDF',
+                        href: '/vu-handouts-pdf',
+                        icon: <BookOpen className="w-5 h-5 text-emerald-700" />,
+                        iconBg: 'bg-emerald-50 border-emerald-200/70',
+                        onClick: () => handleOpenCatalogFilter('HANDOUT', '/vu-handouts-pdf')
+                      },
+                      {
+                        kicker: 'SUBJECTIVE FAST-PREP',
+                        title: 'Subjective 2, 3 & 5-Mark Fast-Prep',
+                        stat: `${resourceTypeCounts.interactiveSubjective} High-Yield Q&As · ${courses.length} Subject Hubs`,
+                        desc: 'Memorize long and short subjective answers using 10-second hooks, rapid cram sheets, and VU examiner marking rubrics.',
+                        cta: 'Open Subjective Studio',
+                        href: '/vu-subjective-solved',
+                        icon: <Flame className="w-5 h-5 text-amber-700" />,
+                        iconBg: 'bg-amber-50 border-amber-200/70',
+                        onClick: () => handleNavigate('subjective', '/vu-subjective-solved')
+                      },
+                      {
+                        kicker: 'ASSIGNMENTS & GDB 2026',
+                        title: '2026 Assignments, GDBs & Turnitin Guides',
+                        stat: `${resourceTypeCounts.assignment.toLocaleString()} Assignment/GDB Files · <19% Safe`,
+                        desc: 'Clean Dev-C++ code structure, MathType equation steps, 24-hour grace period calendar, and Turnitin originality defense.',
+                        cta: 'Open 2026 Assignments Hub',
+                        href: '/vu-assignment-solution-2026',
+                        icon: <FileText className="w-5 h-5 text-emerald-700" />,
+                        iconBg: 'bg-emerald-50 border-emerald-200/70',
+                        onClick: () => handleNavigate('assignment-guide')
+                      }
+                    ].map((bank) => (
+                      <article
+                        key={bank.title}
+                        className="celestial-top-glint card-celestial rounded-2xl border border-slate-200/90 p-5 flex flex-col justify-between gap-4"
+                      >
+                        <div className="space-y-3">
+                          <div className="flex items-start justify-between gap-3">
+                            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${bank.iconBg}`}>
+                              {bank.icon}
+                            </div>
+                            <span className="text-[11px] font-mono font-semibold text-slate-500 text-right tabular-nums">
+                              {bank.kicker}
+                            </span>
+                          </div>
+                          <div>
+                            <h3 className="text-base font-bold text-slate-950 leading-snug">
+                              {bank.title}
+                            </h3>
+                            <div className="text-[11px] font-mono font-semibold text-blue-700 mt-1 tabular-nums">
+                              {bank.stat}
+                            </div>
+                          </div>
+                          <p className="text-xs text-slate-600 leading-relaxed">
+                            {bank.desc}
+                          </p>
+                        </div>
+
+                        <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                          <a
+                            href={bank.href}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              bank.onClick();
+                            }}
+                            className="group inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 transition-colors"
+                          >
+                            <span>{bank.cta}</span>
+                            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-1" />
+                          </a>
+                          {'secondaryCta' in bank && bank.secondaryCta && bank.onSecondaryClick && (
+                            <button
+                              type="button"
+                              onClick={bank.onSecondaryClick}
+                              className="text-[11px] font-semibold text-slate-600 hover:text-slate-950 underline underline-offset-2 cursor-pointer"
+                            >
+                              {bank.secondaryCta}
+                            </button>
+                          )}
                         </div>
                       </article>
                     ))}
@@ -1801,6 +2052,54 @@ export default function App() {
                       className="hover:text-white transition-colors"
                     >
                       CS619 FYP Roadmap &amp; Viva Voce
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/vu-mcqs-bank"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('mcqs', '/vu-mcqs-bank');
+                      }}
+                      className="hover:text-white transition-colors"
+                    >
+                      VU MCQs Bank ({resourceTypeCounts.interactiveMcqs.toLocaleString()} Interactive Qs)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/live-mids-mcqs"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('mcqs', '/live-mids-mcqs');
+                      }}
+                      className="hover:text-white transition-colors"
+                    >
+                      Live Mids MCQs &amp; Quiz Bank
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/vu-handouts-pdf"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleOpenCatalogFilter('HANDOUT', '/vu-handouts-pdf');
+                      }}
+                      className="hover:text-white transition-colors"
+                    >
+                      Official VU Handouts PDF ({resourceTypeCounts.handout.toLocaleString()})
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/vu-subjective-solved"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('subjective', '/vu-subjective-solved');
+                      }}
+                      className="hover:text-white transition-colors"
+                    >
+                      Solved Subjective Q&amp;As (2/3/5 Marks)
                     </a>
                   </li>
                 </ul>

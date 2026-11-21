@@ -18,6 +18,15 @@ const coursesJsonPath = path.resolve('src/data/courses.json');
 const resourcesJsonPath = path.resolve('src/data/resources.json');
 let allCoursesList: Array<{ code: string; title: string; faculty: string; fileCount: number }> = [];
 let totalResourceCount = 28328;
+const typeCounts: Record<string, number> = {
+  FINALTERM: 7361,
+  QUIZ: 5733,
+  MIDTERM: 3877,
+  MCQFILE: 3256,
+  HANDOUT: 2625,
+  ASSIGNMENT: 419,
+  OTHER: 5057
+};
 
 if (fs.existsSync(coursesJsonPath)) {
   try {
@@ -33,6 +42,13 @@ if (fs.existsSync(resourcesJsonPath)) {
     const parsedResources = JSON.parse(fs.readFileSync(resourcesJsonPath, 'utf-8'));
     if (Array.isArray(parsedResources)) {
       totalResourceCount = parsedResources.length;
+      const computed: Record<string, number> = {};
+      for (const item of parsedResources as Array<{ type?: string }>) {
+        if (item.type) {
+          computed[item.type] = (computed[item.type] || 0) + 1;
+        }
+      }
+      Object.assign(typeCounts, computed);
     }
   } catch (err) {
     console.error('Failed to parse resources.json:', err);
@@ -286,6 +302,154 @@ const ROUTES: RouteSEO[] = [
               </a>
               <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
                 ${s.questions.length} Structured Q&amp;As · 10-Sec Hooks &amp; Cram Sheet
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `
+  },
+
+  // 2F. Dedicated Non-Branded VU MCQs Bank Hub
+  {
+    path: 'vu-mcqs-bank',
+    title: `VU MCQs Bank – ${mcqSets.reduce((s, x) => s + x.questions.length, 0).toLocaleString()} Interactive MCQs & ${typeCounts.MCQFILE.toLocaleString()} Mega MCQ Files | MIHORA VU`,
+    description: `Complete Virtual University MCQs Bank: Practice ${mcqSets.reduce((s, x) => s + x.questions.length, 0).toLocaleString()}+ interactive midterm and final-term MCQs online, plus direct download for ${typeCounts.MCQFILE.toLocaleString()} Mega MCQ files and ${typeCounts.QUIZ.toLocaleString()} quiz compilations across all ${allCoursesList.length} courses.`,
+    canonical: 'https://study.mihora.tech/vu-mcqs-bank',
+    keywords: 'vu mcqs bank, virtual university mcqs bank, vu solved mcqs pdf, vu mega mcq files, vu grand quiz mcqs, vu midterm mcqs bank, vu finalterm mcqs bank, cs201 mcqs, cs301 mcqs, eng101 mcqs, pak301 mcqs',
+    extraJsonLd: {
+      "@type": "CollectionPage",
+      "@id": "https://study.mihora.tech/vu-mcqs-bank#collection",
+      "name": "Virtual University Complete MCQs Bank",
+      "description": `Interactive quizzes (${mcqSets.length} studios) and ${typeCounts.MCQFILE.toLocaleString()} downloadable MCQ compilations for Virtual University exams.`
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Virtual University Complete MCQs Bank (${mcqSets.reduce((s, x) => s + x.questions.length, 0).toLocaleString()}+ Interactive &amp; ${typeCounts.MCQFILE.toLocaleString()} Mega MCQ Files)</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          Practice high-frequency repeated Midterm and Final-Term MCQs with 45-second timed mock exams, instant answer explanations, and quick revision sheets. Plus browse ${typeCounts.MCQFILE.toLocaleString()} Mega MCQ files and ${typeCounts.QUIZ.toLocaleString()} quiz compilations across all ${allCoursesList.length} VU courses.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+          ${mcqSets.map(s => `
+            <div style="padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+              <a href="/mcqs/${s.id}" style="text-decoration: none; font-weight: 700; color: #1d4ed8; font-size: 1.1rem; display: block;">
+                ${s.courseCode} ${s.termLabel} MCQs Bank (${s.questions.length} Qs)
+              </a>
+              <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
+                ${s.courseTitle} · Practice, Timed Exam &amp; Cram Sheet
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `
+  },
+
+  // 2G. Dedicated Non-Branded Live Mids MCQs & Quiz Bank Hub
+  {
+    path: 'live-mids-mcqs',
+    title: `VU Live Mids MCQs & Current Midterm Quiz Bank (${typeCounts.QUIZ.toLocaleString()} Quiz Files) | MIHORA VU`,
+    description: `Access Virtual University Live Mids MCQs, ${typeCounts.QUIZ.toLocaleString()} verified quiz files, ${typeCounts.MIDTERM.toLocaleString()} solved midterm past papers, and timed midterm practice tests across all ${allCoursesList.length} VU courses.`,
+    canonical: 'https://study.mihora.tech/live-mids-mcqs',
+    keywords: 'vu live mids mcqs, vu live quiz bank, vu midterm mcqs quiz bank, vu current midterm papers, vu grand quiz solved mcqs, vu quiz 1 quiz 2 mcqs, vu midterm repeat mcqs',
+    extraJsonLd: {
+      "@type": "FAQPage",
+      "@id": "https://study.mihora.tech/live-mids-mcqs#faqs",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does the VU Live Mids MCQs & Quiz Bank help during ongoing midterm exams?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": `It combines ${typeCounts.QUIZ.toLocaleString()} student-shared quiz dumps and ${typeCounts.MIDTERM.toLocaleString()} midterm solved papers with interactive 45-second timed mock MCQ sets so VU students can revise repeated midterm questions before entering the exam lab.`
+          }
+        }
+      ]
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">VU Live Mids MCQs &amp; Current Midterm Quiz Bank (${typeCounts.QUIZ.toLocaleString()} Quiz Files · ${typeCounts.MIDTERM.toLocaleString()} Midterms)</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          Rapidly revise live quiz dumps, current midterm memory files, and verified Midterm MCQ banks across ${allCoursesList.length} Virtual University courses.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+          ${mcqSets.map(s => `
+            <div style="padding: 1.25rem; border: 1px solid #bae6fd; border-radius: 12px; background: #ffffff;">
+              <a href="/mcqs/${s.id}" style="text-decoration: none; font-weight: 700; color: #0369a1; font-size: 1.1rem; display: block;">
+                ${s.courseCode} Live Midterm &amp; Quiz MCQs (${s.questions.length} Qs)
+              </a>
+              <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
+                ${s.courseTitle} · Timed Practice &amp; Quick Flash Review
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `
+  },
+
+  // 2H. Dedicated Non-Branded Official Handouts PDF Hub
+  {
+    path: 'vu-handouts-pdf',
+    title: `Virtual University Lecture Handouts PDF Free Download (${typeCounts.HANDOUT.toLocaleString()} Handouts) | MIHORA VU`,
+    description: `Direct free download of ${typeCounts.HANDOUT.toLocaleString()}+ official Virtual University lecture handouts PDF, highlighted short notes, and syllabus books for CS, MTH, ENG, MGT, and all ${allCoursesList.length} VU courses.`,
+    canonical: 'https://study.mihora.tech/vu-handouts-pdf',
+    keywords: 'vu handouts pdf, virtual university lecture handouts free download, vu highlighted handouts pdf, cs101 handouts pdf, cs201 handouts pdf, mth101 handouts pdf, eng101 handouts pdf, vu short notes pdf',
+    extraJsonLd: {
+      "@type": "CollectionPage",
+      "@id": "https://study.mihora.tech/vu-handouts-pdf#collection",
+      "name": "Virtual University Official Lecture Handouts PDF Archive",
+      "description": `${typeCounts.HANDOUT.toLocaleString()} official lecture handouts and highlighted study notes indexed across ${allCoursesList.length} subjects.`
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Official Virtual University Lecture Handouts PDF (${typeCounts.HANDOUT.toLocaleString()} Handouts &amp; Highlighted Notes)</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          Download complete official VU lecture handouts PDF, highlighted exam-focused short notes, and reference textbooks free with zero login across all ${allCoursesList.length} accredited subjects.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+          ${TOP_COURSES.map(c => `
+            <div style="padding: 1rem; border: 1px solid #d1fae5; border-radius: 12px; background: #ffffff;">
+              <a href="/courses/${c.code.toLowerCase()}" style="text-decoration: none; font-weight: 700; color: #047857;">
+                ${c.code} – ${c.title} Handouts PDF
+              </a>
+              <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.25rem;">
+                ${c.faculty} · ${c.fileCount} Total Files
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `
+  },
+
+  // 2I. Dedicated Non-Branded Solved Subjective Questions Hub
+  {
+    path: 'vu-subjective-solved',
+    title: 'Solved VU Subjective Questions (2, 3 & 5 Marks Short & Long Answers) | MIHORA VU',
+    description: `Study high-yield solved 2, 3, and 5-mark Virtual University subjective short and long exam questions with 10-second memory hooks, examiner rubrics, and rapid cram sheets across all ${allCoursesList.length} courses.`,
+    canonical: 'https://study.mihora.tech/vu-subjective-solved',
+    keywords: 'vu short questions solved, vu long questions 5 marks solved, vu subjective solved papers, vu 2 marks 3 marks 5 marks questions, cs201 subjective solved, cs301 subjective solved, cs403 subjective solved, eng201 subjective, mgt301 subjective, pak301 subjective',
+    extraJsonLd: {
+      "@type": "CollectionPage",
+      "@id": "https://study.mihora.tech/vu-subjective-solved#collection",
+      "name": "Virtual University Solved 2/3/5-Mark Subjective Questions Hub",
+      "description": `Fast-learning subjective question packs with 10-second memory hooks and examiner key points across ${allCoursesList.length} VU courses.`
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Solved VU Subjective Short &amp; Long Questions (2, 3 &amp; 5 Marks Fast-Prep)</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          High-yield Virtual University subjective exam answers structured by 2, 3, and 5-mark rubrics, 10-second memory hooks, and printable cram sheets.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+          ${subjectiveSets.map(s => `
+            <div style="padding: 1.25rem; border: 1px solid #fde68a; border-radius: 12px; background: #ffffff;">
+              <a href="/subjective/${s.id}" style="text-decoration: none; font-weight: 700; color: #b45309; font-size: 1.1rem; display: block;">
+                ${s.courseCode} – ${s.courseTitle} Solved Subjective
+              </a>
+              <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
+                ${s.questions.length} Structured 2/3/5-Mark Q&amp;As · 10-Sec Hooks
               </div>
             </div>
           `).join('')}
@@ -727,6 +891,14 @@ export function prerenderAllRoutes() {
         { name: 'About MIHORA', item: 'https://study.mihora.tech/about' },
         { name: route.title.split('|')[0].trim(), item: route.canonical }
       );
+    } else if (route.path === 'vu-mcqs-bank') {
+      routeBreadcrumbs.push({ name: 'VU MCQs Bank', item: route.canonical });
+    } else if (route.path === 'live-mids-mcqs') {
+      routeBreadcrumbs.push({ name: 'Live Mids MCQs & Quiz Bank', item: route.canonical });
+    } else if (route.path === 'vu-handouts-pdf') {
+      routeBreadcrumbs.push({ name: 'Official VU Handouts PDF', item: route.canonical });
+    } else if (route.path === 'vu-subjective-solved') {
+      routeBreadcrumbs.push({ name: 'Solved Subjective Questions (2/3/5 Marks)', item: route.canonical });
     } else {
       routeBreadcrumbs.push({ name: route.title.split('|')[0].trim(), item: route.canonical });
     }
@@ -837,7 +1009,7 @@ export function prerenderAllRoutes() {
     } else if (r.path === 'vu-assignment-solution-2026') {
       priority = '0.99';
       freq = 'daily';
-    } else if (['courses', 'past-papers', 'mcqs', 'subjective', 'handbook', 'simulator', 'gpa-calculator', 'assignment-guide'].includes(r.path)) {
+    } else if (['courses', 'past-papers', 'mcqs', 'subjective', 'handbook', 'simulator', 'gpa-calculator', 'assignment-guide', 'vu-mcqs-bank', 'live-mids-mcqs', 'vu-handouts-pdf', 'vu-subjective-solved'].includes(r.path)) {
       priority = '0.95';
       freq = 'daily';
     } else if (['datesheet-guide', 'cs619-guide', 'security', 'about', 'sitemap'].includes(r.path)) {
@@ -895,6 +1067,22 @@ ${sitemapItems.join('\n')}
 - [VU Student Handbook & FAQs](https://study.mihora.tech/handbook): Official grading, rescheduling (PKR 2,000 fee), and datesheet booking rules.
 - [Datesheet Seat Booking Strategy](https://study.mihora.tech/datesheet-guide): First-come, first-served VULMS exam seat booking workflow.
 - [CS619 Final Year Project Roadmap](https://study.mihora.tech/cs619-guide): Proposal, IEEE 830 SRS, ERD design, and viva defense checklist.
+
+## Live Exam Banks & Resource Breakdown (${totalResourceCount.toLocaleString()} Verified Documents)
+- [VU MCQs Bank (${totalMcqQuestions.toLocaleString()} Interactive + ${typeCounts.MCQFILE.toLocaleString()} Mega MCQ Files)](https://study.mihora.tech/vu-mcqs-bank): Subject-wise interactive quizzes with 45-second exam timers plus downloadable mega MCQ compilations.
+- [Live Mids MCQs & Current Midterm Quiz Bank (${typeCounts.QUIZ.toLocaleString()} Quiz Files + ${typeCounts.MIDTERM.toLocaleString()} Midterms)](https://study.mihora.tech/live-mids-mcqs): Current semester quiz dumps, student-shared live midterm MCQs, and solved midterm past paper packets.
+- [Official VU Lecture Handouts PDF (${typeCounts.HANDOUT.toLocaleString()} Files)](https://study.mihora.tech/vu-handouts-pdf): Complete official Virtual University lecture handouts, highlighted short notes, and syllabus PDF books.
+- [Solved Final-Term Past Papers (${typeCounts.FINALTERM.toLocaleString()} Files)](https://study.mihora.tech/past-papers): Verified Moaaz, Waqar Siddhu, and topper solved final-term archives.
+- [Solved 2, 3 & 5-Mark Subjective Questions (${totalSubjectiveQuestions} High-Yield Q&As + ${allCoursesList.length} Course Hubs)](https://study.mihora.tech/vu-subjective-solved): Fast-learning short & long answers with 10-second memory hooks and cram sheets.
+- [2026 Assignments & GDB Guides (${typeCounts.ASSIGNMENT.toLocaleString()} Files)](https://study.mihora.tech/vu-assignment-solution-2026): Verified templates under the Turnitin <19% rule and 24-hour grace period.
+
+## Non-Branded Search & Topic Mapping
+- **"VU MCQs bank" / "VU solved MCQs" / "VU grand quiz MCQs"** -> https://study.mihora.tech/vu-mcqs-bank
+- **"VU live mids MCQs" / "VU current midterm quiz bank" / "VU live quiz"** -> https://study.mihora.tech/live-mids-mcqs
+- **"VU handouts PDF free download" / "Virtual University lecture notes"** -> https://study.mihora.tech/vu-handouts-pdf
+- **"VU solved subjective 2 3 5 marks" / "VU short and long questions"** -> https://study.mihora.tech/vu-subjective-solved
+- **"VU passing marks 20 percent rule calculator"** -> https://study.mihora.tech/simulator
+- **"VU GPA and CGPA calculator 4.0"** -> https://study.mihora.tech/gpa-calculator
 
 ## Key Virtual University Academic Facts (Canonical)
 - **VU 20% Two-Half Passing Rule**: Students must achieve at least 20% marks in the First Half (Quizzes, Assignments, GDBs, Midterm combined) AND independently at least 20% in the Final-Term exam paper.
