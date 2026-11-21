@@ -10,6 +10,8 @@ User-agent: *
 Allow: /
 Allow: /courses
 Allow: /courses/*
+Allow: /doc
+Allow: /doc/*
 Allow: /mcqs
 Allow: /mcqs/*
 Allow: /vu-mcqs-bank
@@ -35,6 +37,7 @@ Allow: /logo.svg
 Allow: /logo-white.svg
 Allow: /og-cover.jpg
 Allow: /sitemap.xml
+Allow: /sitemap-docs.xml
 Allow: /llms.txt
 Allow: /llms-full.txt
 Disallow: /api/
@@ -54,6 +57,8 @@ User-agent: YandexBot
 Allow: /
 Allow: /courses
 Allow: /courses/*
+Allow: /doc
+Allow: /doc/*
 Allow: /mcqs
 Allow: /mcqs/*
 Allow: /vu-mcqs-bank
@@ -98,6 +103,8 @@ User-agent: meta-externalagent
 Allow: /
 Allow: /courses
 Allow: /courses/*
+Allow: /doc
+Allow: /doc/*
 Allow: /mcqs
 Allow: /mcqs/*
 Allow: /vu-mcqs-bank
@@ -133,4 +140,5 @@ Disallow: /
 
 # 5. Authoritative Sitemaps & Generative AI Index
 Sitemap: https://study.mihora.tech/sitemap.xml
+Sitemap: https://study.mihora.tech/sitemap-docs.xml
 Host: study.mihora.tech
