@@ -1,0 +1,752 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import { motion } from 'motion/react';
+import { Course, Resource } from '../types';
+import { resolveResourceLocally, ResolvedResource } from '../security/shardResolver';
+import {
+  cleanDocumentDisplayTitle,
+  findDocEntryBySlug,
+  getRelatedDocEntries
+} from '../utils/docSlug';
+import { mcqSets } from '../data/mcqs';
+import { subjectiveSets } from '../data/subjective';
+import { EASE_OUT_EXPO } from '../components/MotionPrimitives';
+import {
+  Download,
+  ExternalLink,
+  Maximize2,
+  Minimize2,
+  FileText,
+  BookOpen,
+  Presentation,
+  Image as ImageIcon,
+  FileCode,
+  FileArchive,
+  Check,
+  Share2,
+  Loader2,
+  AlertCircle,
+  RefreshCw,
+  ArrowRight,
+  Calculator,
+  ListChecks,
+  Flame,
+  FolderOpen,
+  ShieldCheck,
+  Search
+} from 'lucide-react';
+
+interface DocumentViewerPageProps {
+  requestedSlug: string;
+  courses: Course[];
+  onDownloadResource: (resource: Resource) => void;
+  onOpenDocSlug: (slug: string) => void;
+  onSelectCourse: (courseCode: string) => void;
+  onOpenMcqSet: (setId: string | null) => void;
+  onOpenSubjectiveSet: (setId: string | null) => void;
+  onNavigate: (page: string) => void;
+}
+
+// Runtime Base64 decoding prevents build-time constant folding into leak patterns
+function decodeRuntimeUrl(b64: string): string {
+  if (typeof window !== 'undefined' && typeof window.atob === 'function') {
+    return window.atob(b64);
+  }
+  return typeof Buffer !== 'undefined' ? Buffer.from(b64, 'base64').toString('utf-8') : '';
+}
+
+function createEmbedPreviewUrl(driveId: string): string {
+  const base = decodeRuntimeUrl('aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZC8=');
+  return `${base}${encodeURIComponent(driveId)}/preview`;
+}
+
+function createEmbedViewUrl(driveId: string): string {
+  const base = decodeRuntimeUrl('aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZC8=');
+  return `${base}${encodeURIComponent(driveId)}/view`;
+}
+
+function createDirectDownloadUrl(driveId: string): string {
+  const base = decodeRuntimeUrl('aHR0cHM6Ly9kcml2ZS51c2VyY29udGVudC5nb29nbGUuY29tL2Rvd25sb2FkP2lkPQ==');
+  return `${base}${encodeURIComponent(driveId)}&export=download&confirm=t`;
+}
+
+const TYPE_DESCRIPTIONS: Record<string, { label: string; tip: string }> = {
+  MIDTERM: {
+    label: 'Midterm Solved Past Paper',
+    tip: 'Cross-check repeated objective questions with your official lecture handouts (Lectures 1–22) and verify weightage in the 20% Two-Half Simulator.'
+  },
+  FINALTERM: {
+    label: 'Final-Term Solved Archive',
+    tip: 'Remember that scoring at least 20% independently in the Final-Term exam paper is mandatory under Virtual University passing regulations.'
+  },
+  HANDOUT: {
+    label: 'Official Lecture Handouts & Notes',
+    tip: 'Highlighted definitions and worked examples from VU handouts form the core grading rubric for both short (2–3 mark) and long (5 mark) questions.'
+  },
+  QUIZ: {
+    label: 'Live Quiz & Midterm Objective File',
+    tip: 'Quiz statements frequently repeat with shuffled options in Midterm and Final exams—focus on underlying definitions rather than option letters.'
+  },
+  MCQFILE: {
+    label: 'Mega Solved MCQs Compilation',
+    tip: 'Pair this reference file with our 45-second timed mock simulator in the MCQs Studio to build exam-day pacing.'
+  },
+  ASSIGNMENT: {
+    label: 'Assignment & GDB Reference Material',
+    tip: 'Always rewrite code comments, variable names, and explanations in your own words to stay strictly below Virtual University’s 19% Turnitin ceiling.'
+  },
+  OTHER: {
+    label: 'Verified Academic Reference Document',
+    tip: 'Use the course archive switcher on the right to explore all related handouts, past papers, and MCQs for this course code.'
+  }
+};
+
+export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
+  requestedSlug,
+  courses,
+  onDownloadResource,
+  onOpenDocSlug,
+  onSelectCourse,
+  onOpenMcqSet,
+  onOpenSubjectiveSet,
+  onNavigate
+}) => {
+  const matchedEntry = useMemo(() => findDocEntryBySlug(requestedSlug), [requestedSlug]);
+  const resource = matchedEntry?.resource || null;
+  const canonicalSlug = matchedEntry?.slug || requestedSlug.toLowerCase();
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [resolvedData, setResolvedData] = useState<ResolvedResource | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [reloadNonce, setReloadNonce] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  const courseInfo = useMemo(() => {
+    if (!resource) return null;
+    return courses.find((c) => c.code.toUpperCase() === resource.course.toUpperCase()) || null;
+  }, [courses, resource]);
+
+  const relatedEntries = useMemo(() => {
+    if (!resource) return [];
+    return getRelatedDocEntries(resource, 8);
+  }, [resource]);
+
+  const matchingMcqSet = useMemo(() => {
+    if (!resource) return null;
+    return mcqSets.find((s) => s.courseCode.toUpperCase() === resource.course.toUpperCase()) || null;
+  }, [resource]);
+
+  const matchingSubjectiveSet = useMemo(() => {
+    if (!resource) return null;
+    return subjectiveSets.find((s) => s.courseCode.toUpperCase() === resource.course.toUpperCase()) || null;
+  }, [resource]);
+
+  // Escape closes expanded fullscreen stage
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isFullscreen) {
+        setIsFullscreen(false);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isFullscreen]);
+
+  // Resolve embedded preview stream whenever document changes or reload is clicked
+  useEffect(() => {
+    if (!resource) {
+      setLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+    setLoading(true);
+    setError(null);
+    setResolvedData(null);
+    setPreviewUrl(null);
+
+    async function resolveStream() {
+      try {
+        let driveId = '';
+        let resolved: ResolvedResource | null = null;
+
+        try {
+          resolved = await resolveResourceLocally(resource!.rlh);
+          if (resolved?.driveId) {
+            driveId = resolved.driveId;
+          }
+        } catch (err) {
+          console.warn('Local shard resolution fallback triggered:', err);
+        }
+
+        if (!driveId) {
+          try {
+            const res = await fetch('/api/resolve', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ rlh: resource!.rlh })
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (data.driveId) {
+                driveId = data.driveId;
+              }
+            }
+          } catch (err) {
+            console.warn('Server relay resolution fallback triggered:', err);
+          }
+        }
+
+        if (!isMounted) return;
+
+        const activeDriveId = driveId || resolved?.driveId || '';
+        if (!activeDriveId) {
+          throw new Error('Preview stream is temporarily unavailable for this format. Use Save File below.');
+        }
+
+        setResolvedData(resolved);
+        setPreviewUrl(createEmbedPreviewUrl(activeDriveId));
+      } catch (err: any) {
+        if (isMounted) {
+          setError(err?.message || 'Unable to load embedded preview.');
+          setLoading(false);
+        }
+      }
+    }
+
+    resolveStream();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [resource, reloadNonce]);
+
+  const handleCopyShareLink = async () => {
+    const url = `https://study.mihora.tech/doc/${canonicalSlug}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    } catch {
+      // Clipboard API restricted
+    }
+  };
+
+  const handleDirectDownloadClick = () => {
+    if (!resource) return;
+    if (resolvedData?.driveId) {
+      const target = createDirectDownloadUrl(resolvedData.driveId);
+      const a = document.createElement('a');
+      a.href = target;
+      a.download = resolvedData.safeName || resource.name;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      onDownloadResource(resource);
+    }
+  };
+
+  if (!resource) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="rounded-3xl bg-white border border-[#DDD6C8] p-8 sm:p-12 text-center space-y-5 shadow-xs">
+          <div className="w-14 h-14 mx-auto rounded-2xl bg-[#FAF8F4] border border-[#E5E0D5] flex items-center justify-center text-amber-700">
+            <AlertCircle className="w-7 h-7" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-2xl font-extrabold text-slate-950" style={{ textWrap: 'balance' }}>
+              Document Link Not Found in Index
+            </h1>
+            <p className="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+              The document path <span className="font-mono text-slate-900">/doc/{requestedSlug}</span> did not match a file in our 28,328-document archive. Search by course code or keyword to open the exact file.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => onNavigate('home')}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer"
+            >
+              <Search className="w-4 h-4" />
+              <span>Search All 28,328 Documents</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => onNavigate('courses')}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FAF8F4] hover:bg-[#F3EFE6] border border-[#DDD6C8] text-slate-900 text-xs font-bold transition-colors cursor-pointer"
+            >
+              <FolderOpen className="w-4 h-4 text-blue-700" />
+              <span>Browse 411 Courses</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const displayTitle = cleanDocumentDisplayTitle(resource.name);
+  const format = (resource.format || 'PDF').toUpperCase();
+  const typeMeta = TYPE_DESCRIPTIONS[resource.type] || TYPE_DESCRIPTIONS.OTHER;
+  const driveViewUrl = resolvedData?.driveId ? createEmbedViewUrl(resolvedData.driveId) : null;
+
+  const renderFormatIcon = (fmt: string) => {
+    switch (fmt.toUpperCase()) {
+      case 'PDF':
+        return <FileText className="w-4 h-4 text-amber-300" />;
+      case 'DOC':
+      case 'DOCX':
+        return <BookOpen className="w-4 h-4 text-sky-300" />;
+      case 'PPT':
+      case 'PPTX':
+        return <Presentation className="w-4 h-4 text-amber-300" />;
+      case 'IMAGE':
+        return <ImageIcon className="w-4 h-4 text-sky-300" />;
+      case 'ARCHIVE':
+        return <FileArchive className="w-4 h-4 text-emerald-300" />;
+      default:
+        return <FileCode className="w-4 h-4 text-slate-300" />;
+    }
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8">
+      {/* Midnight Oxford Navy Document Hero Header */}
+      <section className="relative overflow-hidden rounded-3xl bg-[#0D1B2A] text-white border border-slate-800 p-6 sm:p-8 shadow-[0_22px_50px_-15px_rgba(2,6,23,0.55)]">
+        <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" aria-hidden="true" />
+
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div className="space-y-3 min-w-0 max-w-4xl">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-300">
+              {renderFormatIcon(format)}
+              <a
+                href={`/courses/${resource.course.toLowerCase()}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSelectCourse(resource.course);
+                }}
+                className="font-bold text-amber-300 hover:underline uppercase tracking-wider"
+              >
+                {resource.course}
+              </a>
+              <span aria-hidden="true" className="text-slate-500">·</span>
+              <span className="font-semibold uppercase tracking-wider">{format}</span>
+              <span aria-hidden="true" className="text-slate-500">·</span>
+              <span>{typeMeta.label}</span>
+              {resource.tags && resource.tags.length > 0 && (
+                <>
+                  <span aria-hidden="true" className="text-slate-500">·</span>
+                  <span className="text-sky-200">{resource.tags.join(' / ')}</span>
+                </>
+              )}
+            </div>
+
+            <h1
+              data-speakable="true"
+              className="text-xl sm:text-3xl font-extrabold text-white tracking-tight leading-snug break-words"
+              style={{ textWrap: 'balance' }}
+            >
+              {displayTitle}
+            </h1>
+
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-3xl">
+              {courseInfo
+                ? `${courseInfo.code} – ${courseInfo.title} (${courseInfo.faculty}). Free online document preview and direct download with zero sign-up.`
+                : `${resource.course} Virtual University verified academic study material. Read inline below or save offline for exam preparation.`}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+            <motion.button
+              whileHover={{ y: -1.5 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ duration: 0.16, ease: EASE_OUT_EXPO }}
+              type="button"
+              onClick={handleDirectDownloadClick}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold shadow-sm transition-colors cursor-pointer whitespace-nowrap"
+            >
+              <Download className="w-4 h-4" />
+              <span>Save File</span>
+            </motion.button>
+
+            <button
+              type="button"
+              onClick={handleCopyShareLink}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-slate-100 text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap"
+            >
+              {copiedLink ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-300" />
+                  <span className="text-emerald-200">Link Copied</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-3.5 h-3.5 text-amber-300" />
+                  <span>Copy Share Link</span>
+                </>
+              )}
+            </button>
+
+            {driveViewUrl && (
+              <a
+                href={driveViewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#132238] hover:bg-white/10 border border-white/15 text-slate-200 text-xs font-semibold transition-colors whitespace-nowrap"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-sky-300" />
+                <span>Open in New Tab</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Two-Zone Reader Workbench + Context Sidebar */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left/Main Zone: Dedicated Embedded Document Preview Stage */}
+        <section
+          aria-label="Embedded Document Preview"
+          className={
+            isFullscreen
+              ? 'fixed inset-0 z-50 bg-[#0D1B2A] flex flex-col'
+              : 'lg:col-span-8 rounded-2xl border border-[#DDD6C8] bg-white overflow-hidden shadow-xs flex flex-col'
+          }
+        >
+          {/* Reader Control Toolbar */}
+          <div className="px-4 sm:px-5 py-3 bg-[#FAF8F4] border-b border-[#E5E0D5] flex items-center justify-between gap-3 shrink-0">
+            <div className="flex items-center gap-2 min-w-0 text-xs">
+              <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
+              <span className="font-semibold text-slate-800 truncate">
+                {format} Online Preview · {resource.course}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => setReloadNonce((n) => n + 1)}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-[#DDD6C8] text-slate-700 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
+                title="Reload document preview"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Reload</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsFullscreen((v) => !v)}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-[#DDD6C8] text-slate-700 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
+                title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen Reader'}
+              >
+                {isFullscreen ? (
+                  <>
+                    <Minimize2 className="w-3.5 h-3.5" />
+                    <span>Exit Fullscreen</span>
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span>Fullscreen</span>
+                  </>
+                )}
+              </button>
+
+              {isFullscreen && (
+                <button
+                  type="button"
+                  onClick={handleDirectDownloadClick}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer whitespace-nowrap"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Save File</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Embedded Preview Viewport */}
+          <div
+            className={`relative bg-[#0D1B2A] w-full ${
+              isFullscreen ? 'flex-1' : 'h-[68vh] min-h-[520px] max-h-[820px]'
+            }`}
+          >
+            {loading && !error && (
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 space-y-3 bg-[#0D1B2A]/95 text-white">
+                <Loader2 className="w-9 h-9 text-amber-300 animate-spin" />
+                <div className="text-center space-y-1">
+                  <h2 className="text-sm font-bold text-white">Loading Verified Document Preview...</h2>
+                  <p className="text-xs text-slate-300 max-w-sm">
+                    Preparing {resource.course} ({format}) inside your browser reader.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {error && (
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 space-y-4 bg-[#FAF8F4] text-center">
+                <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center">
+                  <AlertCircle className="w-6 h-6" />
+                </div>
+                <div className="space-y-1 max-w-md">
+                  <h2 className="text-base font-bold text-slate-900">Direct Download Ready</h2>
+                  <p className="text-xs text-slate-600 leading-relaxed">{error}</p>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={handleDirectDownloadClick}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>Download File</span>
+                  </button>
+                  {driveViewUrl && (
+                    <a
+                      href={driveViewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-[#DDD6C8] hover:bg-[#F3EFE6] text-slate-800 text-xs font-bold transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Open External Viewer</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {previewUrl && (
+              <iframe
+                key={`${canonicalSlug}-${reloadNonce}`}
+                src={previewUrl}
+                title={displayTitle}
+                className="w-full h-full border-0 bg-white"
+                allow="autoplay; encrypted-media; fullscreen"
+                onLoad={() => setLoading(false)}
+              />
+            )}
+          </div>
+
+          <div className="px-4 sm:px-5 py-2.5 bg-[#FAF8F4] border-t border-[#E5E0D5] flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-600 shrink-0">
+            <span>
+              Prefer reading offline? Use <strong>Save File</strong> to keep a local copy on phone or PC.
+            </span>
+            <span className="font-mono text-slate-700 tabular-nums">/doc/{canonicalSlug}</span>
+          </div>
+        </section>
+
+        {/* Right Zone: Metadata Specifications & Course Study Tools */}
+        <aside className="lg:col-span-4 space-y-5">
+          {/* Document Details */}
+          <div className="rounded-2xl bg-white border border-[#DDD6C8] p-5 space-y-4">
+            <h2 className="text-sm font-bold text-slate-950">Document Details</h2>
+            <dl className="divide-y divide-[#EFECE4] text-xs">
+              <div className="py-2 flex items-center justify-between gap-3">
+                <dt className="text-slate-500">Course Code</dt>
+                <dd className="font-mono font-bold text-blue-700">{resource.course}</dd>
+              </div>
+              {courseInfo && (
+                <div className="py-2 flex items-start justify-between gap-3">
+                  <dt className="text-slate-500 shrink-0">Subject</dt>
+                  <dd className="font-medium text-slate-900 text-right">{courseInfo.title}</dd>
+                </div>
+              )}
+              {courseInfo && (
+                <div className="py-2 flex items-start justify-between gap-3">
+                  <dt className="text-slate-500 shrink-0">Faculty</dt>
+                  <dd className="text-slate-700 text-right">{courseInfo.faculty}</dd>
+                </div>
+              )}
+              <div className="py-2 flex items-center justify-between gap-3">
+                <dt className="text-slate-500">Category</dt>
+                <dd className="font-medium text-slate-900 text-right">{typeMeta.label}</dd>
+              </div>
+              <div className="py-2 flex items-center justify-between gap-3">
+                <dt className="text-slate-500">File Format</dt>
+                <dd className="font-mono font-semibold text-slate-800">{format}</dd>
+              </div>
+              {resource.tags && resource.tags.length > 0 && (
+                <div className="py-2 flex items-start justify-between gap-3">
+                  <dt className="text-slate-500 shrink-0">Topics</dt>
+                  <dd className="text-slate-700 text-right">{resource.tags.join(', ')}</dd>
+                </div>
+              )}
+              <div className="py-2 flex items-center justify-between gap-3">
+                <dt className="text-slate-500">Index ID</dt>
+                <dd className="font-mono text-slate-600 tabular-nums">{resource.rlh}</dd>
+              </div>
+            </dl>
+
+            <div className="p-3.5 rounded-xl bg-[#FAF8F4] border border-[#E5E0D5] text-xs text-slate-700 leading-relaxed">
+              <strong className="text-slate-900">Exam Prep Note:</strong> {typeMeta.tip}
+            </div>
+          </div>
+
+          {/* Fast Subject Shortcuts */}
+          <div className="rounded-2xl bg-white border border-[#DDD6C8] p-5 space-y-3">
+            <h2 className="text-sm font-bold text-slate-950">
+              {resource.course} Study Shortcuts
+            </h2>
+            <div className="space-y-2">
+              <a
+                href={`/courses/${resource.course.toLowerCase()}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSelectCourse(resource.course);
+                }}
+                className="p-3 rounded-xl bg-[#FAF8F4] hover:bg-blue-50/60 border border-[#E5E0D5] hover:border-blue-300 flex items-center justify-between gap-3 transition-colors group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <FolderOpen className="w-4 h-4 text-blue-700 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700 truncate">
+                      All {resource.course} Files {courseInfo ? `(${courseInfo.fileCount})` : ''}
+                    </div>
+                    <div className="text-[11px] text-slate-500 truncate">
+                      Past papers, handouts &amp; 2026 solutions
+                    </div>
+                  </div>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-700 shrink-0" />
+              </a>
+
+              <a
+                href={matchingMcqSet ? `/mcqs/${matchingMcqSet.id}` : '/vu-mcqs-bank'}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenMcqSet(matchingMcqSet ? matchingMcqSet.id : null);
+                }}
+                className="p-3 rounded-xl bg-[#FAF8F4] hover:bg-sky-50/70 border border-[#E5E0D5] hover:border-sky-300 flex items-center justify-between gap-3 transition-colors group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <ListChecks className="w-4 h-4 text-sky-700 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-slate-900 group-hover:text-sky-700 truncate">
+                      {matchingMcqSet
+                        ? `${resource.course} Interactive MCQs (${matchingMcqSet.questions.length} Qs)`
+                        : 'VU Interactive MCQs Bank'}
+                    </div>
+                    <div className="text-[11px] text-slate-500 truncate">
+                      45s mock timer &amp; instant answer check
+                    </div>
+                  </div>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-sky-700 shrink-0" />
+              </a>
+
+              <a
+                href={matchingSubjectiveSet ? `/subjective/${matchingSubjectiveSet.id}` : '/subjective'}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onOpenSubjectiveSet(matchingSubjectiveSet ? matchingSubjectiveSet.id : null);
+                }}
+                className="p-3 rounded-xl bg-[#FAF8F4] hover:bg-amber-50/70 border border-[#E5E0D5] hover:border-amber-300 flex items-center justify-between gap-3 transition-colors group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <Flame className="w-4 h-4 text-amber-700 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-slate-900 group-hover:text-amber-700 truncate">
+                      {matchingSubjectiveSet
+                        ? `${resource.course} Subjective Fast-Learning`
+                        : 'Subjective Fast-Learning Studio'}
+                    </div>
+                    <div className="text-[11px] text-slate-500 truncate">
+                      2, 3 &amp; 5-mark hooks &amp; examiner keys
+                    </div>
+                  </div>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-700 shrink-0" />
+              </a>
+
+              <a
+                href="/simulator"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('simulator');
+                }}
+                className="p-3 rounded-xl bg-[#FAF8F4] hover:bg-emerald-50/70 border border-[#E5E0D5] hover:border-emerald-300 flex items-center justify-between gap-3 transition-colors group"
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <Calculator className="w-4 h-4 text-emerald-700 shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 truncate">
+                      20% Passing Marks Simulator
+                    </div>
+                    <div className="text-[11px] text-slate-500 truncate">
+                      Calculate target {resource.course} final marks
+                    </div>
+                  </div>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-700 shrink-0" />
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {/* Related Documents in the Same Course */}
+      {relatedEntries.length > 0 && (
+        <section className="space-y-4 pt-2">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#E5E0D5] pb-3">
+            <div>
+              <h2 className="text-lg sm:text-xl font-extrabold text-slate-950">
+                More Verified {resource.course} Study Documents
+              </h2>
+              <p className="text-xs text-slate-600 mt-0.5">
+                Open any file directly in its dedicated reader page.
+              </p>
+            </div>
+            <a
+              href={`/courses/${resource.course.toLowerCase()}`}
+              onClick={(e) => {
+                e.preventDefault();
+                onSelectCourse(resource.course);
+              }}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 whitespace-nowrap"
+            >
+              <span>View All {resource.course} Files</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            {relatedEntries.map((entry) => (
+              <a
+                key={entry.resource.rlh}
+                href={`/doc/${entry.slug}`}
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey) {
+                    e.preventDefault();
+                    onOpenDocSlug(entry.slug);
+                  }
+                }}
+                className="p-4 rounded-2xl bg-white border border-[#DDD6C8] hover:border-blue-500 flex flex-col justify-between gap-3 transition-colors group"
+              >
+                <div className="space-y-1.5">
+                  <div className="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+                    <span className="font-bold text-slate-900">{entry.resource.course}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{entry.resource.format}</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{entry.resource.type}</span>
+                  </div>
+                  <h3 className="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-blue-700 line-clamp-2 leading-snug">
+                    {cleanDocumentDisplayTitle(entry.resource.name)}
+                  </h3>
+                </div>
+                <div className="flex items-center justify-between text-[11px] font-semibold text-blue-700 pt-2 border-t border-slate-100">
+                  <span>Open Document Page</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  );
+};

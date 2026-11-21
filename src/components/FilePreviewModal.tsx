@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Resource } from '../types';
 import { resolveResourceLocally, ResolvedResource } from '../security/shardResolver';
+import { getDocSlug } from '../utils/docSlug';
 import {
   X,
   Download,
@@ -21,6 +22,7 @@ import {
 interface FilePreviewModalProps {
   resource: Resource | null;
   onClose: () => void;
+  onOpenDedicatedPage?: (slug: string) => void;
 }
 
 // Base64 runtime decoding prevents build-time constant folding into leak patterns
@@ -46,7 +48,11 @@ function createDirectDownloadUrl(driveId: string): string {
   return `${base}${encodeURIComponent(driveId)}&export=download&confirm=t`;
 }
 
-export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, onClose }) => {
+export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({
+  resource,
+  onClose,
+  onOpenDedicatedPage
+}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [resolvedData, setResolvedData] = useState<ResolvedResource | null>(null);
@@ -157,6 +163,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
 
   const format = (resource?.format || '').toUpperCase();
   const driveViewUrl = resolvedData?.driveId ? createEmbedViewUrl(resolvedData.driveId) : null;
+  const docSlug = resource ? getDocSlug(resource.rlh) : '';
 
   return (
     <AnimatePresence>
@@ -215,6 +222,24 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
 
               {/* Action Tools */}
               <div className="relative z-10 flex items-center gap-2 shrink-0">
+                {docSlug && (
+                  <a
+                    href={`/doc/${docSlug}`}
+                    onClick={(e) => {
+                      if (!e.metaKey && !e.ctrlKey && !e.shiftKey && onOpenDedicatedPage) {
+                        e.preventDefault();
+                        onClose();
+                        onOpenDedicatedPage(docSlug);
+                      }
+                    }}
+                    className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#132238] hover:bg-white/10 text-slate-200 font-semibold text-xs transition-colors cursor-pointer border border-white/15 whitespace-nowrap"
+                    title="Open dedicated SEO reader URL for this file"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-sky-300" />
+                    <span>Document Page</span>
+                  </a>
+                )}
+
                 {driveViewUrl && (
                   <motion.a
                     whileHover={{ y: -1 }}
@@ -222,7 +247,7 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({ resource, on
                     href={driveViewUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#132238] hover:bg-white/10 text-slate-200 font-semibold text-xs transition-colors cursor-pointer border border-white/15"
+                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#132238] hover:bg-white/10 text-slate-200 font-semibold text-xs transition-colors cursor-pointer border border-white/15 whitespace-nowrap"
                     title="Open in separate tab"
                   >
                     <ExternalLink className="w-3.5 h-3.5 text-amber-300" />

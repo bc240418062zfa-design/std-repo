@@ -38,6 +38,12 @@ import { VUAssignmentGuidePage } from './pages/VUAssignmentGuidePage';
 import { PastPapersPage } from './pages/PastPapersPage';
 import { MCQsPage } from './pages/MCQsPage';
 import { SubjectivePage } from './pages/SubjectivePage';
+import { DocumentViewerPage } from './pages/DocumentViewerPage';
+import {
+  cleanDocumentDisplayTitle,
+  extractDocSlugFromPath,
+  findDocEntryBySlug
+} from './utils/docSlug';
 import {
   BookOpen,
   ExternalLink,
@@ -64,6 +70,7 @@ const resources: Resource[] = resourcesData as Resource[];
 export type AppPage = 
   | 'home' 
   | 'courses' 
+  | 'doc'
   | 'simulator' 
   | 'handbook' 
   | 'gpa-calculator' 
@@ -81,6 +88,7 @@ export type AppPage =
 const pagePathMap: Record<AppPage, string> = {
   home: '/',
   courses: '/courses',
+  doc: '/doc',
   simulator: '/simulator',
   handbook: '/handbook',
   'gpa-calculator': '/gpa-calculator',
@@ -99,6 +107,7 @@ const pagePathMap: Record<AppPage, string> = {
 function getPageFromPath(): AppPage {
   if (typeof window === 'undefined') return 'home';
   const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  if (pathname.startsWith('/doc/')) return 'doc';
   if (pathname === '/courses' || pathname.startsWith('/courses/') || pathname === '/vu-course-list' || pathname === '/course-list') return 'courses';
   if (pathname === '/simulator' || pathname === '/calculator' || pathname === '/mid-calculator' || pathname === '/vu-mid-calculator') return 'simulator';
   if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules' || pathname === '/vu-student-handbook') return 'handbook';
@@ -208,6 +217,9 @@ export default function App() {
   const [selectedSubjectiveSetId, setSelectedSubjectiveSetId] = useState<string | null>(
     getSubjectiveSetIdFromPath
   );
+  const [selectedDocSlug, setSelectedDocSlug] = useState<string | null>(() =>
+    typeof window !== 'undefined' ? extractDocSlugFromPath(window.location.pathname) : null
+  );
   const [examStudioTab, setExamStudioTab] = useState<'mcqs' | 'subjective'>('mcqs');
   const [pastPapersCourse, setPastPapersCourse] = useState<string>('CS101');
 
@@ -258,6 +270,7 @@ export default function App() {
       setCurrentPage(getPageFromPath());
       setSelectedMcqSetId(getMcqSetIdFromPath());
       setSelectedSubjectiveSetId(getSubjectiveSetIdFromPath());
+      setSelectedDocSlug(extractDocSlugFromPath(nextPath));
       if (cleanPath === '/vu-handouts-pdf') {
         setFilters((prev) => ({ ...prev, course: '', type: 'HANDOUT' }));
       }
@@ -372,6 +385,23 @@ export default function App() {
     }, 80);
   };
 
+  const handleOpenDocSlug = (slug: string) => {
+    const cleanSlug = slug.replace(/^\/?doc\//i, '').replace(/\/+$/g, '');
+    setSelectedDocSlug(cleanSlug);
+    setCurrentPage('doc');
+    const targetPath = `/doc/${cleanSlug}`;
+    setCurrentPathname(targetPath);
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const activeDocEntry = useMemo(
+    () => (selectedDocSlug ? findDocEntryBySlug(selectedDocSlug) : null),
+    [selectedDocSlug]
+  );
+
   // Dynamically synchronize document title, OpenGraph, canonical URL, and JSON-LD (SEO + AEO Speakable)
   useEffect(() => {
     const activeMcqSet = selectedMcqSetId
@@ -387,6 +417,8 @@ export default function App() {
       page: currentPage,
       selectedMcqSet: activeMcqSet,
       selectedSubjectiveSet: activeSubjectiveSet,
+      selectedDocSlug: activeDocEntry?.slug || selectedDocSlug,
+      selectedDoc: activeDocEntry?.resource || null,
       selectedCourseCode: filters.course,
       activeFilterType: filters.type,
       pathnameOverride: currentPathname,
@@ -395,7 +427,16 @@ export default function App() {
       totalMcqQuestions,
       totalSubjectiveQuestions
     });
-  }, [currentPage, currentPathname, filters.course, filters.type, selectedMcqSetId, selectedSubjectiveSetId]);
+  }, [
+    currentPage,
+    currentPathname,
+    filters.course,
+    filters.type,
+    selectedMcqSetId,
+    selectedSubjectiveSetId,
+    selectedDocSlug,
+    activeDocEntry
+  ]);
 
   // Compute search results with ranking algorithm
   const { resources: filteredResources, totalCount: totalMatchingCount } = useMemo(() => {
@@ -670,6 +711,37 @@ export default function App() {
       };
     }
 
+    if (currentPage === 'doc') {
+      const docRes = activeDocEntry?.resource;
+      if (docRes) {
+        return {
+          items: [
+            homeCrumb,
+            {
+              label: `Courses (${courses.length})`,
+              href: '/courses',
+              onClick: () => handleNavigate('courses')
+            },
+            {
+              label: docRes.course,
+              href: `/courses/${docRes.course.toLowerCase()}`,
+              onClick: () => handleSelectCourse(docRes.course)
+            },
+            { label: cleanDocumentDisplayTitle(docRes.name) }
+          ],
+          actionLabel: `All ${docRes.course} Files`,
+          actionHref: `/courses/${docRes.course.toLowerCase()}`,
+          onAction: () => handleSelectCourse(docRes.course)
+        };
+      }
+      return {
+        items: [homeCrumb, { label: 'Document Preview' }],
+        actionLabel: 'Back to Library',
+        actionHref: '/',
+        onAction: () => handleNavigate('home')
+      };
+    }
+
     if (currentPage === 'past-papers') {
       return {
         items: [homeCrumb, { label: 'Solved Past Papers' }],
@@ -886,7 +958,16 @@ export default function App() {
     }
 
     return { items: [] };
-  }, [currentPage, currentPathname, filters.course, filters.type, query, selectedMcqSetId, selectedSubjectiveSetId]);
+  }, [
+    currentPage,
+    currentPathname,
+    filters.course,
+    filters.type,
+    query,
+    selectedMcqSetId,
+    selectedSubjectiveSetId,
+    activeDocEntry
+  ]);
 
   return (
     <MotionConfig reducedMotion="user">
@@ -914,7 +995,7 @@ export default function App() {
         />
 
         <motion.div
-          key={`${currentPage}-${selectedMcqSetId || selectedSubjectiveSetId || 'hub'}`}
+          key={`${currentPage}-${selectedDocSlug || selectedMcqSetId || selectedSubjectiveSetId || 'hub'}`}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, ease: EASE_OUT_EXPO }}
@@ -1315,6 +1396,7 @@ export default function App() {
                           onToggleSelect={handleToggleSelect}
                           onDownload={handleDownload}
                           onPreview={setPreviewResource}
+                          onOpenDocPage={handleOpenDocSlug}
                         />
                       ))}
                     </div>
@@ -1729,6 +1811,20 @@ export default function App() {
           <CoursesPage courses={courses} onSelectCourse={handleSelectCourse} />
         )}
 
+        {/* 2B. Page: Dedicated Individual Document Reader & SEO Page (/doc/<slug>) */}
+        {currentPage === 'doc' && selectedDocSlug && (
+          <DocumentViewerPage
+            requestedSlug={selectedDocSlug}
+            courses={courses}
+            onDownloadResource={handleDownload}
+            onOpenDocSlug={handleOpenDocSlug}
+            onSelectCourse={handleSelectCourse}
+            onOpenMcqSet={handleSelectMcqSet}
+            onOpenSubjectiveSet={handleSelectSubjectiveSet}
+            onNavigate={(p) => handleNavigate(p as AppPage)}
+          />
+        )}
+
         {/* 3. Page: Exam Passing Marks Simulator */}
         {currentPage === 'simulator' && (
           <PassingSimulatorPage onSelectCourse={handleSelectCourse} />
@@ -1864,6 +1960,7 @@ export default function App() {
         <FilePreviewModal
           resource={previewResource}
           onClose={() => setPreviewResource(null)}
+          onOpenDedicatedPage={handleOpenDocSlug}
         />
 
         {/* Clean Institutional Celestial Footer */}

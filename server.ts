@@ -5,6 +5,161 @@ import fs from 'fs';
 import path from 'path';
 import JSZip from 'jszip';
 import { Readable } from 'stream';
+import {
+  cleanDocumentDisplayTitle,
+  extractDocSlugFromPath,
+  findDocEntryBySlug,
+  getRelatedDocEntries
+} from './src/utils/docSlug';
+import coursesData from './src/data/courses.json';
+
+function escapeHtmlValue(str: string): string {
+  return (str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function injectDocumentSsrSeo(html: string, reqPath: string): string {
+  const slugPart = extractDocSlugFromPath(reqPath);
+  if (!slugPart) return html;
+  const entry = findDocEntryBySlug(slugPart);
+  if (!entry) return html;
+
+  const doc = entry.resource;
+  const displayName = cleanDocumentDisplayTitle(doc.name);
+  const courseMatch = (coursesData as Array<{ code: string; title: string; faculty: string }>).find(
+    (c) => c.code.toUpperCase() === doc.course.toUpperCase()
+  );
+  const canonicalUrl = `https://study.mihora.tech/doc/${entry.slug}`;
+  const title = `${displayName} (${doc.course} ${doc.format}) – Online Preview & Free Download | MIHORA VU`;
+  const desc = `Preview online and free download ${displayName} for Virtual University ${doc.course}${courseMatch ? ` (${courseMatch.title})` : ''}. Format: ${doc.format}, Category: ${doc.type}. Direct zero-login document viewer on MIHORA VU.`;
+  const keywords = `${doc.course} ${doc.type.toLowerCase()}, ${displayName}, ${doc.course} past papers, ${doc.course} handouts pdf, ${doc.course} mcqs bank, ${doc.course} assignment solution 2026, virtual university ${doc.course}, mihora vu`;
+
+  let out = html
+    .replace(/<title>.*?<\/title>/i, `<title>${escapeHtmlValue(title)}</title>`)
+    .replace(
+      /<meta\s+name="description"\s+content=".*?"\s*\/?>/i,
+      `<meta name="description" content="${escapeHtmlValue(desc)}" />`
+    )
+    .replace(
+      /<meta\s+name="keywords"\s+content=".*?"\s*\/?>/i,
+      `<meta name="keywords" content="${escapeHtmlValue(keywords)}" />`
+    )
+    .replace(
+      /<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i,
+      `<link rel="canonical" href="${escapeHtmlValue(canonicalUrl)}" />`
+    )
+    .replace(
+      /<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i,
+      `<meta property="og:title" content="${escapeHtmlValue(title)}" />`
+    )
+    .replace(
+      /<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i,
+      `<meta property="og:description" content="${escapeHtmlValue(desc)}" />`
+    )
+    .replace(
+      /<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i,
+      `<meta property="og:url" content="${escapeHtmlValue(canonicalUrl)}" />`
+    )
+    .replace(
+      /<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i,
+      `<meta name="twitter:title" content="${escapeHtmlValue(title)}" />`
+    )
+    .replace(
+      /<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i,
+      `<meta name="twitter:description" content="${escapeHtmlValue(desc)}" />`
+    );
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: title,
+        description: desc,
+        inLanguage: 'en-PK',
+        isPartOf: { '@id': 'https://study.mihora.tech/#website' }
+      },
+      {
+        '@type': 'DigitalDocument',
+        '@id': `${canonicalUrl}#document`,
+        name: displayName,
+        fileFormat: doc.format,
+        educationalUse: doc.type,
+        about: {
+          '@type': 'Course',
+          name: `${doc.course}${courseMatch ? ` – ${courseMatch.title}` : ''}`,
+          courseCode: doc.course
+        },
+        isAccessibleForFree: true,
+        inLanguage: 'en-PK',
+        url: canonicalUrl
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://study.mihora.tech/' },
+          { '@type': 'ListItem', position: 2, name: 'Courses', item: 'https://study.mihora.tech/courses' },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: doc.course,
+            item: `https://study.mihora.tech/courses/${doc.course.toLowerCase()}`
+          },
+          { '@type': 'ListItem', position: 4, name: displayName, item: canonicalUrl }
+        ]
+      }
+    ]
+  };
+
+  out = out.replace(
+    '</head>',
+    `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`
+  );
+
+  const related = getRelatedDocEntries(doc, 6);
+  const ssrBody = `
+    <main style="max-width: 1100px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+      <nav aria-label="Breadcrumb" style="font-size: 0.85rem; margin-bottom: 1rem;">
+        <a href="/">Library</a> &rsaquo;
+        <a href="/courses">Courses</a> &rsaquo;
+        <a href="/courses/${escapeHtmlValue(doc.course.toLowerCase())}">${escapeHtmlValue(doc.course)}</a> &rsaquo;
+        <span>${escapeHtmlValue(displayName)}</span>
+      </nav>
+      <h1>${escapeHtmlValue(displayName)}</h1>
+      <p>${escapeHtmlValue(desc)}</p>
+      <p>Course: ${escapeHtmlValue(doc.course)} · Format: ${escapeHtmlValue(doc.format)} · Category: ${escapeHtmlValue(doc.type)}</p>
+      ${
+        related.length > 0
+          ? `<section><h2>More ${escapeHtmlValue(doc.course)} Documents</h2><ul>${related
+              .map(
+                (r) =>
+                  `<li><a href="/doc/${escapeHtmlValue(r.slug)}">${escapeHtmlValue(cleanDocumentDisplayTitle(r.resource.name))}</a></li>`
+              )
+              .join('')}</ul></section>`
+          : ''
+      }
+    </main>
+  `;
+
+  out = out.replace(
+    /<div id="root">[\s\S]*?(?=\s*(?:<!-- Client-side SPA|<script type="module"))/i,
+    `<div id="root">${ssrBody}</div>\n    `
+  );
+  return out
+    .replace(/href="\.\/assets\//g, 'href="/assets/')
+    .replace(/src="\.\/assets\//g, 'src="/assets/')
+    .replace(/href="\.\/logo\.svg"/g, 'href="/logo.svg"')
+    .replace(/src="\.\/logo\.svg"/g, 'src="/logo.svg"')
+    .replace(/href="\.\/og-cover\.jpg"/g, 'href="/og-cover.jpg"')
+    .replace(/src="\.\/og-cover\.jpg"/g, 'src="/og-cover.jpg"');
+}
 
 const app = express();
 const PORT = 3000;
@@ -411,6 +566,12 @@ async function startServer() {
   if (isProd && fs.existsSync(distPath)) {
     console.log('📦 Serving production pre-rendered assets from dist/');
     app.use(express.static(distPath));
+    app.get(/^\/doc\/(.+)/i, (req: Request, res: Response) => {
+      const templatePath = path.join(distPath, 'index.html');
+      const baseHtml = fs.readFileSync(templatePath, 'utf-8');
+      const rendered = injectDocumentSsrSeo(baseHtml, req.path);
+      return res.status(200).set({ 'Content-Type': 'text/html' }).send(rendered);
+    });
     app.get('*', (req: Request, res: Response) => {
       const cleanPath = req.path.replace(/^\/|\/$/g, '');
       const specificFile = path.join(distPath, cleanPath, 'index.html');
@@ -423,6 +584,17 @@ async function startServer() {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
+    });
+    app.get(/^\/doc\/(.+)/i, async (req: Request, res: Response, next) => {
+      try {
+        const indexPath = path.resolve('index.html');
+        let template = fs.readFileSync(indexPath, 'utf-8');
+        template = await vite.transformIndexHtml(req.originalUrl, template);
+        const rendered = injectDocumentSsrSeo(template, req.path);
+        return res.status(200).set({ 'Content-Type': 'text/html' }).end(rendered);
+      } catch (e) {
+        return next(e);
+      }
     });
     app.use(vite.middlewares);
   }

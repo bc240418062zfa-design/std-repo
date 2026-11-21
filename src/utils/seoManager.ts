@@ -1,9 +1,12 @@
-import { Course, McqSet, SubjectiveSet } from '../types';
+import { Course, McqSet, Resource, SubjectiveSet } from '../types';
+import { cleanDocumentDisplayTitle, getDocSlug } from './docSlug';
 
 export interface SeoSyncParams {
   page: string;
   selectedMcqSet: McqSet | null;
   selectedSubjectiveSet: SubjectiveSet | null;
+  selectedDocSlug?: string | null;
+  selectedDoc?: Resource | null;
   selectedCourseCode: string;
   activeFilterType?: string;
   pathnameOverride?: string;
@@ -41,6 +44,8 @@ export function syncRouteSeo({
   page,
   selectedMcqSet,
   selectedSubjectiveSet,
+  selectedDocSlug = null,
+  selectedDoc = null,
   selectedCourseCode,
   activeFilterType = '',
   pathnameOverride = '',
@@ -61,7 +66,39 @@ export function syncRouteSeo({
   ];
   const graphNodes: Array<Record<string, unknown>> = [];
 
-  if (page === 'home' && activeFilterType === 'HANDOUT' && !selectedCourseCode) {
+  if (page === 'doc' && selectedDoc) {
+    const displayName = cleanDocumentDisplayTitle(selectedDoc.name);
+    const match = courses.find((c) => c.code === selectedDoc.course);
+    const canonicalSlug = getDocSlug(selectedDoc.rlh) || selectedDocSlug || '';
+    canonicalPath = `/doc/${canonicalSlug}`;
+    title = `${displayName} (${selectedDoc.course} ${selectedDoc.format}) – Online Preview & Free Download | MIHORA VU`;
+    desc = `Preview online and free download ${displayName} for Virtual University ${selectedDoc.course}${match ? ` (${match.title})` : ''}. Format: ${selectedDoc.format}, Category: ${selectedDoc.type}. Direct zero-login viewer on MIHORA VU.`;
+    keywords = `${selectedDoc.course} ${selectedDoc.type.toLowerCase()}, ${displayName}, ${selectedDoc.course} past papers, ${selectedDoc.course} handouts pdf, ${selectedDoc.course} mcqs bank, ${selectedDoc.course} assignment solution 2026, virtual university ${selectedDoc.course}, mihora vu`;
+    breadcrumbs.push(
+      { name: 'Courses', item: `${BASE_URL}/courses` },
+      { name: selectedDoc.course, item: `${BASE_URL}/courses/${selectedDoc.course.toLowerCase()}` },
+      { name: displayName, item: `${BASE_URL}${canonicalPath}` }
+    );
+    graphNodes.push({
+      '@type': 'DigitalDocument',
+      '@id': `${BASE_URL}${canonicalPath}#document`,
+      name: displayName,
+      fileFormat: selectedDoc.format,
+      educationalUse: selectedDoc.type,
+      about: {
+        '@type': 'Course',
+        name: `${selectedDoc.course}${match ? ` – ${match.title}` : ''}`,
+        courseCode: selectedDoc.course
+      },
+      provider: {
+        '@type': 'Organization',
+        name: 'MIHORA VU STUDY LIBRARY'
+      },
+      isAccessibleForFree: true,
+      inLanguage: 'en-PK',
+      url: `${BASE_URL}${canonicalPath}`
+    });
+  } else if (page === 'home' && activeFilterType === 'HANDOUT' && !selectedCourseCode) {
     title = `Virtual University Lecture Handouts PDF Download (All ${courses.length} Courses) | MIHORA VU`;
     desc = `Download 2,625+ official Virtual University lecture handouts PDF, highlighted short notes, and reference books across CS, MTH, ENG, MGT, and all ${courses.length} subjects free with zero login.`;
     keywords = 'vu handouts pdf, virtual university lecture handouts free download, vu highlighted handouts pdf, cs101 handouts pdf, cs201 handouts pdf, mth101 handouts pdf, vu short notes pdf';

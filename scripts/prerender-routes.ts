@@ -2,6 +2,20 @@ import fs from 'fs';
 import path from 'path';
 import { mcqSets } from '../src/data/mcqs/index';
 import { subjectiveSets } from '../src/data/subjective/index';
+import {
+  cleanDocumentDisplayTitle,
+  DocSlugEntry,
+  getDocSlugIndex
+} from '../src/utils/docSlug';
+
+function escapeHtmlAttr(str: string): string {
+  return (str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 interface RouteSEO {
   path: string;
@@ -66,6 +80,14 @@ if (fs.existsSync(resourcesJsonPath)) {
 }
 
 const BUILD_DATE = new Date().toISOString().split('T')[0];
+
+const docSlugIndex = getDocSlugIndex();
+const docsByCourse = new Map<string, DocSlugEntry[]>();
+for (const entry of docSlugIndex.entries) {
+  const code = (entry.resource.course || '').toUpperCase();
+  if (!docsByCourse.has(code)) docsByCourse.set(code, []);
+  docsByCourse.get(code)!.push(entry);
+}
 
 // High-frequency searched courses for instant index prominence
 const TOP_COURSES = allCoursesList.slice(0, 40);
@@ -758,6 +780,24 @@ for (const course of allCoursesList) {
             </a>
           </div>
         </div>
+        ${(() => {
+          const courseDocs = docsByCourse.get(course.code.toUpperCase()) || [];
+          if (courseDocs.length === 0) return '';
+          return `
+        <section style="margin-top: 2rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+          <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem;">
+            All ${course.code} Verified Document Preview Pages (${courseDocs.length} Files)
+          </h2>
+          <ul style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.65rem;">
+            ${courseDocs
+              .map(
+                (entry) =>
+                  `<li><a href="/doc/${escapeHtmlAttr(entry.slug)}" style="display: block; padding: 0.6rem 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; color: #1d4ed8; text-decoration: none; font-size: 0.88rem; font-weight: 600;">${escapeHtmlAttr(cleanDocumentDisplayTitle(entry.resource.name))} <span style="color: #64748b; font-size: 0.75rem;">(${escapeHtmlAttr(entry.resource.format)} · ${escapeHtmlAttr(entry.resource.type)})</span></a></li>`
+              )
+              .join('')}
+          </ul>
+        </section>`;
+        })()}
       </div>
     `
   });
@@ -1101,6 +1141,24 @@ ${sitemapItems.join('\n')}
     fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), fullSitemapXml, 'utf-8');
   }
 
+  // Generate Dedicated Documents XML Sitemap covering ALL 28,328 /doc/<slug> Preview & SEO pages
+  const docUrlEntries = docSlugIndex.entries.map((entry) => {
+    const safeLoc = escapeHtmlAttr(`https://study.mihora.tech/doc/${entry.slug}`);
+    return `  <url><loc>${safeLoc}</loc><lastmod>${BUILD_DATE}</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>`;
+  });
+
+  const docsSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+${docUrlEntries.join('\n')}
+</urlset>`;
+
+  fs.writeFileSync(path.join(distPath, 'sitemap-docs.xml'), docsSitemapXml, 'utf-8');
+  if (fs.existsSync(publicPath)) {
+    fs.writeFileSync(path.join(publicPath, 'sitemap-docs.xml'), docsSitemapXml, 'utf-8');
+  }
+
   // Generate GEO LLM Context Dossiers (llms.txt & llms-full.txt)
   const totalMcqQuestions = mcqSets.reduce((sum, s) => sum + s.questions.length, 0);
   const totalSubjectiveQuestions = subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0);
@@ -1148,6 +1206,7 @@ ${sitemapItems.join('\n')}
 ## Optional Deep Context
 - [Full Catalog Dossier (llms-full.txt)](https://study.mihora.tech/llms-full.txt): Complete list of interactive MCQ studios, Subjective Fast-Learning sets, and top accredited VU courses.
 - [XML Sitemap](https://study.mihora.tech/sitemap.xml): Full index of ${ROUTES.length + 1} canonical routes.
+- [Documents XML Sitemap](https://study.mihora.tech/sitemap-docs.xml): Complete index of ${docSlugIndex.entries.length.toLocaleString()} dedicated /doc/<slug> document reader & download pages.
 `;
 
   const llmsFullTxt = `${llmsTxt}
@@ -1186,7 +1245,7 @@ ${allCoursesList
   }
 
   console.log(`🤖 Generated llms.txt and llms-full.txt (GEO context) in dist/ and public/`);
-  console.log(`🗺️ Generated master sitemap.xml with ${ROUTES.length + 1} indexed URLs in dist/ and public/ (lastmod ${BUILD_DATE})`);
+  console.log(`🗺️ Generated master sitemap.xml (${ROUTES.length + 1} routes) + sitemap-docs.xml (${docSlugIndex.entries.length.toLocaleString()} document pages) in dist/ and public/ (lastmod ${BUILD_DATE})`);
   console.log(`✅ Successfully pre-rendered ${ROUTES.length} static routes in dist/ (Zero 404s guaranteed).`);
 }
 

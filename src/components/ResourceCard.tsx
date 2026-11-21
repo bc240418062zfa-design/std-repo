@@ -12,6 +12,7 @@ import {
   Eye
 } from 'lucide-react';
 import { EASE_OUT_EXPO } from './MotionPrimitives';
+import { cleanDocumentDisplayTitle, getDocSlug } from '../utils/docSlug';
 
 interface ResourceCardProps {
   resource: Resource;
@@ -19,6 +20,7 @@ interface ResourceCardProps {
   onToggleSelect: (rlh: string) => void;
   onDownload: (resource: Resource) => void;
   onPreview?: (resource: Resource) => void;
+  onOpenDocPage?: (slug: string) => void;
   isDownloading?: boolean;
   index?: number;
 }
@@ -29,9 +31,13 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   onToggleSelect,
   onDownload,
   onPreview,
+  onOpenDocPage,
   isDownloading = false,
   index = 0
 }) => {
+  const docSlug = getDocSlug(resource.rlh);
+  const docHref = `/doc/${docSlug}`;
+  const displayName = cleanDocumentDisplayTitle(resource.name);
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
 
@@ -139,17 +145,30 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
               checked={isSelected}
               onChange={() => onToggleSelect(resource.rlh)}
               className="w-4 h-4 rounded text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer transition-transform active:scale-90"
-              aria-label={`Select ${resource.name}`}
+              aria-label={`Select ${displayName}`}
             />
           </label>
         </div>
 
-        <h3
-          onClick={() => onPreview && onPreview(resource)}
-          className="font-semibold text-slate-900 text-sm sm:text-[15px] leading-snug line-clamp-2 group-hover:text-blue-700 transition-colors cursor-pointer"
-          title="Click to preview online"
-        >
-          {resource.name}
+        <h3 className="font-semibold text-slate-900 text-sm sm:text-[15px] leading-snug line-clamp-2 group-hover:text-blue-700 transition-colors">
+          <a
+            href={docHref}
+            onClick={(e) => {
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey) {
+                if (onOpenDocPage) {
+                  e.preventDefault();
+                  onOpenDocPage(docSlug);
+                } else if (onPreview) {
+                  e.preventDefault();
+                  onPreview(resource);
+                }
+              }
+            }}
+            className="hover:underline underline-offset-2 focus:outline-none focus-visible:underline"
+            title="Open dedicated document reader page"
+          >
+            {displayName}
+          </a>
         </h3>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
@@ -176,7 +195,18 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
             <span>Preview</span>
           </motion.button>
         ) : (
-          <span className="text-[11px] text-slate-400 font-mono">Archive File</span>
+          <a
+            href={docHref}
+            onClick={(e) => {
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && onOpenDocPage) {
+                e.preventDefault();
+                onOpenDocPage(docSlug);
+              }
+            }}
+            className="text-[11px] text-blue-700 hover:underline font-mono"
+          >
+            Open Page
+          </a>
         )}
 
         <motion.button
