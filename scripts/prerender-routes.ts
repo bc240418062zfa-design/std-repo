@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { mcqSets } from '../src/data/mcqs/index';
+import { subjectiveSets } from '../src/data/subjective/index';
 
 interface RouteSEO {
   path: string;
@@ -241,6 +242,35 @@ const ROUTES: RouteSEO[] = [
               </a>
               <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
                 ${s.questions.length} Verified MCQs · Practice, Mock Exam &amp; Revision
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `
+  },
+
+  // 2E. Subjective Fast-Learning Studio Directory
+  {
+    path: 'subjective',
+    title: 'VU Subjective Fast-Learning Studio – 10-Sec Hooks, Cram Sheets & Marking Rubrics | MIHORA VU',
+    description: 'Master VU 2, 3, and 5-mark subjective exam questions using flash-recall cards, 10-second memory hooks, rapid cram sheets, and all 411 subject hubs on MIHORA VU.',
+    canonical: 'https://study.mihora.tech/subjective',
+    keywords: 'mihora vu, vu subjective questions, vu short questions 2 marks, vu long questions 5 marks, cs201 subjective, cs301 subjective, cs403 subjective, eng201 subjective, mgt301 subjective, pak301 subjective, vu fast learning',
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a;">VU Subjective Fast-Learning Studio</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          Active-recall flash decks, 10-second memory hooks, examiner key points, and rapid cram sheets for 2, 3, and 5-mark Virtual University subjective exams.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+          ${subjectiveSets.map(s => `
+            <div style="padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+              <a href="/subjective/${s.id}" style="text-decoration: none; font-weight: 700; color: #1d4ed8; font-size: 1.1rem; display: block;">
+                ${s.courseCode} – ${s.courseTitle} Subjective
+              </a>
+              <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
+                ${s.questions.length} Structured Q&amp;As · 10-Sec Hooks &amp; Cram Sheet
               </div>
             </div>
           `).join('')}
@@ -546,6 +576,51 @@ for (const set of mcqSets) {
   });
 }
 
+// Add Dedicated Shareable Route for Every Subjective Fast-Learning Studio (/subjective/<setId>)
+for (const sub of subjectiveSets) {
+  ROUTES.push({
+    path: `subjective/${sub.id}`,
+    title: `${sub.courseCode} Subjective Fast-Learning (${sub.questions.length} Q&As) – ${sub.courseTitle} | MIHORA VU`,
+    description: `Fast-learn ${sub.questions.length} high-yield ${sub.courseCode} (${sub.courseTitle}) 2, 3, and 5-mark subjective questions with 10-second memory hooks, examiner marking keys, and model answers on MIHORA VU.`,
+    canonical: `https://study.mihora.tech/subjective/${sub.id}`,
+    keywords: `mihora vu, ${sub.courseCode} subjective questions, ${sub.courseCode} short questions, ${sub.courseCode} long questions, ${sub.courseTitle} subjective solved`,
+    extraJsonLd: {
+      "@type": "FAQPage",
+      "@id": `https://study.mihora.tech/subjective/${sub.id}#qa`,
+      "name": `${sub.courseCode} Subjective Fast-Learning – ${sub.courseTitle}`,
+      "mainEntity": sub.questions.slice(0, 5).map(q => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `${q.quickHook} ${q.keyPoints.join(' ')}`
+        }
+      }))
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <nav style="font-size: 0.9rem; color: #64748b; margin-bottom: 1rem;">
+          <a href="/" style="color: #1d4ed8; text-decoration: none;">Home</a> &gt;
+          <a href="/subjective" style="color: #1d4ed8; text-decoration: none;">Subjective Studio</a> &gt;
+          <span>${sub.courseCode}</span>
+        </nav>
+        <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
+          ${sub.courseCode} – ${sub.courseTitle} (Subjective Fast-Learning)
+        </h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          ${sub.questions.length} High-Yield Subjective Prompts · ${sub.description}
+        </p>
+        <div style="margin-top: 1.5rem; padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+          <h2 style="font-size: 1.2rem; font-weight: 700; color: #0f172a;">High-Yield Subjective Topics</h2>
+          <ol style="color: #334155; line-height: 1.7; margin-top: 0.75rem; padding-left: 1.25rem;">
+            ${sub.questions.map(q => `<li><strong>[${q.marks} Marks]</strong> ${q.question}</li>`).join('')}
+          </ol>
+        </div>
+      </div>
+    `
+  });
+}
+
 export function prerenderAllRoutes() {
   console.log('🚀 Running Multi-Route Static Pre-Renderer (Fixing 404s & Maximizing SEO)...');
 
@@ -670,7 +745,7 @@ export function prerenderAllRoutes() {
     } else if (r.path === 'vu-assignment-solution-2026') {
       priority = '0.99';
       freq = 'daily';
-    } else if (['courses', 'past-papers', 'handbook', 'simulator', 'gpa-calculator', 'assignment-guide'].includes(r.path)) {
+    } else if (['courses', 'past-papers', 'mcqs', 'subjective', 'handbook', 'simulator', 'gpa-calculator', 'assignment-guide'].includes(r.path)) {
       priority = '0.95';
       freq = 'daily';
     } else if (['datesheet-guide', 'cs619-guide', 'security', 'about', 'sitemap'].includes(r.path)) {

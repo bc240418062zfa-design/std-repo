@@ -20,9 +20,15 @@ import {
   FileText,
   ListChecks,
   Files,
-  ArrowRight
+  ArrowRight,
+  Flame
 } from 'lucide-react';
 import { EASE_OUT_EXPO } from './MotionPrimitives';
+import { mcqSets } from '../data/mcqs';
+import { subjectiveSets } from '../data/subjective';
+
+const TOTAL_MCQ_QS = mcqSets.reduce((sum, s) => sum + s.questions.length, 0);
+const TOTAL_SUB_QS = subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0);
 
 interface NavbarProps {
   currentPage: string;
@@ -114,6 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'home', label: 'Library', href: '/' },
     { id: 'courses', label: 'Courses', href: '/courses' },
     { id: 'mcqs', label: 'MCQs', href: '/mcqs' },
+    { id: 'subjective', label: 'Subjective', href: '/subjective' },
     { id: 'past-papers', label: 'Past Papers', href: '/past-papers' }
   ];
 
@@ -170,7 +177,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           : 'bg-white/92 backdrop-blur-md border-slate-200/80'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4 xl:gap-6">
         {/* Zone 1: Brand Wordmark */}
         <motion.a
           href="/"
@@ -185,7 +192,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </motion.a>
 
         {/* Zone 2: Fluid Animated Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-6" aria-label="Primary Navigation">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Primary Navigation">
           {primaryLinks.map((link) => {
             const active = currentPage === link.id;
             return (
@@ -512,7 +519,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <ListChecks className="w-4 h-4 text-blue-700" />
                       <span>Interactive MCQs</span>
                     </span>
-                    <span className="text-xs font-mono text-slate-400 tabular-nums">465 Qs</span>
+                    <span className="text-xs font-mono text-slate-400 tabular-nums">
+                      {TOTAL_MCQ_QS.toLocaleString()} Qs
+                    </span>
+                  </a>
+
+                  <a
+                    href="/subjective"
+                    onClick={(e) => handleNavClick('subjective', e)}
+                    className={`w-full min-h-[44px] px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between transition-colors ${
+                      currentPage === 'subjective' ? 'bg-slate-100 text-slate-950 font-semibold' : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <Flame className="w-4 h-4 text-amber-600" />
+                      <span>Subjective Fast-Prep</span>
+                    </span>
+                    <span className="text-xs font-mono text-slate-400 tabular-nums">
+                      {TOTAL_SUB_QS} Qs
+                    </span>
                   </a>
 
                   <a

@@ -76,3 +76,31 @@ export interface McqSet {
   topics: string[];
   questions: McqQuestion[];
 }
+
+export type SubjectiveMarks = 2 | 3 | 5;
+
+export interface SubjectiveQuestion {
+  id: string;
+  num: number;
+  question: string;
+  marks: SubjectiveMarks;
+  term: ExamTerm;
+  topic: string;
+  quickHook: string;
+  keyPoints: string[];
+  modelAnswer: string;
+  codeSnippet?: string;
+  examTip?: string;
+}
+
+export interface SubjectiveSet {
+  id: string;
+  courseCode: string;
+  courseTitle: string;
+  term: ExamTerm;
+  termLabel: string;
+  description: string;
+  topics: string[];
+  questions: SubjectiveQuestion[];
+}
+

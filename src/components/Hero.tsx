@@ -8,9 +8,12 @@ import {
   CornerDownLeft,
   ListChecks,
   Files,
-  Calculator
+  Calculator,
+  Flame
 } from 'lucide-react';
 import { Course } from '../types';
+import { mcqSets } from '../data/mcqs';
+import { subjectiveSets } from '../data/subjective';
 import {
   AnimatedButton,
   AnimatedCounter,
@@ -30,6 +33,7 @@ interface HeroProps {
   totalCourses: number;
   courses?: Course[];
   onOpenMcqs?: () => void;
+  onOpenSubjective?: () => void;
   onOpenPastPapers?: () => void;
   onOpenSimulator?: () => void;
 }
@@ -51,9 +55,18 @@ export const Hero: React.FC<HeroProps> = ({
   totalCourses,
   courses = [],
   onOpenMcqs,
+  onOpenSubjective,
   onOpenPastPapers,
   onOpenSimulator
 }) => {
+  const totalMcqQuestions = useMemo(
+    () => mcqSets.reduce((sum, s) => sum + s.questions.length, 0),
+    []
+  );
+  const totalSubjectiveQuestions = useMemo(
+    () => subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0),
+    []
+  );
   const sectionRef = useRef<HTMLElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -440,37 +453,36 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </motion.div>
 
-          {/* 3 Architectural Bento Feature Launch Cards with Interactive Cursor Spotlight */}
+          {/* 4-Pillar Observatory Studio Dock */}
           <motion.div
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.52, delay: 0.24, ease: EASE_OUT_EXPO }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1"
+            transition={{ duration: 0.46, delay: 0.22, ease: EASE_OUT_EXPO }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1"
           >
             {onOpenMcqs && (
               <SpotlightCard
                 onClick={onOpenMcqs}
                 spotlightColor="rgba(56, 189, 248, 0.16)"
-                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-sky-400/60 cursor-pointer"
+                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-sky-400/60 cursor-pointer flex flex-col justify-between"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <motion.div
-                    whileHover={{ rotate: -6, scale: 1.08 }}
-                    className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-sky-300 transition-transform duration-200 group-hover:scale-105"
-                  >
-                    <ListChecks className="w-5 h-5" />
-                  </motion.div>
-                  <span className="text-xs font-mono text-amber-300 tabular-nums">
-                    465 Verified MCQs
-                  </span>
-                </div>
-                <div className="space-y-1 mt-4">
-                  <h2 className="text-base font-bold text-white group-hover:text-sky-200 transition-colors">
-                    Interactive MCQ Studio
-                  </h2>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Practice CS201, CS301, CS304, CS403, CS504 &amp; CS601 with shareable subject links, timed mock tests, and instant feedback.
-                  </p>
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/30 flex items-center justify-center text-sky-300 transition-transform duration-200 group-hover:scale-105">
+                      <ListChecks className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono text-sky-300 tabular-nums">
+                      {totalMcqQuestions.toLocaleString()} MCQs
+                    </span>
+                  </div>
+                  <div className="space-y-1 mt-4">
+                    <h2 className="text-base font-bold text-white group-hover:text-sky-200 transition-colors">
+                      Interactive MCQ Studio
+                    </h2>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Practice {mcqSets.length} subject banks with timed mock exams and instant answer keys.
+                    </p>
+                  </div>
                 </div>
                 <div className="text-xs font-semibold text-sky-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
                   <span>Launch MCQ Studio</span>
@@ -479,29 +491,62 @@ export const Hero: React.FC<HeroProps> = ({
               </SpotlightCard>
             )}
 
+            {onOpenSubjective && (
+              <SpotlightCard
+                onClick={onOpenSubjective}
+                spotlightColor="rgba(251, 191, 36, 0.16)"
+                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-amber-400/60 cursor-pointer flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-300 transition-transform duration-200 group-hover:scale-105">
+                      <Flame className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono text-amber-300 tabular-nums">
+                      {totalSubjectiveQuestions} Fast-Prep Qs
+                    </span>
+                  </div>
+                  <div className="space-y-1 mt-4">
+                    <h2 className="text-base font-bold text-white group-hover:text-amber-200 transition-colors">
+                      Subjective Fast-Learning
+                    </h2>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Master 2, 3 &amp; 5-mark questions via 10-second memory hooks, cram sheets, and recall drills.
+                    </p>
+                  </div>
+                </div>
+                <div className="text-xs font-semibold text-amber-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
+                  <span>Open Fast-Prep</span>
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
+                </div>
+              </SpotlightCard>
+            )}
+
             {onOpenPastPapers && (
               <SpotlightCard
                 onClick={onOpenPastPapers}
-                spotlightColor="rgba(129, 140, 248, 0.16)"
-                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-indigo-400/60 cursor-pointer"
+                spotlightColor="rgba(52, 211, 153, 0.15)"
+                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-emerald-400/60 cursor-pointer flex flex-col justify-between"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-indigo-300 transition-transform duration-200 group-hover:scale-105 group-hover:-rotate-3">
-                    <Files className="w-5 h-5" />
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300 transition-transform duration-200 group-hover:scale-105">
+                      <Files className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono text-emerald-300 tabular-nums">
+                      Moaaz &amp; Waqar
+                    </span>
                   </div>
-                  <span className="text-xs font-mono text-slate-300 tabular-nums">
-                    Moaaz &amp; Waqar
-                  </span>
+                  <div className="space-y-1 mt-4">
+                    <h2 className="text-base font-bold text-white group-hover:text-emerald-200 transition-colors">
+                      Solved Past Paper Bank
+                    </h2>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Real student exam memories, repeated questions, and past files across {totalCourses} courses.
+                    </p>
+                  </div>
                 </div>
-                <div className="space-y-1 mt-4">
-                  <h2 className="text-base font-bold text-white group-hover:text-indigo-200 transition-colors">
-                    Solved Past Paper Bank
-                  </h2>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Explore verified Mid-Term &amp; Final-Term solved papers, repeated subjective questions, and exam notes across 411 courses.
-                  </p>
-                </div>
-                <div className="text-xs font-semibold text-indigo-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
+                <div className="text-xs font-semibold text-emerald-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
                   <span>Browse Past Papers</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1.5" />
                 </div>
@@ -512,23 +557,25 @@ export const Hero: React.FC<HeroProps> = ({
               <SpotlightCard
                 onClick={onOpenSimulator}
                 spotlightColor="rgba(45, 212, 191, 0.16)"
-                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-teal-400/60 cursor-pointer"
+                className="group glass-panel-dark rounded-2xl p-5 text-left transition-colors hover:border-teal-400/60 cursor-pointer flex flex-col justify-between"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center text-teal-300 transition-transform duration-200 group-hover:scale-105 group-hover:rotate-3">
-                    <Calculator className="w-5 h-5" />
+                <div>
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-400/30 flex items-center justify-center text-teal-300 transition-transform duration-200 group-hover:scale-105">
+                      <Calculator className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono text-teal-300 tabular-nums">
+                      20% Two-Half Rule
+                    </span>
                   </div>
-                  <span className="text-xs font-mono text-teal-300 tabular-nums">
-                    20% Two-Half Rule
-                  </span>
-                </div>
-                <div className="space-y-1 mt-4">
-                  <h2 className="text-base font-bold text-white group-hover:text-teal-200 transition-colors">
-                    Passing Marks Simulator
-                  </h2>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    Calculate exact Final-Term scores required under the official VU 20% rule and forecast your semester GPA.
-                  </p>
+                  <div className="space-y-1 mt-4">
+                    <h2 className="text-base font-bold text-white group-hover:text-teal-200 transition-colors">
+                      Passing Marks Simulator
+                    </h2>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Calculate exact Final-Term scores needed under the VU 20% rule and forecast GPA.
+                    </p>
+                  </div>
                 </div>
                 <div className="text-xs font-semibold text-teal-300 group-hover:text-white inline-flex items-center gap-1.5 mt-4">
                   <span>Open Calculator</span>

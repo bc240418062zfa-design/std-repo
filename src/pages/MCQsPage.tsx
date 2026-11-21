@@ -25,9 +25,11 @@ import {
   ArrowLeft,
   ArrowRight,
   ChevronDown,
-  Zap
+  Zap,
+  Flame
 } from 'lucide-react';
 import { mcqSets } from '../data/mcqs';
+import { subjectiveSets } from '../data/subjective';
 import { ExamTerm, McqQuestion, McqSet } from '../types';
 import { CelestialStarfield, CelestialOrbitalRings, CelestialDivider } from '../components/CelestialBackdrop';
 
@@ -35,6 +37,7 @@ interface MCQsPageProps {
   activeSetId: string | null;
   onSelectSetId: (setId: string | null) => void;
   onSelectCourseInLibrary?: (courseCode: string) => void;
+  onOpenSubjectiveSet?: (subSetId: string) => void;
 }
 
 type StudyMode = 'practice' | 'exam' | 'revision';
@@ -71,10 +74,10 @@ const COURSE_THEMES: Record<string, CourseTheme> = {
     subtleRing: 'hover:border-indigo-400'
   },
   CS304: {
-    badgeBg: 'bg-violet-600',
+    badgeBg: 'bg-sky-700',
     badgeText: 'text-white',
-    accentBar: 'from-violet-600 to-indigo-500',
-    subtleRing: 'hover:border-violet-400'
+    accentBar: 'from-sky-700 to-cyan-500',
+    subtleRing: 'hover:border-sky-400'
   },
   CS403: {
     badgeBg: 'bg-teal-600',
@@ -113,10 +116,10 @@ const COURSE_THEMES: Record<string, CourseTheme> = {
     subtleRing: 'hover:border-rose-400'
   },
   MGT501: {
-    badgeBg: 'bg-fuchsia-600',
+    badgeBg: 'bg-orange-600',
     badgeText: 'text-white',
-    accentBar: 'from-fuchsia-600 to-purple-500',
-    subtleRing: 'hover:border-fuchsia-400'
+    accentBar: 'from-orange-600 to-amber-500',
+    subtleRing: 'hover:border-orange-400'
   },
   PAK301: {
     badgeBg: 'bg-green-700',
@@ -239,7 +242,8 @@ const MasteryRing: React.FC<MasteryRingProps> = ({
 export const MCQsPage: React.FC<MCQsPageProps> = ({
   activeSetId,
   onSelectSetId,
-  onSelectCourseInLibrary
+  onSelectCourseInLibrary,
+  onOpenSubjectiveSet
 }) => {
   const [termFilter, setTermFilter] = useState<'all' | ExamTerm>('midterm');
   const [copiedSetId, setCopiedSetId] = useState<string | null>(null);
@@ -944,6 +948,9 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
   const isCopiedActive = copiedSetId === activeSet.id;
   const otherSets = mcqSets.filter((s) => s.id !== activeSet.id);
   const courseTheme = getCourseTheme(activeSet.courseCode);
+  const matchingSubjective = subjectiveSets.find(
+    (s) => s.courseCode.toUpperCase() === activeSet.courseCode.toUpperCase()
+  );
   const positionPct =
     filteredQuestions.length > 0
       ? Math.round(((currentIndex + 1) / filteredQuestions.length) * 100)
@@ -1023,6 +1030,18 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Share</span>
               </motion.button>
+
+              {matchingSubjective && onOpenSubjectiveSet && (
+                <motion.button
+                  whileTap={{ scale: 0.96 }}
+                  type="button"
+                  onClick={() => onOpenSubjectiveSet(matchingSubjective.id)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  <Flame className="w-3.5 h-3.5" />
+                  <span>Subjective Fast-Prep</span>
+                </motion.button>
+              )}
 
               {onSelectCourseInLibrary && (
                 <motion.button
