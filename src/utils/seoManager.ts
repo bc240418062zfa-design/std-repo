@@ -1,5 +1,6 @@
 import { Course, McqSet, Resource, SubjectiveSet } from '../types';
 import { cleanDocumentDisplayTitle, getDocSlug } from './docSlug';
+import { enrichDocumentMetadata } from './docEnricher';
 
 export interface SeoSyncParams {
   page: string;
@@ -67,36 +68,67 @@ export function syncRouteSeo({
   const graphNodes: Array<Record<string, unknown>> = [];
 
   if (page === 'doc' && selectedDoc) {
-    const displayName = cleanDocumentDisplayTitle(selectedDoc.name);
-    const match = courses.find((c) => c.code === selectedDoc.course);
+    const enriched = enrichDocumentMetadata(selectedDoc);
     const canonicalSlug = getDocSlug(selectedDoc.rlh) || selectedDocSlug || '';
     canonicalPath = `/doc/${canonicalSlug}`;
-    title = `${displayName} (${selectedDoc.course} ${selectedDoc.format}) – Online Preview & Free Download | MIHORA VU`;
-    desc = `Preview online and free download ${displayName} for Virtual University ${selectedDoc.course}${match ? ` (${match.title})` : ''}. Format: ${selectedDoc.format}, Category: ${selectedDoc.type}. Direct zero-login viewer on MIHORA VU.`;
-    keywords = `${selectedDoc.course} ${selectedDoc.type.toLowerCase()}, ${displayName}, ${selectedDoc.course} past papers, ${selectedDoc.course} handouts pdf, ${selectedDoc.course} mcqs bank, ${selectedDoc.course} assignment solution 2026, virtual university ${selectedDoc.course}, mihora vu`;
+    title = `${enriched.displayName} (${enriched.courseCode} ${enriched.format}) – Online Preview & Free Download | MIHORA VU`;
+    desc = enriched.overviewSummary;
+    keywords = enriched.targetKeywords.join(', ');
     breadcrumbs.push(
       { name: 'Courses', item: `${BASE_URL}/courses` },
-      { name: selectedDoc.course, item: `${BASE_URL}/courses/${selectedDoc.course.toLowerCase()}` },
-      { name: displayName, item: `${BASE_URL}${canonicalPath}` }
+      { name: enriched.courseCode, item: `${BASE_URL}/courses/${enriched.courseCode.toLowerCase()}` },
+      { name: enriched.displayName, item: `${BASE_URL}${canonicalPath}` }
     );
     graphNodes.push({
       '@type': 'DigitalDocument',
       '@id': `${BASE_URL}${canonicalPath}#document`,
-      name: displayName,
-      fileFormat: selectedDoc.format,
-      educationalUse: selectedDoc.type,
+      name: enriched.displayName,
+      fileFormat: enriched.format,
+      educationalUse: enriched.typeLabel,
+      description: enriched.overviewSummary,
       about: {
         '@type': 'Course',
-        name: `${selectedDoc.course}${match ? ` – ${match.title}` : ''}`,
-        courseCode: selectedDoc.course
+        name: `${enriched.courseCode} – ${enriched.courseTitle}`,
+        courseCode: enriched.courseCode,
+        provider: {
+          '@type': 'CollegeOrUniversity',
+          name: 'Virtual University of Pakistan'
+        }
       },
       provider: {
         '@type': 'Organization',
-        name: 'MIHORA VU STUDY LIBRARY'
+        name: 'MIHORA VU STUDY LIBRARY',
+        url: BASE_URL
       },
       isAccessibleForFree: true,
       inLanguage: 'en-PK',
       url: `${BASE_URL}${canonicalPath}`
+    });
+
+    graphNodes.push({
+      '@type': 'LearningResource',
+      '@id': `${BASE_URL}${canonicalPath}#learning-resource`,
+      name: `${enriched.displayName} – ${enriched.courseCode} Exam Prep Material`,
+      learningResourceType: enriched.typeLabel,
+      educationalLevel: enriched.termScope,
+      teaches: `${enriched.courseCode} – ${enriched.courseTitle}`,
+      isAccessibleForFree: true,
+      inLanguage: 'en-PK',
+      url: `${BASE_URL}${canonicalPath}`
+    });
+
+    graphNodes.push({
+      '@type': 'FAQPage',
+      '@id': `${BASE_URL}${canonicalPath}#faqs`,
+      name: `${enriched.courseCode} Examination & Document FAQs`,
+      mainEntity: enriched.faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer
+        }
+      }))
     });
   } else if (page === 'home' && activeFilterType === 'HANDOUT' && !selectedCourseCode) {
     title = `Virtual University Lecture Handouts PDF Download (All ${courses.length} Courses) | MIHORA VU`;

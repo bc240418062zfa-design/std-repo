@@ -7,6 +7,7 @@ import {
   findDocEntryBySlug,
   getRelatedDocEntries
 } from '../utils/docSlug';
+import { enrichDocumentMetadata, EnrichedDocMetadata } from '../utils/docEnricher';
 import { mcqSets } from '../data/mcqs';
 import { subjectiveSets } from '../data/subjective';
 import { EASE_OUT_EXPO } from '../components/MotionPrimitives';
@@ -27,12 +28,19 @@ import {
   AlertCircle,
   RefreshCw,
   ArrowRight,
+  ArrowLeft,
   Calculator,
   ListChecks,
   Flame,
   FolderOpen,
   ShieldCheck,
-  Search
+  Search,
+  ChevronDown,
+  GraduationCap,
+  CheckCircle2,
+  HelpCircle,
+  Tag,
+  BookOpenCheck
 } from 'lucide-react';
 
 interface DocumentViewerPageProps {
@@ -121,15 +129,21 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
   const [reloadNonce, setReloadNonce] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const courseInfo = useMemo(() => {
     if (!resource) return null;
     return courses.find((c) => c.code.toUpperCase() === resource.course.toUpperCase()) || null;
   }, [courses, resource]);
 
+  const enriched: EnrichedDocMetadata | null = useMemo(() => {
+    if (!resource) return null;
+    return enrichDocumentMetadata(resource);
+  }, [resource]);
+
   const relatedEntries = useMemo(() => {
     if (!resource) return [];
-    return getRelatedDocEntries(resource, 8);
+    return getRelatedDocEntries(resource, 12);
   }, [resource]);
 
   const matchingMcqSet = useMemo(() => {
@@ -250,7 +264,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
     }
   };
 
-  if (!resource) {
+  if (!resource || !enriched) {
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="rounded-3xl bg-white border border-[#DDD6C8] p-8 sm:p-12 text-center space-y-5 shadow-xs">
@@ -288,8 +302,8 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
     );
   }
 
-  const displayTitle = cleanDocumentDisplayTitle(resource.name);
-  const format = (resource.format || 'PDF').toUpperCase();
+  const displayTitle = enriched.displayName;
+  const format = enriched.format;
   const typeMeta = TYPE_DESCRIPTIONS[resource.type] || TYPE_DESCRIPTIONS.OTHER;
   const driveViewUrl = resolvedData?.driveId ? createEmbedViewUrl(resolvedData.driveId) : null;
 
@@ -314,6 +328,46 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-8">
+      {/* Visual Breadcrumb Navigation */}
+      <nav aria-label="Breadcrumbs" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium overflow-x-auto whitespace-nowrap py-1">
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate('home');
+          }}
+          className="text-slate-600 hover:text-blue-700 transition-colors"
+        >
+          Library
+        </a>
+        <span aria-hidden="true" className="text-slate-400">/</span>
+        <a
+          href="/courses"
+          onClick={(e) => {
+            e.preventDefault();
+            onNavigate('courses');
+          }}
+          className="text-slate-600 hover:text-blue-700 transition-colors"
+        >
+          Courses
+        </a>
+        <span aria-hidden="true" className="text-slate-400">/</span>
+        <a
+          href={`/courses/${enriched.courseCode.toLowerCase()}`}
+          onClick={(e) => {
+            e.preventDefault();
+            onSelectCourse(enriched.courseCode);
+          }}
+          className="font-bold text-blue-700 hover:underline uppercase"
+        >
+          {enriched.courseCode}
+        </a>
+        <span aria-hidden="true" className="text-slate-400">/</span>
+        <span className="text-slate-900 font-semibold truncate max-w-xs sm:max-w-md">
+          {displayTitle}
+        </span>
+      </nav>
+
       {/* Midnight Oxford Navy Document Hero Header */}
       <section className="relative overflow-hidden rounded-3xl bg-[#0D1B2A] text-white border border-slate-800 p-6 sm:p-8 shadow-[0_22px_50px_-15px_rgba(2,6,23,0.55)]">
         <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-sky-400/60 to-transparent" aria-hidden="true" />
@@ -335,7 +389,13 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
               <span aria-hidden="true" className="text-slate-500">·</span>
               <span className="font-semibold uppercase tracking-wider">{format}</span>
               <span aria-hidden="true" className="text-slate-500">·</span>
-              <span>{typeMeta.label}</span>
+              <span>{enriched.typeLabel}</span>
+              {enriched.contributor && (
+                <>
+                  <span aria-hidden="true" className="text-slate-500">·</span>
+                  <span className="text-emerald-300 font-medium">By {enriched.contributor}</span>
+                </>
+              )}
               {resource.tags && resource.tags.length > 0 && (
                 <>
                   <span aria-hidden="true" className="text-slate-500">·</span>
@@ -542,7 +602,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
         {/* Right Zone: Metadata Specifications & Course Study Tools */}
         <aside className="lg:col-span-4 space-y-5">
           {/* Document Details */}
-          <div className="rounded-2xl bg-white border border-[#DDD6C8] p-5 space-y-4">
+          <div className="rounded-2xl bg-white border border-[#DDD6C8] p-5 space-y-4 shadow-xs">
             <h2 className="text-sm font-bold text-slate-950">Document Details</h2>
             <dl className="divide-y divide-[#EFECE4] text-xs">
               <div className="py-2 flex items-center justify-between gap-3">
@@ -563,8 +623,18 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
               )}
               <div className="py-2 flex items-center justify-between gap-3">
                 <dt className="text-slate-500">Category</dt>
-                <dd className="font-medium text-slate-900 text-right">{typeMeta.label}</dd>
+                <dd className="font-medium text-slate-900 text-right">{enriched.typeLabel}</dd>
               </div>
+              <div className="py-2 flex items-center justify-between gap-3">
+                <dt className="text-slate-500">Curriculum Scope</dt>
+                <dd className="font-medium text-slate-900 text-right">{enriched.termScope}</dd>
+              </div>
+              {enriched.contributor && (
+                <div className="py-2 flex items-center justify-between gap-3">
+                  <dt className="text-slate-500">Contributor / Author</dt>
+                  <dd className="font-semibold text-emerald-800 text-right">{enriched.contributor}</dd>
+                </div>
+              )}
               <div className="py-2 flex items-center justify-between gap-3">
                 <dt className="text-slate-500">File Format</dt>
                 <dd className="font-mono font-semibold text-slate-800">{format}</dd>
@@ -587,7 +657,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
           </div>
 
           {/* Fast Subject Shortcuts */}
-          <div className="rounded-2xl bg-white border border-[#DDD6C8] p-5 space-y-3">
+          <div className="rounded-2xl bg-white border border-[#DDD6C8] p-5 space-y-3 shadow-xs">
             <h2 className="text-sm font-bold text-slate-950">
               {resource.course} Study Shortcuts
             </h2>
@@ -688,16 +758,181 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
         </aside>
       </div>
 
+      {/* Crawlable Academic Dossier & Curriculum Grounding Section */}
+      <div className="space-y-6 pt-2">
+        {/* Section 1: Academic Overview & Syllabus Highlights */}
+        <section
+          aria-labelledby="academic-overview-heading"
+          className="rounded-2xl bg-white border border-[#DDD6C8] p-6 sm:p-8 space-y-5 shadow-xs"
+        >
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center shrink-0">
+              <GraduationCap className="w-5 h-5" />
+            </div>
+            <div className="space-y-1 min-w-0">
+              <h2 id="academic-overview-heading" className="text-lg sm:text-xl font-extrabold text-slate-950">
+                Academic Curriculum Overview: {enriched.courseCode} – {enriched.courseTitle}
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                {enriched.overviewSummary}
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-[#EFECE4] pt-4">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
+              Curriculum Scope &amp; Examination Specifications
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+              {enriched.syllabusHighlights.map((highlight, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 rounded-xl bg-[#FAF8F4] border border-[#E5E0D5] flex items-center gap-2.5 text-xs text-slate-700"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span className="font-medium">{highlight}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Exam Preparation & VU 20% Two-Half Rule Strategy */}
+        <section
+          aria-labelledby="exam-strategy-heading"
+          className="rounded-2xl bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-[#FAF8F4] border border-blue-200/80 p-6 sm:p-8 space-y-4 shadow-xs"
+        >
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <BookOpenCheck className="w-5 h-5" />
+            </div>
+            <div className="space-y-1.5 min-w-0">
+              <h2 id="exam-strategy-heading" className="text-lg sm:text-xl font-extrabold text-slate-950">
+                {enriched.courseCode} Examination Preparation &amp; VU 20% Passing Rule Strategy
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                {enriched.examTips}
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/90 border border-blue-200/60 text-xs text-slate-800 leading-relaxed space-y-2">
+            <div className="font-bold text-blue-900 flex items-center gap-1.5">
+              <span>Virtual University Mandatory Grading Regulation:</span>
+            </div>
+            <p>
+              Under Virtual University examination policy, every student must independently secure at least <strong>20% marks in the First Half</strong> (quizzes, assignments, GDBs, and midterm combined) <em>AND</em> at least <strong>20% marks in the Final-Term paper</strong>. Failing to achieve the 20% threshold in the final exam triggers an automatic F grade, regardless of midterm and sessional scores.
+            </p>
+            <div className="flex flex-wrap items-center gap-2.5 pt-1">
+              <button
+                type="button"
+                onClick={() => onNavigate('simulator')}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold transition-colors cursor-pointer"
+              >
+                <Calculator className="w-3.5 h-3.5" />
+                <span>Simulate 20% Passing Target</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onOpenMcqSet(matchingMcqSet ? matchingMcqSet.id : null)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-50 border border-[#DDD6C8] text-slate-800 text-xs font-bold transition-colors cursor-pointer"
+              >
+                <ListChecks className="w-3.5 h-3.5 text-blue-700" />
+                <span>Practice {enriched.courseCode} MCQs</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Frequently Asked Questions (Interactive Accordion + Schema Matching) */}
+        <section
+          aria-labelledby="doc-faqs-heading"
+          className="rounded-2xl bg-white border border-[#DDD6C8] p-6 sm:p-8 space-y-5 shadow-xs"
+        >
+          <div className="flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center shrink-0">
+              <HelpCircle className="w-5 h-5" />
+            </div>
+            <div className="space-y-1 min-w-0">
+              <h2 id="doc-faqs-heading" className="text-lg sm:text-xl font-extrabold text-slate-950">
+                Frequently Asked Questions ({enriched.courseCode} Exams &amp; Downloads)
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600">
+                Verified answers to assist Virtual University students with examinations, downloads, and syllabus rules.
+              </p>
+            </div>
+          </div>
+
+          <div className="divide-y divide-[#EFECE4] border-t border-[#EFECE4]">
+            {enriched.faqs.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx;
+              return (
+                <div key={idx} className="py-3.5 space-y-2">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                    className="w-full text-left flex items-center justify-between gap-4 py-1 group cursor-pointer"
+                    aria-expanded={isOpen}
+                  >
+                    <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                      {faq.question}
+                    </h3>
+                    <ChevronDown
+                      className={`w-4 h-4 text-slate-400 group-hover:text-blue-700 shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 text-blue-700' : ''
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      transition={{ duration: 0.18, ease: EASE_OUT_EXPO }}
+                      className="text-xs text-slate-600 leading-relaxed pr-6"
+                    >
+                      <p>{faq.answer}</p>
+                    </motion.div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Section 4: Target Academic Keywords & Student Search Queries */}
+        <section
+          aria-labelledby="doc-keywords-heading"
+          className="rounded-2xl bg-white border border-[#DDD6C8] p-6 sm:p-8 space-y-3.5 shadow-xs"
+        >
+          <div className="flex items-center gap-2">
+            <Tag className="w-4 h-4 text-slate-500" />
+            <h2 id="doc-keywords-heading" className="text-xs font-bold uppercase tracking-wider text-slate-900">
+              Related Virtual University Search Queries &amp; Topics
+            </h2>
+          </div>
+          <div className="flex flex-wrap gap-2 pt-1">
+            {enriched.targetKeywords.map((kw, idx) => (
+              <span
+                key={idx}
+                className="px-2.5 py-1 rounded-md bg-[#FAF8F4] border border-[#E5E0D5] text-[11px] font-mono text-slate-700 select-all"
+              >
+                {kw}
+              </span>
+            ))}
+          </div>
+        </section>
+      </div>
+
       {/* Related Documents in the Same Course */}
       {relatedEntries.length > 0 && (
-        <section className="space-y-4 pt-2">
+        <section className="space-y-4 pt-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#E5E0D5] pb-3">
             <div>
               <h2 className="text-lg sm:text-xl font-extrabold text-slate-950">
-                More Verified {resource.course} Study Documents
+                More Verified {resource.course} Study Documents ({relatedEntries.length})
               </h2>
               <p className="text-xs text-slate-600 mt-0.5">
-                Open any file directly in its dedicated reader page.
+                Explore adjacent solved past papers, official handouts, quiz banks, and assignments for {enriched.courseTitle}.
               </p>
             </div>
             <a
@@ -713,7 +948,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5">
             {relatedEntries.map((entry) => (
               <a
                 key={entry.resource.rlh}
@@ -724,13 +959,13 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
                     onOpenDocSlug(entry.slug);
                   }
                 }}
-                className="p-4 rounded-2xl bg-white border border-[#DDD6C8] hover:border-blue-500 flex flex-col justify-between gap-3 transition-colors group"
+                className="p-4 rounded-2xl bg-white border border-[#DDD6C8] hover:border-blue-500 hover:shadow-xs flex flex-col justify-between gap-3 transition-all group"
               >
                 <div className="space-y-1.5">
                   <div className="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
                     <span className="font-bold text-slate-900">{entry.resource.course}</span>
                     <span aria-hidden="true">·</span>
-                    <span>{entry.resource.format}</span>
+                    <span className="font-semibold">{entry.resource.format}</span>
                     <span aria-hidden="true">·</span>
                     <span>{entry.resource.type}</span>
                   </div>

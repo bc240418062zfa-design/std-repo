@@ -11,6 +11,7 @@ import {
   findDocEntryBySlug,
   getRelatedDocEntries
 } from './src/utils/docSlug';
+import { enrichDocumentMetadata } from './src/utils/docEnricher';
 import coursesData from './src/data/courses.json';
 
 function escapeHtmlValue(str: string): string {
@@ -29,14 +30,11 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
   if (!entry) return html;
 
   const doc = entry.resource;
-  const displayName = cleanDocumentDisplayTitle(doc.name);
-  const courseMatch = (coursesData as Array<{ code: string; title: string; faculty: string }>).find(
-    (c) => c.code.toUpperCase() === doc.course.toUpperCase()
-  );
+  const enriched = enrichDocumentMetadata(doc);
   const canonicalUrl = `https://study.mihora.tech/doc/${entry.slug}`;
-  const title = `${displayName} (${doc.course} ${doc.format}) – Online Preview & Free Download | MIHORA VU`;
-  const desc = `Preview online and free download ${displayName} for Virtual University ${doc.course}${courseMatch ? ` (${courseMatch.title})` : ''}. Format: ${doc.format}, Category: ${doc.type}. Direct zero-login document viewer on MIHORA VU.`;
-  const keywords = `${doc.course} ${doc.type.toLowerCase()}, ${displayName}, ${doc.course} past papers, ${doc.course} handouts pdf, ${doc.course} mcqs bank, ${doc.course} assignment solution 2026, virtual university ${doc.course}, mihora vu`;
+  const title = `${enriched.displayName} (${enriched.courseCode} ${enriched.format}) – Online Preview & Free Download | MIHORA VU`;
+  const desc = enriched.overviewSummary;
+  const keywords = enriched.targetKeywords.join(', ');
 
   let out = html
     .replace(/<title>.*?<\/title>/i, `<title>${escapeHtmlValue(title)}</title>`)
@@ -83,22 +81,60 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
         name: title,
         description: desc,
         inLanguage: 'en-PK',
-        isPartOf: { '@id': 'https://study.mihora.tech/#website' }
+        isPartOf: { '@id': 'https://study.mihora.tech/#website' },
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '[data-speakable="true"]']
+        }
       },
       {
         '@type': 'DigitalDocument',
         '@id': `${canonicalUrl}#document`,
-        name: displayName,
-        fileFormat: doc.format,
-        educationalUse: doc.type,
+        name: enriched.displayName,
+        fileFormat: enriched.format,
+        educationalUse: enriched.typeLabel,
+        description: enriched.overviewSummary,
         about: {
           '@type': 'Course',
-          name: `${doc.course}${courseMatch ? ` – ${courseMatch.title}` : ''}`,
-          courseCode: doc.course
+          name: `${enriched.courseCode} – ${enriched.courseTitle}`,
+          courseCode: enriched.courseCode,
+          provider: {
+            '@type': 'CollegeOrUniversity',
+            name: 'Virtual University of Pakistan'
+          }
+        },
+        provider: {
+          '@type': 'Organization',
+          name: 'MIHORA VU STUDY LIBRARY',
+          url: 'https://study.mihora.tech'
         },
         isAccessibleForFree: true,
         inLanguage: 'en-PK',
         url: canonicalUrl
+      },
+      {
+        '@type': 'LearningResource',
+        '@id': `${canonicalUrl}#learning-resource`,
+        name: `${enriched.displayName} – ${enriched.courseCode} Exam Prep Material`,
+        learningResourceType: enriched.typeLabel,
+        educationalLevel: enriched.termScope,
+        teaches: `${enriched.courseCode} – ${enriched.courseTitle}`,
+        isAccessibleForFree: true,
+        inLanguage: 'en-PK',
+        url: canonicalUrl
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${canonicalUrl}#faqs`,
+        name: `${enriched.courseCode} Examination & Document FAQs`,
+        mainEntity: enriched.faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.answer
+          }
+        }))
       },
       {
         '@type': 'BreadcrumbList',
@@ -109,10 +145,10 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
           {
             '@type': 'ListItem',
             position: 3,
-            name: doc.course,
-            item: `https://study.mihora.tech/courses/${doc.course.toLowerCase()}`
+            name: enriched.courseCode,
+            item: `https://study.mihora.tech/courses/${enriched.courseCode.toLowerCase()}`
           },
-          { '@type': 'ListItem', position: 4, name: displayName, item: canonicalUrl }
+          { '@type': 'ListItem', position: 4, name: enriched.displayName, item: canonicalUrl }
         ]
       }
     ]
@@ -123,26 +159,108 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
     `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`
   );
 
-  const related = getRelatedDocEntries(doc, 6);
+  const related = getRelatedDocEntries(doc, 10);
   const ssrBody = `
-    <main style="max-width: 1100px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-      <nav aria-label="Breadcrumb" style="font-size: 0.85rem; margin-bottom: 1rem;">
-        <a href="/">Library</a> &rsaquo;
-        <a href="/courses">Courses</a> &rsaquo;
-        <a href="/courses/${escapeHtmlValue(doc.course.toLowerCase())}">${escapeHtmlValue(doc.course)}</a> &rsaquo;
-        <span>${escapeHtmlValue(displayName)}</span>
+    <main style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; line-height: 1.6;">
+      <nav aria-label="Breadcrumb" style="font-size: 0.85rem; margin-bottom: 1.25rem;">
+        <a href="/" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Library</a> &rsaquo;
+        <a href="/courses" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Courses</a> &rsaquo;
+        <a href="/courses/${escapeHtmlValue(enriched.courseCode.toLowerCase())}" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">${escapeHtmlValue(enriched.courseCode)}</a> &rsaquo;
+        <span style="color: #64748b; font-weight: 600;">${escapeHtmlValue(enriched.displayName)}</span>
       </nav>
-      <h1>${escapeHtmlValue(displayName)}</h1>
-      <p>${escapeHtmlValue(desc)}</p>
-      <p>Course: ${escapeHtmlValue(doc.course)} · Format: ${escapeHtmlValue(doc.format)} · Category: ${escapeHtmlValue(doc.type)}</p>
+
+      <header style="margin-bottom: 2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1.5rem;">
+        <div style="font-family: monospace; font-size: 0.8rem; font-weight: 700; color: #1d4ed8; text-transform: uppercase; margin-bottom: 0.5rem;">
+          ${escapeHtmlValue(enriched.courseCode)} · ${escapeHtmlValue(enriched.format)} · ${escapeHtmlValue(enriched.typeLabel)}
+        </div>
+        <h1 style="font-size: 2.25rem; font-weight: 900; line-height: 1.25; margin-bottom: 0.75rem; color: #0f172a;">
+          ${escapeHtmlValue(enriched.displayName)}
+        </h1>
+        <p style="font-size: 1.1rem; color: #475569; max-width: 900px;">
+          ${escapeHtmlValue(enriched.overviewSummary)}
+        </p>
+      </header>
+
+      <!-- Academic Overview & Scope -->
+      <section style="margin-bottom: 2rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem;">
+          Academic Overview &amp; Curriculum Scope
+        </h2>
+        <p style="color: #334155; margin-bottom: 1rem;">
+          This resource belongs to <strong>${escapeHtmlValue(enriched.courseCode)}: ${escapeHtmlValue(enriched.courseTitle)}</strong> under the <em>${escapeHtmlValue(enriched.faculty)}</em> at Virtual University of Pakistan. It is tailored for students preparing for examinations, assignments, and semester evaluations.
+        </p>
+        <ul style="color: #475569; padding-left: 1.25rem; margin-bottom: 1rem;">
+          ${enriched.syllabusHighlights.map((h) => `<li style="margin-bottom: 0.35rem;">${escapeHtmlValue(h)}</li>`).join('')}
+        </ul>
+      </section>
+
+      <!-- Exam Prep & 20% Two-Half Rule Strategy -->
+      <section style="margin-bottom: 2rem; padding: 1.5rem; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #1e40af; margin-bottom: 0.75rem;">
+          ${escapeHtmlValue(enriched.courseCode)} Examination &amp; 20% Passing Rule Strategy
+        </h2>
+        <p style="color: #1e3a8a; margin-bottom: 0.75rem;">
+          ${escapeHtmlValue(enriched.examTips)}
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;">
+          <a href="/courses/${escapeHtmlValue(enriched.courseCode.toLowerCase())}" style="display: inline-block; padding: 0.6rem 1rem; background: #1d4ed8; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 0.9rem;">All ${escapeHtmlValue(enriched.courseCode)} Files</a>
+          <a href="/vu-mcqs-bank" style="display: inline-block; padding: 0.6rem 1rem; background: #ffffff; color: #1d4ed8; border: 1px solid #bfdbfe; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 0.9rem;">Practice MCQs Bank</a>
+          <a href="/simulator" style="display: inline-block; padding: 0.6rem 1rem; background: #ffffff; color: #1d4ed8; border: 1px solid #bfdbfe; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 0.9rem;">Passing Marks Simulator</a>
+        </div>
+      </section>
+
+      <!-- Frequently Asked Questions -->
+      <section style="margin-bottom: 2.5rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem;">
+          Frequently Asked Questions (${escapeHtmlValue(enriched.courseCode)} Exams &amp; Downloads)
+        </h2>
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          ${enriched.faqs
+            .map(
+              (f) => `
+            <div>
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: #0066ff; margin-bottom: 0.35rem;">${escapeHtmlValue(f.question)}</h3>
+              <p style="color: #475569; font-size: 0.95rem;">${escapeHtmlValue(f.answer)}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      </section>
+
+      <!-- Target Search Keywords & Topics -->
+      <section style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">
+          Related Virtual University Search Queries
+        </h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          ${enriched.targetKeywords
+            .map(
+              (kw) =>
+                `<span style="display: inline-block; padding: 0.35rem 0.65rem; background: #f1f5f9; border-radius: 6px; font-size: 0.8rem; color: #475569; font-family: monospace;">${escapeHtmlValue(kw)}</span>`
+            )
+            .join('')}
+        </div>
+      </section>
+
+      <!-- Related Course Documents -->
       ${
         related.length > 0
-          ? `<section><h2>More ${escapeHtmlValue(doc.course)} Documents</h2><ul>${related
-              .map(
-                (r) =>
-                  `<li><a href="/doc/${escapeHtmlValue(r.slug)}">${escapeHtmlValue(cleanDocumentDisplayTitle(r.resource.name))}</a></li>`
-              )
-              .join('')}</ul></section>`
+          ? `
+      <section style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0;">
+        <h2 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem;">
+          More Verified ${escapeHtmlValue(enriched.courseCode)} Study Documents
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem;">
+          ${related
+            .map(
+              (r) =>
+                `<a href="/doc/${escapeHtmlValue(r.slug)}" style="display: block; padding: 0.85rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; text-decoration: none; color: #1d4ed8; font-weight: 600; font-size: 0.9rem;">${escapeHtmlValue(cleanDocumentDisplayTitle(r.resource.name))} <span style="display: block; color: #64748b; font-size: 0.75rem; margin-top: 0.25rem;">${escapeHtmlValue(r.resource.format)} · ${escapeHtmlValue(r.resource.type)}</span></a>`
+            )
+            .join('')}
+        </div>
+      </section>
+      `
           : ''
       }
     </main>
