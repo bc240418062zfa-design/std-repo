@@ -1122,7 +1122,8 @@ export function prerenderAllRoutes() {
   </url>`;
   });
 
-  const fullSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+  // 1. Generate Core & Course XML Sitemap (449 URLs)
+  const mainSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -1135,13 +1136,16 @@ export function prerenderAllRoutes() {
 ${sitemapItems.join('\n')}
 </urlset>`;
 
-  fs.writeFileSync(path.join(distPath, 'sitemap.xml'), fullSitemapXml, 'utf-8');
   const publicPath = path.resolve('public');
+
+  fs.writeFileSync(path.join(distPath, 'sitemap-main.xml'), mainSitemapXml, 'utf-8');
+  fs.writeFileSync(path.join(distPath, 'Sitemap-main.xml'), mainSitemapXml, 'utf-8');
   if (fs.existsSync(publicPath)) {
-    fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), fullSitemapXml, 'utf-8');
+    fs.writeFileSync(path.join(publicPath, 'sitemap-main.xml'), mainSitemapXml, 'utf-8');
+    fs.writeFileSync(path.join(publicPath, 'Sitemap-main.xml'), mainSitemapXml, 'utf-8');
   }
 
-  // Generate Dedicated Documents XML Sitemap covering ALL 28,328 /doc/<slug> Preview & SEO pages
+  // 2. Generate Dedicated Documents XML Sitemap covering ALL 28,328 /doc/<slug> Preview & SEO pages
   const docUrlEntries = docSlugIndex.entries.map((entry) => {
     const safeLoc = escapeHtmlAttr(`https://study.mihora.tech/doc/${entry.slug}`);
     return `  <url><loc>${safeLoc}</loc><lastmod>${BUILD_DATE}</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>`;
@@ -1155,8 +1159,33 @@ ${docUrlEntries.join('\n')}
 </urlset>`;
 
   fs.writeFileSync(path.join(distPath, 'sitemap-docs.xml'), docsSitemapXml, 'utf-8');
+  fs.writeFileSync(path.join(distPath, 'Sitemap-docs.xml'), docsSitemapXml, 'utf-8');
   if (fs.existsSync(publicPath)) {
     fs.writeFileSync(path.join(publicPath, 'sitemap-docs.xml'), docsSitemapXml, 'utf-8');
+    fs.writeFileSync(path.join(publicPath, 'Sitemap-docs.xml'), docsSitemapXml, 'utf-8');
+  }
+
+  // 3. Generate Master Sitemap Index (sitemap.xml) linking BOTH sitemap-main.xml and sitemap-docs.xml
+  // When submitted to Google Search Console, GSC automatically discovers and indexes ALL 28,777 pages!
+  const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://study.mihora.tech/sitemap-main.xml</loc>
+    <lastmod>${BUILD_DATE}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://study.mihora.tech/sitemap-docs.xml</loc>
+    <lastmod>${BUILD_DATE}</lastmod>
+  </sitemap>
+</sitemapindex>`;
+
+  fs.writeFileSync(path.join(distPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');
+  fs.writeFileSync(path.join(distPath, 'sitemap_index.xml'), sitemapIndexXml, 'utf-8');
+  fs.writeFileSync(path.join(distPath, 'Sitemap.xml'), sitemapIndexXml, 'utf-8');
+  if (fs.existsSync(publicPath)) {
+    fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');
+    fs.writeFileSync(path.join(publicPath, 'sitemap_index.xml'), sitemapIndexXml, 'utf-8');
+    fs.writeFileSync(path.join(publicPath, 'Sitemap.xml'), sitemapIndexXml, 'utf-8');
   }
 
   // Generate GEO LLM Context Dossiers (llms.txt & llms-full.txt)

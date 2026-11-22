@@ -284,6 +284,43 @@ const PORT = 3000;
 
 app.use(express.json());
 
+// Dedicated Case-Insensitive Sitemap & Robots.txt Handler (Guarantees Google Search Console 100% Success for /sitemap.xml, /Sitemap.xml, /sitemap-docs.xml, etc.)
+app.get(/^\/(sitemap.*|robots\.txt)$/i, (req: Request, res: Response, next) => {
+  const cleanPath = req.path.toLowerCase().replace(/\/+$/, '');
+  const isProd = process.env.NODE_ENV === 'production';
+  const baseDir = isProd && fs.existsSync(path.resolve('dist')) ? path.resolve('dist') : path.resolve('public');
+
+  if (cleanPath === '/robots.txt') {
+    const file = path.join(baseDir, 'robots.txt');
+    if (fs.existsSync(file)) {
+      return res.status(200).type('text/plain; charset=utf-8').sendFile(file);
+    }
+  }
+
+  if (cleanPath === '/sitemap.xml' || cleanPath === '/sitemap_index.xml') {
+    const file = path.join(baseDir, 'sitemap.xml');
+    if (fs.existsSync(file)) {
+      return res.status(200).type('application/xml; charset=utf-8').sendFile(file);
+    }
+  }
+
+  if (cleanPath === '/sitemap-main.xml' || cleanPath === '/sitemap_main.xml') {
+    const file = path.join(baseDir, 'sitemap-main.xml');
+    if (fs.existsSync(file)) {
+      return res.status(200).type('application/xml; charset=utf-8').sendFile(file);
+    }
+  }
+
+  if (cleanPath === '/sitemap-docs.xml' || cleanPath === '/sitemap_docs.xml') {
+    const file = path.join(baseDir, 'sitemap-docs.xml');
+    if (fs.existsSync(file)) {
+      return res.status(200).type('application/xml; charset=utf-8').sendFile(file);
+    }
+  }
+
+  return next();
+});
+
 // Server Secrets
 const DOWNLOAD_TOKEN_SECRET = process.env.DOWNLOAD_TOKEN_SECRET || 'mihora-download-token-dev-secret-key-2026';
 const RESOURCE_MAP_PATH = path.resolve('.secrets/server-resource-map.json');

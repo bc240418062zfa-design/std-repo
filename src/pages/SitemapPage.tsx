@@ -257,7 +257,18 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
           >
-            <span>XML Sitemap (Core &amp; 411 Courses)</span>
+            <span>Master Sitemap Index (28,777 URLs)</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            href="/sitemap-main.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
+          >
+            <span>Core &amp; Courses (449 URLs)</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
           </motion.a>
           <motion.a
