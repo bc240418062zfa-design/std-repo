@@ -84,6 +84,7 @@ export function syncRouteSeo({
       '@id': `${BASE_URL}${canonicalPath}#document`,
       name: enriched.displayName,
       fileFormat: enriched.format,
+      numberOfPages: enriched.estimatedPages,
       educationalUse: enriched.typeLabel,
       description: enriched.overviewSummary,
       about: {
@@ -95,6 +96,12 @@ export function syncRouteSeo({
           name: 'Virtual University of Pakistan'
         }
       },
+      hasPart: enriched.curriculumModules.map((m) => ({
+        '@type': 'Chapter',
+        position: m.moduleNumber,
+        name: m.title,
+        description: `${m.lectureSpan} (${m.pageRange}): ${m.keyTopics.join('; ')}. Exam focus: ${m.examWeightage}.`
+      })),
       provider: {
         '@type': 'Organization',
         name: 'MIHORA VU STUDY LIBRARY',
@@ -111,6 +118,7 @@ export function syncRouteSeo({
       name: `${enriched.displayName} – ${enriched.courseCode} Exam Prep Material`,
       learningResourceType: enriched.typeLabel,
       educationalLevel: enriched.termScope,
+      numberOfPages: enriched.estimatedPages,
       teaches: `${enriched.courseCode} – ${enriched.courseTitle}`,
       isAccessibleForFree: true,
       inLanguage: 'en-PK',

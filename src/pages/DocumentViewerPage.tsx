@@ -40,7 +40,8 @@ import {
   CheckCircle2,
   HelpCircle,
   Tag,
-  BookOpenCheck
+  BookOpenCheck,
+  Layers
 } from 'lucide-react';
 
 interface DocumentViewerPageProps {
@@ -389,6 +390,8 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
               <span aria-hidden="true" className="text-slate-500">·</span>
               <span className="font-semibold uppercase tracking-wider">{format}</span>
               <span aria-hidden="true" className="text-slate-500">·</span>
+              <span className="text-sky-300 font-mono">~{enriched.estimatedPages} Pages</span>
+              <span aria-hidden="true" className="text-slate-500">·</span>
               <span>{enriched.typeLabel}</span>
               {enriched.contributor && (
                 <>
@@ -584,6 +587,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
                 key={`${canonicalSlug}-${reloadNonce}`}
                 src={previewUrl}
                 title={displayTitle}
+                loading="lazy"
                 className="w-full h-full border-0 bg-white"
                 allow="autoplay; encrypted-media; fullscreen"
                 onLoad={() => setLoading(false)}
@@ -628,6 +632,10 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
               <div className="py-2 flex items-center justify-between gap-3">
                 <dt className="text-slate-500">Curriculum Scope</dt>
                 <dd className="font-medium text-slate-900 text-right">{enriched.termScope}</dd>
+              </div>
+              <div className="py-2 flex items-center justify-between gap-3">
+                <dt className="text-slate-500">Document Volume</dt>
+                <dd className="font-semibold text-slate-900 text-right">~{enriched.estimatedPages} Pages ({enriched.curriculumModules.length} Modules)</dd>
               </div>
               {enriched.contributor && (
                 <div className="py-2 flex items-center justify-between gap-3">
@@ -794,6 +802,62 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Section 1.5: Comprehensive Document Chapter & Lecture Roadmap (Thousands of Pages Depth) */}
+        <section
+          aria-labelledby="chapter-roadmap-heading"
+          className="rounded-2xl bg-white border border-[#DDD6C8] p-6 sm:p-8 space-y-5 shadow-xs"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#EFECE4] pb-4">
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center shrink-0">
+                <Layers className="w-5 h-5" />
+              </div>
+              <div className="space-y-1 min-w-0">
+                <h2 id="chapter-roadmap-heading" className="text-lg sm:text-xl font-extrabold text-slate-950">
+                  Document Chapter &amp; Lecture Syllabus Roadmap (~{enriched.estimatedPages} Pages Indexed)
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Exhaustive academic syllabus breakdown indexing every lecture topic, exam weightage, and solved question pattern across ~{enriched.estimatedPages} pages.
+                </p>
+              </div>
+            </div>
+            <div className="shrink-0 font-mono text-xs font-semibold px-3 py-1.5 rounded-lg bg-[#FAF8F4] border border-[#E5E0D5] text-slate-700">
+              {enriched.termScope}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {enriched.curriculumModules.map((m) => (
+              <div
+                key={m.moduleNumber}
+                className="p-4 rounded-xl bg-[#FAF8F4] border border-[#E5E0D5] space-y-2.5 flex flex-col justify-between"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between gap-2 text-[11px] font-mono text-slate-500">
+                    <span className="font-bold text-indigo-700">Module {m.moduleNumber}</span>
+                    <span className="text-slate-600">{m.lectureSpan} · {m.pageRange}</span>
+                  </div>
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                    {m.title}
+                  </h3>
+                  <div className="text-[11px] font-medium text-emerald-800">
+                    Exam Focus: {m.examWeightage}
+                  </div>
+                </div>
+
+                <ul className="space-y-1 text-xs text-slate-600 border-t border-slate-200/70 pt-2">
+                  {m.keyTopics.map((topic, tIdx) => (
+                    <li key={tIdx} className="flex items-start gap-1.5 leading-relaxed">
+                      <span aria-hidden="true" className="text-indigo-500 shrink-0 select-none">·</span>
+                      <span>{topic}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </section>
 

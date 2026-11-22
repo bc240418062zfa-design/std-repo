@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import compression from 'compression';
 import { createServer as createViteServer } from 'vite';
 import crypto from 'crypto';
 import fs from 'fs';
@@ -13,6 +14,12 @@ import {
 } from './src/utils/docSlug';
 import { enrichDocumentMetadata } from './src/utils/docEnricher';
 import coursesData from './src/data/courses.json';
+
+// In-memory caches for near-instant TTFB and Googlebot crawl budget efficiency
+let cachedDistTemplate: string | null = null;
+let cachedDevTemplate: string | null = null;
+const docSsrCache = new Map<string, { html: string; timestamp: number }>();
+const SSR_CACHE_TTL_MS = 1000 * 60 * 60 * 24; // 24 hours
 
 function escapeHtmlValue(str: string): string {
   return (str || '')
@@ -92,6 +99,7 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
         '@id': `${canonicalUrl}#document`,
         name: enriched.displayName,
         fileFormat: enriched.format,
+        numberOfPages: enriched.estimatedPages,
         educationalUse: enriched.typeLabel,
         description: enriched.overviewSummary,
         about: {
@@ -103,6 +111,12 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
             name: 'Virtual University of Pakistan'
           }
         },
+        hasPart: enriched.curriculumModules.map((m) => ({
+          '@type': 'Chapter',
+          position: m.moduleNumber,
+          name: m.title,
+          description: `${m.lectureSpan} (${m.pageRange}): ${m.keyTopics.join('; ')}. Exam focus: ${m.examWeightage}.`
+        })),
         provider: {
           '@type': 'Organization',
           name: 'MIHORA VU STUDY LIBRARY',
@@ -118,6 +132,7 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
         name: `${enriched.displayName} – ${enriched.courseCode} Exam Prep Material`,
         learningResourceType: enriched.typeLabel,
         educationalLevel: enriched.termScope,
+        numberOfPages: enriched.estimatedPages,
         teaches: `${enriched.courseCode} – ${enriched.courseTitle}`,
         isAccessibleForFree: true,
         inLanguage: 'en-PK',
@@ -171,7 +186,7 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
 
       <header style="margin-bottom: 2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1.5rem;">
         <div style="font-family: monospace; font-size: 0.8rem; font-weight: 700; color: #1d4ed8; text-transform: uppercase; margin-bottom: 0.5rem;">
-          ${escapeHtmlValue(enriched.courseCode)} · ${escapeHtmlValue(enriched.format)} · ${escapeHtmlValue(enriched.typeLabel)}
+          ${escapeHtmlValue(enriched.courseCode)} · ${escapeHtmlValue(enriched.format)} · ${escapeHtmlValue(enriched.typeLabel)} · ~${escapeHtmlValue(String(enriched.estimatedPages))} Pages
         </div>
         <h1 style="font-size: 2.25rem; font-weight: 900; line-height: 1.25; margin-bottom: 0.75rem; color: #0f172a;">
           ${escapeHtmlValue(enriched.displayName)}
@@ -192,6 +207,41 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
         <ul style="color: #475569; padding-left: 1.25rem; margin-bottom: 1rem;">
           ${enriched.syllabusHighlights.map((h) => `<li style="margin-bottom: 0.35rem;">${escapeHtmlValue(h)}</li>`).join('')}
         </ul>
+      </section>
+
+      <!-- Comprehensive Document Chapter & Lecture Roadmap (Thousands of Pages Depth) -->
+      <section style="margin-bottom: 2rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 0;">
+            Document Chapter &amp; Lecture Syllabus Roadmap (~${escapeHtmlValue(String(enriched.estimatedPages))} Pages Indexed)
+          </h2>
+          <span style="font-size: 0.8rem; font-weight: 700; color: #1d4ed8; background: #eff6ff; padding: 0.35rem 0.75rem; border-radius: 6px;">
+            ${escapeHtmlValue(enriched.termScope)}
+          </span>
+        </div>
+        <p style="color: #475569; font-size: 0.95rem; margin-bottom: 1.25rem;">
+          This ${escapeHtmlValue(enriched.format)} study document encompasses approximately ${escapeHtmlValue(String(enriched.estimatedPages))} pages across ${escapeHtmlValue(String(enriched.curriculumModules.length))} structured academic modules. Below is the complete syllabus roadmap indexing every lecture topic, exam weightage, and solved question pattern for Googlebot and students:
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          ${enriched.curriculumModules.map((m) => `
+            <div style="padding: 1rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <h3 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0;">
+                  Module ${m.moduleNumber}: ${escapeHtmlValue(m.title)}
+                </h3>
+                <span style="font-size: 0.8rem; font-family: monospace; color: #64748b; font-weight: 600;">
+                  ${escapeHtmlValue(m.lectureSpan)} · ${escapeHtmlValue(m.pageRange)}
+                </span>
+              </div>
+              <div style="font-size: 0.8rem; font-weight: 600; color: #166534; margin-bottom: 0.5rem;">
+                Exam Focus: ${escapeHtmlValue(m.examWeightage)}
+              </div>
+              <ul style="color: #334155; font-size: 0.875rem; padding-left: 1.25rem; margin: 0;">
+                ${m.keyTopics.map((t) => `<li style="margin-bottom: 0.25rem;">${escapeHtmlValue(t)}</li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
       </section>
 
       <!-- Exam Prep & 20% Two-Half Rule Strategy -->
@@ -718,15 +768,34 @@ async function startServer() {
   const isProd = process.env.NODE_ENV === 'production';
   const distPath = path.resolve('dist');
 
+  // Fast Gzip & Deflate Compression for all text, HTML, and XML sitemaps
+  app.use(compression());
+
   if (isProd && fs.existsSync(distPath)) {
     console.log('📦 Serving production pre-rendered assets from dist/');
     app.use(express.static(distPath));
+
     app.get(/^\/doc\/(.+)/i, (req: Request, res: Response) => {
-      const templatePath = path.join(distPath, 'index.html');
-      const baseHtml = fs.readFileSync(templatePath, 'utf-8');
-      const rendered = injectDocumentSsrSeo(baseHtml, req.path);
-      return res.status(200).set({ 'Content-Type': 'text/html' }).send(rendered);
+      const cleanSlug = extractDocSlugFromPath(req.path) || req.path.toLowerCase();
+      const cached = docSsrCache.get(cleanSlug);
+      if (cached && Date.now() - cached.timestamp < SSR_CACHE_TTL_MS) {
+        res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+        res.setHeader('Vary', 'Accept-Encoding');
+        return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(cached.html);
+      }
+
+      if (!cachedDistTemplate) {
+        const templatePath = path.join(distPath, 'index.html');
+        cachedDistTemplate = fs.readFileSync(templatePath, 'utf-8');
+      }
+      const rendered = injectDocumentSsrSeo(cachedDistTemplate, req.path);
+      docSsrCache.set(cleanSlug, { html: rendered, timestamp: Date.now() });
+
+      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+      res.setHeader('Vary', 'Accept-Encoding');
+      return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(rendered);
     });
+
     app.get('*', (req: Request, res: Response) => {
       const cleanPath = req.path.replace(/^\/|\/$/g, '');
       const specificFile = path.join(distPath, cleanPath, 'index.html');
@@ -740,17 +809,33 @@ async function startServer() {
       server: { middlewareMode: true },
       appType: 'spa',
     });
+
     app.get(/^\/doc\/(.+)/i, async (req: Request, res: Response, next) => {
       try {
-        const indexPath = path.resolve('index.html');
-        let template = fs.readFileSync(indexPath, 'utf-8');
-        template = await vite.transformIndexHtml(req.originalUrl, template);
+        const cleanSlug = extractDocSlugFromPath(req.path) || req.path.toLowerCase();
+        const cached = docSsrCache.get(cleanSlug);
+        if (cached && Date.now() - cached.timestamp < SSR_CACHE_TTL_MS) {
+          res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+          res.setHeader('Vary', 'Accept-Encoding');
+          return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).end(cached.html);
+        }
+
+        if (!cachedDevTemplate) {
+          const indexPath = path.resolve('index.html');
+          cachedDevTemplate = fs.readFileSync(indexPath, 'utf-8');
+        }
+        const template = await vite.transformIndexHtml(req.originalUrl, cachedDevTemplate);
         const rendered = injectDocumentSsrSeo(template, req.path);
-        return res.status(200).set({ 'Content-Type': 'text/html' }).end(rendered);
+        docSsrCache.set(cleanSlug, { html: rendered, timestamp: Date.now() });
+
+        res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+        res.setHeader('Vary', 'Accept-Encoding');
+        return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).end(rendered);
       } catch (e) {
         return next(e);
       }
     });
+
     app.use(vite.middlewares);
   }
 
