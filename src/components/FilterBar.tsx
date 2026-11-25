@@ -12,6 +12,11 @@ interface FilterBarProps {
   onLimitChange: (limit: number) => void;
   totalFiltered: number;
   totalMatching: number;
+  // Unique-file counts per type/format (after collapsing repeat listings).
+  // When provided, dropdown labels show these truthful counts instead of
+  // the old hardcoded archive totals.
+  typeCounts?: Record<string, number>;
+  formatCounts?: Record<string, number>;
 }
 
 export const FilterBar: React.FC<FilterBarProps> = ({
@@ -21,28 +26,31 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   limit,
   onLimitChange,
   totalFiltered,
-  totalMatching
+  totalMatching,
+  typeCounts,
+  formatCounts
 }) => {
+  const fmt = (n: number) => n.toLocaleString();
   const resourceTypes = [
     { label: 'All Types', value: '' },
-    { label: 'Midterms (3,877)', value: 'MIDTERM' },
-    { label: 'Finalterm (7,361)', value: 'FINALTERM' },
-    { label: 'Quizzes (5,733)', value: 'QUIZ' },
-    { label: 'MCQ Files (3,256)', value: 'MCQFILE' },
-    { label: 'Handouts & Books (2,625)', value: 'HANDOUT' },
-    { label: 'Assignments & GDBs (419)', value: 'ASSIGNMENT' },
-    { label: 'Other Course Files (5,057)', value: 'OTHER' }
+    { label: `Midterms (${fmt(typeCounts?.MIDTERM ?? 3877)})`, value: 'MIDTERM' },
+    { label: `Finalterm (${fmt(typeCounts?.FINALTERM ?? 7361)})`, value: 'FINALTERM' },
+    { label: `Quizzes (${fmt(typeCounts?.QUIZ ?? 5733)})`, value: 'QUIZ' },
+    { label: `MCQ Files (${fmt(typeCounts?.MCQFILE ?? 3256)})`, value: 'MCQFILE' },
+    { label: `Handouts & Books (${fmt(typeCounts?.HANDOUT ?? 2625)})`, value: 'HANDOUT' },
+    { label: `Assignments & GDBs (${fmt(typeCounts?.ASSIGNMENT ?? 419)})`, value: 'ASSIGNMENT' },
+    { label: `Other Course Files (${fmt(typeCounts?.OTHER ?? 5057)})`, value: 'OTHER' }
   ];
 
   const formats = [
     { label: 'All Formats', value: '' },
-    { label: 'PDF Documents (22,865)', value: 'PDF' },
-    { label: 'Images / Screenshots (3,069)', value: 'IMAGE' },
-    { label: 'Word DOC/DOCX (1,540)', value: 'DOC' },
-    { label: 'PowerPoint PPT (529)', value: 'PPT' },
-    { label: 'ZIP Archives (185)', value: 'ARCHIVE' },
-    { label: 'Other Formats (123)', value: 'OTHER' },
-    { label: 'Text Notes (17)', value: 'TXT' }
+    { label: `PDF Documents (${fmt(formatCounts?.PDF ?? 22865)})`, value: 'PDF' },
+    { label: `Images / Screenshots (${fmt(formatCounts?.IMAGE ?? 3069)})`, value: 'IMAGE' },
+    { label: `Word DOC/DOCX (${fmt(formatCounts?.DOC ?? 1540)})`, value: 'DOC' },
+    { label: `PowerPoint PPT (${fmt(formatCounts?.PPT ?? 529)})`, value: 'PPT' },
+    { label: `ZIP Archives (${fmt(formatCounts?.ARCHIVE ?? 185)})`, value: 'ARCHIVE' },
+    { label: `Other Formats (${fmt(formatCounts?.OTHER ?? 123)})`, value: 'OTHER' },
+    { label: `Text Notes (${fmt(formatCounts?.TXT ?? 17)})`, value: 'TXT' }
   ];
 
   const isMcqActive = filters.tags.includes('MCQ');

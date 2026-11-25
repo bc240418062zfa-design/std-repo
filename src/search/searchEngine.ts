@@ -110,6 +110,41 @@ export function parseQuery(query: string) {
   };
 }
 
+// Collapse repeat listings of the same file: the archive holds the same
+// document under several Drive file IDs (same course + same file name, e.g.
+// "ACC311 - MEGA SOLVED BY vulmshelp.com.doc" listed 4 times). Showing every
+// copy in the grid reads as duplicated data, so the grid shows each unique
+// file once. First occurrence in the given order wins. The match is
+// case-insensitive: "CS201 SOLVED MCQs..." and "CS201 Solved MCQs..." are
+// the same file listed twice.
+export function dedupeResources(resources: Resource[]): Resource[] {
+  const seen = new Set<string>();
+  const out: Resource[] = [];
+  for (const res of resources) {
+    const key = `${res.course.toUpperCase()}\0${res.name.toLowerCase()}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(res);
+  }
+  return out;
+}
+
+// Unique-file counts per type/format, for filter labels that must stay
+// truthful once the grid is deduped.
+export function countDedupedResources(resources: Resource[]): {
+  byType: Record<string, number>;
+  byFormat: Record<string, number>;
+} {
+  const unique = dedupeResources(resources);
+  const byType: Record<string, number> = {};
+  const byFormat: Record<string, number> = {};
+  for (const res of unique) {
+    byType[res.type] = (byType[res.type] ?? 0) + 1;
+    byFormat[res.format] = (byFormat[res.format] ?? 0) + 1;
+  }
+  return { byType, byFormat };
+}
+
 export function searchResources(
   resources: Resource[],
   query: string,
@@ -141,9 +176,12 @@ export function searchResources(
       return bSolved - aSolved;
     });
 
+    // Show each unique file once (repeat Drive listings of the same file
+    // are collapsed; totalCount is the unique-file count).
+    const uniqueInitial = dedupeResources(initialList);
     return {
-      resources: initialList.slice(0, limit),
-      totalCount: resources.length
+      resources: uniqueInitial.slice(0, limit),
+      totalCount: uniqueInitial.length
     };
   }
 
@@ -231,8 +269,11 @@ export function searchResources(
   // Sort descending by score
   scoredList.sort((a, b) => b.score - a.score);
 
+  // Show each unique file once (highest-scored copy wins); totalCount is
+  // the unique-file count so pagination stays consistent.
+  const uniqueScored = dedupeResources(scoredList.map(item => item.resource));
   return {
-    resources: scoredList.slice(0, limit).map(item => item.resource),
-    totalCount: scoredList.length
+    resources: uniqueScored.slice(0, limit),
+    totalCount: uniqueScored.length
   };
 }
