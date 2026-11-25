@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { MotionConfig, motion, AnimatePresence } from 'motion/react';
 import { Resource, Course, FilterState, DownloadSession } from './types';
-import { searchResources } from './search/searchEngine';
+import { searchResources, countDedupedResources } from './search/searchEngine';
 import { resolveResourceLocally } from './security/shardResolver';
 import { mcqSets } from './data/mcqs';
 import { subjectiveSets } from './data/subjective';
@@ -485,6 +485,10 @@ export default function App() {
   const { resources: filteredResources, totalCount: totalMatchingCount } = useMemo(() => {
     return searchResources(resources, query, filters, limit);
   }, [query, filters, limit]);
+
+  // Unique-file counts per type/format for the filter dropdown labels, so
+  // the numbers stay truthful now that repeat listings are collapsed.
+  const dedupedCounts = useMemo(() => countDedupedResources(resources), []);
 
   // Handle single resource download with Resilient Shard Fallback
   const handleDownload = async (resource: Resource) => {
@@ -1436,6 +1440,8 @@ export default function App() {
                   onLimitChange={setLimit}
                   totalFiltered={filteredResources.length}
                   totalMatching={totalMatchingCount}
+                  typeCounts={dedupedCounts.byType}
+                  formatCounts={dedupedCounts.byFormat}
                 />
 
                 {/* Course-Specific Midterm Prep 2026 Special Packs Banner */}
