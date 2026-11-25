@@ -7,6 +7,11 @@ import {
   DocSlugEntry,
   getDocSlugIndex
 } from '../src/utils/docSlug';
+import {
+  getAllMidtermPrepEntries,
+  getMidtermCoursesGrouped,
+  getMidtermDocsForCourse
+} from '../src/utils/midtermPrep';
 
 function escapeHtmlAttr(str: string): string {
   return (str || '')
@@ -92,7 +97,46 @@ for (const entry of docSlugIndex.entries) {
 // High-frequency searched courses for instant index prominence
 const TOP_COURSES = allCoursesList.slice(0, 40);
 
+const allMidtermEntries = getAllMidtermPrepEntries();
+const groupedMidtermCourses = getMidtermCoursesGrouped();
+
 const ROUTES: RouteSEO[] = [
+  // 0. Dedicated Midterm Prep 2026 Hub (All 332 Courses / 664 Special Packs)
+  {
+    path: 'midterm-prep',
+    title: 'VU Midterm Prep 2026 – 664 Solved Important MCQs & Subjective Question Banks | MIHORA VU',
+    description: 'Complete Virtual University Midterm Preparation 2026 hub covering 332 subjects (664 verified packs): read full Objective Important MCQs with verified answer keys and Solved Subjective Q&As directly online.',
+    canonical: 'https://study.mihora.tech/midterm-prep',
+    keywords: 'vu midterm preparation 2026, vu midterm important mcqs, vu midterm important subjective solved, vu midterm question banks, acc311 midterm mcqs, cs101 midterm mcqs, cs201 midterm solved, mihora vu',
+    extraJsonLd: {
+      "@type": "CollectionPage",
+      "@id": "https://study.mihora.tech/midterm-prep#collection",
+      "name": "VU Midterm Prep 2026 – 664 Solved Question Banks",
+      "description": "Complete extracted Objective MCQs and Solved Subjective Q&A banks across 332 Virtual University courses.",
+      "numberOfItems": allMidtermEntries.length
+    },
+    preRenderedHtml: `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">VU Midterm Prep 2026 – Complete Solved MCQs &amp; Subjective Question Banks (664 Packs)</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
+          Read complete solved Midterm Important MCQs (verified answer keys) and Midterm Important Subjective Q&amp;As directly on-page across ${groupedMidtermCourses.length} Virtual University courses.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; margin-top: 2rem;">
+          ${groupedMidtermCourses.map((c) => `
+            <div style="padding: 1.15rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
+              <div style="font-family: monospace; font-weight: 800; color: #0f172a; font-size: 1rem;">${escapeHtmlAttr(c.courseCode)} – ${escapeHtmlAttr(c.courseTitle)}</div>
+              <div style="color: #64748b; font-size: 0.8rem; margin: 0.25rem 0 0.75rem;">${escapeHtmlAttr(c.faculty)}</div>
+              <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                ${c.mcqsEntry ? `<a href="/midterm-prep/${escapeHtmlAttr(c.mcqsEntry.filename)}" style="color: #1d4ed8; font-weight: 700; text-decoration: none; font-size: 0.88rem;">${escapeHtmlAttr(c.mcqsEntry.filename)} (${c.mcqsEntry.itemCount} MCQs)</a>` : ''}
+                ${c.subjectiveEntry ? `<a href="/midterm-prep/${escapeHtmlAttr(c.subjectiveEntry.filename)}" style="color: #b45309; font-weight: 700; text-decoration: none; font-size: 0.88rem;">${escapeHtmlAttr(c.subjectiveEntry.filename)} (${c.subjectiveEntry.itemCount} Q&amp;As)</a>` : ''}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `
+  },
+
   // 1. Course Directory (ALL 411 Courses)
   {
     path: 'courses',
@@ -781,6 +825,27 @@ for (const course of allCoursesList) {
           </div>
         </div>
         ${(() => {
+          const courseMidterms = getMidtermDocsForCourse(course.code);
+          if (courseMidterms.length === 0) return '';
+          return `
+        <section style="margin-top: 1.5rem; padding: 1.5rem; background: #0f172a; color: #ffffff; border-radius: 12px;">
+          <h2 style="font-size: 1.25rem; font-weight: 800; color: #fcd34d; margin-bottom: 0.5rem;">
+            ${course.code} Midterm Prep 2026 Special Question Banks (Full Online Text)
+          </h2>
+          <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 0.9rem;">
+            Read complete extracted ${course.code} Midterm Important MCQs (verified answer keys) and Solved Subjective Q&amp;As directly on-page:
+          </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            ${courseMidterms
+              .map(
+                (m) =>
+                  `<a href="/midterm-prep/${escapeHtmlAttr(m.filename)}" style="display: inline-block; padding: 0.65rem 1rem; background: #ffffff; color: #0f172a; font-weight: 700; text-decoration: none; border-radius: 8px; font-size: 0.88rem;">${escapeHtmlAttr(m.filename)} (${m.itemCount} ${m.kind === 'mcqs' ? 'MCQs' : 'Q&As'})</a>`
+              )
+              .join('')}
+          </div>
+        </section>`;
+        })()}
+        ${(() => {
           const courseDocs = docsByCourse.get(course.code.toUpperCase()) || [];
           if (courseDocs.length === 0) return '';
           return `
@@ -1062,6 +1127,7 @@ export function prerenderAllRoutes() {
           <a href="/" style="font-weight: 800; color: #050B18; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
           <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
             <a href="/courses" style="color: #475569; text-decoration: none; font-weight: 600;">Courses (${allCoursesList.length})</a>
+            <a href="/midterm-prep" style="color: #1d4ed8; text-decoration: none; font-weight: 700;">Midterm Prep 2026 (664)</a>
             <a href="/mcqs" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">MCQs</a>
             <a href="/subjective" style="color: #b45309; text-decoration: none; font-weight: 600;">Subjective Studio</a>
             <a href="/vu-assignment-solution-2026" style="color: #059669; text-decoration: none; font-weight: 700;">Assignments 2026</a>
@@ -1165,12 +1231,38 @@ ${docUrlEntries.join('\n')}
     fs.writeFileSync(path.join(publicPath, 'Sitemap-docs.xml'), docsSitemapXml, 'utf-8');
   }
 
-  // 3. Generate Master Sitemap Index (sitemap.xml) linking BOTH sitemap-main.xml and sitemap-docs.xml
-  // When submitted to Google Search Console, GSC automatically discovers and indexes ALL 28,777 pages!
+  // 2B. Generate Dedicated Midterm Prep 2026 XML Sitemap covering Hub + all 664 /midterm-prep/<Filename>.pdf pages
+  const midtermUrlEntries = [
+    `  <url><loc>https://study.mihora.tech/midterm-prep</loc><lastmod>${BUILD_DATE}</lastmod><changefreq>daily</changefreq><priority>0.98</priority></url>`,
+    ...allMidtermEntries.map((entry) => {
+      const safeLoc = escapeHtmlAttr(`https://study.mihora.tech/midterm-prep/${entry.filename}`);
+      return `  <url><loc>${safeLoc}</loc><lastmod>${BUILD_DATE}</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>`;
+    })
+  ];
+
+  const midtermSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+${midtermUrlEntries.join('\n')}
+</urlset>`;
+
+  fs.writeFileSync(path.join(distPath, 'sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
+  fs.writeFileSync(path.join(distPath, 'Sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
+  if (fs.existsSync(publicPath)) {
+    fs.writeFileSync(path.join(publicPath, 'sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
+    fs.writeFileSync(path.join(publicPath, 'Sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
+  }
+
+  // 3. Generate Master Sitemap Index (sitemap.xml) linking sitemap-main.xml, sitemap-midterm.xml, and sitemap-docs.xml
   const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>https://study.mihora.tech/sitemap-main.xml</loc>
+    <lastmod>${BUILD_DATE}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://study.mihora.tech/sitemap-midterm.xml</loc>
     <lastmod>${BUILD_DATE}</lastmod>
   </sitemap>
   <sitemap>
@@ -1235,6 +1327,7 @@ ${docUrlEntries.join('\n')}
 ## Optional Deep Context
 - [Full Catalog Dossier (llms-full.txt)](https://study.mihora.tech/llms-full.txt): Complete list of interactive MCQ studios, Subjective Fast-Learning sets, and top accredited VU courses.
 - [XML Sitemap](https://study.mihora.tech/sitemap.xml): Full index of ${ROUTES.length + 1} canonical routes.
+- [Midterm Prep 2026 Sitemap](https://study.mihora.tech/sitemap-midterm.xml): Complete index of ${allMidtermEntries.length} full-text Objective MCQs and Solved Subjective Midterm Prep pages.
 - [Documents XML Sitemap](https://study.mihora.tech/sitemap-docs.xml): Complete index of ${docSlugIndex.entries.length.toLocaleString()} dedicated /doc/<slug> document reader & download pages.
 `;
 

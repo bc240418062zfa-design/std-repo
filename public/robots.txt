@@ -12,6 +12,9 @@ Allow: /courses
 Allow: /courses/*
 Allow: /doc
 Allow: /doc/*
+Allow: /midterm-prep
+Allow: /midterm-prep/*
+Allow: /midterm-prep-2026
 Allow: /mcqs
 Allow: /mcqs/*
 Allow: /vu-mcqs-bank
@@ -40,6 +43,7 @@ Allow: /sitemap.xml
 Allow: /Sitemap.xml
 Allow: /sitemap_index.xml
 Allow: /sitemap-main.xml
+Allow: /sitemap-midterm.xml
 Allow: /sitemap-docs.xml
 Allow: /llms.txt
 Allow: /llms-full.txt
@@ -62,6 +66,9 @@ Allow: /courses
 Allow: /courses/*
 Allow: /doc
 Allow: /doc/*
+Allow: /midterm-prep
+Allow: /midterm-prep/*
+Allow: /midterm-prep-2026
 Allow: /mcqs
 Allow: /mcqs/*
 Allow: /vu-mcqs-bank
@@ -108,6 +115,9 @@ Allow: /courses
 Allow: /courses/*
 Allow: /doc
 Allow: /doc/*
+Allow: /midterm-prep
+Allow: /midterm-prep/*
+Allow: /midterm-prep-2026
 Allow: /mcqs
 Allow: /mcqs/*
 Allow: /vu-mcqs-bank
@@ -144,5 +154,6 @@ Disallow: /
 # 5. Authoritative Sitemaps & Generative AI Index
 Sitemap: https://study.mihora.tech/sitemap.xml
 Sitemap: https://study.mihora.tech/sitemap-main.xml
+Sitemap: https://study.mihora.tech/sitemap-midterm.xml
 Sitemap: https://study.mihora.tech/sitemap-docs.xml
 Host: study.mihora.tech

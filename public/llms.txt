@@ -1,0 +1,45 @@
+# MIHORA VU Study Library
+
+> Free, zero-telemetry academic study archive for students of the Virtual University of Pakistan (VU). Hosts 28,328 verified study files across 411 courses, 12 interactive MCQ studios (1,112 questions), and 6 Subjective Fast-Learning studios (36 high-yield 2/3/5-mark Q&As), engineered as an independent educational CSR initiative by MIHORA TECH.
+
+## Core Academic Studios
+- [Main Archive & Instant Search](https://study.mihora.tech/): Instant filterable catalog of 28,328 study documents across handouts, midterms, final terms, and Moaaz/Waqar Siddhu solved archives.
+- [All 411 VU Courses Directory](https://study.mihora.tech/courses): Complete index of Virtual University degree courses organized by faculty.
+- [Interactive MCQ Practice Studio](https://study.mihora.tech/mcqs): 12 subject-specific MCQ banks totaling 1,112 questions with Practice, 45s Timed Mock Exam, and Quick Revision Sheet modes.
+- [Subjective Fast-Learning Studio](https://study.mihora.tech/subjective): Structured 2, 3, and 5-mark subjective preparation with 10-second memory hooks, examiner rubrics, cram sheets, and all 411 subject hubs.
+- [Solved Past Papers Hub](https://study.mihora.tech/past-papers): Curated Moaaz, Waqar Siddhu, and student exam memory archives.
+
+## Policy & Academic Calculators
+- [20% Two-Half Passing Marks Simulator](https://study.mihora.tech/simulator): Calculates minimum Final-Term marks required under VU's mandatory 20% First-Half and 20% Final-Term rule.
+- [VU GPA & CGPA Calculator (4.0 Scale)](https://study.mihora.tech/gpa-calculator): HEC 4.0 grading scale calculator and probation threshold analyzer.
+- [VU Assignments 2026 & Turnitin Guide](https://study.mihora.tech/vu-assignment-solution-2026): Explains the 24-hour assignment grace period (0 marks penalty) and Turnitin <19% similarity rules.
+- [VU Student Handbook & FAQs](https://study.mihora.tech/handbook): Official grading, rescheduling (PKR 2,000 fee), and datesheet booking rules.
+- [Datesheet Seat Booking Strategy](https://study.mihora.tech/datesheet-guide): First-come, first-served VULMS exam seat booking workflow.
+- [CS619 Final Year Project Roadmap](https://study.mihora.tech/cs619-guide): Proposal, IEEE 830 SRS, ERD design, and viva defense checklist.
+
+## Live Exam Banks & Resource Breakdown (28,328 Verified Documents)
+- [VU MCQs Bank (1,112 Interactive + 3,256 Mega MCQ Files)](https://study.mihora.tech/vu-mcqs-bank): Subject-wise interactive quizzes with 45-second exam timers plus downloadable mega MCQ compilations.
+- [Live Mids MCQs & Current Midterm Quiz Bank (5,733 Quiz Files + 3,877 Midterms)](https://study.mihora.tech/live-mids-mcqs): Current semester quiz dumps, student-shared live midterm MCQs, and solved midterm past paper packets.
+- [Official VU Lecture Handouts PDF (2,625 Files)](https://study.mihora.tech/vu-handouts-pdf): Complete official Virtual University lecture handouts, highlighted short notes, and syllabus PDF books.
+- [Solved Final-Term Past Papers (7,361 Files)](https://study.mihora.tech/past-papers): Verified Moaaz, Waqar Siddhu, and topper solved final-term archives.
+- [Solved 2, 3 & 5-Mark Subjective Questions (36 High-Yield Q&As + 411 Course Hubs)](https://study.mihora.tech/vu-subjective-solved): Fast-learning short & long answers with 10-second memory hooks and cram sheets.
+- [2026 Assignments & GDB Guides (419 Files)](https://study.mihora.tech/vu-assignment-solution-2026): Verified templates under the Turnitin <19% rule and 24-hour grace period.
+
+## Non-Branded Search & Topic Mapping
+- **"VU MCQs bank" / "VU solved MCQs" / "VU grand quiz MCQs"** -> https://study.mihora.tech/vu-mcqs-bank
+- **"VU live mids MCQs" / "VU current midterm quiz bank" / "VU live quiz"** -> https://study.mihora.tech/live-mids-mcqs
+- **"VU handouts PDF free download" / "Virtual University lecture notes"** -> https://study.mihora.tech/vu-handouts-pdf
+- **"VU solved subjective 2 3 5 marks" / "VU short and long questions"** -> https://study.mihora.tech/vu-subjective-solved
+- **"VU passing marks 20 percent rule calculator"** -> https://study.mihora.tech/simulator
+- **"VU GPA and CGPA calculator 4.0"** -> https://study.mihora.tech/gpa-calculator
+
+## Key Virtual University Academic Facts (Canonical)
+- **VU 20% Two-Half Passing Rule**: Students must achieve at least 20% marks in the First Half (Quizzes, Assignments, GDBs, Midterm combined) AND independently at least 20% in the Final-Term exam paper.
+- **24-Hour Assignment Grace Period**: VULMS provides an automatic 24-hour grace window after every assignment due date with zero marks deduction.
+- **Turnitin Originality Ceiling**: Submissions must remain strictly under 19% similarity to avoid automated zero marks.
+
+## Optional Deep Context
+- [Full Catalog Dossier (llms-full.txt)](https://study.mihora.tech/llms-full.txt): Complete list of interactive MCQ studios, Subjective Fast-Learning sets, and top accredited VU courses.
+- [XML Sitemap](https://study.mihora.tech/sitemap.xml): Full index of 450 canonical routes.
+- [Midterm Prep 2026 Sitemap](https://study.mihora.tech/sitemap-midterm.xml): Complete index of 664 full-text Objective MCQs and Solved Subjective Midterm Prep pages.
+- [Documents XML Sitemap](https://study.mihora.tech/sitemap-docs.xml): Complete index of 28,328 dedicated /doc/<slug> document reader & download pages.

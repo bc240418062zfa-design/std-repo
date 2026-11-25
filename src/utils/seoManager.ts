@@ -1,4 +1,5 @@
 import { Course, McqSet, Resource, SubjectiveSet } from '../types';
+import { MidtermPrepIndexEntry } from '../types/midterm';
 import { cleanDocumentDisplayTitle, getDocSlug } from './docSlug';
 import { enrichDocumentMetadata } from './docEnricher';
 
@@ -8,6 +9,7 @@ export interface SeoSyncParams {
   selectedSubjectiveSet: SubjectiveSet | null;
   selectedDocSlug?: string | null;
   selectedDoc?: Resource | null;
+  selectedMidtermEntry?: MidtermPrepIndexEntry | null;
   selectedCourseCode: string;
   activeFilterType?: string;
   pathnameOverride?: string;
@@ -47,6 +49,7 @@ export function syncRouteSeo({
   selectedSubjectiveSet,
   selectedDocSlug = null,
   selectedDoc = null,
+  selectedMidtermEntry = null,
   selectedCourseCode,
   activeFilterType = '',
   pathnameOverride = '',
@@ -67,7 +70,56 @@ export function syncRouteSeo({
   ];
   const graphNodes: Array<Record<string, unknown>> = [];
 
-  if (page === 'doc' && selectedDoc) {
+  if (page === 'midterm-doc' && selectedMidtermEntry) {
+    const isMcq = selectedMidtermEntry.kind === 'mcqs';
+    canonicalPath = `/midterm-prep/${selectedMidtermEntry.filename}`;
+    title = `${selectedMidtermEntry.courseCode} ${
+      isMcq ? 'Midterm Important MCQs' : 'Midterm Important Subjective (Solved)'
+    } (${selectedMidtermEntry.itemCount} Qs) – ${selectedMidtermEntry.courseTitle} | MIHORA VU`;
+    desc = `Complete ${selectedMidtermEntry.courseCode} (${selectedMidtermEntry.courseTitle}) ${
+      isMcq
+        ? `midterm solved objective MCQs bank (${selectedMidtermEntry.itemCount} questions with verified answer keys)`
+        : `midterm solved subjective questions and model answers (${selectedMidtermEntry.itemCount} Q&As)`
+    } across ${selectedMidtermEntry.topics.slice(0, 4).join(', ')} — free online study & PDF download.`;
+    keywords = `${selectedMidtermEntry.courseCode} midterm important ${
+      isMcq ? 'mcqs' : 'subjective'
+    }, ${selectedMidtermEntry.courseCode} midterm solved, ${selectedMidtermEntry.courseTitle} midterm preparation, ${selectedMidtermEntry.courseCode} past papers 2026, mihora vu`;
+    breadcrumbs.push(
+      { name: 'Midterm Prep 2026', item: `${BASE_URL}/midterm-prep` },
+      { name: selectedMidtermEntry.courseCode, item: `${BASE_URL}/courses/${selectedMidtermEntry.courseCode.toLowerCase()}` },
+      { name: selectedMidtermEntry.filename, item: `${BASE_URL}${canonicalPath}` }
+    );
+    graphNodes.push({
+      '@type': isMcq ? 'Quiz' : 'LearningResource',
+      '@id': `${BASE_URL}${canonicalPath}#resource`,
+      name: `${selectedMidtermEntry.courseCode} – ${selectedMidtermEntry.courseTitle} (${
+        isMcq ? 'Midterm Important MCQs' : 'Midterm Important Subjective Solved'
+      })`,
+      description: desc,
+      learningResourceType: isMcq ? 'Practice Quiz & MCQ Bank' : 'Solved Subjective Exam Q&As',
+      numberOfPages: selectedMidtermEntry.pageCount,
+      ...(isMcq ? { numberOfQuestions: selectedMidtermEntry.itemCount } : {}),
+      teaches: `${selectedMidtermEntry.courseCode} – ${selectedMidtermEntry.courseTitle}`,
+      isAccessibleForFree: true,
+      inLanguage: 'en-PK',
+      url: `${BASE_URL}${canonicalPath}`
+    });
+  } else if (page === 'midterm-prep') {
+    canonicalPath = '/midterm-prep';
+    title = 'VU Midterm Prep 2026 – 664 Solved Important MCQs & Subjective Question Banks | MIHORA VU';
+    desc =
+      'Complete Virtual University Midterm Preparation 2026 hub covering 332 subjects (664 verified packs): read full Objective Important MCQs with answer keys and Solved Subjective Q&As directly online.';
+    keywords =
+      'vu midterm preparation 2026, vu midterm important mcqs, vu midterm important subjective solved, vu midterm solved question banks, acc311 midterm mcqs, cs101 midterm mcqs, cs201 midterm solved, mihora vu';
+    breadcrumbs.push({ name: 'Midterm Prep 2026', item: `${BASE_URL}/midterm-prep` });
+    graphNodes.push({
+      '@type': 'CollectionPage',
+      '@id': `${BASE_URL}/midterm-prep#collection`,
+      name: 'VU Midterm Prep 2026 – 664 Solved Question Banks',
+      description: desc,
+      numberOfItems: 664
+    });
+  } else if (page === 'doc' && selectedDoc) {
     const enriched = enrichDocumentMetadata(selectedDoc);
     const canonicalSlug = getDocSlug(selectedDoc.rlh) || selectedDocSlug || '';
     canonicalPath = `/doc/${canonicalSlug}`;

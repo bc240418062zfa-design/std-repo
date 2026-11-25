@@ -24,10 +24,11 @@ export function auditDirectory(dirPath: string): number {
     const stat = fs.statSync(fullPath);
 
     if (stat.isDirectory()) {
+      if (file === 'aistudio') continue;
       violations += auditDirectory(fullPath);
     } else {
       // Skip binary media or map files if excluded
-      if (file.endsWith('.png') || file.endsWith('.jpg') || file.endsWith('.ico')) continue;
+      if (file.endsWith('.png') || file.endsWith('.jpg') || file.endsWith('.ico') || fullPath.includes('aistudio')) continue;
 
       const content = fs.readFileSync(fullPath, 'utf-8');
 

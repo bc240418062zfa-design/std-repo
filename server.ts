@@ -12,6 +12,15 @@ import {
   findDocEntryBySlug,
   getRelatedDocEntries
 } from './src/utils/docSlug';
+import {
+  extractMidtermSlugFromPath,
+  findMidtermEntryBySlug,
+  getAllMidtermPrepEntries,
+  getMidtermCoursesGrouped,
+  getMidtermCoursePrefixNeighbors,
+  getMidtermSiblingEntry
+} from './src/utils/midtermPrep';
+import { MidtermDocPayload } from './src/types/midterm';
 import { enrichDocumentMetadata } from './src/utils/docEnricher';
 import coursesData from './src/data/courses.json';
 
@@ -19,6 +28,7 @@ import coursesData from './src/data/courses.json';
 let cachedDistTemplate: string | null = null;
 let cachedDevTemplate: string | null = null;
 const docSsrCache = new Map<string, { html: string; timestamp: number }>();
+const midtermSsrCache = new Map<string, { html: string; timestamp: number }>();
 const SSR_CACHE_TTL_MS = 1000 * 60 * 60 * 24; // 24 hours
 
 function escapeHtmlValue(str: string): string {
@@ -329,6 +339,399 @@ function injectDocumentSsrSeo(html: string, reqPath: string): string {
     .replace(/src="\.\/og-cover\.jpg"/g, 'src="/og-cover.jpg"');
 }
 
+const LETTERS_LIST = ['a', 'b', 'c', 'd', 'e', 'f'] as const;
+
+function applyHeadMetaTags(
+  html: string,
+  meta: { title: string; desc: string; keywords: string; canonicalUrl: string }
+): string {
+  return html
+    .replace(/<title>.*?<\/title>/i, `<title>${escapeHtmlValue(meta.title)}</title>`)
+    .replace(
+      /<meta\s+name="description"\s+content=".*?"\s*\/?>/i,
+      `<meta name="description" content="${escapeHtmlValue(meta.desc)}" />`
+    )
+    .replace(
+      /<meta\s+name="keywords"\s+content=".*?"\s*\/?>/i,
+      `<meta name="keywords" content="${escapeHtmlValue(meta.keywords)}" />`
+    )
+    .replace(
+      /<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i,
+      `<link rel="canonical" href="${escapeHtmlValue(meta.canonicalUrl)}" />`
+    )
+    .replace(
+      /<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i,
+      `<meta property="og:title" content="${escapeHtmlValue(meta.title)}" />`
+    )
+    .replace(
+      /<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i,
+      `<meta property="og:description" content="${escapeHtmlValue(meta.desc)}" />`
+    )
+    .replace(
+      /<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i,
+      `<meta property="og:url" content="${escapeHtmlValue(meta.canonicalUrl)}" />`
+    )
+    .replace(
+      /<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i,
+      `<meta name="twitter:title" content="${escapeHtmlValue(meta.title)}" />`
+    )
+    .replace(
+      /<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i,
+      `<meta name="twitter:description" content="${escapeHtmlValue(meta.desc)}" />`
+    );
+}
+
+function normalizeAssetUrls(html: string): string {
+  return html
+    .replace(/href="\.\/assets\//g, 'href="/assets/')
+    .replace(/src="\.\/assets\//g, 'src="/assets/')
+    .replace(/href="\.\/logo\.svg"/g, 'href="/logo.svg"')
+    .replace(/src="\.\/logo\.svg"/g, 'src="/logo.svg"')
+    .replace(/href="\.\/og-cover\.jpg"/g, 'href="/og-cover.jpg"')
+    .replace(/src="\.\/og-cover\.jpg"/g, 'src="/og-cover.jpg"');
+}
+
+function readMidtermPayloadFromDisk(dataKey: string, isProd: boolean): MidtermDocPayload | null {
+  const candidates = isProd
+    ? [
+        path.resolve('dist/midterm-data', `${dataKey}.json`),
+        path.resolve('public/midterm-data', `${dataKey}.json`)
+      ]
+    : [
+        path.resolve('public/midterm-data', `${dataKey}.json`),
+        path.resolve('dist/midterm-data', `${dataKey}.json`)
+      ];
+
+  for (const filePath of candidates) {
+    if (fs.existsSync(filePath)) {
+      try {
+        return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as MidtermDocPayload;
+      } catch (err) {
+        console.error(`Failed to parse midterm JSON ${filePath}:`, err);
+      }
+    }
+  }
+  return null;
+}
+
+function injectMidtermHubSsrSeo(html: string): string {
+  const allEntries = getAllMidtermPrepEntries();
+  const groupedCourses = getMidtermCoursesGrouped();
+  const canonicalUrl = 'https://study.mihora.tech/midterm-prep';
+  const title = `VU Midterm Prep 2026 — ${allEntries.length} Special Question Banks (${groupedCourses.length} Subjects) | MIHORA`;
+  const desc = `Complete Virtual University Midterm Preparation 2026 Hub: ${allEntries.length} locally hosted MCQs & Subjective Q&A banks across ${groupedCourses.length} VU courses with full on-page transcripts and verified answers.`;
+  const keywords =
+    'vu midterm prep 2026, virtual university midterm important mcqs, vu midterm solved subjective questions, cs101 midterm 2026, mgt101 midterm mcqs, mth101 midterm files, study mihora tech';
+
+  let out = applyHeadMetaTags(html, { title, desc, keywords, canonicalUrl });
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: title,
+        description: desc,
+        inLanguage: 'en-PK',
+        isPartOf: { '@id': 'https://study.mihora.tech/#website' }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://study.mihora.tech/' },
+          { '@type': 'ListItem', position: 2, name: 'Midterm Prep 2026', item: canonicalUrl }
+        ]
+      }
+    ]
+  };
+
+  out = out.replace(
+    '</head>',
+    `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`
+  );
+
+  const ssrBody = `
+    <main style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; line-height: 1.6;">
+      <nav aria-label="Breadcrumb" style="font-size: 0.85rem; margin-bottom: 1.25rem;">
+        <a href="/" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Library</a> &rsaquo;
+        <span style="color: #64748b; font-weight: 600;">Midterm Prep 2026</span>
+      </nav>
+      <header style="margin-bottom: 2rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1.5rem;">
+        <div style="font-family: monospace; font-size: 0.8rem; font-weight: 700; color: #1d4ed8; text-transform: uppercase; margin-bottom: 0.5rem;">
+          VU MIDTERM PREP 2026 · ${allEntries.length} QUESTION BANKS · ${groupedCourses.length} SUBJECTS
+        </div>
+        <h1 style="font-size: 2.25rem; font-weight: 900; line-height: 1.2; margin-bottom: 0.75rem; color: #0f172a;">
+          Virtual University Midterm Prep 2026 — Complete Question Banks &amp; Transcripts
+        </h1>
+        <p style="font-size: 1.05rem; color: #475569; max-width: 900px;">
+          ${escapeHtmlValue(desc)}
+        </p>
+      </header>
+      <section style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.85rem;">
+        ${groupedCourses
+          .map((c) => {
+            const mcqLink = c.mcqsEntry
+              ? `<a href="/midterm-prep/${escapeHtmlValue(c.mcqsEntry.filename)}" style="display: inline-block; padding: 0.45rem 0.75rem; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 6px; font-weight: 700; font-size: 0.8rem; text-decoration: none;">MCQs (${c.mcqsEntry.itemCount})</a>`
+              : '';
+            const subLink = c.subjectiveEntry
+              ? `<a href="/midterm-prep/${escapeHtmlValue(c.subjectiveEntry.filename)}" style="display: inline-block; padding: 0.45rem 0.75rem; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; border-radius: 6px; font-weight: 700; font-size: 0.8rem; text-decoration: none;">Subjective (${c.subjectiveEntry.itemCount})</a>`
+              : '';
+            return `<article style="padding: 1rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px;">
+              <div style="font-family: monospace; font-size: 0.75rem; font-weight: 700; color: #1d4ed8;">${escapeHtmlValue(c.courseCode)} · ${escapeHtmlValue(c.faculty)}</div>
+              <h2 style="font-size: 1rem; font-weight: 800; margin: 0.25rem 0 0.65rem 0; color: #0f172a;">
+                <a href="/courses/${escapeHtmlValue(c.courseCode.toLowerCase())}" style="color: inherit; text-decoration: none;">${escapeHtmlValue(c.courseTitle)}</a>
+              </h2>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">${mcqLink}${subLink}</div>
+            </article>`;
+          })
+          .join('')}
+      </section>
+    </main>
+  `;
+
+  out = out.replace(
+    /<div id="root">[\s\S]*?(?=\s*(?:<!-- Client-side SPA|<script type="module"))/i,
+    `<div id="root">${ssrBody}</div>\n    `
+  );
+  return normalizeAssetUrls(out);
+}
+
+function injectMidtermDocSsrSeo(html: string, reqPath: string, isProd: boolean): string {
+  const slugPart = extractMidtermSlugFromPath(reqPath);
+  if (!slugPart) return injectMidtermHubSsrSeo(html);
+
+  const entry = findMidtermEntryBySlug(slugPart);
+  if (!entry) return html;
+
+  const payload = readMidtermPayloadFromDisk(entry.dataKey, isProd);
+  const sibling = getMidtermSiblingEntry(entry);
+  const neighbors = getMidtermCoursePrefixNeighbors(entry, 8);
+
+  const isMcq = entry.kind === 'mcqs';
+  const totalItems = payload?.itemCount ?? entry.itemCount;
+  const pageCount = payload?.pageCount ?? entry.pageCount;
+  const topics = payload?.topics?.length ? payload.topics : entry.topics;
+  const courseTitle = payload?.courseTitle || entry.courseTitle;
+
+  const canonicalUrl = `https://study.mihora.tech/midterm-prep/${entry.filename}`;
+  const title = isMcq
+    ? `${entry.courseCode} Midterm Important MCQs 2026 (${totalItems} Solved MCQs) – ${courseTitle} | MIHORA VU`
+    : `${entry.courseCode} Midterm Important Subjective Questions 2026 (${totalItems} Solved Q&As) – ${courseTitle} | MIHORA VU`;
+
+  const topTopicSnippet = topics.slice(0, 5).join(', ');
+  const desc = isMcq
+    ? `Complete solved midterm MCQ bank for ${entry.courseCode} (${courseTitle}): ${totalItems} verified objective questions across ${pageCount} pages covering ${topTopicSnippet}. Read all answers online or test yourself in quiz mode.`
+    : `Complete solved midterm subjective Q&A transcript for ${entry.courseCode} (${courseTitle}): ${totalItems} exam-focused subjective questions with full answers across ${pageCount} pages covering ${topTopicSnippet}.`;
+
+  const keywords = [
+    `${entry.courseCode} midterm important ${isMcq ? 'mcqs' : 'subjective'} 2026`,
+    `${entry.courseCode} midterm solved questions`,
+    `${entry.courseCode} ${courseTitle}`,
+    entry.filename,
+    ...topics.slice(0, 6)
+  ].join(', ');
+
+  let out = applyHeadMetaTags(html, { title, desc, keywords, canonicalUrl });
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: title,
+        description: desc,
+        inLanguage: 'en-PK',
+        isPartOf: { '@id': 'https://study.mihora.tech/#website' },
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', 'h2']
+        }
+      },
+      {
+        '@type': isMcq ? 'Quiz' : 'LearningResource',
+        '@id': `${canonicalUrl}#resource`,
+        name: `${entry.courseCode} Midterm Important ${isMcq ? 'MCQs' : 'Subjective Questions (Solved)'} 2026`,
+        description: desc,
+        learningResourceType: isMcq ? 'Midterm MCQ Bank' : 'Solved Subjective Q&A Transcript',
+        educationalLevel: 'Midterm Exam 2026',
+        isAccessibleForFree: true,
+        inLanguage: 'en-PK',
+        about: {
+          '@type': 'Course',
+          name: `${entry.courseCode} – ${courseTitle}`,
+          courseCode: entry.courseCode,
+          provider: {
+            '@type': 'CollegeOrUniversity',
+            name: 'Virtual University of Pakistan'
+          }
+        },
+        hasPart: topics.slice(0, 20).map((t, i) => ({
+          '@type': 'CreativeWork',
+          position: i + 1,
+          name: t
+        })),
+        url: canonicalUrl
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://study.mihora.tech/' },
+          { '@type': 'ListItem', position: 2, name: 'Midterm Prep 2026', item: 'https://study.mihora.tech/midterm-prep' },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: entry.courseCode,
+            item: `https://study.mihora.tech/courses/${entry.courseCode.toLowerCase()}`
+          },
+          { '@type': 'ListItem', position: 4, name: entry.filename, item: canonicalUrl }
+        ]
+      }
+    ]
+  };
+
+  const inlineJsonTag = payload
+    ? `<script id="mihora-midterm-ssr-data" type="application/json">${JSON.stringify(payload).replace(/<\/script/gi, '<\\/script')}</script>`
+    : '';
+
+  out = out.replace(
+    '</head>',
+    `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n    ${inlineJsonTag}\n  </head>`
+  );
+
+  const mcqsHtml =
+    payload?.mcqs && payload.mcqs.length > 0
+      ? payload.mcqs
+          .map(
+            (q) => `
+          <article style="margin-bottom: 1.15rem; padding: 1rem 1.15rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px;">
+            <div style="font-size: 0.78rem; font-family: monospace; color: #1d4ed8; font-weight: 700; margin-bottom: 0.35rem;">
+              MCQ #${q.number} · ${escapeHtmlValue(q.topic)}
+            </div>
+            <h3 style="font-size: 1rem; font-weight: 700; color: #0f172a; margin: 0 0 0.65rem 0;">
+              ${escapeHtmlValue(q.question)}
+            </h3>
+            <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.35rem;">
+              ${q.options
+                .map((opt, idx) => {
+                  const isCorrect = q.correctIndex === idx;
+                  const letter = LETTERS_LIST[idx] || String(idx + 1);
+                  return `<li style="padding: 0.45rem 0.75rem; border-radius: 6px; border: 1px solid ${isCorrect ? '#86efac' : '#e2e8f0'}; background: ${isCorrect ? '#ecfdf5' : '#f8fafc'}; font-weight: ${isCorrect ? '700' : '400'}; color: ${isCorrect ? '#065f46' : '#334155'};">
+                    <span style="font-family: monospace; font-weight: 700;">${letter})</span> ${escapeHtmlValue(opt)}${isCorrect ? ' <strong>[Correct Answer]</strong>' : ''}
+                  </li>`;
+                })
+                .join('')}
+            </ul>
+          </article>`
+          )
+          .join('')
+      : '';
+
+  const subjectiveHtml =
+    payload?.subjective && payload.subjective.length > 0
+      ? payload.subjective
+          .map(
+            (item) => `
+          <article style="margin-bottom: 1.25rem; padding: 1.1rem 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px;">
+            <div style="font-size: 0.78rem; font-family: monospace; color: #b45309; font-weight: 700; margin-bottom: 0.35rem;">
+              Q${item.number}${item.marks ? ` (${escapeHtmlValue(item.marks)})` : ''} · ${escapeHtmlValue(item.topic)}
+            </div>
+            <h3 style="font-size: 1.02rem; font-weight: 700; color: #0f172a; margin: 0 0 0.65rem 0;">
+              ${escapeHtmlValue(item.question)}
+            </h3>
+            ${
+              item.answer
+                ? `<div style="padding: 0.75rem 0.9rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; color: #1e293b; font-size: 0.94rem;">
+                    <strong style="color: #065f46; font-family: monospace; font-size: 0.78rem; display: block; margin-bottom: 0.25rem;">VERIFIED ANSWER:</strong>
+                    ${escapeHtmlValue(item.answer)}
+                  </div>`
+                : ''
+            }
+          </article>`
+          )
+          .join('')
+      : '';
+
+  const extraLinesHtml =
+    payload?.extraLines && payload.extraLines.length > 0
+      ? `<section style="margin-top: 1.5rem; padding: 1rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px;">
+          <h2 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem;">Additional Notes</h2>
+          ${payload.extraLines.map((l) => `<p style="margin: 0.3rem 0; color: #334155;">${escapeHtmlValue(l)}</p>`).join('')}
+        </section>`
+      : '';
+
+  const ssrBody = `
+    <main style="max-width: 1100px; margin: 2rem auto; padding: 0 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; line-height: 1.6;">
+      <nav aria-label="Breadcrumb" style="font-size: 0.85rem; margin-bottom: 1.25rem;">
+        <a href="/" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Library</a> &rsaquo;
+        <a href="/midterm-prep" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">Midterm Prep 2026</a> &rsaquo;
+        <a href="/courses/${escapeHtmlValue(entry.courseCode.toLowerCase())}" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">${escapeHtmlValue(entry.courseCode)}</a> &rsaquo;
+        <span style="color: #64748b; font-weight: 600;">${escapeHtmlValue(entry.filename)}</span>
+      </nav>
+
+      <header style="margin-bottom: 1.75rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 1.25rem;">
+        <div style="font-family: monospace; font-size: 0.8rem; font-weight: 700; color: #1d4ed8; text-transform: uppercase; margin-bottom: 0.45rem;">
+          ${escapeHtmlValue(entry.courseCode)} · MIDTERM PREP 2026 · ${totalItems} ${isMcq ? 'SOLVED MCQS' : 'SOLVED QUESTIONS'} · ${pageCount} PAGES
+        </div>
+        <h1 style="font-size: 2rem; font-weight: 900; line-height: 1.2; margin: 0 0 0.6rem 0; color: #0f172a;">
+          ${escapeHtmlValue(payload?.headerTitle || `${entry.courseCode} — ${courseTitle}`)} · ${escapeHtmlValue(payload?.subtitle || (isMcq ? 'Midterm Important MCQs' : 'Midterm Important Subjective Questions (Solved)'))}
+        </h1>
+        <p style="font-size: 1rem; color: #475569; margin: 0 0 1rem 0;">${escapeHtmlValue(desc)}</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.65rem;">
+          <a href="/api/midterm-pdf/${encodeURIComponent(entry.filename)}" style="display: inline-block; padding: 0.55rem 1rem; background: #1d4ed8; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 0.88rem;">Download Original PDF</a>
+          ${
+            sibling
+              ? `<a href="/midterm-prep/${escapeHtmlValue(sibling.filename)}" style="display: inline-block; padding: 0.55rem 1rem; background: #fffbeb; color: #92400e; border: 1px solid #fde68a; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 0.88rem;">Switch to ${sibling.kind === 'mcqs' ? 'Important MCQs' : 'Solved Subjective'} (${sibling.itemCount})</a>`
+              : ''
+          }
+          <a href="/courses/${escapeHtmlValue(entry.courseCode.toLowerCase())}" style="display: inline-block; padding: 0.55rem 1rem; background: #ffffff; color: #1d4ed8; border: 1px solid #cbd5e1; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 0.88rem;">All ${escapeHtmlValue(entry.courseCode)} Materials</a>
+        </div>
+      </header>
+
+      <section style="margin-bottom: 1.75rem; padding: 1rem 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;">
+        <h2 style="font-size: 1.1rem; font-weight: 800; margin: 0 0 0.5rem 0;">Syllabus Topics Covered (${topics.length})</h2>
+        <ul style="margin: 0; padding-left: 1.2rem; columns: 2; color: #334155; font-size: 0.9rem;">
+          ${topics.map((tp) => `<li style="margin-bottom: 0.25rem;">${escapeHtmlValue(tp)}</li>`).join('')}
+        </ul>
+      </section>
+
+      <section>
+        <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 1rem;">
+          Complete ${escapeHtmlValue(entry.courseCode)} Midterm ${isMcq ? 'MCQ Bank with Verified Answers' : 'Subjective Question &amp; Answer Transcript'} (${totalItems} Items)
+        </h2>
+        ${isMcq ? mcqsHtml : subjectiveHtml}
+        ${extraLinesHtml}
+      </section>
+
+      ${
+        neighbors.length > 0
+          ? `<section style="margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid #e2e8f0;">
+              <h2 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 0.75rem;">Related Midterm Prep 2026 Packs</h2>
+              <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem;">
+                ${neighbors
+                  .map(
+                    (n) => `<a href="/midterm-prep/${escapeHtmlValue(n.filename)}" style="display: block; padding: 0.8rem; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; text-decoration: none; color: #1d4ed8; font-weight: 700; font-size: 0.88rem;">${escapeHtmlValue(n.filename)} <span style="display: block; color: #64748b; font-size: 0.76rem; font-weight: 500;">${escapeHtmlValue(n.courseTitle)} · ${n.itemCount} Qs</span></a>`
+                  )
+                  .join('')}
+              </div>
+            </section>`
+          : ''
+      }
+    </main>
+  `;
+
+  out = out.replace(
+    /<div id="root">[\s\S]*?(?=\s*(?:<!-- Client-side SPA|<script type="module"))/i,
+    `<div id="root">${ssrBody}</div>\n    `
+  );
+  return normalizeAssetUrls(out);
+}
+
 const app = express();
 const PORT = 3000;
 
@@ -366,6 +769,35 @@ app.get(/^\/(sitemap.*|robots\.txt)$/i, (req: Request, res: Response, next) => {
     if (fs.existsSync(file)) {
       return res.status(200).type('application/xml; charset=utf-8').sendFile(file);
     }
+  }
+
+  if (cleanPath === '/sitemap-midterm.xml' || cleanPath === '/sitemap_midterm.xml') {
+    const file = path.join(baseDir, 'sitemap-midterm.xml');
+    if (fs.existsSync(file)) {
+      return res.status(200).type('application/xml; charset=utf-8').sendFile(file);
+    }
+    const entries = getAllMidtermPrepEntries();
+    const today = new Date().toISOString().split('T')[0];
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://study.mihora.tech/midterm-prep</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+${entries
+  .map(
+    (entry) => `  <url>
+    <loc>https://study.mihora.tech/midterm-prep/${escapeHtmlValue(entry.filename)}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>`
+  )
+  .join('\n')}
+</urlset>`;
+    return res.status(200).type('application/xml; charset=utf-8').send(xml);
   }
 
   return next();
@@ -454,6 +886,50 @@ function initServerResourceMap() {
 }
 
 initServerResourceMap();
+
+// Private server-side Midterm PDF map (664 files, Drive IDs never exposed to client bundle)
+const MIDTERM_MAP_PATH = path.resolve('.secrets/midterm-server-map.json');
+const MIDTERM_LINKS_RAW_PATH = path.resolve('.secrets/midterm-drive-links.txt');
+let midtermServerMap: Record<
+  string,
+  { filename: string; driveId: string; courseCode: string; kind: 'mcqs' | 'subjective' }
+> = {};
+
+function initMidtermServerMap() {
+  if (fs.existsSync(MIDTERM_MAP_PATH)) {
+    try {
+      midtermServerMap = JSON.parse(fs.readFileSync(MIDTERM_MAP_PATH, 'utf-8'));
+      if (Object.keys(midtermServerMap).length > 0) return;
+    } catch (err) {
+      console.error('Failed to load midterm server map:', err);
+    }
+  }
+  if (fs.existsSync(MIDTERM_LINKS_RAW_PATH)) {
+    try {
+      const lines = fs.readFileSync(MIDTERM_LINKS_RAW_PATH, 'utf-8').split(/\r?\n/);
+      for (let i = 0; i < lines.length; i++) {
+        const m = lines[i].match(/^\s*\d+\.\s+(.+\.pdf)\s*$/i);
+        if (m && i + 1 < lines.length) {
+          const lm = lines[i + 1].match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+          if (lm) {
+            const filename = m[1].trim();
+            const courseMatch = filename.match(/^([A-Z0-9]+)-/i);
+            midtermServerMap[filename.toLowerCase()] = {
+              filename,
+              driveId: lm[1],
+              courseCode: courseMatch ? courseMatch[1].toUpperCase() : 'VU',
+              kind: /subjective/i.test(filename) ? 'subjective' : 'mcqs'
+            };
+          }
+        }
+      }
+    } catch (err) {
+      console.error('Failed to parse fallback midterm links:', err);
+    }
+  }
+}
+
+initMidtermServerMap();
 
 // Safe filename sanitizer against path traversal, header injection & CRLF
 function sanitizeFilename(filename: string): string {
@@ -601,6 +1077,39 @@ async function fetchDriveStream(driveId: string): Promise<{ ok: boolean; stream?
   }
   return { ok: false };
 }
+
+// 1b. Direct Midterm Prep 2026 PDF Streaming Proxy (GET /api/midterm-pdf/:filename)
+app.get('/api/midterm-pdf/:filename', async (req: Request, res: Response) => {
+  const rawName = (req.params.filename || '').trim().toLowerCase();
+  const lookupKey = rawName.endsWith('.pdf') ? rawName : `${rawName}.pdf`;
+  const record = midtermServerMap[lookupKey];
+  if (!record || !record.driveId) {
+    return res.status(404).send('Midterm PDF file not found in library index.');
+  }
+
+  try {
+    const driveResult = await fetchDriveStream(record.driveId);
+    if (driveResult.ok && driveResult.stream) {
+      const safeName = sanitizeFilename(record.filename);
+      const isDownload = req.query.download === '1';
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader(
+        'Content-Disposition',
+        `${isDownload ? 'attachment' : 'inline'}; filename="${encodeURIComponent(safeName)}"`
+      );
+      res.setHeader('Cache-Control', 'public, max-age=604800');
+      if (driveResult.contentLength) {
+        res.setHeader('Content-Length', driveResult.contentLength);
+      }
+      Readable.fromWeb(driveResult.stream as any).pipe(res);
+      return;
+    }
+  } catch (err) {
+    console.error('Midterm PDF proxy error:', err);
+  }
+
+  return res.status(502).send('Unable to stream midterm PDF right now. Please try again shortly.');
+});
 
 // 2. Stage 2: Stream File via Token (GET /api/download)
 app.get('/api/download', async (req: Request, res: Response) => {
@@ -796,6 +1305,29 @@ async function startServer() {
       return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(rendered);
     });
 
+    app.get(/^\/midterm-prep(?:-2026)?(?:\/(.*))?$/i, (req: Request, res: Response) => {
+      const cleanPath = req.path.toLowerCase().replace(/\/+$/, '') || '/midterm-prep';
+      const cached = midtermSsrCache.get(cleanPath);
+      if (cached && Date.now() - cached.timestamp < SSR_CACHE_TTL_MS) {
+        res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+        res.setHeader('Vary', 'Accept-Encoding');
+        return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(cached.html);
+      }
+
+      if (!cachedDistTemplate) {
+        const templatePath = path.join(distPath, 'index.html');
+        cachedDistTemplate = fs.readFileSync(templatePath, 'utf-8');
+      }
+      const rendered = /^\/midterm-prep(?:-2026)?\/?$/i.test(req.path)
+        ? injectMidtermHubSsrSeo(cachedDistTemplate)
+        : injectMidtermDocSsrSeo(cachedDistTemplate, req.path, true);
+      midtermSsrCache.set(cleanPath, { html: rendered, timestamp: Date.now() });
+
+      res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+      res.setHeader('Vary', 'Accept-Encoding');
+      return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).send(rendered);
+    });
+
     app.get('*', (req: Request, res: Response) => {
       const cleanPath = req.path.replace(/^\/|\/$/g, '');
       const specificFile = path.join(distPath, cleanPath, 'index.html');
@@ -827,6 +1359,34 @@ async function startServer() {
         const template = await vite.transformIndexHtml(req.originalUrl, cachedDevTemplate);
         const rendered = injectDocumentSsrSeo(template, req.path);
         docSsrCache.set(cleanSlug, { html: rendered, timestamp: Date.now() });
+
+        res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+        res.setHeader('Vary', 'Accept-Encoding');
+        return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).end(rendered);
+      } catch (e) {
+        return next(e);
+      }
+    });
+
+    app.get(/^\/midterm-prep(?:-2026)?(?:\/(.*))?$/i, async (req: Request, res: Response, next) => {
+      try {
+        const cleanPath = req.path.toLowerCase().replace(/\/+$/, '') || '/midterm-prep';
+        const cached = midtermSsrCache.get(cleanPath);
+        if (cached && Date.now() - cached.timestamp < SSR_CACHE_TTL_MS) {
+          res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
+          res.setHeader('Vary', 'Accept-Encoding');
+          return res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' }).end(cached.html);
+        }
+
+        if (!cachedDevTemplate) {
+          const indexPath = path.resolve('index.html');
+          cachedDevTemplate = fs.readFileSync(indexPath, 'utf-8');
+        }
+        const template = await vite.transformIndexHtml(req.originalUrl, cachedDevTemplate);
+        const rendered = /^\/midterm-prep(?:-2026)?\/?$/i.test(req.path)
+          ? injectMidtermHubSsrSeo(template)
+          : injectMidtermDocSsrSeo(template, req.path, false);
+        midtermSsrCache.set(cleanPath, { html: rendered, timestamp: Date.now() });
 
         res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400');
         res.setHeader('Vary', 'Accept-Encoding');

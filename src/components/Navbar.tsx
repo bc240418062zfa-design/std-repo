@@ -119,6 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const primaryLinks = [
     { id: 'home', label: 'Library', href: '/' },
     { id: 'courses', label: 'Courses', href: '/courses' },
+    { id: 'midterm-prep', label: 'Midterm 2026', href: '/midterm-prep' },
     { id: 'mcqs', label: 'MCQs', href: '/mcqs' },
     { id: 'subjective', label: 'Subjective', href: '/subjective' },
     { id: 'past-papers', label: 'Past Papers', href: '/past-papers' }
@@ -192,9 +193,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         </motion.a>
 
         {/* Zone 2: Fluid Animated Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Primary Navigation">
+        <nav className="hidden lg:flex items-center gap-3.5 xl:gap-5" aria-label="Primary Navigation">
           {primaryLinks.map((link) => {
-            const active = currentPage === link.id;
+            const active =
+              currentPage === link.id ||
+              (link.id === 'midterm-prep' && currentPage === 'midterm-doc');
             return (
               <motion.a
                 key={link.id}
@@ -506,6 +509,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <span>Course Directory</span>
                     </span>
                     <span className="text-xs font-mono text-slate-400 tabular-nums">411</span>
+                  </a>
+
+                  <a
+                    href="/midterm-prep"
+                    onClick={(e) => handleNavClick('midterm-prep', e)}
+                    className={`w-full min-h-[44px] px-3 py-2.5 rounded-lg text-sm font-medium flex items-center justify-between transition-colors ${
+                      currentPage === 'midterm-prep' || currentPage === 'midterm-doc'
+                        ? 'bg-slate-100 text-slate-950 font-semibold'
+                        : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    <span className="flex items-center gap-3">
+                      <GraduationCap className="w-4 h-4 text-blue-700" />
+                      <span>Midterm Prep 2026</span>
+                    </span>
+                    <span className="text-xs font-mono text-blue-700 tabular-nums">664 Packs</span>
                   </a>
 
                   <a

@@ -71,6 +71,16 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
       spotlight: 'rgba(29, 78, 216, 0.08)'
     },
     {
+      id: 'midterm-prep',
+      title: 'Midterm Prep 2026 Hub (664 Packs)',
+      description: 'Complete extracted Objective Important MCQs & Solved Subjective Q&As across 332 VU subjects.',
+      icon: GraduationCap,
+      iconBg: 'bg-blue-50 text-blue-700',
+      hoverBorder: 'hover:border-blue-700',
+      hoverText: 'group-hover:text-blue-700',
+      spotlight: 'rgba(29, 78, 216, 0.10)'
+    },
+    {
       id: 'mcqs',
       title: 'Interactive MCQs Bank & Live Mids Practice',
       description: 'Practice 1,112+ online subject MCQs, 45s mock exams, and browse 3,256 MCQ files & 5,733 live quiz files.',
@@ -257,7 +267,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
           >
-            <span>Master Sitemap Index (28,777 URLs)</span>
+            <span>Master Sitemap Index (29,442 URLs)</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
           </motion.a>
           <motion.a
@@ -268,7 +278,18 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
           >
-            <span>Core &amp; Courses (449 URLs)</span>
+            <span>Core &amp; Courses (450 URLs)</span>
+            <ExternalLink className="w-3 h-3 text-slate-400" />
+          </motion.a>
+          <motion.a
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            href="/sitemap-midterm.xml"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-blue-700 hover:text-blue-700 text-slate-700 font-mono transition-colors"
+          >
+            <span>Midterm Prep 2026 (665 URLs)</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
           </motion.a>
           <motion.a

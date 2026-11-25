@@ -39,11 +39,18 @@ import { PastPapersPage } from './pages/PastPapersPage';
 import { MCQsPage } from './pages/MCQsPage';
 import { SubjectivePage } from './pages/SubjectivePage';
 import { DocumentViewerPage } from './pages/DocumentViewerPage';
+import { MidtermPrepHubPage } from './pages/MidtermPrepHubPage';
+import { MidtermDocPage } from './pages/MidtermDocPage';
 import {
   cleanDocumentDisplayTitle,
   extractDocSlugFromPath,
   findDocEntryBySlug
 } from './utils/docSlug';
+import {
+  extractMidtermSlugFromPath,
+  findMidtermEntryBySlug,
+  getMidtermDocsForCourse
+} from './utils/midtermPrep';
 import {
   BookOpen,
   ExternalLink,
@@ -71,6 +78,8 @@ export type AppPage =
   | 'home' 
   | 'courses' 
   | 'doc'
+  | 'midterm-prep'
+  | 'midterm-doc'
   | 'simulator' 
   | 'handbook' 
   | 'gpa-calculator' 
@@ -89,6 +98,8 @@ const pagePathMap: Record<AppPage, string> = {
   home: '/',
   courses: '/courses',
   doc: '/doc',
+  'midterm-prep': '/midterm-prep',
+  'midterm-doc': '/midterm-prep',
   simulator: '/simulator',
   handbook: '/handbook',
   'gpa-calculator': '/gpa-calculator',
@@ -107,6 +118,8 @@ const pagePathMap: Record<AppPage, string> = {
 function getPageFromPath(): AppPage {
   if (typeof window === 'undefined') return 'home';
   const pathname = window.location.pathname.toLowerCase().replace(/\/$/, '') || '/';
+  if (pathname.startsWith('/midterm-prep/')) return 'midterm-doc';
+  if (pathname === '/midterm-prep' || pathname === '/midterm-prep-2026') return 'midterm-prep';
   if (pathname.startsWith('/doc/')) return 'doc';
   if (pathname === '/courses' || pathname.startsWith('/courses/') || pathname === '/vu-course-list' || pathname === '/course-list') return 'courses';
   if (pathname === '/simulator' || pathname === '/calculator' || pathname === '/mid-calculator' || pathname === '/vu-mid-calculator') return 'simulator';
@@ -220,6 +233,9 @@ export default function App() {
   const [selectedDocSlug, setSelectedDocSlug] = useState<string | null>(() =>
     typeof window !== 'undefined' ? extractDocSlugFromPath(window.location.pathname) : null
   );
+  const [selectedMidtermSlug, setSelectedMidtermSlug] = useState<string | null>(() =>
+    typeof window !== 'undefined' ? extractMidtermSlugFromPath(window.location.pathname) : null
+  );
   const [examStudioTab, setExamStudioTab] = useState<'mcqs' | 'subjective'>('mcqs');
   const [pastPapersCourse, setPastPapersCourse] = useState<string>('CS101');
 
@@ -271,6 +287,7 @@ export default function App() {
       setSelectedMcqSetId(getMcqSetIdFromPath());
       setSelectedSubjectiveSetId(getSubjectiveSetIdFromPath());
       setSelectedDocSlug(extractDocSlugFromPath(nextPath));
+      setSelectedMidtermSlug(extractMidtermSlugFromPath(nextPath));
       if (cleanPath === '/vu-handouts-pdf') {
         setFilters((prev) => ({ ...prev, course: '', type: 'HANDOUT' }));
       }
@@ -397,9 +414,33 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleOpenMidtermDoc = (filename: string) => {
+    const cleanSlug = filename.replace(/^\/?midterm-prep\//i, '').replace(/\/+$/g, '');
+    const matched = findMidtermEntryBySlug(cleanSlug);
+    const canonicalName = matched ? matched.filename : cleanSlug;
+    setSelectedMidtermSlug(canonicalName);
+    setCurrentPage('midterm-doc');
+    const targetPath = `/midterm-prep/${canonicalName}`;
+    setCurrentPathname(targetPath);
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const activeDocEntry = useMemo(
     () => (selectedDocSlug ? findDocEntryBySlug(selectedDocSlug) : null),
     [selectedDocSlug]
+  );
+
+  const activeMidtermEntry = useMemo(
+    () => (selectedMidtermSlug ? findMidtermEntryBySlug(selectedMidtermSlug) : null),
+    [selectedMidtermSlug]
+  );
+
+  const activeCourseMidtermDocs = useMemo(
+    () => (filters.course ? getMidtermDocsForCourse(filters.course) : []),
+    [filters.course]
   );
 
   // Dynamically synchronize document title, OpenGraph, canonical URL, and JSON-LD (SEO + AEO Speakable)
@@ -419,6 +460,7 @@ export default function App() {
       selectedSubjectiveSet: activeSubjectiveSet,
       selectedDocSlug: activeDocEntry?.slug || selectedDocSlug,
       selectedDoc: activeDocEntry?.resource || null,
+      selectedMidtermEntry: activeMidtermEntry,
       selectedCourseCode: filters.course,
       activeFilterType: filters.type,
       pathnameOverride: currentPathname,
@@ -435,7 +477,8 @@ export default function App() {
     selectedMcqSetId,
     selectedSubjectiveSetId,
     selectedDocSlug,
-    activeDocEntry
+    activeDocEntry,
+    activeMidtermEntry
   ]);
 
   // Compute search results with ranking algorithm
@@ -711,6 +754,53 @@ export default function App() {
       };
     }
 
+    if (currentPage === 'midterm-prep') {
+      return {
+        items: [homeCrumb, { label: 'Midterm Prep 2026 (664 Packs)' }],
+        actionLabel: 'Passing Simulator',
+        actionHref: '/simulator',
+        onAction: () => handleNavigate('simulator')
+      };
+    }
+
+    if (currentPage === 'midterm-doc') {
+      if (activeMidtermEntry) {
+        return {
+          items: [
+            homeCrumb,
+            {
+              label: 'Midterm Prep 2026',
+              href: '/midterm-prep',
+              onClick: () => handleNavigate('midterm-prep')
+            },
+            {
+              label: activeMidtermEntry.courseCode,
+              href: `/courses/${activeMidtermEntry.courseCode.toLowerCase()}`,
+              onClick: () => handleSelectCourse(activeMidtermEntry.courseCode)
+            },
+            { label: activeMidtermEntry.filename }
+          ],
+          actionLabel: 'All 664 Midterm Packs',
+          actionHref: '/midterm-prep',
+          onAction: () => handleNavigate('midterm-prep')
+        };
+      }
+      return {
+        items: [
+          homeCrumb,
+          {
+            label: 'Midterm Prep 2026',
+            href: '/midterm-prep',
+            onClick: () => handleNavigate('midterm-prep')
+          },
+          { label: 'Document Preview' }
+        ],
+        actionLabel: 'Midterm Prep 2026',
+        actionHref: '/midterm-prep',
+        onAction: () => handleNavigate('midterm-prep')
+      };
+    }
+
     if (currentPage === 'doc') {
       const docRes = activeDocEntry?.resource;
       if (docRes) {
@@ -966,7 +1056,8 @@ export default function App() {
     query,
     selectedMcqSetId,
     selectedSubjectiveSetId,
-    activeDocEntry
+    activeDocEntry,
+    activeMidtermEntry
   ]);
 
   return (
@@ -995,7 +1086,7 @@ export default function App() {
         />
 
         <motion.div
-          key={`${currentPage}-${selectedDocSlug || selectedMcqSetId || selectedSubjectiveSetId || 'hub'}`}
+          key={`${currentPage}-${selectedDocSlug || selectedMidtermSlug || selectedMcqSetId || selectedSubjectiveSetId || 'hub'}`}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, ease: EASE_OUT_EXPO }}
@@ -1347,6 +1438,55 @@ export default function App() {
                   totalMatching={totalMatchingCount}
                 />
 
+                {/* Course-Specific Midterm Prep 2026 Special Packs Banner */}
+                {filters.course && activeCourseMidtermDocs.length > 0 && (
+                  <section
+                    aria-label={`${filters.course} Midterm Prep 2026 Special Question Banks`}
+                    className="mt-6 rounded-2xl bg-[#0B1526] text-white border border-slate-800 p-5 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-sm"
+                  >
+                    <div className="space-y-1">
+                      <div className="text-[11px] font-mono font-semibold uppercase tracking-wider text-amber-300">
+                        Midterm Prep 2026 · Complete Online Question Banks
+                      </div>
+                      <h2 className="text-lg sm:text-xl font-extrabold text-white">
+                        {filters.course} Midterm Important MCQs &amp; Solved Subjective Q&amp;As
+                      </h2>
+                      <p className="text-xs text-slate-300 max-w-2xl">
+                        Read all extracted {filters.course} midterm objective MCQs (with verified answer keys) and solved subjective transcripts directly online.
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                      {activeCourseMidtermDocs.map((m) => (
+                        <a
+                          key={m.filename}
+                          href={`/midterm-prep/${m.filename}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleOpenMidtermDoc(m.filename);
+                          }}
+                          className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-colors ${
+                            m.kind === 'mcqs'
+                              ? 'bg-white hover:bg-sky-50 text-slate-950'
+                              : 'bg-amber-400 hover:bg-amber-300 text-slate-950'
+                          }`}
+                        >
+                          {m.kind === 'mcqs' ? (
+                            <ListChecks className="w-4 h-4 text-blue-700" />
+                          ) : (
+                            <FileText className="w-4 h-4 text-amber-900" />
+                          )}
+                          <span>
+                            {m.kind === 'mcqs'
+                              ? `Important MCQs (${m.itemCount} Qs)`
+                              : `Solved Subjective (${m.itemCount} Q&As)`}
+                          </span>
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </a>
+                      ))}
+                    </div>
+                  </section>
+                )}
+
                 {/* Resource Cards Grid */}
                 <div className="mt-8">
                   {filteredResources.length === 0 ? (
@@ -1621,6 +1761,17 @@ export default function App() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {[
                       {
+                        kicker: 'MIDTERM PREP 2026 · 664 PACKS',
+                        title: 'Midterm Prep 2026 Complete Hub',
+                        stat: '332 Courses · Complete MCQs & Solved Subjective',
+                        desc: 'Read complete extracted Objective Important MCQs (verified answer keys) and Solved Subjective Q&As directly online across 332 VU subjects.',
+                        cta: 'Open Midterm Prep 2026',
+                        href: '/midterm-prep',
+                        icon: <GraduationCap className="w-5 h-5 text-blue-700" />,
+                        iconBg: 'bg-blue-50 border-blue-200/70',
+                        onClick: () => handleNavigate('midterm-prep')
+                      },
+                      {
                         kicker: 'OBJECTIVE MCQS BANK',
                         title: 'VU Interactive MCQs Bank',
                         stat: `${resourceTypeCounts.interactiveMcqs.toLocaleString()} Interactive MCQs · ${resourceTypeCounts.mcqfile.toLocaleString()} MCQ Files`,
@@ -1809,6 +1960,25 @@ export default function App() {
         {/* 2. Page: Course Directory */}
         {currentPage === 'courses' && (
           <CoursesPage courses={courses} onSelectCourse={handleSelectCourse} />
+        )}
+
+        {/* 2A. Page: Midterm Prep 2026 Hub (/midterm-prep) */}
+        {currentPage === 'midterm-prep' && (
+          <MidtermPrepHubPage
+            onOpenMidtermDoc={handleOpenMidtermDoc}
+            onSelectCourse={handleSelectCourse}
+          />
+        )}
+
+        {/* 2A-2. Page: Midterm Prep Individual Document (/midterm-prep/<filename>) */}
+        {currentPage === 'midterm-doc' && selectedMidtermSlug && (
+          <MidtermDocPage
+            requestedSlug={selectedMidtermSlug}
+            onOpenMidtermDoc={handleOpenMidtermDoc}
+            onOpenMidtermHub={() => handleNavigate('midterm-prep')}
+            onSelectCourse={handleSelectCourse}
+            onNavigate={(p) => handleNavigate(p as AppPage)}
+          />
         )}
 
         {/* 2B. Page: Dedicated Individual Document Reader & SEO Page (/doc/<slug>) */}
@@ -2067,6 +2237,18 @@ export default function App() {
                   MCQs &amp; Study Tools
                 </div>
                 <ul className="space-y-2 text-slate-300">
+                  <li>
+                    <a
+                      href="/midterm-prep"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavigate('midterm-prep');
+                      }}
+                      className="hover:text-white transition-colors font-semibold text-amber-300"
+                    >
+                      Midterm Prep 2026 (664 Packs)
+                    </a>
+                  </li>
                   <li>
                     <a
                       href="/mcqs"
