@@ -572,9 +572,6 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                   may have dropped, or the file is temporarily unavailable.
                   Nothing is lost &mdash; try again, or head back to the hub.
                 </p>
-                <p className="text-xs font-mono text-slate-400 break-words">
-                  Error: {error}
-                </p>
               </div>
               <div className="flex flex-col sm:flex-row justify-center gap-2">
                 <button
@@ -809,7 +806,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                         )}
                         {isRevealed && !item.answer && (
                           <p className="text-xs text-slate-500 italic">
-                            Model answer was not extracted for this question in the source PDF.
+                            Answer not available for this question yet.
                           </p>
                         )}
                       </article>

@@ -141,6 +141,7 @@ export async function fetchCourseReviews(
       reviews
     };
   } catch (err: any) {
+    console.error('Failed to load course reviews:', err);
     return {
       ok: false,
       course: code,
@@ -150,7 +151,7 @@ export async function fetchCourseReviews(
       totalPages: 1,
       watermark: 'MIHORA TECH · Protected Student Archive',
       reviews: [],
-      error: err.message || 'Failed to load course reviews.'
+      error: 'Failed to load course reviews.'
     };
   }
 }
