@@ -1301,7 +1301,7 @@ export default function App() {
                                     </span>{' '}
                                     · {set.questions.length} Qs
                                   </div>
-                                  <h3 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-blue-700 transition-colors truncate">
+                                  <h3 className="text-xs sm:text-sm font-bold text-slate-950 group-hover:text-blue-700 transition-colors leading-snug">
                                     {set.courseTitle}
                                   </h3>
                                 </div>
@@ -1394,7 +1394,7 @@ export default function App() {
                                     <div className="text-[11px] font-mono text-amber-700 font-semibold tabular-nums">
                                       2 / 3 / 5 Marks · {sub.questions.length} Q&amp;As
                                     </div>
-                                    <h3 className="text-sm font-bold text-slate-950 group-hover:text-blue-700 transition-colors truncate">
+                                    <h3 className="text-sm font-bold text-slate-950 group-hover:text-blue-700 transition-colors leading-snug">
                                       {sub.courseTitle}
                                     </h3>
                                   </div>
