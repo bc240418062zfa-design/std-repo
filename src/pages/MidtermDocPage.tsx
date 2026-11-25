@@ -282,13 +282,12 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
             )}
 
             <a
-              href={`/api/midterm-pdf/${encodeURIComponent(entry.filename)}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`/midterm-data/${encodeURIComponent(entry.dataKey)}.json`}
+              download={`${entry.dataKey}.json`}
               className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download PDF ({entry.pageCount}p)</span>
+              <span>Download Questions (.json)</span>
             </a>
 
             <button
@@ -602,7 +601,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                           </span>
                         </div>
 
-                        <h3 className="text-sm sm:text-base font-bold text-slate-950 leading-relaxed">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-950 leading-relaxed break-words">
                           {q.question}
                         </h3>
 
@@ -647,11 +646,11 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                                   }
                                   className={`w-full text-left px-4 py-3 rounded-xl border text-xs sm:text-sm flex items-start justify-between gap-3 transition-colors ${rowClass}`}
                                 >
-                                  <span className="flex items-start gap-2.5 leading-relaxed">
+                                  <span className="flex items-start gap-2.5 leading-relaxed min-w-0">
                                     <span className="font-mono font-bold uppercase text-slate-500 shrink-0">
                                       {letter})
                                     </span>
-                                    <span>{optText}</span>
+                                    <span className="min-w-0 break-words">{optText}</span>
                                   </span>
                                   {hasPicked && isCorrect && (
                                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -668,11 +667,11 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                                 key={optIdx}
                                 className={`px-4 py-3 rounded-xl border text-xs sm:text-sm flex items-start justify-between gap-3 ${rowClass}`}
                               >
-                                <span className="flex items-start gap-2.5 leading-relaxed">
+                                <span className="flex items-start gap-2.5 leading-relaxed min-w-0">
                                   <span className="font-mono font-bold uppercase text-slate-500 shrink-0">
                                     {letter})
                                   </span>
-                                  <span>{optText}</span>
+                                  <span className="min-w-0 break-words">{optText}</span>
                                 </span>
                                 {isCorrect && (
                                   <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-700 shrink-0">
@@ -736,7 +735,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                           </span>
                         </div>
 
-                        <h3 className="text-sm sm:text-base font-bold text-slate-950 leading-relaxed">
+                        <h3 className="text-sm sm:text-base font-bold text-slate-950 leading-relaxed break-words">
                           {item.question}
                         </h3>
 
@@ -765,7 +764,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                             <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700">
                               Verified Answer
                             </div>
-                            <p className="whitespace-pre-line">{item.answer}</p>
+                            <p className="whitespace-pre-line break-words">{item.answer}</p>
                           </div>
                         )}
                         {isRevealed && !item.answer && (
@@ -789,7 +788,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
               </h2>
               <div className="space-y-1.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
                 {docData.extraLines.map((line, i) => (
-                  <p key={i}>{line}</p>
+                  <p key={i} className="break-words">{line}</p>
                 ))}
               </div>
             </section>
@@ -816,7 +815,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                       <div className="text-[11px] font-mono font-semibold text-blue-700 tabular-nums">
                         {n.courseCode} · {n.kind === 'mcqs' ? 'MCQs' : 'Subjective'} · {n.itemCount} Qs
                       </div>
-                      <div className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-700 truncate mt-0.5">
+                      <div className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-blue-700 leading-snug mt-0.5">
                         {n.courseTitle}
                       </div>
                     </div>
