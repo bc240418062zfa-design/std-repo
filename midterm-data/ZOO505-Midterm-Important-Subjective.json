@@ -1,1 +1,186 @@
-{"filename":"ZOO505-Midterm-Important-Subjective.pdf","slug":"ZOO505-Midterm-Important-Subjective.pdf","dataKey":"ZOO505-Midterm-Important-Subjective","courseCode":"ZOO505","courseTitle":"Cell and Molecular Biology","faculty":"Zoology","kind":"subjective","headerTitle":"ZOO505 — Cell and Molecular Biology","subtitle":"Midterm Important Subjective Questions (Solved)","pageCount":5,"itemCount":24,"topics":["Core Subjective Topics"],"subjective":[{"number":1,"topic":"Core Subjective Topics","question":"What is cell theory? State its main points. Cell theory is the fundamental theory of biology which states that: (1) all living organisms are composed of one or more cells; (2) the cell is the basic structural and functional unit of life; and (3) all cells arise from pre-existing cells by division. It was developed from the work of Schleiden (1838, plants are made of cells), Schwann (1839, animals are made of cells) and Virchow (cells arise from pre-existing cells).","marks":null,"answer":""},{"number":2,"topic":"Core Subjective Topics","question":"Describe the fluid mosaic model of the plasma membrane. The fluid mosaic model was proposed by S. Jonathan Singer and Garth Nicolson in 1972. According to this model, the plasma membrane is a fluid lipid bilayer in which phospholipids are arranged with their polar hydrophilic heads facing outward and non-polar hydrophobic tails facing inward. Membrane proteins are embedded in this bilayer like a mosaic: integral proteins span or penetrate the bilayer, while peripheral proteins are attached to its surfaces. The components can move laterally, giving the membrane a fluid character. Carbohydrates attached to proteins (glycoproteins) and lipids (glycolipids) form the glycocalyx on the outer surface, which is involved in cell recognition.","marks":null,"answer":""},{"number":3,"topic":"Core Subjective Topics","question":"Differentiate between uniport, symport and antiport. These are the three types of coupled transport carried out by transporter proteins. A uniport transports a single substance in one direction across the membrane. A symport transports two different substances in the same direction. An antiport transports two different substances in opposite directions. Symports and antiports are together called co-transporters because the movement of one substance is coupled to the movement of the other.","marks":null,"answer":""},{"number":4,"topic":"Core Subjective Topics","question":"What is primary active transport? How does it differ from secondary active transport? Primary active transport moves substances against their concentration gradient using energy obtained directly from the hydrolysis of ATP; for example, the Na+/K+ ATPase pump. In secondary active transport, the energy is used indirectly: the downhill movement of one substance (such as Na+ or H+) down its electrochemical gradient, created by a primary pump, drives the uphill transport of another substance through a symporter or antiporter. Thus, primary active transport requires ATP directly, while secondary active transport depends on an ion gradient.","marks":null,"answer":""},{"number":5,"topic":"Core Subjective Topics","question":"Differentiate between rough endoplasmic reticulum and smooth endoplasmic reticulum. The rough endoplasmic reticulum (RER) has ribosomes attached on its outer (cytosolic) surface and is involved in the synthesis, folding and modification of proteins, including glycosylation, that are destined for secretion, membranes or lysosomes. The smooth endoplasmic reticulum (SER) lacks ribosomes on its surface. It is involved in lipid synthesis, detoxification of lipid-soluble drugs and harmful compounds (abundant in hepatocytes), carbohydrate metabolism such as glycogen breakdown, and storage of Ca2+ ions in the cell.","marks":null,"answer":""},{"number":6,"topic":"Core Subjective Topics","question":"What is the role of the signal recognition particle (SRP) in protein targeting to the ER? When a ribosome begins synthesizing a protein carrying an ER signal sequence, the signal recognition particle (SRP) binds to the signal sequence as soon as it emerges from the ribosome. SRP binding temporarily pauses translation so that the growing chain is not released into the cytosol. The SRP-ribosome complex is then guided to the ER membrane by the SRP receptor, and the ribosome is handed over to the Sec61 translocator, through which the polypeptide chain passes into the ER lumen as translation resumes. SRP is composed of six different polypeptide chains bound to a single small RNA molecule.","marks":null,"answer":""},{"number":7,"topic":"Core Subjective Topics","question":"Describe the structure and functions of the Golgi apparatus. The Golgi apparatus consists of a stack of flattened, membrane-bound sacs called cisternae, with a cis face receiving material from the ER and a trans face shipping finished products. It receives proteins and lipids from the rough ER, modifies them (for example by adding or trimming carbohydrate chains), sorts them and packages them into vesicles for delivery to lysosomes, the plasma membrane or secretion. It is also a major site of carbohydrate synthesis; in plant cells it manufactures the polysaccharides pectin and hemicellulose for the cell wall.","marks":null,"answer":""},{"number":8,"topic":"Core Subjective Topics","question":"What are lysosomes? Describe their formation and functions. Lysosomes are membrane-enclosed compartments filled with hydrolytic (acid hydrolase) enzymes — about 40 types including proteases, nucleases, lipases, glycosidases, phospholipases, phosphatases and sulfatases — which carry out the controlled intracellular digestion of macromolecules. They maintain an acidic interior of about pH 5 for optimal enzyme activity. Their enzymes are synthesized in the rough ER, tagged with mannose 6-phosphate in the Golgi apparatus, and delivered to lysosomes. Lysosomes digest material taken in by endocytosis and phagocytosis, and break down worn-out organelles by autophagy.","marks":null,"answer":""},{"number":9,"topic":"Core Subjective Topics","question":"Differentiate between phagocytosis and pinocytosis. Phagocytosis is the ingestion of large solid particles, such as bacteria, by the cell. Membrane folds surround the particle and form a large vesicle called a phagosome, which fuses with a lysosome for digestion. It is carried out by specialized professional phagocytes such as neutrophils, macrophages and dendritic cells. Pinocytosis is the ingestion of fluid and dissolved solutes in very small vesicles of about 100 nm diameter, and is performed by almost all cells.","marks":null,"answer":""},{"number":10,"topic":"Core Subjective Topics","question":"What is autophagy? How do lysosomes participate in it? Autophagy is the process by which a cell digests its own worn-out or damaged organelles and macromolecules. The material is first enclosed in a double-membrane vesicle (autophagosome), which then fuses with a lysosome. The lysosomal acid hydrolases degrade the contents, and the resulting small molecules are released into the cytosol for reuse. Autophagy thus helps in cell renewal, quality control and survival during starvation.","marks":null,"answer":""},{"number":11,"topic":"Core Subjective Topics","question":"Describe the structure of mitochondria and explain why they are called the powerhouse of the cell. Mitochondria are double-membrane-enclosed organelles: a smooth outer membrane and a highly folded inner membrane forming cristae, enclosing the intermembrane space and the inner matrix. The matrix contains the mitochondrial DNA, ribosomes and enzymes of the Krebs cycle. Mitochondria are called the powerhouse of the cell because they convert the energy stored in food molecules into ATP, the usable energy currency of the cell, through cellular respiration. Their number varies with energy demand — a liver cell has more than 1000 mitochondria, while an egg cell has a few hundred thousand.","marks":null,"answer":""},{"number":12,"topic":"Core Subjective Topics","question":"What evidence supports the endosymbiotic theory of the origin of mitochondria and chloroplasts? Several lines of evidence show that mitochondria and chloroplasts originated from free-living bacteria engulfed by an ancestral cell: (1) both organelles contain their own small, circular DNA; (2) they have their own ribosomes, similar to bacterial ribosomes, and make some of their own proteins; (3) they are enclosed by a double membrane, consistent with engulfing; (4) they grow and divide independently within the cell, by a process similar to bacterial fission; and (5) their size is similar to that of bacteria.","marks":null,"answer":""},{"number":13,"topic":"Core Subjective Topics","question":"What are peroxisomes? Describe their functions. Peroxisomes (also called microbodies) are simple, single-membrane-bound vesicles, 0.1 to 1.0 micrometers in diameter, containing more than 50 enzymes, many of them oxidative enzymes concentrated in a crystalline core. They are named for hydrogen peroxide, which is both produced and degraded in them. Their functions include the oxidation of very long chain fatty acids, detoxification of harmful compounds, and breakdown of hydrogen peroxide by catalase, protecting the cell from its toxic effects.","marks":null,"answer":""},{"number":14,"topic":"Core Subjective Topics","question":"What are glyoxysomes? What is their role in germinating seedlings? Glyoxysomes are specialized peroxisomes found in the storage tissues of germinating plant seedlings. They contain enzymes of the glyoxylate cycle, which convert stored fatty acids (from seed lipids) into carbohydrates (sugars). Since a germinating seedling cannot yet photosynthesize, this conversion provides the energy and carbon skeletons needed to build the new plant until it becomes self-sufficient.","marks":null,"answer":""},{"number":15,"topic":"Core Subjective Topics","question":"Name the three types of cytoskeletal filaments and give the function of each. The cytoskeleton is made of three types of protein filaments. (1) Microfilaments (actin filaments), about 8 nm in diameter, provide mechanical support, maintain cell shape and are involved in cell movement and cytokinesis. (2) Intermediate filaments, found only in animals, provide tensile strength and anchor organelles in place. (3) Microtubules, the thickest filaments, act as tracks for the movement of organelles and vesicles, support the cell, resist compression and form the mitotic spindle, cilia and flagella.","marks":null,"answer":""},{"number":16,"topic":"Core Subjective Topics","question":"What is chromatin? Differentiate between euchromatin and heterochromatin. Chromatin is the complex of DNA and proteins (mainly histones) found in the eukaryotic nucleus; DNA with bound histones is called chromatin. Euchromatin is the more extended, loosely packed and lightly staining form of chromatin, which is transcriptionally active. Heterochromatin is the highly condensed, tightly packed and darkly staining form, which is generally transcriptionally inactive. The uncondensed chromatin appears as 'beads on a string', where each bead is a nucleosome.","marks":null,"answer":""},{"number":17,"topic":"Core Subjective Topics","question":"Describe the structure of a nucleosome. A nucleosome is the basic repeating unit of chromatin packaging. It consists of a segment of DNA wound about 1.65 times around a core particle made of an octamer of histone proteins — two molecules each of histones H2A, H2B, H3 and H4. Including the linker histone H1, each nucleosome contains 9 histone molecules. Nucleosomes are connected by stretches of linker DNA, giving chromatin its beads-on-a-string appearance. A typical human cell contains about 60 million copies of each kind of histone.","marks":null,"answer":""},{"number":18,"topic":"Core Subjective Topics","question":"State Chargaff's rules and explain their importance in the discovery of the DNA structure. Erwin Chargaff analysed the base composition of DNA in the 1940s and found two regularities: (1) the base composition of DNA varies between species, but (2) within a species it does not change with age, nutritional state or environment; and the amount of adenine equals the amount of thymine (A = T), while the amount of guanine equals the amount of cytosine (G = C). These rules were a crucial clue for Watson and Crick, indicating the specific base pairing (A with T, G with C) in their double-helix model of 1953.","marks":null,"answer":""},{"number":19,"topic":"Core Subjective Topics","question":"Describe the Watson and Crick model of DNA structure. Watson and Crick proposed the three-dimensional double-helix model of DNA in 1953. In this model, two polynucleotide strands wind around each other in a right-handed helix. The sugar-phosphate backbones lie on the outside, while the nitrogenous bases are stacked inside, perpendicular to the long axis. The strands are antiparallel and complementary: adenine pairs with thymine through two hydrogen bonds, and guanine pairs with cytosine through three hydrogen bonds. Each strand is a polymer of deoxyribonucleotides, and genetic information is encoded in the sequence of bases.","marks":null,"answer":""},{"number":20,"topic":"Core Subjective Topics","question":"What are histones? Why do histones bind strongly to DNA? Histones are the major protein constituents of chromatin, present in about the same mass as DNA, and are divided into five major classes (H1, H2A, H2B, H3 and H4). They are rich in the basic amino acids lysine and arginine, whose positively charged side chains bind strongly to the negatively charged phosphate groups of DNA through electrostatic attraction. This stabilizing interaction allows the long DNA molecule to be packaged compactly around histones into nucleosomes and chromatin.","marks":null,"answer":""},{"number":21,"topic":"Core Subjective Topics","question":"Differentiate between prokaryotic and eukaryotic cells. Prokaryotic cells (bacteria) are small and simple: they lack a membrane-bound nucleus, their single circular chromosome lies in a central region attached to the plasma membrane, and they have no membrane-bound organelles; some, like cyanobacteria, have internal membrane folds called mesosomes. Eukaryotic cells are larger and more complex: they possess a true nucleus containing multiple linear chromosomes, and many membrane-bound organelles such as mitochondria, endoplasmic reticulum, Golgi apparatus and lysosomes. Plant cells additionally have chloroplasts and a cellulose cell wall, which animal cells lack.","marks":null,"answer":""},{"number":22,"topic":"Core Subjective Topics","question":"Describe the phases of the cell cycle. The cell cycle consists of interphase and the M (mitotic) phase. Interphase has three parts: the G1 (gap 1) phase, in which the cell grows; the S phase, in which DNA is replicated; and the G2 (gap 2) phase, in which the cell prepares for division. In the M phase, nuclear division (mitosis) takes place, followed by cytokinesis, the division of the cytoplasm into two daughter cells. Cells that do not divide exit the cycle and are usually arrested in the interphase (G1/G0) stage.","marks":null,"answer":""},{"number":23,"topic":"Core Subjective Topics","question":"What are proteasomes? State their function. Proteasomes are large protein complexes containing protein-digesting (protease) enzymes, present in the cytosol and nucleus of eukaryotic cells. They degrade unwanted, damaged or misfolded proteins that have been tagged with the small protein ubiquitin. By removing abnormal proteins and regulating the levels of key regulatory proteins, proteasomes maintain protein quality control and regulate many cellular processes.","marks":null,"answer":""},{"number":24,"topic":"Core Subjective Topics","question":"Describe the secretory pathway: the route of a secretory protein from the rough ER to the outside of the cell. A secretory protein is synthesized by ribosomes on the rough ER and, guided by its signal sequence and SRP, is translocated into the ER lumen, where it is folded and modified. Proteins that are correctly folded and completely assembled leave the ER from exit sites in COPII-coated vesicles (with the help of cargo receptors such as ERGIC-53) and reach the Golgi apparatus. In the Golgi, the protein is further modified and sorted, then packaged into secretory vesicles at the trans face. These vesicles fuse with the plasma membrane and release the protein outside the cell by exocytosis.","marks":null,"answer":""}]}
+{
+ "filename": "ZOO505-Midterm-Important-Subjective.pdf",
+ "slug": "ZOO505-Midterm-Important-Subjective.pdf",
+ "dataKey": "ZOO505-Midterm-Important-Subjective",
+ "courseCode": "ZOO505",
+ "courseTitle": "Cell and Molecular Biology",
+ "faculty": "Zoology",
+ "kind": "subjective",
+ "headerTitle": "ZOO505 — Cell and Molecular Biology",
+ "subtitle": "Midterm Important Subjective Questions (Solved)",
+ "pageCount": 5,
+ "itemCount": 24,
+ "topics": [
+  "Core Subjective Topics"
+ ],
+ "subjective": [
+  {
+   "number": 1,
+   "topic": "Core Subjective Topics",
+   "question": "What is cell theory?",
+   "marks": null,
+   "answer": "State its main points. Cell theory is the fundamental theory of biology which states that: (1) all living organisms are composed of one or more cells; (2) the cell is the basic structural and functional unit of life; and (3) all cells arise from pre-existing cells by division. It was developed from the work of Schleiden (1838, plants are made of cells), Schwann (1839, animals are made of cells) and Virchow (cells arise from pre-existing cells)."
+  },
+  {
+   "number": 2,
+   "topic": "Core Subjective Topics",
+   "question": "Describe the fluid mosaic model of the plasma membrane.",
+   "marks": null,
+   "answer": "The fluid mosaic model was proposed by S. Jonathan Singer and Garth Nicolson in 1972. According to this model, the plasma membrane is a fluid lipid bilayer in which phospholipids are arranged with their polar hydrophilic heads facing outward and non-polar hydrophobic tails facing inward. Membrane proteins are embedded in this bilayer like a mosaic: integral proteins span or penetrate the bilayer, while peripheral proteins are attached to its surfaces. The components can move laterally, giving the membrane a fluid character. Carbohydrates attached to proteins (glycoproteins) and lipids (glycolipids) form the glycocalyx on the outer surface, which is involved in cell recognition."
+  },
+  {
+   "number": 3,
+   "topic": "Core Subjective Topics",
+   "question": "Differentiate between uniport, symport and antiport.",
+   "marks": null,
+   "answer": "These are the three types of coupled transport carried out by transporter proteins. A uniport transports a single substance in one direction across the membrane. A symport transports two different substances in the same direction. An antiport transports two different substances in opposite directions. Symports and antiports are together called co-transporters because the movement of one substance is coupled to the movement of the other."
+  },
+  {
+   "number": 4,
+   "topic": "Core Subjective Topics",
+   "question": "What is primary active transport? How does it differ from secondary active transport?",
+   "marks": null,
+   "answer": "Primary active transport moves substances against their concentration gradient using energy obtained directly from the hydrolysis of ATP; for example, the Na+/K+ ATPase pump. In secondary active transport, the energy is used indirectly: the downhill movement of one substance (such as Na+ or H+) down its electrochemical gradient, created by a primary pump, drives the uphill transport of another substance through a symporter or antiporter. Thus, primary active transport requires ATP directly, while secondary active transport depends on an ion gradient."
+  },
+  {
+   "number": 5,
+   "topic": "Core Subjective Topics",
+   "question": "Differentiate between rough endoplasmic reticulum and smooth endoplasmic reticulum.",
+   "marks": null,
+   "answer": "The rough endoplasmic reticulum (RER) has ribosomes attached on its outer (cytosolic) surface and is involved in the synthesis, folding and modification of proteins, including glycosylation, that are destined for secretion, membranes or lysosomes. The smooth endoplasmic reticulum (SER) lacks ribosomes on its surface. It is involved in lipid synthesis, detoxification of lipid-soluble drugs and harmful compounds (abundant in hepatocytes), carbohydrate metabolism such as glycogen breakdown, and storage of Ca2+ ions in the cell."
+  },
+  {
+   "number": 6,
+   "topic": "Core Subjective Topics",
+   "question": "What is the role of the signal recognition particle (SRP) in protein targeting to the ER?",
+   "marks": null,
+   "answer": "When a ribosome begins synthesizing a protein carrying an ER signal sequence, the signal recognition particle (SRP) binds to the signal sequence as soon as it emerges from the ribosome. SRP binding temporarily pauses translation so that the growing chain is not released into the cytosol. The SRP-ribosome complex is then guided to the ER membrane by the SRP receptor, and the ribosome is handed over to the Sec61 translocator, through which the polypeptide chain passes into the ER lumen as translation resumes. SRP is composed of six different polypeptide chains bound to a single small RNA molecule."
+  },
+  {
+   "number": 7,
+   "topic": "Core Subjective Topics",
+   "question": "Describe the structure and functions of the Golgi apparatus.",
+   "marks": null,
+   "answer": "The Golgi apparatus consists of a stack of flattened, membrane-bound sacs called cisternae, with a cis face receiving material from the ER and a trans face shipping finished products. It receives proteins and lipids from the rough ER, modifies them (for example by adding or trimming carbohydrate chains), sorts them and packages them into vesicles for delivery to lysosomes, the plasma membrane or secretion. It is also a major site of carbohydrate synthesis; in plant cells it manufactures the polysaccharides pectin and hemicellulose for the cell wall."
+  },
+  {
+   "number": 8,
+   "topic": "Core Subjective Topics",
+   "question": "What are lysosomes?",
+   "marks": null,
+   "answer": "Describe their formation and functions. Lysosomes are membrane-enclosed compartments filled with hydrolytic (acid hydrolase) enzymes — about 40 types including proteases, nucleases, lipases, glycosidases, phospholipases, phosphatases and sulfatases — which carry out the controlled intracellular digestion of macromolecules. They maintain an acidic interior of about pH 5 for optimal enzyme activity. Their enzymes are synthesized in the rough ER, tagged with mannose 6-phosphate in the Golgi apparatus, and delivered to lysosomes. Lysosomes digest material taken in by endocytosis and phagocytosis, and break down worn-out organelles by autophagy."
+  },
+  {
+   "number": 9,
+   "topic": "Core Subjective Topics",
+   "question": "Differentiate between phagocytosis and pinocytosis.",
+   "marks": null,
+   "answer": "Phagocytosis is the ingestion of large solid particles, such as bacteria, by the cell. Membrane folds surround the particle and form a large vesicle called a phagosome, which fuses with a lysosome for digestion. It is carried out by specialized professional phagocytes such as neutrophils, macrophages and dendritic cells. Pinocytosis is the ingestion of fluid and dissolved solutes in very small vesicles of about 100 nm diameter, and is performed by almost all cells."
+  },
+  {
+   "number": 10,
+   "topic": "Core Subjective Topics",
+   "question": "What is autophagy? How do lysosomes participate in it?",
+   "marks": null,
+   "answer": "Autophagy is the process by which a cell digests its own worn-out or damaged organelles and macromolecules. The material is first enclosed in a double-membrane vesicle (autophagosome), which then fuses with a lysosome. The lysosomal acid hydrolases degrade the contents, and the resulting small molecules are released into the cytosol for reuse. Autophagy thus helps in cell renewal, quality control and survival during starvation."
+  },
+  {
+   "number": 11,
+   "topic": "Core Subjective Topics",
+   "question": "Describe the structure of mitochondria and explain why they are called the powerhouse of the cell.",
+   "marks": null,
+   "answer": "Mitochondria are double-membrane-enclosed organelles: a smooth outer membrane and a highly folded inner membrane forming cristae, enclosing the intermembrane space and the inner matrix. The matrix contains the mitochondrial DNA, ribosomes and enzymes of the Krebs cycle. Mitochondria are called the powerhouse of the cell because they convert the energy stored in food molecules into ATP, the usable energy currency of the cell, through cellular respiration. Their number varies with energy demand — a liver cell has more than 1000 mitochondria, while an egg cell has a few hundred thousand."
+  },
+  {
+   "number": 12,
+   "topic": "Core Subjective Topics",
+   "question": "What evidence supports the endosymbiotic theory of the origin of mitochondria and chloroplasts?",
+   "marks": null,
+   "answer": "Several lines of evidence show that mitochondria and chloroplasts originated from free-living bacteria engulfed by an ancestral cell: (1) both organelles contain their own small, circular DNA; (2) they have their own ribosomes, similar to bacterial ribosomes, and make some of their own proteins; (3) they are enclosed by a double membrane, consistent with engulfing; (4) they grow and divide independently within the cell, by a process similar to bacterial fission; and (5) their size is similar to that of bacteria."
+  },
+  {
+   "number": 13,
+   "topic": "Core Subjective Topics",
+   "question": "What are peroxisomes?",
+   "marks": null,
+   "answer": "Describe their functions. Peroxisomes (also called microbodies) are simple, single-membrane-bound vesicles, 0.1 to 1.0 micrometers in diameter, containing more than 50 enzymes, many of them oxidative enzymes concentrated in a crystalline core. They are named for hydrogen peroxide, which is both produced and degraded in them. Their functions include the oxidation of very long chain fatty acids, detoxification of harmful compounds, and breakdown of hydrogen peroxide by catalase, protecting the cell from its toxic effects."
+  },
+  {
+   "number": 14,
+   "topic": "Core Subjective Topics",
+   "question": "What are glyoxysomes? What is their role in germinating seedlings?",
+   "marks": null,
+   "answer": "Glyoxysomes are specialized peroxisomes found in the storage tissues of germinating plant seedlings. They contain enzymes of the glyoxylate cycle, which convert stored fatty acids (from seed lipids) into carbohydrates (sugars). Since a germinating seedling cannot yet photosynthesize, this conversion provides the energy and carbon skeletons needed to build the new plant until it becomes self-sufficient."
+  },
+  {
+   "number": 15,
+   "topic": "Core Subjective Topics",
+   "question": "Name the three types of cytoskeletal filaments and give the function of each.",
+   "marks": null,
+   "answer": "The cytoskeleton is made of three types of protein filaments. (1) Microfilaments (actin filaments), about 8 nm in diameter, provide mechanical support, maintain cell shape and are involved in cell movement and cytokinesis. (2) Intermediate filaments, found only in animals, provide tensile strength and anchor organelles in place. (3) Microtubules, the thickest filaments, act as tracks for the movement of organelles and vesicles, support the cell, resist compression and form the mitotic spindle, cilia and flagella."
+  },
+  {
+   "number": 16,
+   "topic": "Core Subjective Topics",
+   "question": "What is chromatin?",
+   "marks": null,
+   "answer": "Differentiate between euchromatin and heterochromatin. Chromatin is the complex of DNA and proteins (mainly histones) found in the eukaryotic nucleus; DNA with bound histones is called chromatin. Euchromatin is the more extended, loosely packed and lightly staining form of chromatin, which is transcriptionally active. Heterochromatin is the highly condensed, tightly packed and darkly staining form, which is generally transcriptionally inactive. The uncondensed chromatin appears as 'beads on a string', where each bead is a nucleosome."
+  },
+  {
+   "number": 17,
+   "topic": "Core Subjective Topics",
+   "question": "Describe the structure of a nucleosome.",
+   "marks": null,
+   "answer": "A nucleosome is the basic repeating unit of chromatin packaging. It consists of a segment of DNA wound about 1.65 times around a core particle made of an octamer of histone proteins — two molecules each of histones H2A, H2B, H3 and H4. Including the linker histone H1, each nucleosome contains 9 histone molecules. Nucleosomes are connected by stretches of linker DNA, giving chromatin its beads-on-a-string appearance. A typical human cell contains about 60 million copies of each kind of histone."
+  },
+  {
+   "number": 18,
+   "topic": "Core Subjective Topics",
+   "question": "State Chargaff's rules and explain their importance in the discovery of the DNA structure.",
+   "marks": null,
+   "answer": "Erwin Chargaff analysed the base composition of DNA in the 1940s and found two regularities: (1) the base composition of DNA varies between species, but (2) within a species it does not change with age, nutritional state or environment; and the amount of adenine equals the amount of thymine (A = T), while the amount of guanine equals the amount of cytosine (G = C). These rules were a crucial clue for Watson and Crick, indicating the specific base pairing (A with T, G with C) in their double-helix model of 1953."
+  },
+  {
+   "number": 19,
+   "topic": "Core Subjective Topics",
+   "question": "Describe the Watson and Crick model of DNA structure.",
+   "marks": null,
+   "answer": "Watson and Crick proposed the three-dimensional double-helix model of DNA in 1953. In this model, two polynucleotide strands wind around each other in a right-handed helix. The sugar-phosphate backbones lie on the outside, while the nitrogenous bases are stacked inside, perpendicular to the long axis. The strands are antiparallel and complementary: adenine pairs with thymine through two hydrogen bonds, and guanine pairs with cytosine through three hydrogen bonds. Each strand is a polymer of deoxyribonucleotides, and genetic information is encoded in the sequence of bases."
+  },
+  {
+   "number": 20,
+   "topic": "Core Subjective Topics",
+   "question": "What are histones? Why do histones bind strongly to DNA?",
+   "marks": null,
+   "answer": "Histones are the major protein constituents of chromatin, present in about the same mass as DNA, and are divided into five major classes (H1, H2A, H2B, H3 and H4). They are rich in the basic amino acids lysine and arginine, whose positively charged side chains bind strongly to the negatively charged phosphate groups of DNA through electrostatic attraction. This stabilizing interaction allows the long DNA molecule to be packaged compactly around histones into nucleosomes and chromatin."
+  },
+  {
+   "number": 21,
+   "topic": "Core Subjective Topics",
+   "question": "Differentiate between prokaryotic and eukaryotic cells.",
+   "marks": null,
+   "answer": "Prokaryotic cells (bacteria) are small and simple: they lack a membrane-bound nucleus, their single circular chromosome lies in a central region attached to the plasma membrane, and they have no membrane-bound organelles; some, like cyanobacteria, have internal membrane folds called mesosomes. Eukaryotic cells are larger and more complex: they possess a true nucleus containing multiple linear chromosomes, and many membrane-bound organelles such as mitochondria, endoplasmic reticulum, Golgi apparatus and lysosomes. Plant cells additionally have chloroplasts and a cellulose cell wall, which animal cells lack."
+  },
+  {
+   "number": 22,
+   "topic": "Core Subjective Topics",
+   "question": "Describe the phases of the cell cycle.",
+   "marks": null,
+   "answer": "The cell cycle consists of interphase and the M (mitotic) phase. Interphase has three parts: the G1 (gap 1) phase, in which the cell grows; the S phase, in which DNA is replicated; and the G2 (gap 2) phase, in which the cell prepares for division. In the M phase, nuclear division (mitosis) takes place, followed by cytokinesis, the division of the cytoplasm into two daughter cells. Cells that do not divide exit the cycle and are usually arrested in the interphase (G1/G0) stage."
+  },
+  {
+   "number": 23,
+   "topic": "Core Subjective Topics",
+   "question": "What are proteasomes?",
+   "marks": null,
+   "answer": "State their function. Proteasomes are large protein complexes containing protein-digesting (protease) enzymes, present in the cytosol and nucleus of eukaryotic cells. They degrade unwanted, damaged or misfolded proteins that have been tagged with the small protein ubiquitin. By removing abnormal proteins and regulating the levels of key regulatory proteins, proteasomes maintain protein quality control and regulate many cellular processes."
+  },
+  {
+   "number": 24,
+   "topic": "Core Subjective Topics",
+   "question": "Describe the secretory pathway: the route of a secretory protein from the rough ER to the outside of the cell.",
+   "marks": null,
+   "answer": "A secretory protein is synthesized by ribosomes on the rough ER and, guided by its signal sequence and SRP, is translocated into the ER lumen, where it is folded and modified. Proteins that are correctly folded and completely assembled leave the ER from exit sites in COPII-coated vesicles (with the help of cargo receptors such as ERGIC-53) and reach the Golgi apparatus. In the Golgi, the protein is further modified and sorted, then packaged into secretory vesicles at the trans face. These vesicles fuse with the plasma membrane and release the protein outside the cell by exocytosis."
+  }
+ ]
+}
