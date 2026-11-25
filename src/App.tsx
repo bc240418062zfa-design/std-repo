@@ -557,12 +557,13 @@ export default function App() {
       // Automatically trigger stage 2 download
       triggerFileStream(downloadUrl);
     } catch (err: any) {
+      console.error('Download resolution error:', err);
       setDownloadSession((prev) =>
         prev
           ? {
               ...prev,
               status: 'error',
-              errorMessage: err.message || 'This resource is temporarily unavailable.'
+              errorMessage: 'This resource is temporarily unavailable.'
             }
           : null
       );

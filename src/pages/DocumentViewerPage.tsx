@@ -224,7 +224,8 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
         setPreviewUrl(createEmbedPreviewUrl(activeDriveId));
       } catch (err: any) {
         if (isMounted) {
-          setError(err?.message || 'Unable to load embedded preview.');
+          console.error('Document preview error:', err);
+          setError('Unable to load embedded preview. Please use the download button below.');
           setLoading(false);
         }
       }
