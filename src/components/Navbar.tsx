@@ -172,10 +172,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full transition-all duration-300 border-b ${
+      className={`sticky top-0 z-40 w-full transition-all duration-300 border-b bg-white ${
         scrolled
-          ? 'bg-white/85 backdrop-blur-xl border-slate-200/90 shadow-[0_6px_30px_-12px_rgba(15,23,42,0.12)]'
-          : 'bg-white/92 backdrop-blur-md border-slate-200/80'
+          ? 'border-slate-200/90 shadow-[0_6px_30px_-12px_rgba(15,23,42,0.12)]'
+          : 'border-slate-200/80'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4 xl:gap-6">
