@@ -119,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const primaryLinks = [
     { id: 'home', label: 'Library', href: '/' },
     { id: 'courses', label: 'Courses', href: '/courses' },
-    { id: 'midterm-prep', label: 'Midterm 2026', href: '/midterm-prep' },
+    { id: 'midterm-prep', label: 'Midterm Prep', href: '/midterm-prep' },
     { id: 'mcqs', label: 'MCQs', href: '/mcqs' },
     { id: 'subjective', label: 'Subjective', href: '/subjective' },
     { id: 'past-papers', label: 'Past Papers', href: '/past-papers' }

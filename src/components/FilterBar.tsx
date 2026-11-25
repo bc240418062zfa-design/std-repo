@@ -104,7 +104,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 mr-0.5 select-none">
             <Filter className="w-3.5 h-3.5 text-blue-600" />
-            <span>Filter</span>
+            <span>Find files</span>
           </div>
 
           {/* Course Selector */}
@@ -262,6 +262,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
         {/* Results per page / limit with sliding layoutId pill */}
         <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-slate-500 shrink-0">
+          <span className="hidden xl:block text-slate-400 font-normal">
+            Tip: pick your course, then a type — or type a course code like CS101 in the search above.
+          </span>
           <span className="text-slate-600 font-medium tabular-nums">
             <strong className="text-slate-900 font-mono font-bold">{totalFiltered}</strong> of{' '}
             <strong className="text-slate-900 font-mono font-bold">{totalMatching.toLocaleString()}</strong> files
