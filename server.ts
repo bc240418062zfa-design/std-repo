@@ -862,9 +862,21 @@ function initServerResourceMap() {
     }
   }
 
-  // Resilient fallback: parse canonical source if cached file is missing
-  const masterPath = path.resolve('VU_Mega_Index_Bot.md');
-  if (fs.existsSync(masterPath)) {
+  // Resilient fallback: parse canonical source if cached file is missing.
+  // The canonical index lives in gitignored private-input/ (it contains raw
+  // Drive links and must NOT be committed to the public repo). The repo-root
+  // path is kept only as a last fallback for older local checkouts that
+  // still have the file there; it is inert once the file is deleted from
+  // the repo because fs.existsSync() is false. First candidate with >0
+  // parsed records wins, mirroring scripts/import-index.ts.
+  const masterCandidates = [
+    path.resolve('private-input/VU_Mega_Index_Bot.md'),
+    path.resolve('private-input/VU_Mega_Index_Bot.txt'),
+    path.resolve('VU_Mega_Index_Bot.md'),
+    path.resolve('VU_Mega_Index_Bot.txt')
+  ];
+  for (const masterPath of masterCandidates) {
+    if (!fs.existsSync(masterPath)) continue;
     console.log('🔄 Building server resource mapping from canonical source:', masterPath);
     try {
       const content = fs.readFileSync(masterPath, 'utf-8');
@@ -874,11 +886,13 @@ function initServerResourceMap() {
         const rec = parseRawLineToRecord(line);
         if (rec) serverResourceMap[rec.rlh] = rec;
       }
+      if (Object.keys(serverResourceMap).length === 0) continue;
       console.log(`✅ Loaded ${Object.keys(serverResourceMap).length} verified records into server memory.`);
       // Cache to disk
       const dir = path.dirname(RESOURCE_MAP_PATH);
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
       fs.writeFileSync(RESOURCE_MAP_PATH, JSON.stringify(serverResourceMap), 'utf-8');
+      break;
     } catch (parseErr) {
       console.error('Failed to parse canonical index:', parseErr);
     }
