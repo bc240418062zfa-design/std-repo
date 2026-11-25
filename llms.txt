@@ -40,5 +40,6 @@
 
 ## Optional Deep Context
 - [Full Catalog Dossier (llms-full.txt)](https://study.mihora.tech/llms-full.txt): Complete list of interactive MCQ studios, Subjective Fast-Learning sets, and top accredited VU courses.
-- [XML Sitemap](https://study.mihora.tech/sitemap.xml): Full index of 449 canonical routes.
+- [XML Sitemap](https://study.mihora.tech/sitemap.xml): Full index of 450 canonical routes.
+- [Midterm Prep 2026 Sitemap](https://study.mihora.tech/sitemap-midterm.xml): Complete index of 664 full-text Objective MCQs and Solved Subjective Midterm Prep pages.
 - [Documents XML Sitemap](https://study.mihora.tech/sitemap-docs.xml): Complete index of 28,328 dedicated /doc/<slug> document reader & download pages.
