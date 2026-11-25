@@ -1,1 +1,234 @@
-{"filename":"SOC201-Midterm-Important-Subjective.pdf","slug":"SOC201-Midterm-Important-Subjective.pdf","dataKey":"SOC201-Midterm-Important-Subjective","courseCode":"SOC201","courseTitle":"Pakistani Society and Culture","faculty":"Sociology","kind":"subjective","headerTitle":"SOC201","subtitle":"Midterm Important Subjective Questions (Solved)","pageCount":6,"itemCount":30,"topics":["Foundations of Social Research","Concepts, Variables and Hypotheses","Measurement and Scaling","Research Designs","Sampling","Data Collection","Data Presentation and Analysis"],"subjective":[{"number":1,"topic":"Foundations of Social Research","question":"Define social research and describe its main characteristics. Social research is a systematic and objective investigation of social phenomena carried out to discover new facts, verify old facts and establish relationships between them. Its main characteristics are: it is systematic and follows planned steps; it is empirical, based on observable evidence; it is objective and free from personal bias; its findings are verifiable by other researchers; and it aims at description, explanation and prediction of social behavior.","marks":null,"answer":""},{"number":2,"topic":"Foundations of Social Research","question":"Differentiate between basic (pure) and applied research. Basic research is conducted to develop, expand or test theory and to increase knowledge for its own sake, without concern for immediate practical use — for example, a study developing a theory of social change. Applied research is conducted to find solutions to specific, practical problems — for example, evaluating a literacy program to improve it. The two differ in purpose, though applied research often uses the theories produced by basic research.","marks":null,"answer":""},{"number":3,"topic":"Foundations of Social Research","question":"Differentiate between exploratory, descriptive and explanatory research. Exploratory research is conducted when little is known about a problem; its purpose is to gain familiarity and formulate sharper questions or hypotheses. Descriptive research accurately portrays the characteristics of a population or phenomenon — who, what, when and where. Explanatory research goes further and explains why a phenomenon occurs by identifying cause-and-effect relationships between variables. The three form a progression from familiarity, through description, to explanation.","marks":null,"answer":""},{"number":4,"topic":"Foundations of Social Research","question":"Discuss the main steps of the social research process. (1) Selection and formulation of the problem. (2) Review of literature to learn what is already known. (3) Formulation of hypotheses. (4) Preparation of the research design, including sampling and tools of data collection. (5) Collection of data. (6) Processing and analysis of data — editing, coding, tabulation and statistical analysis. (7) Interpretation of results and testing of hypotheses. (8) Preparation of the research report. Each step depends on the previous one, making research a systematic cycle.","marks":null,"answer":""},{"number":5,"topic":"Foundations of Social Research","question":"Why is a review of literature important in a research study? A review of literature surveys books, journals and previous studies related to the problem. It is important because it prevents duplication of work already done, reveals gaps that the new study can fill, helps formulate precise hypotheses, suggests suitable methods and tools used by earlier researchers, and provides a theoretical framework within which the results can be interpreted.","marks":null,"answer":""},{"number":6,"topic":"Foundations of Social Research","question":"Discuss the ethical considerations a researcher must observe during social research. The researcher must obtain the informed consent of respondents, keep their identity and responses confidential, and protect them from physical, social or psychological harm. Participation must be voluntary, with the right to withdraw. The researcher must report findings honestly without fabricating or manipulating data, acknowledge sources, and avoid using research for purposes that harm the community studied.","marks":null,"answer":""},{"number":7,"topic":"Concepts, Variables and Hypotheses","question":"Define a hypothesis and state the characteristics of a good hypothesis. A hypothesis is a tentative, testable statement predicting a relationship between two or more variables. A good hypothesis is clear and precisely worded; it is specific rather than vague; it is empirically testable with available techniques; it is consistent with existing knowledge and theory; it states a definite relationship between identified variables; and it is simple, avoiding unnecessary complexity.","marks":null,"answer":""},{"number":8,"topic":"Concepts, Variables and Hypotheses","question":"Differentiate between independent, dependent and intervening variables with an example. An independent variable is the presumed cause that the researcher manipulates or treats as the influencing factor. A dependent variable is the presumed effect or outcome. An intervening variable comes between the two and affects their relationship. Example: in the hypothesis 'education (independent) increases income (dependent)', occupation is an intervening variable, because education affects income largely through the occupation a person obtains.","marks":null,"answer":""},{"number":9,"topic":"Concepts, Variables and Hypotheses","question":"What is operationalization? Explain with an example. Operationalization is the process of translating an abstract concept into concrete, measurable indicators by specifying the exact operations used to measure it. For example, the concept 'academic achievement' is operationalized as the marks or GPA obtained in examinations; 'social class' may be operationalized through income, occupation and education. Operational definitions make concepts observable, allow replication, and connect theory with empirical measurement.","marks":null,"answer":""},{"number":10,"topic":"Concepts, Variables and Hypotheses","question":"Differentiate between quantitative and qualitative variables. Quantitative variables are expressed numerically and indicate quantity or amount — such as age, income, height and number of children; they can be continuous or discrete. Qualitative variables express qualities or attributes and classify cases into categories — such as gender, religion, occupation and marital status. Quantitative data permit arithmetic operations and statistical analysis, while qualitative data are analyzed through classification and counting of categories.","marks":null,"answer":""},{"number":11,"topic":"Measurement and Scaling","question":"Describe the four levels of measurement with examples. (1) Nominal: numbers only classify cases into mutually exclusive categories — e.g., religion, gender. (2) Ordinal: categories are rank-ordered but intervals are unequal — e.g., grades A, B, C or social class upper/middle/lower. (3) Interval: intervals between values are equal but there is no true zero — e.g., temperature in Celsius, IQ scores. (4) Ratio: equal intervals plus a true zero, permitting all arithmetic operations — e.g., income, age, weight. Each higher level retains the properties of the lower ones.","marks":null,"answer":""},{"number":12,"topic":"Measurement and Scaling","question":"Differentiate between validity and reliability of a measuring instrument. Validity is the extent to which an instrument measures what it is intended to measure — a valid test of intelligence must measure intelligence, not memory alone. Reliability is the consistency with which an instrument gives the same results under the same conditions on repeated use. An instrument may be reliable without being valid (consistently measuring the wrong thing), but it cannot be valid without being reliable.","marks":null,"answer":""},{"number":13,"topic":"Research Designs","question":"Differentiate between cross-sectional and longitudinal studies. A cross-sectional study collects data from a sample at one single point in time, giving a snapshot of a phenomenon — for example, a one-time survey of voter preferences. A longitudinal study collects data repeatedly over an extended period, allowing the study of change — for example, following the same families for ten years. Longitudinal studies include trend studies (different samples from the same population), cohort studies and panel studies (the same respondents each time).","marks":null,"answer":""},{"number":14,"topic":"Research Designs","question":"What is correlational research? Why does correlation not prove causation? Correlational research examines whether and how strongly two variables vary together, without the researcher manipulating any variable. Correlation does not prove causation because the observed association may result from a third variable influencing both (a spurious relationship), the direction of influence may be reversed, and correlation alone cannot establish that the cause preceded the effect — the three conditions required for a causal claim.","marks":null,"answer":""},{"number":15,"topic":"Research Designs","question":"Describe the experimental method and the roles of the experimental and control groups. In the experimental method the researcher manipulates an independent variable under controlled conditions and observes its effect on the dependent variable. Subjects are randomly assigned to groups. The experimental group receives the treatment or stimulus, while the control group does not receive it but is otherwise treated identically. Comparing the outcomes of the two groups isolates the effect of the treatment, because other factors are held equal by control and randomization.","marks":null,"answer":""},{"number":16,"topic":"Research Designs","question":"What is a case study? State its advantages and limitations. A case study is an intensive, in-depth investigation of a single unit — a person, family, institution, community or event — using multiple sources of information. Its advantages are depth and detail, the ability to study a case in its real context, and its usefulness for generating hypotheses. Its limitations are that findings cannot be generalized to a wider population, it is time-consuming, and the researcher's subjective interpretation may influence results.","marks":null,"answer":""},{"number":17,"topic":"Sampling","question":"Define sampling and explain why researchers use samples instead of studying whole populations. Sampling is the process of selecting a subset (sample) from a population so that conclusions drawn from the sample can be generalized to the population. Researchers use samples because studying a whole population is usually too costly, time-consuming and sometimes impossible; a well-selected sample gives sufficiently accurate results more quickly and economically, and allows more careful supervision and detailed study of each case.","marks":null,"answer":""},{"number":18,"topic":"Sampling","question":"Differentiate between probability and non-probability sampling, giving examples of each. In probability sampling, every unit has a known, non-zero chance of selection, and selection is random — examples are simple random, systematic, stratified and cluster sampling. It permits estimation of sampling error and generalization. In non-probability sampling, selection is not random and chances are unknown — examples are convenience, purposive, quota and snowball sampling. It is cheaper and useful for exploratory or hard-to-reach populations, but results cannot be safely generalized.","marks":null,"answer":""},{"number":19,"topic":"Sampling","question":"Describe simple random sampling and stratified sampling. In simple random sampling, every unit of the population has an equal and independent chance of being selected, usually through a lottery method or random number table; it is the purest form of probability sampling. In stratified sampling, the population is first divided into homogeneous subgroups (strata) on a relevant characteristic such as age or sex, and a random sample is drawn from each stratum, ensuring that all subgroups are represented in proportion.","marks":null,"answer":""},{"number":20,"topic":"Sampling","question":"What is sampling error? How can it be reduced? Sampling error is the difference between the sample result and the true population value that occurs purely by chance because only a part of the population is studied. It is not a mistake but an expected statistical fluctuation. It can be reduced by increasing the sample size, using proper random selection, ensuring the sampling frame is complete and up to date, and using stratified sampling where the population is heterogeneous.","marks":null,"answer":""},{"number":21,"topic":"Sampling","question":"What is snowball sampling and when is it used? In snowball sampling, the researcher starts with a few respondents who meet the study criteria and asks them to identify other similar people, who in turn refer others, so the sample grows like a rolling snowball. It is used for hidden, rare or hard-to-reach populations — such as drug users or members of closed groups — for which no sampling frame exists. Its results are not representative in the statistical sense.","marks":null,"answer":""},{"number":22,"topic":"Data Collection","question":"Differentiate between primary and secondary data, with examples. Primary data are collected first-hand by the researcher himself for the specific purpose of his study — for example, responses obtained through his own questionnaire, interviews or observation. Secondary data are data already collected by someone else for another purpose and available in published or unpublished form — for example, census reports, official statistics, journals and previous research reports. Primary data are original and purpose-specific but costly; secondary data are economical but may not exactly fit the study's needs.","marks":null,"answer":""},{"number":23,"topic":"Data Collection","question":"Differentiate between a questionnaire and an interview schedule. A questionnaire is a set of written questions that respondents fill in themselves, usually without the researcher present; it is used with literate respondents and can be mailed. An interview schedule is a set of questions that the interviewer asks face-to-face and fills in himself during the interaction. The schedule permits probing and clarification and can be used with illiterate respondents, but it is more costly and time-consuming than a questionnaire.","marks":null,"answer":""},{"number":24,"topic":"Data Collection","question":"Differentiate between open-ended and closed-ended questions. Closed-ended questions offer a fixed set of response options from which the respondent chooses — for example, yes/no or multiple choice. They are easy to code and analyze but restrict expression. Open-ended questions allow respondents to answer freely in their own words, giving rich and detailed information, but they are difficult and time-consuming to classify and analyze. Good instruments often combine both types.","marks":null,"answer":""},{"number":25,"topic":"Data Collection","question":"Discuss the advantages and limitations of the interview method. Advantages: the interviewer can probe, clarify questions and observe the respondent; it can be used with illiterate respondents; the response rate is high; and detailed, in-depth information can be obtained. Limitations: it is expensive and time-consuming; it covers only a small number of respondents; the interviewer's presence and manner may bias answers; and results depend heavily on the interviewer's training and honesty in recording.","marks":null,"answer":""},{"number":26,"topic":"Data Collection","question":"Differentiate between participant and non-participant observation. In participant observation, the researcher becomes a member of the group studied, taking part in its activities while observing — as in classic village and community studies. It yields insider understanding but risks loss of objectivity and changes the group's behavior. In non-participant observation, the researcher observes from outside without joining activities, remaining detached; it preserves objectivity but may miss the meanings members attach to their behavior.","marks":null,"answer":""},{"number":27,"topic":"Data Presentation and Analysis","question":"What is a frequency distribution? Construct the idea with a simple example. A frequency distribution is a systematic arrangement of data showing each value or category and the number of cases (frequency) falling in it. For example, if 50 students are classified by grade — A: 8, B: 15, C: 17, D: 7, F: 3 — the table of grades with these counts is a frequency distribution. It organizes raw data into a compact, readable form and is the basis for percentages, graphs and further statistics.","marks":null,"answer":""},{"number":28,"topic":"Data Presentation and Analysis","question":"Define mean, median and mode, and state when each is most suitable. The mean is the arithmetic average (sum of values divided by their number) and suits interval/ratio data without extreme values. The median is the middle value in ordered data and is best when distributions are skewed, since it is unaffected by extremes. The mode is the most frequent value and is the only average usable for nominal data, such as the most common religion in a sample. Together they describe the central tendency of a distribution.","marks":null,"answer":""},{"number":29,"topic":"Data Presentation and Analysis","question":"Explain the difference between frequency and percentage in a research report. Frequency is the raw count of cases in a category. A percentage expresses that count as a proportion of the total multiplied by 100. Percentages make comparison between groups of different sizes meaningful — for example, 30 literate persons out of 50 (60%) in one village can be compared with 45 out of 100 (45%) in another, which raw frequencies alone would misrepresent.","marks":null,"answer":""},{"number":30,"topic":"Data Presentation and Analysis","question":"Why are editing and coding necessary before data analysis? Editing examines the collected data for completeness, accuracy and consistency, correcting omissions and obvious errors before processing. Coding assigns numbers or symbols to each response category so that data can be counted and processed, including by computer. Without editing, errors contaminate the analysis; without coding, especially of open-ended answers, systematic tabulation and statistical analysis are impossible.","marks":null,"answer":""}]}
+{
+ "filename": "SOC201-Midterm-Important-Subjective.pdf",
+ "slug": "SOC201-Midterm-Important-Subjective.pdf",
+ "dataKey": "SOC201-Midterm-Important-Subjective",
+ "courseCode": "SOC201",
+ "courseTitle": "Pakistani Society and Culture",
+ "faculty": "Sociology",
+ "kind": "subjective",
+ "headerTitle": "SOC201",
+ "subtitle": "Midterm Important Subjective Questions (Solved)",
+ "pageCount": 6,
+ "itemCount": 30,
+ "topics": [
+  "Foundations of Social Research",
+  "Concepts, Variables and Hypotheses",
+  "Measurement and Scaling",
+  "Research Designs",
+  "Sampling",
+  "Data Collection",
+  "Data Presentation and Analysis"
+ ],
+ "subjective": [
+  {
+   "number": 1,
+   "topic": "Foundations of Social Research",
+   "question": "Define social research and describe its main characteristics.",
+   "marks": null,
+   "answer": "Social research is a systematic and objective investigation of social phenomena carried out to discover new facts, verify old facts and establish relationships between them. Its main characteristics are: it is systematic and follows planned steps; it is empirical, based on observable evidence; it is objective and free from personal bias; its findings are verifiable by other researchers; and it aims at description, explanation and prediction of social behavior."
+  },
+  {
+   "number": 2,
+   "topic": "Foundations of Social Research",
+   "question": "Differentiate between basic (pure) and applied research.",
+   "marks": null,
+   "answer": "Basic research is conducted to develop, expand or test theory and to increase knowledge for its own sake, without concern for immediate practical use — for example, a study developing a theory of social change. Applied research is conducted to find solutions to specific, practical problems — for example, evaluating a literacy program to improve it. The two differ in purpose, though applied research often uses the theories produced by basic research."
+  },
+  {
+   "number": 3,
+   "topic": "Foundations of Social Research",
+   "question": "Differentiate between exploratory, descriptive and explanatory research.",
+   "marks": null,
+   "answer": "Exploratory research is conducted when little is known about a problem; its purpose is to gain familiarity and formulate sharper questions or hypotheses. Descriptive research accurately portrays the characteristics of a population or phenomenon — who, what, when and where. Explanatory research goes further and explains why a phenomenon occurs by identifying cause-and-effect relationships between variables. The three form a progression from familiarity, through description, to explanation."
+  },
+  {
+   "number": 4,
+   "topic": "Foundations of Social Research",
+   "question": "Discuss the main steps of the social research process.",
+   "marks": null,
+   "answer": "(1) Selection and formulation of the problem. (2) Review of literature to learn what is already known. (3) Formulation of hypotheses. (4) Preparation of the research design, including sampling and tools of data collection. (5) Collection of data. (6) Processing and analysis of data — editing, coding, tabulation and statistical analysis. (7) Interpretation of results and testing of hypotheses. (8) Preparation of the research report. Each step depends on the previous one, making research a systematic cycle."
+  },
+  {
+   "number": 5,
+   "topic": "Foundations of Social Research",
+   "question": "Why is a review of literature important in a research study?",
+   "marks": null,
+   "answer": "A review of literature surveys books, journals and previous studies related to the problem. It is important because it prevents duplication of work already done, reveals gaps that the new study can fill, helps formulate precise hypotheses, suggests suitable methods and tools used by earlier researchers, and provides a theoretical framework within which the results can be interpreted."
+  },
+  {
+   "number": 6,
+   "topic": "Foundations of Social Research",
+   "question": "Discuss the ethical considerations a researcher must observe during social research.",
+   "marks": null,
+   "answer": "The researcher must obtain the informed consent of respondents, keep their identity and responses confidential, and protect them from physical, social or psychological harm. Participation must be voluntary, with the right to withdraw. The researcher must report findings honestly without fabricating or manipulating data, acknowledge sources, and avoid using research for purposes that harm the community studied."
+  },
+  {
+   "number": 7,
+   "topic": "Concepts, Variables and Hypotheses",
+   "question": "Define a hypothesis and state the characteristics of a good hypothesis.",
+   "marks": null,
+   "answer": "A hypothesis is a tentative, testable statement predicting a relationship between two or more variables. A good hypothesis is clear and precisely worded; it is specific rather than vague; it is empirically testable with available techniques; it is consistent with existing knowledge and theory; it states a definite relationship between identified variables; and it is simple, avoiding unnecessary complexity."
+  },
+  {
+   "number": 8,
+   "topic": "Concepts, Variables and Hypotheses",
+   "question": "Differentiate between independent, dependent and intervening variables with an example.",
+   "marks": null,
+   "answer": "An independent variable is the presumed cause that the researcher manipulates or treats as the influencing factor. A dependent variable is the presumed effect or outcome. An intervening variable comes between the two and affects their relationship. Example: in the hypothesis 'education (independent) increases income (dependent)', occupation is an intervening variable, because education affects income largely through the occupation a person obtains."
+  },
+  {
+   "number": 9,
+   "topic": "Concepts, Variables and Hypotheses",
+   "question": "What is operationalization?",
+   "marks": null,
+   "answer": "Explain with an example. Operationalization is the process of translating an abstract concept into concrete, measurable indicators by specifying the exact operations used to measure it. For example, the concept 'academic achievement' is operationalized as the marks or GPA obtained in examinations; 'social class' may be operationalized through income, occupation and education. Operational definitions make concepts observable, allow replication, and connect theory with empirical measurement."
+  },
+  {
+   "number": 10,
+   "topic": "Concepts, Variables and Hypotheses",
+   "question": "Differentiate between quantitative and qualitative variables.",
+   "marks": null,
+   "answer": "Quantitative variables are expressed numerically and indicate quantity or amount — such as age, income, height and number of children; they can be continuous or discrete. Qualitative variables express qualities or attributes and classify cases into categories — such as gender, religion, occupation and marital status. Quantitative data permit arithmetic operations and statistical analysis, while qualitative data are analyzed through classification and counting of categories."
+  },
+  {
+   "number": 11,
+   "topic": "Measurement and Scaling",
+   "question": "Describe the four levels of measurement with examples.",
+   "marks": null,
+   "answer": "(1) Nominal: numbers only classify cases into mutually exclusive categories — e.g., religion, gender. (2) Ordinal: categories are rank-ordered but intervals are unequal — e.g., grades A, B, C or social class upper/middle/lower. (3) Interval: intervals between values are equal but there is no true zero — e.g., temperature in Celsius, IQ scores. (4) Ratio: equal intervals plus a true zero, permitting all arithmetic operations — e.g., income, age, weight. Each higher level retains the properties of the lower ones."
+  },
+  {
+   "number": 12,
+   "topic": "Measurement and Scaling",
+   "question": "Differentiate between validity and reliability of a measuring instrument.",
+   "marks": null,
+   "answer": "Validity is the extent to which an instrument measures what it is intended to measure — a valid test of intelligence must measure intelligence, not memory alone. Reliability is the consistency with which an instrument gives the same results under the same conditions on repeated use. An instrument may be reliable without being valid (consistently measuring the wrong thing), but it cannot be valid without being reliable."
+  },
+  {
+   "number": 13,
+   "topic": "Research Designs",
+   "question": "Differentiate between cross-sectional and longitudinal studies.",
+   "marks": null,
+   "answer": "A cross-sectional study collects data from a sample at one single point in time, giving a snapshot of a phenomenon — for example, a one-time survey of voter preferences. A longitudinal study collects data repeatedly over an extended period, allowing the study of change — for example, following the same families for ten years. Longitudinal studies include trend studies (different samples from the same population), cohort studies and panel studies (the same respondents each time)."
+  },
+  {
+   "number": 14,
+   "topic": "Research Designs",
+   "question": "What is correlational research? Why does correlation not prove causation?",
+   "marks": null,
+   "answer": "Correlational research examines whether and how strongly two variables vary together, without the researcher manipulating any variable. Correlation does not prove causation because the observed association may result from a third variable influencing both (a spurious relationship), the direction of influence may be reversed, and correlation alone cannot establish that the cause preceded the effect — the three conditions required for a causal claim."
+  },
+  {
+   "number": 15,
+   "topic": "Research Designs",
+   "question": "Describe the experimental method and the roles of the experimental and control groups.",
+   "marks": null,
+   "answer": "In the experimental method the researcher manipulates an independent variable under controlled conditions and observes its effect on the dependent variable. Subjects are randomly assigned to groups. The experimental group receives the treatment or stimulus, while the control group does not receive it but is otherwise treated identically. Comparing the outcomes of the two groups isolates the effect of the treatment, because other factors are held equal by control and randomization."
+  },
+  {
+   "number": 16,
+   "topic": "Research Designs",
+   "question": "What is a case study?",
+   "marks": null,
+   "answer": "State its advantages and limitations. A case study is an intensive, in-depth investigation of a single unit — a person, family, institution, community or event — using multiple sources of information. Its advantages are depth and detail, the ability to study a case in its real context, and its usefulness for generating hypotheses. Its limitations are that findings cannot be generalized to a wider population, it is time-consuming, and the researcher's subjective interpretation may influence results."
+  },
+  {
+   "number": 17,
+   "topic": "Sampling",
+   "question": "Define sampling and explain why researchers use samples instead of studying whole populations.",
+   "marks": null,
+   "answer": "Sampling is the process of selecting a subset (sample) from a population so that conclusions drawn from the sample can be generalized to the population. Researchers use samples because studying a whole population is usually too costly, time-consuming and sometimes impossible; a well-selected sample gives sufficiently accurate results more quickly and economically, and allows more careful supervision and detailed study of each case."
+  },
+  {
+   "number": 18,
+   "topic": "Sampling",
+   "question": "Differentiate between probability and non-probability sampling, giving examples of each.",
+   "marks": null,
+   "answer": "In probability sampling, every unit has a known, non-zero chance of selection, and selection is random — examples are simple random, systematic, stratified and cluster sampling. It permits estimation of sampling error and generalization. In non-probability sampling, selection is not random and chances are unknown — examples are convenience, purposive, quota and snowball sampling. It is cheaper and useful for exploratory or hard-to-reach populations, but results cannot be safely generalized."
+  },
+  {
+   "number": 19,
+   "topic": "Sampling",
+   "question": "Describe simple random sampling and stratified sampling.",
+   "marks": null,
+   "answer": "In simple random sampling, every unit of the population has an equal and independent chance of being selected, usually through a lottery method or random number table; it is the purest form of probability sampling. In stratified sampling, the population is first divided into homogeneous subgroups (strata) on a relevant characteristic such as age or sex, and a random sample is drawn from each stratum, ensuring that all subgroups are represented in proportion."
+  },
+  {
+   "number": 20,
+   "topic": "Sampling",
+   "question": "What is sampling error? How can it be reduced?",
+   "marks": null,
+   "answer": "Sampling error is the difference between the sample result and the true population value that occurs purely by chance because only a part of the population is studied. It is not a mistake but an expected statistical fluctuation. It can be reduced by increasing the sample size, using proper random selection, ensuring the sampling frame is complete and up to date, and using stratified sampling where the population is heterogeneous."
+  },
+  {
+   "number": 21,
+   "topic": "Sampling",
+   "question": "What is snowball sampling and when is it used?",
+   "marks": null,
+   "answer": "In snowball sampling, the researcher starts with a few respondents who meet the study criteria and asks them to identify other similar people, who in turn refer others, so the sample grows like a rolling snowball. It is used for hidden, rare or hard-to-reach populations — such as drug users or members of closed groups — for which no sampling frame exists. Its results are not representative in the statistical sense."
+  },
+  {
+   "number": 22,
+   "topic": "Data Collection",
+   "question": "Differentiate between primary and secondary data, with examples.",
+   "marks": null,
+   "answer": "Primary data are collected first-hand by the researcher himself for the specific purpose of his study — for example, responses obtained through his own questionnaire, interviews or observation. Secondary data are data already collected by someone else for another purpose and available in published or unpublished form — for example, census reports, official statistics, journals and previous research reports. Primary data are original and purpose-specific but costly; secondary data are economical but may not exactly fit the study's needs."
+  },
+  {
+   "number": 23,
+   "topic": "Data Collection",
+   "question": "Differentiate between a questionnaire and an interview schedule.",
+   "marks": null,
+   "answer": "A questionnaire is a set of written questions that respondents fill in themselves, usually without the researcher present; it is used with literate respondents and can be mailed. An interview schedule is a set of questions that the interviewer asks face-to-face and fills in himself during the interaction. The schedule permits probing and clarification and can be used with illiterate respondents, but it is more costly and time-consuming than a questionnaire."
+  },
+  {
+   "number": 24,
+   "topic": "Data Collection",
+   "question": "Differentiate between open-ended and closed-ended questions.",
+   "marks": null,
+   "answer": "Closed-ended questions offer a fixed set of response options from which the respondent chooses — for example, yes/no or multiple choice. They are easy to code and analyze but restrict expression. Open-ended questions allow respondents to answer freely in their own words, giving rich and detailed information, but they are difficult and time-consuming to classify and analyze. Good instruments often combine both types."
+  },
+  {
+   "number": 25,
+   "topic": "Data Collection",
+   "question": "Discuss the advantages and limitations of the interview method.",
+   "marks": null,
+   "answer": "Advantages: the interviewer can probe, clarify questions and observe the respondent; it can be used with illiterate respondents; the response rate is high; and detailed, in-depth information can be obtained. Limitations: it is expensive and time-consuming; it covers only a small number of respondents; the interviewer's presence and manner may bias answers; and results depend heavily on the interviewer's training and honesty in recording."
+  },
+  {
+   "number": 26,
+   "topic": "Data Collection",
+   "question": "Differentiate between participant and non-participant observation.",
+   "marks": null,
+   "answer": "In participant observation, the researcher becomes a member of the group studied, taking part in its activities while observing — as in classic village and community studies. It yields insider understanding but risks loss of objectivity and changes the group's behavior. In non-participant observation, the researcher observes from outside without joining activities, remaining detached; it preserves objectivity but may miss the meanings members attach to their behavior."
+  },
+  {
+   "number": 27,
+   "topic": "Data Presentation and Analysis",
+   "question": "What is a frequency distribution?",
+   "marks": null,
+   "answer": "Construct the idea with a simple example. A frequency distribution is a systematic arrangement of data showing each value or category and the number of cases (frequency) falling in it. For example, if 50 students are classified by grade — A: 8, B: 15, C: 17, D: 7, F: 3 — the table of grades with these counts is a frequency distribution. It organizes raw data into a compact, readable form and is the basis for percentages, graphs and further statistics."
+  },
+  {
+   "number": 28,
+   "topic": "Data Presentation and Analysis",
+   "question": "Define mean, median and mode, and state when each is most suitable.",
+   "marks": null,
+   "answer": "The mean is the arithmetic average (sum of values divided by their number) and suits interval/ratio data without extreme values. The median is the middle value in ordered data and is best when distributions are skewed, since it is unaffected by extremes. The mode is the most frequent value and is the only average usable for nominal data, such as the most common religion in a sample. Together they describe the central tendency of a distribution."
+  },
+  {
+   "number": 29,
+   "topic": "Data Presentation and Analysis",
+   "question": "Explain the difference between frequency and percentage in a research report.",
+   "marks": null,
+   "answer": "Frequency is the raw count of cases in a category. A percentage expresses that count as a proportion of the total multiplied by 100. Percentages make comparison between groups of different sizes meaningful — for example, 30 literate persons out of 50 (60%) in one village can be compared with 45 out of 100 (45%) in another, which raw frequencies alone would misrepresent."
+  },
+  {
+   "number": 30,
+   "topic": "Data Presentation and Analysis",
+   "question": "Why are editing and coding necessary before data analysis?",
+   "marks": null,
+   "answer": "Editing examines the collected data for completeness, accuracy and consistency, correcting omissions and obvious errors before processing. Coding assigns numbers or symbols to each response category so that data can be counted and processed, including by computer. Without editing, errors contaminate the analysis; without coding, especially of open-ended answers, systematic tabulation and statistical analysis are impossible."
+  }
+ ]
+}

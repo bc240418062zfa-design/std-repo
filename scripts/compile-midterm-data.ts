@@ -31,7 +31,7 @@ function generateRlh(driveId: string): string {
 }
 
 export function compileMidtermData() {
-  const sourcePath = path.resolve('public/assets/aistudio/MIHORA-Drive-File-Links_fa0e6d88.txt');
+  const sourcePath = path.resolve('scripts/data/MIHORA-Drive-File-Links.txt'); // kept OUT of public/ so raw Drive links are never shipped in the static build
   if (!fs.existsSync(sourcePath)) {
     console.error('Source file not found:', sourcePath);
     process.exit(1);

@@ -24,3 +24,6 @@ encrypted-resource-map/
 *.pem
 *.key
 .secrets/
+
+# Raw Drive link list used only by scripts/compile-midterm-data.ts — never commit or ship
+scripts/data/

@@ -1,1 +1,169 @@
-{"filename":"MTH641-Midterm-Important-Subjective.pdf","slug":"MTH641-Midterm-Important-Subjective.pdf","dataKey":"MTH641-Midterm-Important-Subjective","courseCode":"MTH641","courseTitle":"Functional Analysis","faculty":"Mathematics","kind":"subjective","headerTitle":"MTH641 — Functional Analysis","subtitle":"Midterm Important Subjective Questions (Solved)","pageCount":4,"itemCount":0,"topics":["Metric Spaces","Sequences, Completeness and Compactness","Vector Spaces and Normed Spaces","Linear Operators and Functionals","Inner Product and Hilbert Spaces"],"subjective":[],"extraLines":["1. Define a metric space. Verify that the discrete metric on a non-empty set X is","a metric on X.","A metric space is a pair (X, d), where X is a non-empty set and d : X × X → R is a function","(called a metric) such that for all x, y, z ∈ X:","(i) d(x, y) ≥ 0, and d(x, y) = 0 if and only if x = y;","(ii) d(x, y) = d(y, x) (symmetry);","(iii) d(x, z) ≤ d(x, y) + d(y, z) (triangle inequality).","For the discrete metric, d(x, y) = 0 if x = y and d(x, y) = 1 if x ≠ y. Then (i) holds since","the values are 0 and 1, and d(x, y) = 0 exactly when x = y. (ii) holds since the definition","is symmetric in x and y. For (iii), if x = z then d(x, z) = 0 ≤ d(x, y) + d(y, z). If x ≠ z, then","x ≠ y or y ≠ z (otherwise x = y = z), so d(x, y) + d(y, z) ≥ 1 = d(x, z). Hence d is a metric","on X.","2. Show that every convergent sequence in a metric space is a Cauchy","sequence.","Let (xₙ) converge to x in the metric space (X, d). Let ε > 0. Then there exists N such that","d(xₙ, x) < ε/2 for all n > N. Hence for all m, n > N, by the triangle inequality,","d(xₘ, xₙ) ≤ d(xₘ, x) + d(x, xₙ) < ε/2 + ε/2 = ε.","Thus (xₙ) satisfies the Cauchy condition, so every convergent sequence is a Cauchy","sequence. (The converse is not true in a general metric space; it holds in a complete","metric space.)","3. Show that every Cauchy sequence in a metric space is bounded.","Let (xₙ) be a Cauchy sequence in (X, d). For ε = 1 there exists N such that d(xₘ, xₙ) < 1","for all m, n > N. Fix n₀ > N. Then for all n > N, d(xₙ, xₙ₀) < 1, i.e. all terms after the Nth lie","in the ball B(xₙ₀; 1). Taking r = max{d(x₁, xₙ₀), …, d(x_N, xₙ₀), 1} + 1, every term of the","sequence lies in B(xₙ₀; r). Hence the sequence is bounded.","4. Show that the sequence (xₙ) = (1 + 1/n) is a Cauchy sequence in R with the","usual metric.","For m, n ≥ 1, d(xₘ, xₙ) = |(1 + 1/m) − (1 + 1/n)| = |1/m − 1/n| ≤ 1/m + 1/n. Given ε > 0,","choose N > 2/ε. Then for all m, n > N, d(xₘ, xₙ) < 1/N + 1/N = 2/N < ε. Hence (xₙ) is a","Cauchy sequence. (In fact xₙ → 1.)","5. Give an example showing that Q with the usual metric is not a complete","metric space.","Let (xₙ) be the sequence of decimal approximations of √2: x₁ = 1, x₂ = 1.4, x₃ = 1.41, x₄","= 1.414, … Each xₙ ∈ Q and xₙ → √2 in R, so (xₙ) is a Cauchy sequence in Q (every","convergent sequence in R is Cauchy). But its limit √2 ∉ Q, so (xₙ) has no limit in Q. Hence","Q is not complete.","6. Prove that a closed subset of a complete metric space is complete.","Let M be a closed subset of a complete metric space X, and let (xₙ) be a Cauchy","sequence in M. Since (xₙ) is also a Cauchy sequence in X and X is complete, xₙ → x for","some x ∈ X. As M is closed, it contains all its limit points; the limit x of a sequence in M is","a limit point of M (or an element of M), so x ∈ M. Hence every Cauchy sequence in M","converges in M, i.e. M is complete.","7. State the completion theorem for normed spaces.","Completion theorem: For every normed space X there exists a Banach space X̂ and an","isometry T from X onto a subspace W of X̂ which is dense in X̂. The space X̂ is called the","completion of X; it is unique up to isometry. In other words, every normed space can be","completed to a Banach space by adjoining limits of all its Cauchy sequences.","8. Define an extension of an operator T.","Let T : D(T) → Y be an operator with domain D(T) in a normed space X. An operator T̃ :","D(T̃) → Y is called an extension of T if D(T) ⊆ D(T̃) and T̃x = Tx for all x ∈ D(T); that is, the","graph of T is contained in the graph of T̃. The extension T̃ thus agrees with T on the","original domain but is defined on a larger domain.","9. State the extension theorem for bounded linear operators. Let T : D(T) → Y be","a bounded linear operator, where D(T) lies in a normed space X and Y is a","Banach space. What can be said about the extension of T?","Extension theorem (BLT theorem): T has an extension T̃ : closure of D(T) → Y which is a","bounded linear operator with the same norm, ||T̃|| = ||T||. The extension is obtained by","defining T̃x = lim Txₙ for xₙ → x with xₙ ∈ D(T); the limit exists because Y is complete and","(Txₙ) is Cauchy, and the extension so obtained is unique.","10. Let T : D(T) → Y be a linear operator, where D(T) ⊆ X and X, Y are normed","spaces. Show that if T is continuous at a single point, then T is continuous","everywhere.","Suppose T is continuous at x₀ ∈ D(T). Let x ∈ D(T) and let (xₙ) be a sequence in D(T) with","xₙ → x. Then xₙ − x + x₀ → x₀, so by continuity at x₀, T(xₙ − x + x₀) → Tx₀. By linearity, Txₙ","− Tx + Tx₀ → Tx₀, hence Txₙ → Tx. Thus T is continuous at the arbitrary point x, i.e. T is","continuous on all of D(T).","11. Define a linear functional.","A linear functional is a linear operator whose range is contained in the scalar field.","Precisely, if D(f) is a subspace of a vector space X over a field K, then f : D(f) → K is a","linear functional if f(αx + βy) = αf(x) + βf(y) for all x, y ∈ D(f) and all scalars α, β. A linear","functional f on a normed space is bounded if there is a constant c ≥ 0 with |f(x)| ≤ c||x||","for all x ∈ D(f).","12. Define the norm and the inner product on Rⁿ which make Rⁿ an inner","product space.","For x = (x₁, …, xₙ) and y = (y₁, …, yₙ) in Rⁿ, the (standard) inner product is ⟨x, y⟩ = x₁y₁ +","x₂y₂ + ··· + xₙyₙ = Σᵢ xᵢyᵢ. The norm induced by this inner product is ||x|| = √⟨x, x⟩ = √(x₁²","+ x₂² + ··· + xₙ²), the usual Euclidean length. With this inner product, Rⁿ is a (complete,","hence Hilbert) inner product space.","13. Show that every inner product space is a metric space.","Let X be an inner product space. The inner product induces a norm ||x|| = √⟨x, x⟩ on X,","and the norm induces a metric d(x, y) = ||x − y||. We verify the metric axioms: (i) d(x, y)","= ||x − y|| ≥ 0, and d(x, y) = 0 iff x − y = 0, i.e. iff x = y, by the definiteness of the norm.","(ii) d(y, x) = ||y − x|| = ||−(x − y)|| = ||x − y|| = d(x, y). (iii) By the triangle inequality for","the norm, d(x, z) = ||x − z|| = ||(x − y) + (y − z)|| ≤ ||x − y|| + ||y − z|| = d(x, y) + d(y,","z). Hence (X, d) is a metric space.","14. In an inner product space V, the function ||·|| : V → R⁺ given by ||x|| = √⟨x, x⟩","defines a norm in V. Show that ||x|| = 0 if and only if x = 0.","By the definiteness axiom of the inner product, ⟨x, x⟩ = 0 if and only if x = 0, and ⟨x, x⟩ >","0 for x ≠ 0. Since ||x|| = √⟨x, x⟩ and the square root of a non-negative number is 0 only","when the number itself is 0, we get ||x|| = 0 ⇔ ⟨x, x⟩ = 0 ⇔ x = 0.","15. State and prove the Cauchy–Schwarz inequality in an inner product space.","Statement: For all x, y in an inner product space, |⟨x, y⟩| ≤ ||x||·||y||, with equality if and","only if x and y are linearly dependent.","Proof: If y = 0 both sides are 0. Let y ≠ 0 and consider, for any scalar α, 0 ≤ ||x − αy||² =","⟨x − αy, x − αy⟩ = ||x||² − ᾱ⟨x, y⟩ − α⟨y, x⟩ + |α|²||y||². Choosing α = ⟨x, y⟩/||y||² makes","the last three terms combine to −|⟨x, y⟩|²/||y||², giving 0 ≤ ||x||² − |⟨x, y⟩|²/||y||², i.e. |⟨x,","y⟩|² ≤ ||x||²||y||². Taking square roots gives the result.","16. Prove the parallelogram law in an inner product space.","For any x, y in an inner product space, expanding with the inner product axioms:","||x + y||² = ⟨x + y, x + y⟩ = ||x||² + ⟨x, y⟩ + ⟨y, x⟩ + ||y||²,","||x − y||² = ⟨x − y, x − y⟩ = ||x||² − ⟨x, y⟩ − ⟨y, x⟩ + ||y||².","Adding the two equalities, the mixed terms cancel: ||x + y||² + ||x − y||² = 2||x||² + 2||y||²","= 2(||x||² + ||y||²), which is the parallelogram law.","17. If x and y are orthogonal elements of an inner product space, prove the","Pythagorean relation ||x + y||² = ||x||² + ||y||².","Since x ⊥ y, ⟨x, y⟩ = 0 and also ⟨y, x⟩ = conjugate of ⟨x, y⟩ = 0. Hence ||x + y||² = ⟨x + y,","x + y⟩ = ||x||² + ⟨x, y⟩ + ⟨y, x⟩ + ||y||² = ||x||² + 0 + 0 + ||y||² = ||x||² + ||y||².","18. If (xₙ) and (yₙ) are Cauchy sequences in an inner product space V, show that","(⟨xₙ, yₙ⟩) is a Cauchy sequence in the scalar field.","Cauchy sequences are bounded, so there are constants a, b with ||xₙ|| ≤ a and ||yₙ|| ≤ b","for all n. Then","|⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| = |⟨xₘ, yₘ − yₙ⟩ + ⟨xₘ − xₙ, yₙ⟩| ≤ ||xₘ||·||yₘ − yₙ|| + ||xₘ − xₙ||·||yₙ|| ≤","a||yₘ − yₙ|| + b||xₘ − xₙ||","by the Cauchy–Schwarz inequality. Given ε > 0, choose N so that ||xₘ − xₙ|| < ε and ||yₘ","− yₙ|| < ε for m, n > N (possible since both sequences are Cauchy, with ε scaled by","max(a, b, 1)). Then |⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| is small for m, n > N, so (⟨xₙ, yₙ⟩) is Cauchy in the","scalar field.","19. Define a Banach space and a Hilbert space, and give two examples of each.","A Banach space is a complete normed space, i.e. a normed space in which every Cauchy","sequence converges. Examples: Rⁿ with the Euclidean norm, and C[a, b] with the sup","norm ||x|| = max |x(t)|.","A Hilbert space is a complete inner product space, i.e. an inner product space which is","complete in the metric induced by its inner product. Examples: Rⁿ with the standard","inner product ⟨x, y⟩ = Σ xᵢyᵢ, and the sequence space l² with ⟨x, y⟩ = Σ xᵢȳᵢ. Every Hilbert","space is a Banach space, but not every Banach space is a Hilbert space (e.g. l^p for p ≠","2).","20. Show that ||x|| = max |x(t)|, t ∈ [a, b], defines a norm on C[a, b].","(i) ||x|| = max |x(t)| ≥ 0, and ||x|| = 0 iff x(t) = 0 for all t, i.e. x = 0. (ii) ||αx|| = max |αx(t)|","= |α| max |x(t)| = |α|·||x||. (iii) For x, y ∈ C[a, b] and each t, |(x + y)(t)| ≤ |x(t)| + |y(t)| ≤","||x|| + ||y||; taking the maximum over t ∈ [a, b] gives ||x + y|| ≤ ||x|| + ||y||. Hence ||·|| is","a norm on C[a, b] (the sup norm).","21. State the continuous mapping theorem for maps between metric spaces.","Continuous mapping theorem: A mapping T : X → Y between metric spaces X and Y is","continuous if and only if it maps convergent sequences to convergent sequences with","the corresponding limits; that is, xₙ → x in X implies Txₙ → Tx in Y. Equivalently, T is","continuous if and only if the inverse image of every open set in Y is open in X."]}
+{
+ "filename": "MTH641-Midterm-Important-Subjective.pdf",
+ "slug": "MTH641-Midterm-Important-Subjective.pdf",
+ "dataKey": "MTH641-Midterm-Important-Subjective",
+ "courseCode": "MTH641",
+ "courseTitle": "Functional Analysis",
+ "faculty": "Mathematics",
+ "kind": "subjective",
+ "headerTitle": "MTH641 — Functional Analysis",
+ "subtitle": "Midterm Important Subjective Questions (Solved)",
+ "pageCount": 4,
+ "itemCount": 21,
+ "topics": [
+  "Metric Spaces",
+  "Sequences, Completeness and Compactness",
+  "Vector Spaces and Normed Spaces",
+  "Linear Operators and Functionals",
+  "Inner Product and Hilbert Spaces"
+ ],
+ "subjective": [
+  {
+   "number": 1,
+   "topic": "General",
+   "question": "Define a metric space. Verify that the discrete metric on a non-empty set X is",
+   "marks": null,
+   "answer": "a metric on X. A metric space is a pair (X, d), where X is a non-empty set and d : X × X → R is a function (called a metric) such that for all x, y, z ∈ X: (i) d(x, y) ≥ 0, and d(x, y) = 0 if and only if x = y; (ii) d(x, y) = d(y, x) (symmetry); (iii) d(x, z) ≤ d(x, y) + d(y, z) (triangle inequality). For the discrete metric, d(x, y) = 0 if x = y and d(x, y) = 1 if x ≠ y. Then (i) holds since the values are 0 and 1, and d(x, y) = 0 exactly when x = y. (ii) holds since the definition is symmetric in x and y. For (iii), if x = z then d(x, z) = 0 ≤ d(x, y) + d(y, z). If x ≠ z, then x ≠ y or y ≠ z (otherwise x = y = z), so d(x, y) + d(y, z) ≥ 1 = d(x, z). Hence d is a metric on X."
+  },
+  {
+   "number": 2,
+   "topic": "General",
+   "question": "Show that every convergent sequence in a metric space is a Cauchy",
+   "marks": null,
+   "answer": "sequence. Let (xₙ) converge to x in the metric space (X, d). Let ε > 0. Then there exists N such that d(xₙ, x) < ε/2 for all n > N. Hence for all m, n > N, by the triangle inequality, d(xₘ, xₙ) ≤ d(xₘ, x) + d(x, xₙ) < ε/2 + ε/2 = ε. Thus (xₙ) satisfies the Cauchy condition, so every convergent sequence is a Cauchy sequence. (The converse is not true in a general metric space; it holds in a complete metric space.)"
+  },
+  {
+   "number": 3,
+   "topic": "General",
+   "question": "Show that every Cauchy sequence in a metric space is bounded.",
+   "marks": null,
+   "answer": "Let (xₙ) be a Cauchy sequence in (X, d). For ε = 1 there exists N such that d(xₘ, xₙ) < 1 for all m, n > N. Fix n₀ > N. Then for all n > N, d(xₙ, xₙ₀) < 1, i.e. all terms after the Nth lie in the ball B(xₙ₀; 1). Taking r = max{d(x₁, xₙ₀), …, d(x_N, xₙ₀), 1} + 1, every term of the sequence lies in B(xₙ₀; r). Hence the sequence is bounded."
+  },
+  {
+   "number": 4,
+   "topic": "General",
+   "question": "Show that the sequence (xₙ) = (1 + 1/n) is a Cauchy sequence in R with the",
+   "marks": null,
+   "answer": "usual metric. For m, n ≥ 1, d(xₘ, xₙ) = |(1 + 1/m) − (1 + 1/n)| = |1/m − 1/n| ≤ 1/m + 1/n. Given ε > 0, choose N > 2/ε. Then for all m, n > N, d(xₘ, xₙ) < 1/N + 1/N = 2/N < ε. Hence (xₙ) is a Cauchy sequence. (In fact xₙ → 1.)"
+  },
+  {
+   "number": 5,
+   "topic": "General",
+   "question": "Give an example showing that Q with the usual metric is not a complete",
+   "marks": null,
+   "answer": "metric space. Let (xₙ) be the sequence of decimal approximations of √2: x₁ = 1, x₂ = 1.4, x₃ = 1.41, x₄ = 1.414, … Each xₙ ∈ Q and xₙ → √2 in R, so (xₙ) is a Cauchy sequence in Q (every convergent sequence in R is Cauchy). But its limit √2 ∉ Q, so (xₙ) has no limit in Q. Hence Q is not complete."
+  },
+  {
+   "number": 6,
+   "topic": "General",
+   "question": "Prove that a closed subset of a complete metric space is complete.",
+   "marks": null,
+   "answer": "Let M be a closed subset of a complete metric space X, and let (xₙ) be a Cauchy sequence in M. Since (xₙ) is also a Cauchy sequence in X and X is complete, xₙ → x for some x ∈ X. As M is closed, it contains all its limit points; the limit x of a sequence in M is a limit point of M (or an element of M), so x ∈ M. Hence every Cauchy sequence in M converges in M, i.e. M is complete."
+  },
+  {
+   "number": 7,
+   "topic": "General",
+   "question": "State the completion theorem for normed spaces.",
+   "marks": null,
+   "answer": "Completion theorem: For every normed space X there exists a Banach space X̂ and an isometry T from X onto a subspace W of X̂ which is dense in X̂. The space X̂ is called the completion of X; it is unique up to isometry. In other words, every normed space can be completed to a Banach space by adjoining limits of all its Cauchy sequences."
+  },
+  {
+   "number": 8,
+   "topic": "General",
+   "question": "Define an extension of an operator T.",
+   "marks": null,
+   "answer": "Let T : D(T) → Y be an operator with domain D(T) in a normed space X. An operator T̃ : D(T̃) → Y is called an extension of T if D(T) ⊆ D(T̃) and T̃x = Tx for all x ∈ D(T); that is, the graph of T is contained in the graph of T̃. The extension T̃ thus agrees with T on the original domain but is defined on a larger domain."
+  },
+  {
+   "number": 9,
+   "topic": "General",
+   "question": "State the extension theorem for bounded linear operators. Let T : D(T) → Y be",
+   "marks": null,
+   "answer": "a bounded linear operator, where D(T) lies in a normed space X and Y is a Banach space. What can be said about the extension of T? Extension theorem (BLT theorem): T has an extension T̃ : closure of D(T) → Y which is a bounded linear operator with the same norm, ||T̃|| = ||T||. The extension is obtained by defining T̃x = lim Txₙ for xₙ → x with xₙ ∈ D(T); the limit exists because Y is complete and (Txₙ) is Cauchy, and the extension so obtained is unique."
+  },
+  {
+   "number": 10,
+   "topic": "General",
+   "question": "Let T : D(T) → Y be a linear operator, where D(T) ⊆ X and X, Y are normed",
+   "marks": null,
+   "answer": "spaces. Show that if T is continuous at a single point, then T is continuous everywhere. Suppose T is continuous at x₀ ∈ D(T). Let x ∈ D(T) and let (xₙ) be a sequence in D(T) with xₙ → x. Then xₙ − x + x₀ → x₀, so by continuity at x₀, T(xₙ − x + x₀) → Tx₀. By linearity, Txₙ − Tx + Tx₀ → Tx₀, hence Txₙ → Tx. Thus T is continuous at the arbitrary point x, i.e. T is continuous on all of D(T)."
+  },
+  {
+   "number": 11,
+   "topic": "General",
+   "question": "Define a linear functional.",
+   "marks": null,
+   "answer": "A linear functional is a linear operator whose range is contained in the scalar field. Precisely, if D(f) is a subspace of a vector space X over a field K, then f : D(f) → K is a linear functional if f(αx + βy) = αf(x) + βf(y) for all x, y ∈ D(f) and all scalars α, β. A linear functional f on a normed space is bounded if there is a constant c ≥ 0 with |f(x)| ≤ c||x|| for all x ∈ D(f)."
+  },
+  {
+   "number": 12,
+   "topic": "General",
+   "question": "Define the norm and the inner product on Rⁿ which make Rⁿ an inner",
+   "marks": null,
+   "answer": "product space. For x = (x₁, …, xₙ) and y = (y₁, …, yₙ) in Rⁿ, the (standard) inner product is ⟨x, y⟩ = x₁y₁ + x₂y₂ + ··· + xₙyₙ = Σᵢ xᵢyᵢ. The norm induced by this inner product is ||x|| = √⟨x, x⟩ = √(x₁² + x₂² + ··· + xₙ²), the usual Euclidean length. With this inner product, Rⁿ is a (complete, hence Hilbert) inner product space."
+  },
+  {
+   "number": 13,
+   "topic": "General",
+   "question": "Show that every inner product space is a metric space.",
+   "marks": null,
+   "answer": "Let X be an inner product space. The inner product induces a norm ||x|| = √⟨x, x⟩ on X, and the norm induces a metric d(x, y) = ||x − y||. We verify the metric axioms: (i) d(x, y) = ||x − y|| ≥ 0, and d(x, y) = 0 iff x − y = 0, i.e. iff x = y, by the definiteness of the norm. (ii) d(y, x) = ||y − x|| = ||−(x − y)|| = ||x − y|| = d(x, y). (iii) By the triangle inequality for the norm, d(x, z) = ||x − z|| = ||(x − y) + (y − z)|| ≤ ||x − y|| + ||y − z|| = d(x, y) + d(y, z). Hence (X, d) is a metric space."
+  },
+  {
+   "number": 14,
+   "topic": "General",
+   "question": "In an inner product space V, the function ||·|| : V → R⁺ given by ||x|| = √⟨x, x⟩",
+   "marks": null,
+   "answer": "defines a norm in V. Show that ||x|| = 0 if and only if x = 0. By the definiteness axiom of the inner product, ⟨x, x⟩ = 0 if and only if x = 0, and ⟨x, x⟩ > 0 for x ≠ 0. Since ||x|| = √⟨x, x⟩ and the square root of a non-negative number is 0 only when the number itself is 0, we get ||x|| = 0 ⇔ ⟨x, x⟩ = 0 ⇔ x = 0."
+  },
+  {
+   "number": 15,
+   "topic": "General",
+   "question": "State and prove the Cauchy–Schwarz inequality in an inner product space.",
+   "marks": null,
+   "answer": "Statement: For all x, y in an inner product space, |⟨x, y⟩| ≤ ||x||·||y||, with equality if and only if x and y are linearly dependent. Proof: If y = 0 both sides are 0. Let y ≠ 0 and consider, for any scalar α, 0 ≤ ||x − αy||² = ⟨x − αy, x − αy⟩ = ||x||² − ᾱ⟨x, y⟩ − α⟨y, x⟩ + |α|²||y||². Choosing α = ⟨x, y⟩/||y||² makes the last three terms combine to −|⟨x, y⟩|²/||y||², giving 0 ≤ ||x||² − |⟨x, y⟩|²/||y||², i.e. |⟨x, y⟩|² ≤ ||x||²||y||². Taking square roots gives the result."
+  },
+  {
+   "number": 16,
+   "topic": "General",
+   "question": "Prove the parallelogram law in an inner product space.",
+   "marks": null,
+   "answer": "For any x, y in an inner product space, expanding with the inner product axioms: ||x + y||² = ⟨x + y, x + y⟩ = ||x||² + ⟨x, y⟩ + ⟨y, x⟩ + ||y||², ||x − y||² = ⟨x − y, x − y⟩ = ||x||² − ⟨x, y⟩ − ⟨y, x⟩ + ||y||². Adding the two equalities, the mixed terms cancel: ||x + y||² + ||x − y||² = 2||x||² + 2||y||² = 2(||x||² + ||y||²), which is the parallelogram law."
+  },
+  {
+   "number": 17,
+   "topic": "General",
+   "question": "If x and y are orthogonal elements of an inner product space, prove the",
+   "marks": null,
+   "answer": "Pythagorean relation ||x + y||² = ||x||² + ||y||². Since x ⊥ y, ⟨x, y⟩ = 0 and also ⟨y, x⟩ = conjugate of ⟨x, y⟩ = 0. Hence ||x + y||² = ⟨x + y, x + y⟩ = ||x||² + ⟨x, y⟩ + ⟨y, x⟩ + ||y||² = ||x||² + 0 + 0 + ||y||² = ||x||² + ||y||²."
+  },
+  {
+   "number": 18,
+   "topic": "General",
+   "question": "If (xₙ) and (yₙ) are Cauchy sequences in an inner product space V, show that",
+   "marks": null,
+   "answer": "(⟨xₙ, yₙ⟩) is a Cauchy sequence in the scalar field. Cauchy sequences are bounded, so there are constants a, b with ||xₙ|| ≤ a and ||yₙ|| ≤ b for all n. Then |⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| = |⟨xₘ, yₘ − yₙ⟩ + ⟨xₘ − xₙ, yₙ⟩| ≤ ||xₘ||·||yₘ − yₙ|| + ||xₘ − xₙ||·||yₙ|| ≤ a||yₘ − yₙ|| + b||xₘ − xₙ|| by the Cauchy–Schwarz inequality. Given ε > 0, choose N so that ||xₘ − xₙ|| < ε and ||yₘ − yₙ|| < ε for m, n > N (possible since both sequences are Cauchy, with ε scaled by max(a, b, 1)). Then |⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| is small for m, n > N, so (⟨xₙ, yₙ⟩) is Cauchy in the scalar field."
+  },
+  {
+   "number": 19,
+   "topic": "General",
+   "question": "Define a Banach space and a Hilbert space, and give two examples of each.",
+   "marks": null,
+   "answer": "A Banach space is a complete normed space, i.e. a normed space in which every Cauchy sequence converges. Examples: Rⁿ with the Euclidean norm, and C[a, b] with the sup norm ||x|| = max |x(t)|. A Hilbert space is a complete inner product space, i.e. an inner product space which is complete in the metric induced by its inner product. Examples: Rⁿ with the standard inner product ⟨x, y⟩ = Σ xᵢyᵢ, and the sequence space l² with ⟨x, y⟩ = Σ xᵢȳᵢ. Every Hilbert space is a Banach space, but not every Banach space is a Hilbert space (e.g. l^p for p ≠ 2)."
+  },
+  {
+   "number": 20,
+   "topic": "General",
+   "question": "Show that ||x|| = max |x(t)|, t ∈ [a, b], defines a norm on C[a, b].",
+   "marks": null,
+   "answer": "(i) ||x|| = max |x(t)| ≥ 0, and ||x|| = 0 iff x(t) = 0 for all t, i.e. x = 0. (ii) ||αx|| = max |αx(t)| = |α| max |x(t)| = |α|·||x||. (iii) For x, y ∈ C[a, b] and each t, |(x + y)(t)| ≤ |x(t)| + |y(t)| ≤ ||x|| + ||y||; taking the maximum over t ∈ [a, b] gives ||x + y|| ≤ ||x|| + ||y||. Hence ||·|| is a norm on C[a, b] (the sup norm)."
+  },
+  {
+   "number": 21,
+   "topic": "General",
+   "question": "State the continuous mapping theorem for maps between metric spaces.",
+   "marks": null,
+   "answer": "Continuous mapping theorem: A mapping T : X → Y between metric spaces X and Y is continuous if and only if it maps convergent sequences to convergent sequences with the corresponding limits; that is, xₙ → x in X implies Txₙ → Tx in Y. Equivalently, T is continuous if and only if the inverse image of every open set in Y is open in X."
+  }
+ ]
+}
