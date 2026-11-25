@@ -40,8 +40,6 @@ Allow: /logo.svg
 Allow: /logo-white.svg
 Allow: /og-cover.jpg
 Allow: /sitemap.xml
-Allow: /Sitemap.xml
-Allow: /sitemap_index.xml
 Allow: /sitemap-main.xml
 Allow: /sitemap-midterm.xml
 Allow: /sitemap-docs.xml

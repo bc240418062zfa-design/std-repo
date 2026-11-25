@@ -10,7 +10,8 @@ import {
 import {
   getAllMidtermPrepEntries,
   getMidtermCoursesGrouped,
-  getMidtermDocsForCourse
+  getMidtermDocsForCourse,
+  getMidtermSiblingEntry
 } from '../src/utils/midtermPrep';
 
 function escapeHtmlAttr(str: string): string {
@@ -946,6 +947,118 @@ for (const sub of subjectiveSets) {
   });
 }
 
+// --- Midterm doc pages (664): prerender every /midterm-prep/<filename>.pdf as a real
+// directory index (dist/midterm-prep/<filename>.pdf/index.html) so GitHub Pages returns
+// 200 instead of the SPA 404 fallback. Full question content comes from the already
+// shipped public/midterm-data/*.json files.
+interface MidtermDocJson {
+  filename: string;
+  courseCode: string;
+  courseTitle: string;
+  faculty: string;
+  kind: 'mcqs' | 'subjective';
+  itemCount: number;
+  mcqs?: Array<{ number: number; topic?: string; question: string; options: string[]; correctIndex: number | null }>;
+  subjective?: Array<{ number: number; topic?: string; question: string; marks?: number | null; answer?: string | null }>;
+}
+
+function buildMidtermDocRoutes(): void {
+  const dataDir = path.resolve('public/midterm-data');
+  let loaded = 0;
+  let skipped = 0;
+  for (const entry of allMidtermEntries) {
+    const jsonPath = path.join(dataDir, `${entry.dataKey}.json`);
+    let doc: MidtermDocJson | null = null;
+    try {
+      doc = JSON.parse(fs.readFileSync(jsonPath, 'utf-8')) as MidtermDocJson;
+    } catch {
+      console.warn(`⚠️  Midterm doc JSON missing/unreadable, skipping prerender: ${entry.filename}`);
+      skipped++;
+      continue;
+    }
+    const isMcq = entry.kind === 'mcqs';
+    const sibling = getMidtermSiblingEntry(entry);
+    const items = isMcq ? (doc.mcqs || []) : (doc.subjective || []);
+    const count = items.length || entry.itemCount;
+    const courseLower = entry.courseCode.toLowerCase();
+    const title = isMcq
+      ? `${entry.courseCode} Midterm Important MCQs (${count} Qs) | MIHORA VU`
+      : `${entry.courseCode} Midterm Subjective (${count} Q&As) | MIHORA VU`;
+    const description = isMcq
+      ? `Read all ${count} solved ${entry.courseCode} Midterm Important MCQs (${entry.courseTitle}) with verified answer keys directly on-page, free, no login.`
+      : `Read all ${count} solved ${entry.courseCode} Midterm Important Subjective Q&As (${entry.courseTitle}) with model answers directly on-page, free, no login.`;
+
+    let bodyHtml: string;
+    if (isMcq) {
+      const mcqs = (doc.mcqs || []) as NonNullable<MidtermDocJson['mcqs']>;
+      bodyHtml = `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">${escapeHtmlAttr(entry.courseCode)} – ${escapeHtmlAttr(entry.courseTitle)}: Midterm Important MCQs (${count} Solved Questions)</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">${escapeHtmlAttr(entry.faculty)} • Read every solved MCQ with its verified answer key directly on this page. Free, no login required.</p>
+        <p style="margin-top: 0.75rem;"><a href="/midterm-prep" style="color: #1d4ed8; font-weight: 700;">All 664 Midterm Packs</a> · <a href="/courses/${courseLower}" style="color: #1d4ed8; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} Course Page</a>${sibling ? ` · <a href="/midterm-prep/${escapeHtmlAttr(sibling.filename)}" style="color: #b45309; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} Subjective Pack (${sibling.itemCount} Q&As)</a>` : ''}</p>
+        <ol style="color: #334155; line-height: 1.7; margin-top: 1.5rem; padding-left: 1.25rem;">
+          ${mcqs.map((q) => `
+          <li style="margin-bottom: 1rem;">
+            <strong>${escapeHtmlAttr(q.question)}</strong>
+            ${q.topic ? `<div style="color: #64748b; font-size: 0.8rem;">Topic: ${escapeHtmlAttr(q.topic)}</div>` : ''}
+            <ol type="A" style="margin-top: 0.35rem; padding-left: 1.25rem;">
+              ${q.options.map((opt, i) => `<li${i === q.correctIndex ? ' style="font-weight: 700; color: #166534;"' : ''}>${escapeHtmlAttr(opt)}${i === q.correctIndex ? ' ✓ Correct answer' : ''}</li>`).join('')}
+            </ol>
+          </li>`).join('')}
+        </ol>
+      </div>`;
+    } else {
+      const subs = (doc.subjective || []) as NonNullable<MidtermDocJson['subjective']>;
+      bodyHtml = `
+      <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
+        <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">${escapeHtmlAttr(entry.courseCode)} – ${escapeHtmlAttr(entry.courseTitle)}: Midterm Important Subjective (${count} Solved Q&As)</h1>
+        <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">${escapeHtmlAttr(entry.faculty)} • Read every solved subjective question with its model answer directly on this page. Free, no login required.</p>
+        <p style="margin-top: 0.75rem;"><a href="/midterm-prep" style="color: #1d4ed8; font-weight: 700;">All 664 Midterm Packs</a> · <a href="/courses/${courseLower}" style="color: #1d4ed8; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} Course Page</a>${sibling ? ` · <a href="/midterm-prep/${escapeHtmlAttr(sibling.filename)}" style="color: #1d4ed8; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} MCQ Pack (${sibling.itemCount} MCQs)</a>` : ''}</p>
+        <ol style="color: #334155; line-height: 1.7; margin-top: 1.5rem; padding-left: 1.25rem;">
+          ${subs.map((q) => `
+          <li style="margin-bottom: 1.25rem;">
+            <strong>${escapeHtmlAttr(q.question)}</strong>
+            ${q.topic ? `<div style="color: #64748b; font-size: 0.8rem;">Topic: ${escapeHtmlAttr(q.topic)}${q.marks ? ` • ${q.marks} marks` : ''}</div>` : ''}
+            ${q.answer ? `<p style="margin-top: 0.35rem;">${escapeHtmlAttr(q.answer)}</p>` : `<p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>`}
+          </li>`).join('')}
+        </ol>
+      </div>`;
+    }
+
+    const extraJsonLd: Record<string, unknown> = isMcq
+      ? {
+          '@type': 'Quiz',
+          '@id': `https://study.mihora.tech/midterm-prep/${entry.filename}#quiz`,
+          name: title,
+          numberOfQuestions: count
+        }
+      : {
+          '@type': 'FAQPage',
+          '@id': `https://study.mihora.tech/midterm-prep/${entry.filename}#qa`,
+          name: title,
+          mainEntity: ((doc.subjective || []) as NonNullable<MidtermDocJson['subjective']>).slice(0, 5).map((q) => ({
+            '@type': 'Question',
+            name: q.question,
+            acceptedAnswer: { '@type': 'Answer', text: q.answer || 'Model answer not yet extracted from the source file.' }
+          }))
+        };
+
+    ROUTES.push({
+      path: `midterm-prep/${entry.filename}`,
+      title,
+      description,
+      canonical: `https://study.mihora.tech/midterm-prep/${entry.filename}`,
+      keywords: `mihora vu, ${entry.courseCode.toLowerCase()} midterm important mcqs, ${entry.courseCode.toLowerCase()} midterm subjective solved, ${entry.courseCode.toLowerCase()} midterm preparation, ${entry.courseTitle} midterm`,
+      extraJsonLd,
+      preRenderedHtml: bodyHtml
+    });
+    loaded++;
+  }
+  console.log(`📄 Midterm doc prerender: ${loaded} doc pages queued, ${skipped} skipped (missing JSON).`);
+}
+
+buildMidtermDocRoutes();
+
 export function prerenderAllRoutes() {
   console.log('🚀 Running Multi-Route Static Pre-Renderer (Fixing 404s & Maximizing SEO)...');
 
@@ -1052,6 +1165,11 @@ export function prerenderAllRoutes() {
         { name: 'About MIHORA', item: 'https://study.mihora.tech/about' },
         { name: route.title.split('|')[0].trim(), item: route.canonical }
       );
+    } else if (route.path.startsWith('midterm-prep/')) {
+      routeBreadcrumbs.push(
+        { name: 'Midterm Prep 2026', item: 'https://study.mihora.tech/midterm-prep' },
+        { name: route.title.split('|')[0].trim(), item: route.canonical }
+      );
     } else if (route.path === 'vu-mcqs-bank') {
       routeBreadcrumbs.push({ name: 'VU MCQs Bank', item: route.canonical });
     } else if (route.path === 'live-mids-mcqs') {
@@ -1098,7 +1216,9 @@ export function prerenderAllRoutes() {
       null,
       2
     )}\n    </script>`;
-    pageHtml = pageHtml.replace('</head>', `${extraScript}\n  </head>`);
+    // NOTE: replacer function (not a string) so `$` in question text cannot be
+    // interpreted as a replacement pattern (e.g. `$&`).
+    pageHtml = pageHtml.replace('</head>', () => `${extraScript}\n  </head>`);
 
     // 7. Inject Semantic Pre-rendered Content + Accessible Breadcrumb Rail into <div id="root">
     const staticBreadcrumbHtml = `
@@ -1143,9 +1263,11 @@ export function prerenderAllRoutes() {
       </main>
     `;
 
+    // NOTE: replacer function (not a string) so `$` in question text cannot be
+    // interpreted as a replacement pattern (e.g. `$&`).
     pageHtml = pageHtml.replace(
       /<div id="root">[\s\S]*?<\/div>/i,
-      `<div id="root">${semanticContent}</div>`
+      () => `<div id="root">${semanticContent}</div>`
     );
 
     // Ensure absolute asset URLs for deep routes (e.g. /courses/cs101)
@@ -1162,7 +1284,8 @@ export function prerenderAllRoutes() {
   }
 
   // Generate Comprehensive XML Sitemap containing all core pages and ALL courses
-  const sitemapItems = ROUTES.map((r) => {
+  // NOTE: midterm doc pages are listed in sitemap-midterm.xml, not here (no duplicates across sitemaps).
+  const sitemapItems = ROUTES.filter((r) => !r.path.startsWith('midterm-prep/')).map((r) => {
     let priority = '0.85';
     let freq = 'weekly';
     if (r.path === '' || r.path === '/') {
@@ -1188,7 +1311,7 @@ export function prerenderAllRoutes() {
   </url>`;
   });
 
-  // 1. Generate Core & Course XML Sitemap (449 URLs)
+  // 1. Generate Core & Course XML Sitemap (midterm doc pages live in sitemap-midterm.xml)
   const mainSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1210,6 +1333,7 @@ ${sitemapItems.join('\n')}
   }
 
   // 2. Generate Dedicated Documents XML Sitemap covering ALL 28,328 /doc/<slug> Preview & SEO pages
+  // NOTE (user order 2026-11-25): /doc/* pages and sitemap-docs.xml are NOT to be touched. They stay as-is.
   const docUrlEntries = docSlugIndex.entries.map((entry) => {
     const safeLoc = escapeHtmlAttr(`https://study.mihora.tech/doc/${entry.slug}`);
     return `  <url><loc>${safeLoc}</loc><lastmod>${BUILD_DATE}</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>`;
@@ -1227,9 +1351,9 @@ ${docUrlEntries.join('\n')}
     fs.writeFileSync(path.join(publicPath, 'sitemap-docs.xml'), docsSitemapXml, 'utf-8');
   }
 
-  // 2B. Generate Dedicated Midterm Prep 2026 XML Sitemap covering Hub + all 664 /midterm-prep/<Filename>.pdf pages
+  // 2B. Generate Dedicated Midterm Prep 2026 XML Sitemap covering all 664 /midterm-prep/<Filename>.pdf pages
+  // NOTE: the /midterm-prep hub itself is listed in sitemap-main.xml, not here (no duplicates across sitemaps).
   const midtermUrlEntries = [
-    `  <url><loc>https://study.mihora.tech/midterm-prep</loc><lastmod>${BUILD_DATE}</lastmod><changefreq>daily</changefreq><priority>0.98</priority></url>`,
     ...allMidtermEntries.map((entry) => {
       const safeLoc = escapeHtmlAttr(`https://study.mihora.tech/midterm-prep/${entry.filename}`);
       return `  <url><loc>${safeLoc}</loc><lastmod>${BUILD_DATE}</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>`;
@@ -1266,10 +1390,8 @@ ${midtermUrlEntries.join('\n')}
 </sitemapindex>`;
 
   fs.writeFileSync(path.join(distPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');
-  fs.writeFileSync(path.join(distPath, 'sitemap_index.xml'), sitemapIndexXml, 'utf-8');
   if (fs.existsSync(publicPath)) {
     fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');
-    fs.writeFileSync(path.join(publicPath, 'sitemap_index.xml'), sitemapIndexXml, 'utf-8');
   }
 
   // Generate GEO LLM Context Dossiers (llms.txt & llms-full.txt)
