@@ -171,7 +171,7 @@ export const MidtermPrepHubPage: React.FC<MidtermPrepHubPageProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search course code, subject name, or exam topic (e.g. ACC311, CS201, Auditing, OOP)..."
+              placeholder="Search ACC311, CS201, Auditing, OOP..."
               className="w-full pl-11 pr-10 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-700 focus:outline-none text-sm text-slate-900 font-medium transition-colors"
               aria-label="Search Midterm Prep 2026 courses and topics"
             />
@@ -329,7 +329,7 @@ export const MidtermPrepHubPage: React.FC<MidtermPrepHubPageProps> = ({
                 </h2>
 
                 {course.topics.length > 0 && (
-                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 line-clamp-3 sm:line-clamp-2 leading-relaxed">
                     {course.topics.slice(0, 3).join(' · ')}
                   </p>
                 )}

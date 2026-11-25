@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
+  AlertTriangle,
   ArrowLeft,
   ArrowRight,
   BookOpen,
   Calculator,
   Check,
   CheckCircle2,
+  ChevronDown,
   Download,
   Eye,
   EyeOff,
@@ -18,10 +20,12 @@ import {
   RotateCcw,
   Search,
   Share2,
+  SlidersHorizontal,
   X,
   XCircle
 } from 'lucide-react';
 import { MidtermDocPayload } from '../types/midterm';
+import { NotFoundPage } from './NotFoundPage';
 import {
   findMidtermEntryBySlug,
   getMidtermCoursePrefixNeighbors,
@@ -35,6 +39,8 @@ interface MidtermDocPageProps {
   onOpenMidtermHub: () => void;
   onSelectCourse: (courseCode: string) => void;
   onNavigate: (page: string) => void;
+  /** Library search from the not-found state (optional; falls back to home). */
+  onSearch?: (query: string) => void;
 }
 
 const LETTERS = ['a', 'b', 'c', 'd', 'e', 'f'] as const;
@@ -44,7 +50,8 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
   onOpenMidtermDoc,
   onOpenMidtermHub,
   onSelectCourse,
-  onNavigate
+  onNavigate,
+  onSearch
 }) => {
   const entry = useMemo(() => findMidtermEntryBySlug(requestedSlug), [requestedSlug]);
   const siblingEntry = useMemo(
@@ -72,6 +79,9 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
   const [revealedSubIds, setRevealedSubIds] = useState<Set<number>>(new Set());
 
   const [selectedTopic, setSelectedTopic] = useState<string>('ALL');
+  // Mobile: the sidebar rail (study controls + topics) is collapsed by
+  // default so the questions are visible immediately on a phone.
+  const [mobileRailOpen, setMobileRailOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
 
@@ -185,27 +195,16 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
 
   if (!entry) {
     return (
-      <div className="max-w-3xl mx-auto px-4 py-16 text-center space-y-5">
-        <div className="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center mx-auto text-slate-600">
-          <FileText className="w-7 h-7" />
-        </div>
-        <h1 className="text-2xl font-extrabold text-slate-950">
-          Midterm Preparation File Not Found
-        </h1>
-        <p className="text-sm text-slate-600">
-          We couldn&apos;t locate a midterm preparation file matching &ldquo;{requestedSlug}&rdquo;. Browse all 664 solved objective &amp; subjective packs in the Midterm Prep 2026 Hub.
-        </p>
-        <div className="flex justify-center gap-3">
-          <button
-            type="button"
-            onClick={onOpenMidtermHub}
-            className="px-5 py-2.5 rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white text-xs sm:text-sm font-bold transition-colors cursor-pointer inline-flex items-center gap-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Open Midterm Prep 2026 Hub</span>
-          </button>
-        </div>
-      </div>
+      <NotFoundPage
+        title="Midterm Preparation File Not Found"
+        message={`We couldn't locate a midterm preparation file matching "${requestedSlug}". Browse all 664 solved objective & subjective packs in the Midterm Prep 2026 Hub.`}
+        requestedPath={`/midterm-prep/${requestedSlug}`}
+        onNavigateHome={() => onNavigate('home')}
+        onOpenMidtermPrep={onOpenMidtermHub}
+        onNavigate={onNavigate}
+        onSelectCourse={onSelectCourse}
+        onSearch={(q) => (onSearch ? onSearch(q) : onNavigate('home'))}
+      />
     );
   }
 
@@ -267,7 +266,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                   e.preventDefault();
                   onOpenMidtermDoc(siblingEntry.filename);
                 }}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-sky-50 text-slate-950 text-xs font-bold transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-xl bg-white hover:bg-sky-50 text-slate-950 text-xs font-bold transition-colors shadow-xs"
               >
                 {siblingEntry.kind === 'mcqs' ? (
                   <ListChecks className="w-4 h-4 text-blue-700" />
@@ -284,7 +283,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
             <a
               href={`/midterm-data/${encodeURIComponent(entry.dataKey)}.json`}
               download={`${entry.dataKey}.json`}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download Questions (.json)</span>
@@ -293,7 +292,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-slate-100 text-xs font-semibold transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 min-h-[44px] rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-slate-100 text-xs font-semibold transition-colors cursor-pointer"
             >
               {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Share2 className="w-3.5 h-3.5" />}
               <span>{copiedLink ? 'Link Copied' : 'Copy Share Link'}</span>
@@ -314,7 +313,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                 e.preventDefault();
                 onSelectCourse(entry.courseCode);
               }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-sky-200 text-xs font-semibold transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 min-h-[44px] rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-sky-200 text-xs font-semibold transition-colors"
             >
               <BookOpen className="w-3.5 h-3.5" />
               <span>All {entry.courseCode} Files</span>
@@ -327,6 +326,23 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Sidebar Topic Index & Mode Controls */}
         <aside className="lg:col-span-4 lg:sticky lg:top-20 space-y-4">
+          {/* Mobile-only toggle: the sidebar rail collapses on phones so the
+              questions are visible immediately; one tap opens the controls. */}
+          <button
+            type="button"
+            onClick={() => setMobileRailOpen((v) => !v)}
+            aria-expanded={mobileRailOpen}
+            className="lg:hidden w-full min-h-[44px] px-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs flex items-center justify-between text-xs font-bold text-slate-900 cursor-pointer"
+          >
+            <span className="flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-blue-700" />
+              <span>Study Controls &amp; Topics</span>
+            </span>
+            <ChevronDown
+              className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${mobileRailOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+          <div className={`${mobileRailOpen ? 'block' : 'hidden'} lg:block space-y-4`}>
           {/* Study Mode Control Card */}
           <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 space-y-4 shadow-xs">
             <div className="flex items-center justify-between">
@@ -346,7 +362,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                   <button
                     type="button"
                     onClick={() => setMcqMode('study')}
-                    className={`py-2 px-2.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                    className={`py-2 px-2.5 min-h-[44px] rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                       mcqMode === 'study'
                         ? 'bg-[#0B1526] text-white shadow-xs'
                         : 'text-slate-600 hover:text-slate-950'
@@ -357,7 +373,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                   <button
                     type="button"
                     onClick={() => setMcqMode('quiz')}
-                    className={`py-2 px-2.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                    className={`py-2 px-2.5 min-h-[44px] rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                       mcqMode === 'quiz'
                         ? 'bg-blue-700 text-white shadow-xs'
                         : 'text-slate-600 hover:text-slate-950'
@@ -389,7 +405,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                   <button
                     type="button"
                     onClick={() => setSubMode('transcript')}
-                    className={`py-2 px-2.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                    className={`py-2 px-2.5 min-h-[44px] rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                       subMode === 'transcript'
                         ? 'bg-[#0B1526] text-white shadow-xs'
                         : 'text-slate-600 hover:text-slate-950'
@@ -400,7 +416,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                   <button
                     type="button"
                     onClick={() => setSubMode('recall')}
-                    className={`py-2 px-2.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
+                    className={`py-2 px-2.5 min-h-[44px] rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                       subMode === 'recall'
                         ? 'bg-amber-600 text-white shadow-xs'
                         : 'text-slate-600 hover:text-slate-950'
@@ -442,7 +458,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter questions in this file..."
-                className="w-full pl-9 pr-8 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-700 focus:outline-none text-xs text-slate-900"
+                className="w-full pl-9 pr-8 py-2.5 min-h-[44px] rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:border-blue-700 focus:outline-none text-xs text-slate-900"
                 aria-label="Filter questions inside this midterm file"
               />
               {searchQuery && (
@@ -481,7 +497,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setSelectedTopic('ALL')}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                  className={`w-full text-left px-3 py-2 min-h-[44px] rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
                     selectedTopic === 'ALL'
                       ? 'bg-[#0B1526] text-white'
                       : 'text-slate-700 hover:bg-slate-100'
@@ -496,7 +512,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                       key={topic}
                       type="button"
                       onClick={() => setSelectedTopic(topic)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-xs transition-colors cursor-pointer leading-snug ${
+                      className={`w-full text-left px-3 py-2 min-h-[44px] rounded-lg text-xs transition-colors cursor-pointer leading-snug ${
                         active
                           ? 'bg-blue-700 text-white font-semibold'
                           : 'text-slate-700 hover:bg-slate-100'
@@ -524,11 +540,12 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
             <button
               type="button"
               onClick={() => onNavigate('simulator')}
-              className="w-full py-2 px-3 rounded-xl bg-white hover:bg-sky-50 text-slate-950 text-xs font-bold inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer mt-1"
+              className="w-full py-2 px-3 min-h-[44px] rounded-xl bg-white hover:bg-sky-50 text-slate-950 text-xs font-bold inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer mt-1"
             >
               <Calculator className="w-3.5 h-3.5 text-blue-700" />
               <span>Open Passing Simulator</span>
             </button>
+          </div>
           </div>
         </aside>
 
@@ -542,18 +559,41 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
               </p>
             </div>
           ) : error ? (
-            <div className="bg-white border border-rose-200 rounded-2xl p-8 text-center space-y-3">
-              <p className="text-sm font-bold text-rose-800">
-                Could not load question bank: {error}
-              </p>
-              <button
-                type="button"
-                onClick={() => setReloadNonce((n) => n + 1)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-semibold cursor-pointer"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-                <span>Retry</span>
-              </button>
+            <div className="bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 text-center space-y-4 shadow-xs">
+              <div className="w-12 h-12 mx-auto rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-lg font-extrabold text-slate-950">
+                  Couldn&rsquo;t load this question bank
+                </h2>
+                <p className="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+                  The file couldn&rsquo;t be fetched right now. Your connection
+                  may have dropped, or the file is temporarily unavailable.
+                  Nothing is lost &mdash; try again, or head back to the hub.
+                </p>
+                <p className="text-xs font-mono text-slate-400 break-words">
+                  Error: {error}
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setReloadNonce((n) => n + 1)}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white text-sm font-bold transition-colors cursor-pointer"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  <span>Try again</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenMidtermHub}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-slate-300 hover:border-slate-400 bg-white text-slate-800 text-sm font-bold transition-colors cursor-pointer"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  <span>Back to Midterm Hub</span>
+                </button>
+              </div>
             </div>
           ) : isMcq ? (
             <>

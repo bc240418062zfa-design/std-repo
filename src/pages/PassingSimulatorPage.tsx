@@ -529,7 +529,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
               type="text"
               value={courseSearchQuery}
               onChange={(e) => setCourseSearchQuery(e.target.value)}
-              placeholder="Search course code or title (e.g. CS201, MTH302, Management)..."
+              placeholder="Search CS201, MTH302, Management..."
               className="w-full pl-9 pr-4 py-2.5 text-xs font-medium rounded-xl border border-slate-200 focus:outline-hidden focus:ring-2 focus:ring-blue-600 text-slate-900 bg-white"
             />
           </div>

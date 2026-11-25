@@ -227,7 +227,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
               type="text"
               value={courseSearch}
               onChange={(e) => setCourseSearch(e.target.value)}
-              placeholder="Filter course (e.g. CS101, MTH, English)..."
+              placeholder="Filter CS101, MTH, English..."
               className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none text-slate-900"
             />
           </div>
@@ -339,7 +339,7 @@ export const PastPapersPage: React.FC<PastPapersPageProps> = ({
                 setKeywordFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              placeholder={`Search within ${selectedCourseCode} reviews (e.g. MS Word, loop, MCQs, formula)...`}
+              placeholder={`Search reviews: MS Word, loop, MCQs...`}
               className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:outline-hidden focus:ring-2 focus:ring-blue-600"
             />
           </div>

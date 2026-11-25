@@ -1012,7 +1012,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search e.g. assignment fail, reschedule, 20%, probation, grace period, installments..."
+              placeholder="Search assignment fail, reschedule, 20%..."
               className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm font-medium rounded-2xl celestial-input text-slate-900"
             />
           </div>

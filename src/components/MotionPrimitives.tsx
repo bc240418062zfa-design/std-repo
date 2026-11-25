@@ -321,11 +321,11 @@ export const CourseMarquee: React.FC<CourseMarqueeProps> = ({ items, onSelectCou
             whileHover={{ y: -2, scale: 1.03 }}
             whileTap={{ scale: 0.96 }}
             onClick={() => onSelectCourse(item.code)}
-            className="inline-flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-white hover:bg-blue-50/70 border border-slate-200/90 hover:border-blue-400/70 text-xs transition-all cursor-pointer shrink-0 shadow-[0_2px_8px_-3px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_16px_-4px_rgba(37,99,235,0.14)]"
+            className="inline-flex items-center gap-2 sm:gap-2.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-white hover:bg-blue-50/70 border border-slate-200/90 hover:border-blue-400/70 text-xs transition-all cursor-pointer shrink-0 shadow-[0_2px_8px_-3px_rgba(15,23,42,0.06)] hover:shadow-[0_6px_16px_-4px_rgba(37,99,235,0.14)]"
           >
             <span className="font-mono font-bold text-blue-700">{item.code}</span>
             <span className="text-slate-700 font-medium whitespace-nowrap">{item.label}</span>
-            <span className="text-slate-400 font-mono text-[11px] whitespace-nowrap">· {item.hint}</span>
+            <span className="hidden sm:inline text-slate-400 font-mono text-[11px] whitespace-nowrap">· {item.hint}</span>
           </motion.button>
         ))}
       </div>
@@ -348,10 +348,21 @@ export const FloatingScrollTop: React.FC<FloatingScrollTopProps> = ({ liftForBar
   });
 
   useEffect(() => {
-    const unsubscribe = scrollY.on('change', (latest) => {
-      setVisible(latest > 360);
-    });
-    return () => unsubscribe();
+    // Hide near the page bottom so the button never covers footer text
+    // ("study.mihora.tech · www.mihora.tech") or card corners.
+    const update = (latest: number) => {
+      const nearBottom =
+        latest + window.innerHeight >= document.documentElement.scrollHeight - 240;
+      setVisible(latest > 360 && !nearBottom);
+    };
+    const onResize = () => update(window.scrollY);
+    const unsubscribe = scrollY.on('change', update);
+    update(window.scrollY);
+    window.addEventListener('resize', onResize);
+    return () => {
+      unsubscribe();
+      window.removeEventListener('resize', onResize);
+    };
   }, [scrollY]);
 
   const radius = 18;
@@ -372,7 +383,7 @@ export const FloatingScrollTop: React.FC<FloatingScrollTopProps> = ({ liftForBar
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll back to top"
           title="Back to top"
-          className="fixed bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-[#060D1F]/95 hover:bg-blue-700 text-white shadow-[0_10px_30px_-6px_rgba(37,99,235,0.45)] border border-sky-400/25 backdrop-blur-md flex items-center justify-center cursor-pointer transition-colors"
+          className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#060D1F]/95 hover:bg-blue-700 text-white shadow-[0_10px_30px_-6px_rgba(37,99,235,0.45)] border border-sky-400/25 backdrop-blur-md flex items-center justify-center cursor-pointer transition-colors"
         >
           <svg
             width="48"

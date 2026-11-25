@@ -99,7 +99,7 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
                   type="text"
                   value={courseSearch}
                   onChange={(e) => setCourseSearch(e.target.value)}
-                  placeholder="Search course code or title (e.g. CS302, Digital Logic, Calculus)..."
+                  placeholder="Search CS302, Digital Logic, Calculus..."
                   className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none rounded-xl text-slate-900 placeholder-slate-400"
                 />
               </div>

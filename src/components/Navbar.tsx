@@ -423,7 +423,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition-colors cursor-pointer"
+            className="lg:hidden flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition-colors cursor-pointer"
             aria-label="Open navigation menu"
           >
             <Menu className="w-5 h-5 text-slate-700" />
@@ -462,7 +462,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 360, damping: 36 }}
-              className="relative w-full max-w-sm bg-white h-full shadow-2xl flex flex-col z-10 border-l border-slate-200"
+              className="relative w-[92vw] max-w-sm bg-white h-full shadow-2xl flex flex-col z-10 border-l border-slate-200"
             >
               <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
                 <MihoraLogo variant="dark" size="sm" />
@@ -470,7 +470,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   whileTap={{ scale: 0.9, rotate: 90 }}
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
+                  className="p-2 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
                   aria-label="Close navigation menu"
                 >
                   <X className="w-5 h-5" />

@@ -556,7 +556,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                       type="text"
                       value={hubSearch}
                       onChange={(e) => setHubSearch(e.target.value)}
-                      placeholder="Filter active subjects (CS201, PAK301, SQL, AVL)..."
+                      placeholder="Filter CS201, PAK301, SQL, AVL..."
                       aria-label="Filter subjective fast-learning subjects"
                       className="w-full h-11 pl-10 pr-4 rounded-xl bg-[#132238] border border-white/15 text-sm text-white placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-amber-400/70 transition-colors"
                     />
@@ -784,7 +784,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                   type="text"
                   value={courseFinderQuery}
                   onChange={(e) => setCourseFinderQuery(e.target.value)}
-                  placeholder="Find any course (CS101, MGT501, STA301)..."
+                  placeholder="Find CS101, MGT501, STA301..."
                   aria-label="Search all 411 VU courses"
                   className="celestial-input h-10 w-full pl-10 pr-4 rounded-xl text-xs sm:text-sm text-slate-900"
                 />
