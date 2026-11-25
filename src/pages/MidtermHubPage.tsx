@@ -153,7 +153,7 @@ export const MidtermHubPage: React.FC<MidtermHubPageProps> = ({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search course code (e.g. CS201, MGT101, ENG201, MTH101)..."
+                placeholder="Search CS201, MGT101, ENG201..."
                 className="w-full pl-10 pr-4 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
               />
               {searchQuery && (

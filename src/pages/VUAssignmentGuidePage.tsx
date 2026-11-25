@@ -232,7 +232,7 @@ int main() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search course code or title (e.g. CS101, MTH101, MGT101)..."
+              placeholder="Search CS101, MTH101, MGT101 or title..."
               className="celestial-input w-full pl-10 pr-4 py-2.5 rounded-xl text-slate-900 text-xs sm:text-sm font-medium"
             />
           </div>

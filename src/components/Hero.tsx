@@ -39,10 +39,10 @@ interface HeroProps {
 }
 
 const ROTATING_HINTS = [
-  'Search course code or topic (e.g. CS201 midterm, handouts, Moaaz)...',
-  'Try "CS301 Data Structures" or "Waqar Siddhu finalterm"...',
-  'Try "MTH101 handouts", "CS403 solved", or "ENG201"...',
-  'Press "/" anytime to jump straight to instant search...'
+  'Search CS201 midterm, handouts, Moaaz...',
+  'Try "CS301 Data Structures"...',
+  'Try "MTH101 handouts" or "ENG201"...',
+  'Press "/" to jump to instant search...'
 ];
 
 export const Hero: React.FC<HeroProps> = ({

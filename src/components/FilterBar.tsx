@@ -104,7 +104,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 mr-0.5 select-none">
             <Filter className="w-3.5 h-3.5 text-blue-600" />
-            <span>Filter</span>
+            <span>Find files</span>
           </div>
 
           {/* Course Selector */}
@@ -112,7 +112,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={filters.course}
               onChange={(e) => onFilterChange({ ...filters, course: e.target.value })}
-              className="h-9 appearance-none celestial-input text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 cursor-pointer max-w-[200px] truncate"
+              className="h-11 sm:h-9 appearance-none celestial-input text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 cursor-pointer max-w-[200px] truncate"
               aria-label="Filter by course"
             >
               <option value="">All Courses ({courses.length})</option>
@@ -130,7 +130,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={filters.type}
               onChange={(e) => onFilterChange({ ...filters, type: e.target.value })}
-              className="h-9 appearance-none celestial-input text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 cursor-pointer"
+              className="h-11 sm:h-9 appearance-none celestial-input text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 cursor-pointer"
               aria-label="Filter by type"
             >
               {resourceTypes.map((t) => (
@@ -147,7 +147,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <select
               value={filters.format}
               onChange={(e) => onFilterChange({ ...filters, format: e.target.value })}
-              className="h-9 appearance-none celestial-input text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 cursor-pointer"
+              className="h-11 sm:h-9 appearance-none celestial-input text-slate-800 text-xs font-semibold rounded-xl pl-3 pr-8 cursor-pointer"
               aria-label="Filter by format"
             >
               {formats.map((f) => (
@@ -167,7 +167,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => onFilterChange({ ...filters, solvedOnly: !filters.solvedOnly })}
-            className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
+            className={`h-11 sm:h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
               filters.solvedOnly
                 ? 'bg-blue-700 border-blue-700 text-white shadow-xs'
                 : 'bg-white/95 border-slate-200/90 text-slate-700 hover:bg-sky-50/70 hover:border-sky-300'
@@ -193,7 +193,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => onFilterChange({ ...filters, pastPapersOnly: !filters.pastPapersOnly })}
-            className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
+            className={`h-11 sm:h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
               filters.pastPapersOnly
                 ? 'bg-blue-700 border-blue-700 text-white shadow-xs'
                 : 'bg-white/95 border-slate-200/90 text-slate-700 hover:bg-sky-50/70 hover:border-sky-300'
@@ -219,7 +219,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={handleToggleMcq}
-            className={`h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
+            className={`h-11 sm:h-9 inline-flex items-center gap-1.5 px-3 text-xs font-semibold rounded-xl transition-all cursor-pointer border whitespace-nowrap ${
               isMcqActive
                 ? 'bg-blue-700 border-blue-700 text-white shadow-xs'
                 : 'bg-white/95 border-slate-200/90 text-slate-700 hover:bg-sky-50/70 hover:border-sky-300'
@@ -250,7 +250,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                 whileTap={{ scale: 0.94 }}
                 type="button"
                 onClick={handleReset}
-                className="h-9 inline-flex items-center gap-1 px-3 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors cursor-pointer border border-rose-200 whitespace-nowrap"
+                className="h-11 sm:h-9 inline-flex items-center gap-1 px-3 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors cursor-pointer border border-rose-200 whitespace-nowrap"
                 title="Reset all filters"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
@@ -262,6 +262,9 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
         {/* Results per page / limit with sliding layoutId pill */}
         <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-slate-500 shrink-0">
+          <span className="hidden xl:block text-slate-400 font-normal">
+            Tip: pick your course, then a type — or type a course code like CS101 in the search above.
+          </span>
           <span className="text-slate-600 font-medium tabular-nums">
             <strong className="text-slate-900 font-mono font-bold">{totalFiltered}</strong> of{' '}
             <strong className="text-slate-900 font-mono font-bold">{totalMatching.toLocaleString()}</strong> files
@@ -274,7 +277,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
                   key={l}
                   type="button"
                   onClick={() => onLimitChange(l)}
-                  className={`relative px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors cursor-pointer font-mono tabular-nums ${
+                  className={`relative px-3 py-2 sm:px-2.5 sm:py-1 min-h-[44px] sm:min-h-0 rounded-lg text-xs font-semibold transition-colors cursor-pointer font-mono tabular-nums ${
                     active ? 'text-white font-bold' : 'text-slate-600 hover:text-slate-950'
                   }`}
                 >

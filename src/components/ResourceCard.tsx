@@ -165,7 +165,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
               }
             }}
             className="hover:underline underline-offset-2 focus:outline-none focus-visible:underline"
-            title="Open dedicated document reader page"
+            title="Open and read this file"
           >
             {displayName}
           </a>
@@ -205,7 +205,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
             }}
             className="text-[11px] text-blue-700 hover:underline font-mono"
           >
-            Open Page
+            Read file
           </a>
         )}
 

@@ -98,7 +98,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by course code (e.g. CS101, MTH101, MGT101) or title..."
+              placeholder="Search CS101, MTH101, MGT101 or title..."
               className="w-full pl-11 pr-4 py-3 rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] focus:border-blue-700 focus:outline-none text-sm text-slate-900 font-medium"
             />
           </div>
