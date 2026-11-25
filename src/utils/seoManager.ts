@@ -412,13 +412,22 @@ export function syncRouteSeo({
       { name: 'About MIHORA', item: `${BASE_URL}/about` },
       { name: 'Disclaimer', item: `${BASE_URL}/disclaimer` }
     );
+  } else if (page === 'not-found') {
+    title = 'Page Not Found (404) | MIHORA VU';
+    desc = 'This page does not exist on MIHORA VU. Search 28,328 Virtual University past papers, midterm MCQs and solved subjective questions, or go back to the study library homepage.';
+    keywords = 'mihora vu 404, page not found, vu past papers, vu mcqs bank';
+    canonicalPath = '/';
   }
+
+  // 404 pages must never be indexed; every other page stays indexable.
+  const robots = page === 'not-found' ? 'noindex, nofollow' : 'index, follow';
 
   const canonicalUrl = `${BASE_URL}${canonicalPath}`;
 
   document.title = title;
   upsertMeta('meta[name="description"]', 'name', 'description', desc);
   upsertMeta('meta[name="keywords"]', 'name', 'keywords', keywords);
+  upsertMeta('meta[name="robots"]', 'name', 'robots', robots);
   upsertMeta('meta[property="og:title"]', 'property', 'og:title', title);
   upsertMeta('meta[property="og:description"]', 'property', 'og:description', desc);
   upsertMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);

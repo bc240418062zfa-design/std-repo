@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "start": "tsx server.ts",
-    "build": "tsx scripts/generate-index-html.ts && vite build && tsx scripts/prerender-routes.ts && cp dist/index.html dist/404.html && tsx scripts/audit-public.ts",
+    "build": "tsx scripts/generate-index-html.ts && vite build && tsx scripts/prerender-routes.ts && cp dist/index.html dist/404.html && node -e \"const fs=require('fs');const f=fs.readFileSync('src/404-fallback.html','utf8');const p='dist/404.html';let s=fs.readFileSync(p,'utf8');if(!s.includes('data-mihora-404-fallback')){s=s.replace('</body>',f+'</body>');fs.writeFileSync(p,s);console.log('Branded no-JS fallback injected into dist/404.html');}\" && tsx scripts/audit-public.ts",
     "preview": "vite preview",
     "generate": "tsx scripts/import-index.ts",
     "validate": "tsx scripts/validate-index.ts",
