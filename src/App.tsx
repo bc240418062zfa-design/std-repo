@@ -29,6 +29,7 @@ import { SecurityPage } from './pages/SecurityPage';
 import { AboutPage } from './pages/AboutPage';
 import { SitemapPage } from './pages/SitemapPage';
 import { DisclaimerPage } from './pages/DisclaimerPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { PassingSimulatorPage } from './pages/PassingSimulatorPage';
 import { StudentHandbookPage } from './pages/StudentHandbookPage';
 import { VUGPACalculatorPage } from './pages/VUGPACalculatorPage';
@@ -92,7 +93,8 @@ export type AppPage =
   | 'security' 
   | 'about' 
   | 'sitemap' 
-  | 'disclaimer';
+  | 'disclaimer'
+  | 'not-found';
 
 const pagePathMap: Record<AppPage, string> = {
   home: '/',
@@ -112,7 +114,9 @@ const pagePathMap: Record<AppPage, string> = {
   security: '/security',
   about: '/about',
   sitemap: '/sitemap',
-  disclaimer: '/disclaimer'
+  disclaimer: '/disclaimer',
+  // No canonical path of its own; only reached for unmatched URLs.
+  'not-found': '/'
 };
 
 function getPageFromPath(): AppPage {
@@ -179,7 +183,10 @@ function getPageFromPath(): AppPage {
   if (hash === '#sitemap') return 'sitemap';
   if (hash === '#disclaimer' || hash === '#terms') return 'disclaimer';
 
-  return 'home';
+  // The homepage is the only bare path; anything else unmatched is a real 404.
+  if (pathname === '/') return 'home';
+
+  return 'not-found';
 }
 
 function getMcqSetIdFromPath(): string | null {
@@ -1984,6 +1991,13 @@ export default function App() {
             onOpenMidtermHub={() => handleNavigate('midterm-prep')}
             onSelectCourse={handleSelectCourse}
             onNavigate={(p) => handleNavigate(p as AppPage)}
+            onSearch={(q) => {
+              setQuery(q);
+              handleNavigate('home');
+              setTimeout(() => {
+                scrollToSearch();
+              }, 120);
+            }}
           />
         )}
 
@@ -2107,6 +2121,24 @@ export default function App() {
           <DisclaimerPage
             onNavigateHome={() => handleNavigate('home')}
             onNavigateCourses={() => handleNavigate('courses')}
+          />
+        )}
+
+        {/* 7. Page: Branded 404 — Page Not Found (unknown URLs land here) */}
+        {currentPage === 'not-found' && (
+          <NotFoundPage
+            requestedPath={currentPathname}
+            onNavigateHome={() => handleNavigate('home')}
+            onOpenMidtermPrep={() => handleNavigate('midterm-prep')}
+            onNavigate={(p) => handleNavigate(p as AppPage)}
+            onSelectCourse={handleSelectCourse}
+            onSearch={(q) => {
+              setQuery(q);
+              handleNavigate('home');
+              setTimeout(() => {
+                scrollToSearch();
+              }, 120);
+            }}
           />
         )}
         </motion.div>
