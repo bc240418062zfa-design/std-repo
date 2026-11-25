@@ -790,7 +790,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                               }}
                               className="block"
                             >
-                              <h3 className="text-lg font-bold text-[#0D1B2A] group-hover:text-blue-700 transition-colors leading-snug truncate">
+                              <h3 className="text-lg font-bold text-[#0D1B2A] group-hover:text-blue-700 transition-colors leading-snug">
                                 {set.courseTitle}
                               </h3>
                             </a>
