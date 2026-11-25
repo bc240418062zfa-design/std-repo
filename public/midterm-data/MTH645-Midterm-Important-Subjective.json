@@ -1,1 +1,191 @@
-{"filename":"MTH645-Midterm-Important-Subjective.pdf","slug":"MTH645-Midterm-Important-Subjective.pdf","dataKey":"MTH645-Midterm-Important-Subjective","courseCode":"MTH645","courseTitle":"Fuzzy Logic and Applications","faculty":"Mathematics","kind":"subjective","headerTitle":"MTH645 — Fuzzy Logic and Applications","subtitle":"Midterm Important Subjective Questions (Solved)","pageCount":4,"itemCount":24,"topics":["Sets and Fuzzy Sets","Fuzzy Set Operations","Intervals","Fuzzy Relations","T-Norms","Triangular Fuzzy Numbers"],"subjective":[{"number":1,"topic":"Sets and Fuzzy Sets","question":"Define a set with examples. A set is a collection of well-defined objects. For example, A = {1, 2, 3, 4, 5} is a set of numbers, and Z = {0, 1, 2, ...} is the set of integers.","marks":null,"answer":""},{"number":2,"topic":"Sets and Fuzzy Sets","question":"Define a fuzzy set and write its different expressions. A fuzzy set consists of two components: a set and a membership function associated with it. It is written as A~ = {(x, mu_A~(x)) : x in U}, where mu_A~(x) in [0, 1] is the membership value of x. For a finite universe it is expressed as A~ = mu_A~(x1)/x1 + mu_A~(x2)/x2 + ... + mu_A~(xn)/xn = sum of mu_A~(x_i)/x_i, and for a continuous universe as A~ = integral of mu_A~(x)/x over X.","marks":null,"answer":""},{"number":3,"topic":"Sets and Fuzzy Sets","question":"Define the support of a fuzzy set with an example. The support of a fuzzy set A~ is the set of all elements whose membership value is greater than zero, i.e. Support(A~) = {x in X : A~(x) > 0}. Example: if X = {x1, x2, x3, x4} and A~ = {(x1, 0), (x2, 0.1), (x3, 0.5), (x4, 1)}, then Support(A~) = {x2, x3, x4}.","marks":null,"answer":""},{"number":4,"topic":"Sets and Fuzzy Sets","question":"Define an empty fuzzy set with an example. A fuzzy set is said to be an empty fuzzy set if every element maps onto zero, i.e. the membership value of all the elements is zero. Example: for X = {y1, y2, y3}, the fuzzy set A~ = {(y1, 0), (y2, 0), (y3, 0)} is an empty fuzzy set.","marks":null,"answer":""},{"number":5,"topic":"Sets and Fuzzy Sets","question":"Define a normal fuzzy set with an example. A fuzzy set is said to be a normal fuzzy set if there exists at least one element whose membership value is one. Example: for X = {x1, x2, x3}, the fuzzy set A~ = {(x1, 0.8), (x2, 0), (x3, 1)} is normal because x3 has membership value 1.","marks":null,"answer":""},{"number":6,"topic":"Sets and Fuzzy Sets","question":"Define the cardinality of a fuzzy set and find the cardinality of A~ = {(x1, 0.9), (x2, 0.3), (x3, 1)}. The cardinality of a fuzzy set is the sum of the membership values of all its elements. Here |A~| = 0.9 + 0.3 + 1 = 2.2.","marks":null,"answer":""},{"number":7,"topic":"Fuzzy Set Operations","question":"Define the union of two fuzzy sets. Let F~(X) denote the collection of fuzzy sets on a universe of discourse X, and let A~, B~ belong to F~(X). The union of A~ and B~ is the fuzzy set C~ = A~ union B~ whose membership function is mu_C~(x) = max{mu_A~(x), mu_B~(x)} = mu_A~(x) OR mu_B~(x), for all x in X.","marks":null,"answer":""},{"number":8,"topic":"Fuzzy Set Operations","question":"Define the intersection of two fuzzy sets. Let F~(X) denote the collection of fuzzy sets on X, and let A~, B~ belong to F~(X). The intersection of A~ and B~ is the fuzzy set C~ = A~ intersection B~ whose membership function is mu_C~(x) = min{mu_A~(x), mu_B~(x)} = mu_A~(x) AND mu_B~(x), for all x in X.","marks":null,"answer":""},{"number":9,"topic":"Fuzzy Set Operations","question":"Prove that (A~ intersection A~')(x) <= 0.5 for every fuzzy set A~. By the definition of complement, A~'(x) = 1 - A~(x), so (A~ intersection A~')(x) = min(A~(x), 1 - A~(x)). Case 1: if A~(x) <= 0.5, then the minimum is A~(x), which is <= 0.5. Case 2: if A~(x) >= 0.5, then 1 - A~(x) <= 0.5, and the minimum is 1 - A~(x), which is <= 0.5. In both cases (A~ intersection A~')(x) <= 0.5. Hence proved.","marks":null,"answer":""},{"number":10,"topic":"Fuzzy Set Operations","question":"Define the degree of subsethood of two fuzzy sets. The degree of subsethood of a fuzzy set A~ in a fuzzy set B~ is defined as S(A~, B~) = |A~ intersection B~| / |A~|, where | . | denotes cardinality. It always lies in the interval [0, 1].","marks":null,"answer":""},{"number":11,"topic":"Fuzzy Set Operations","question":"Let A~ = {(x1, 0.1), (x2, 0.9), (x3, 1), (x4, 0), (x5, 0.3), (x6, 0.7)} and B~ = {(x1, 0.3), (x2, 0.8), (x3, 0), (x4, 1), (x5, 0.1), (x6, 0.9)}. Find the degree of subsethood S(A~, B~). Taking element-wise minima, A~ intersection B~ = {(x1, 0.1), (x2, 0.8), (x3, 0), (x4, 0), (x5, 0.1), (x6, 0.7)}, so |A~ intersection B~| = 0.1 + 0.8 + 0 + 0 + 0.1 + 0.7 = 1.7. Also |A~| = 0.1 + 0.9 + 1 + 0 + 0.3 + 0.7 = 3.0. Therefore S(A~, B~) = 1.7 / 3.0 = 0.57 (approximately).","marks":null,"answer":""},{"number":12,"topic":"Intervals","question":"Define the intersection of two intervals. Let I1 = [a1, b1] and I2 = [a2, b2] be two intervals. Their intersection is defined as I1 intersection I2 = [max{a1, a2}, min{b1, b2}]. The intersection is empty if and only if a1 > b2 or a2 > b1.","marks":null,"answer":""},{"number":13,"topic":"Fuzzy Relations","question":"Let A = {10, 15, 20}. Find A^2 and show it graphically. A^2 = A x A = {10, 15, 20} x {10, 15, 20} = {(10, 10), (10, 15), (10, 20), (15, 10), (15, 15), (15, 20), (20, 10), (20, 15), (20, 20)}. Graphically, A^2 is shown as the nine points of a 3 x 3 grid plotted on the plane at the x- and y-coordinates 10, 15 and 20.","marks":null,"answer":""},{"number":14,"topic":"Fuzzy Relations","question":"Write the relation R for the following table (rows a1, a2, a3, a4; columns x1, x2, x3): a1: 0, 1, 0; a2: 1, 0, 0; a3: 0, 1, 0; a4: 0, 0, 1. Reading the entries equal to 1 from the table, the relation is R = {(a1, x2), (a2, x1), (a3, x2), (a4, x3)}.","marks":null,"answer":""},{"number":15,"topic":"Fuzzy Relations","question":"Make the membership table for the fuzzy relation R = {((a, c), 0.7), ((b, a), 0.9), ((c, b), 1), ((c, d), 0.2)}. The membership table M_R (rows and columns a, b, c, d) is: row a: 0, 0, 0.7, 0; row b: 0.9, 0, 0, 0; row c: 0, 1, 0, 0.2; row d: 0, 0, 0, 0. All pairs not listed in R have membership value 0.","marks":null,"answer":""},{"number":16,"topic":"Fuzzy Relations","question":"Find the fuzzy relation R from the membership table M_R (rows 1, 2, 3; columns a, b, c): row 1: 0.1, 1.0, 0.0; row 2: 0.3, 1.0, 1.0; row 3: 0.0, 1.0, 1.0. Reading each entry of the table as the membership value of the corresponding pair, R = {((1, a), 0.1), ((1, b), 1.0), ((1, c), 0.0), ((2, a), 0.3), ((2, b), 1.0), ((2, c), 1.0), ((3, a), 0.0), ((3, b), 1.0), ((3, c), 1.0)}.","marks":null,"answer":""},{"number":17,"topic":"Fuzzy Relations","question":"Given the relation tables M_R (rows 1, 2, 3; columns a, b, c): row 1: 0.1, 0.7, 0; row 2: 0, 1, 0.9; row 3: 0.5, 0, 0.2; and S_R: row 1: 1, 0.8, 0.1; row 2: 0.3, 0, 0.5; row 3: 0.9, 1, 0. Find M_{R union S}. The union of two fuzzy relations is obtained by taking the element-wise maximum of their tables. Hence M_{R union S} (rows 1, 2, 3; columns a, b, c) is: row 1: 1, 0.8, 0.1; row 2: 0.3, 1, 0.9; row 3: 0.9, 1, 0.2.","marks":null,"answer":""},{"number":18,"topic":"T-Norms","question":"Show that x Delta_4 x = x / (2 - x). As we know, x Delta_4 y = xy / (x + y - xy). Putting y = x, x Delta_4 x = x^2 / (x + x - x^2) = x^2 / (2x - x^2) = x^2 / (x(2 - x)) = x / (2 - x). Hence proved.","marks":null,"answer":""},{"number":19,"topic":"T-Norms","question":"Find x Delta_1 x. As we know, x Delta_1 y = 0 OR (x + y - 1) = max(0, x + y - 1). Putting y = x, x Delta_1 x = max(0, x + x - 1) = max(0, 2x - 1).","marks":null,"answer":""},{"number":20,"topic":"T-Norms","question":"Find the value of 0.8 Delta_2 0.7. As we know, x Delta_2 y = xy / (2 - (x + y - xy)). So 0.8 Delta_2 0.7 = (0.8)(0.7) / (2 - (0.8 + 0.7 - (0.8)(0.7))) = 0.56 / (2 - (1.5 - 0.56)) = 0.56 / 1.06 = 0.53 (approximately).","marks":null,"answer":""},{"number":21,"topic":"T-Norms","question":"Find the value of 0.5 Delta_2 0.4. As we know, x Delta_2 y = xy / (2 - (x + y - xy)). So 0.5 Delta_2 0.4 = (0.5)(0.4) / (2 - (0.5 + 0.4 - (0.5)(0.4))) = 0.2 / (2 - (0.9 - 0.2)) = 0.2 / 1.3 = 0.154 (approximately).","marks":null,"answer":""},{"number":22,"topic":"Triangular Fuzzy Numbers","question":"Prove that X + (Y + Z) = (X + Y) + Z for intervals X, Y and Z. X + (Y + Z) = {x + a : x in X, a in (Y + Z)} = {x + (y + z) : x in X, y in Y, z in Z} = {(x + y) + z : x in X, y in Y, z in Z} = {b + z : b in (X + Y), z in Z} = (X + Y) + Z. Hence proved.","marks":null,"answer":""},{"number":23,"topic":"Triangular Fuzzy Numbers","question":"The membership function of a triangular fuzzy number A~ is mu_A~(x) = (x - a)/(b - a) for a <= x <= b, (c - x)/(c - b) for b <= x <= c, and 0 otherwise. The alpha-cut is written as A_alpha = [alpha_1, alpha_2]. Find alpha_1 and alpha_2. On the left side, setting (x - a)/(b - a) = alpha gives alpha(b - a) = x - a, so alpha_1 = x = a + alpha(b - a). On the right side, setting (c - x)/(c - b) = alpha gives c - x = alpha(c - b), so alpha_2 = x = c - alpha(c - b). Hence A_alpha = [a + alpha(b - a), c - alpha(c - b)].","marks":null,"answer":""},{"number":24,"topic":"Triangular Fuzzy Numbers","question":"Draw the graph of the triangular fuzzy number whose membership function is mu_A(x) = (x - 3)/(5 - 3) for 3 <= x <= 5, (6 - x)/(6 - 5) for 5 <= x <= 6, and 0 otherwise. The graph is a triangle with vertices at (3, 0), (5, 1) and (6, 0). Starting from 0 at x = 3, the membership value rises linearly along the line (x - 3)/2 until it reaches the peak value 1 at x = 5; it then falls linearly along the line (6 - x)/1 until it reaches 0 at x = 6. The membership value is 0 for all x outside the interval [3, 6].","marks":null,"answer":""}]}
+{
+ "filename": "MTH645-Midterm-Important-Subjective.pdf",
+ "slug": "MTH645-Midterm-Important-Subjective.pdf",
+ "dataKey": "MTH645-Midterm-Important-Subjective",
+ "courseCode": "MTH645",
+ "courseTitle": "Fuzzy Logic and Applications",
+ "faculty": "Mathematics",
+ "kind": "subjective",
+ "headerTitle": "MTH645 — Fuzzy Logic and Applications",
+ "subtitle": "Midterm Important Subjective Questions (Solved)",
+ "pageCount": 4,
+ "itemCount": 24,
+ "topics": [
+  "Sets and Fuzzy Sets",
+  "Fuzzy Set Operations",
+  "Intervals",
+  "Fuzzy Relations",
+  "T-Norms",
+  "Triangular Fuzzy Numbers"
+ ],
+ "subjective": [
+  {
+   "number": 1,
+   "topic": "Sets and Fuzzy Sets",
+   "question": "Define a set with examples. A set is a collection of well-defined objects. For example, A = {1, 2, 3, 4, 5} is a set of numbers, and Z = {0, 1, 2, ...} is the set of integers.",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 2,
+   "topic": "Sets and Fuzzy Sets",
+   "question": "Define a fuzzy set and write its different expressions.",
+   "marks": null,
+   "answer": "A fuzzy set consists of two components: a set and a membership function associated with it. It is written as A~ = {(x, mu_A~(x)) : x in U}, where mu_A~(x) in [0, 1] is the membership value of x. For a finite universe it is expressed as A~ = mu_A~(x1)/x1 + mu_A~(x2)/x2 + ... + mu_A~(xn)/xn = sum of mu_A~(x_i)/x_i, and for a continuous universe as A~ = integral of mu_A~(x)/x over X."
+  },
+  {
+   "number": 3,
+   "topic": "Sets and Fuzzy Sets",
+   "question": "Define the support of a fuzzy set with an example.",
+   "marks": null,
+   "answer": "The support of a fuzzy set A~ is the set of all elements whose membership value is greater than zero, i.e. Support(A~) = {x in X : A~(x) > 0}. Example: if X = {x1, x2, x3, x4} and A~ = {(x1, 0), (x2, 0.1), (x3, 0.5), (x4, 1)}, then Support(A~) = {x2, x3, x4}."
+  },
+  {
+   "number": 4,
+   "topic": "Sets and Fuzzy Sets",
+   "question": "Define an empty fuzzy set with an example.",
+   "marks": null,
+   "answer": "A fuzzy set is said to be an empty fuzzy set if every element maps onto zero, i.e. the membership value of all the elements is zero. Example: for X = {y1, y2, y3}, the fuzzy set A~ = {(y1, 0), (y2, 0), (y3, 0)} is an empty fuzzy set."
+  },
+  {
+   "number": 5,
+   "topic": "Sets and Fuzzy Sets",
+   "question": "Define a normal fuzzy set with an example.",
+   "marks": null,
+   "answer": "A fuzzy set is said to be a normal fuzzy set if there exists at least one element whose membership value is one. Example: for X = {x1, x2, x3}, the fuzzy set A~ = {(x1, 0.8), (x2, 0), (x3, 1)} is normal because x3 has membership value 1."
+  },
+  {
+   "number": 6,
+   "topic": "Sets and Fuzzy Sets",
+   "question": "Define the cardinality of a fuzzy set and find the cardinality of A~ = {(x1, 0.9), (x2, 0.3), (x3, 1)}.",
+   "marks": null,
+   "answer": "The cardinality of a fuzzy set is the sum of the membership values of all its elements. Here |A~| = 0.9 + 0.3 + 1 = 2.2."
+  },
+  {
+   "number": 7,
+   "topic": "Fuzzy Set Operations",
+   "question": "Define the union of two fuzzy sets.",
+   "marks": null,
+   "answer": "Let F~(X) denote the collection of fuzzy sets on a universe of discourse X, and let A~, B~ belong to F~(X). The union of A~ and B~ is the fuzzy set C~ = A~ union B~ whose membership function is mu_C~(x) = max{mu_A~(x), mu_B~(x)} = mu_A~(x) OR mu_B~(x), for all x in X."
+  },
+  {
+   "number": 8,
+   "topic": "Fuzzy Set Operations",
+   "question": "Define the intersection of two fuzzy sets.",
+   "marks": null,
+   "answer": "Let F~(X) denote the collection of fuzzy sets on X, and let A~, B~ belong to F~(X). The intersection of A~ and B~ is the fuzzy set C~ = A~ intersection B~ whose membership function is mu_C~(x) = min{mu_A~(x), mu_B~(x)} = mu_A~(x) AND mu_B~(x), for all x in X."
+  },
+  {
+   "number": 9,
+   "topic": "Fuzzy Set Operations",
+   "question": "Prove that (A~ intersection A~')(x) <= 0.5 for every fuzzy set A~.",
+   "marks": null,
+   "answer": "By the definition of complement, A~'(x) = 1 - A~(x), so (A~ intersection A~')(x) = min(A~(x), 1 - A~(x)). Case 1: if A~(x) <= 0.5, then the minimum is A~(x), which is <= 0.5. Case 2: if A~(x) >= 0.5, then 1 - A~(x) <= 0.5, and the minimum is 1 - A~(x), which is <= 0.5. In both cases (A~ intersection A~')(x) <= 0.5. Hence proved."
+  },
+  {
+   "number": 10,
+   "topic": "Fuzzy Set Operations",
+   "question": "Define the degree of subsethood of two fuzzy sets.",
+   "marks": null,
+   "answer": "The degree of subsethood of a fuzzy set A~ in a fuzzy set B~ is defined as S(A~, B~) = |A~ intersection B~| / |A~|, where | . | denotes cardinality. It always lies in the interval [0, 1]."
+  },
+  {
+   "number": 11,
+   "topic": "Fuzzy Set Operations",
+   "question": "Let A~ = {(x1, 0.1), (x2, 0.9), (x3, 1), (x4, 0), (x5, 0.3), (x6, 0.7)} and B~ = {(x1, 0.3), (x2, 0.8), (x3, 0), (x4, 1), (x5, 0.1), (x6, 0.9)}. Find the degree of subsethood S(A~, B~). Taking element-wise minima, A~ intersection B~ = {(x1, 0.1), (x2, 0.8), (x3, 0), (x4, 0), (x5, 0.1), (x6, 0.7)}, so |A~ intersection B~| = 0.1 + 0.8 + 0 + 0 + 0.1 + 0.7 = 1.7. Also |A~| = 0.1 + 0.9 + 1 + 0 + 0.3 + 0.7 = 3.0. Therefore S(A~, B~) = 1.7 / 3.0 = 0.57 (approximately).",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 12,
+   "topic": "Intervals",
+   "question": "Define the intersection of two intervals.",
+   "marks": null,
+   "answer": "Let I1 = [a1, b1] and I2 = [a2, b2] be two intervals. Their intersection is defined as I1 intersection I2 = [max{a1, a2}, min{b1, b2}]. The intersection is empty if and only if a1 > b2 or a2 > b1."
+  },
+  {
+   "number": 13,
+   "topic": "Fuzzy Relations",
+   "question": "Let A = {10, 15, 20}. Find A^2 and show it graphically. A^2 = A x A = {10, 15, 20} x {10, 15, 20} = {(10, 10), (10, 15), (10, 20), (15, 10), (15, 15), (15, 20), (20, 10), (20, 15), (20, 20)}. Graphically, A^2 is shown as the nine points of a 3 x 3 grid plotted on the plane at the x- and y-coordinates 10, 15 and 20.",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 14,
+   "topic": "Fuzzy Relations",
+   "question": "Write the relation R for the following table (rows a1, a2, a3, a4; columns x1, x2, x3): a1: 0, 1, 0; a2: 1, 0, 0; a3: 0, 1, 0; a4: 0, 0, 1.",
+   "marks": null,
+   "answer": "Reading the entries equal to 1 from the table, the relation is R = {(a1, x2), (a2, x1), (a3, x2), (a4, x3)}."
+  },
+  {
+   "number": 15,
+   "topic": "Fuzzy Relations",
+   "question": "Make the membership table for the fuzzy relation R = {((a, c), 0.7), ((b, a), 0.9), ((c, b), 1), ((c, d), 0.2)}. The membership table M_R (rows and columns a, b, c, d) is: row a: 0, 0, 0.7, 0; row b: 0.9, 0, 0, 0; row c: 0, 1, 0, 0.2; row d: 0, 0, 0, 0. All pairs not listed in R have membership value 0.",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 16,
+   "topic": "Fuzzy Relations",
+   "question": "Find the fuzzy relation R from the membership table M_R (rows 1, 2, 3; columns a, b, c): row 1: 0.1, 1.0, 0.0; row 2: 0.3, 1.0, 1.0; row 3: 0.0, 1.0, 1.0.",
+   "marks": null,
+   "answer": "Reading each entry of the table as the membership value of the corresponding pair, R = {((1, a), 0.1), ((1, b), 1.0), ((1, c), 0.0), ((2, a), 0.3), ((2, b), 1.0), ((2, c), 1.0), ((3, a), 0.0), ((3, b), 1.0), ((3, c), 1.0)}."
+  },
+  {
+   "number": 17,
+   "topic": "Fuzzy Relations",
+   "question": "Given the relation tables M_R (rows 1, 2, 3; columns a, b, c): row 1: 0.1, 0.7, 0; row 2: 0, 1, 0.9; row 3: 0.5, 0, 0.2; and S_R: row 1: 1, 0.8, 0.1; row 2: 0.3, 0, 0.5; row 3: 0.9, 1, 0. Find M_{R union S}. The union of two fuzzy relations is obtained by taking the element-wise maximum of their tables. Hence M_{R union S} (rows 1, 2, 3; columns a, b, c) is: row 1: 1, 0.8, 0.1; row 2: 0.3, 1, 0.9; row 3: 0.9, 1, 0.2.",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 18,
+   "topic": "T-Norms",
+   "question": "Show that x Delta_4 x = x / (2 - x). As we know, x Delta_4 y = xy / (x + y - xy). Putting y = x, x Delta_4 x = x^2 / (x + x - x^2) = x^2 / (2x - x^2) = x^2 / (x(2 - x)) = x / (2 - x). Hence proved.",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 19,
+   "topic": "T-Norms",
+   "question": "Find x Delta_1 x. As we know, x Delta_1 y = 0 OR (x + y - 1) = max(0, x + y - 1). Putting y = x, x Delta_1 x = max(0, x + x - 1) = max(0, 2x - 1).",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 20,
+   "topic": "T-Norms",
+   "question": "Find the value of 0.8 Delta_2 0.7.",
+   "marks": null,
+   "answer": "As we know, x Delta_2 y = xy / (2 - (x + y - xy)). So 0.8 Delta_2 0.7 = (0.8)(0.7) / (2 - (0.8 + 0.7 - (0.8)(0.7))) = 0.56 / (2 - (1.5 - 0.56)) = 0.56 / 1.06 = 0.53 (approximately)."
+  },
+  {
+   "number": 21,
+   "topic": "T-Norms",
+   "question": "Find the value of 0.5 Delta_2 0.4.",
+   "marks": null,
+   "answer": "As we know, x Delta_2 y = xy / (2 - (x + y - xy)). So 0.5 Delta_2 0.4 = (0.5)(0.4) / (2 - (0.5 + 0.4 - (0.5)(0.4))) = 0.2 / (2 - (0.9 - 0.2)) = 0.2 / 1.3 = 0.154 (approximately)."
+  },
+  {
+   "number": 22,
+   "topic": "Triangular Fuzzy Numbers",
+   "question": "Prove that X + (Y + Z) = (X + Y) + Z for intervals X, Y and Z.",
+   "marks": null,
+   "answer": "X + (Y + Z) = {x + a : x in X, a in (Y + Z)} = {x + (y + z) : x in X, y in Y, z in Z} = {(x + y) + z : x in X, y in Y, z in Z} = {b + z : b in (X + Y), z in Z} = (X + Y) + Z. Hence proved."
+  },
+  {
+   "number": 23,
+   "topic": "Triangular Fuzzy Numbers",
+   "question": "The membership function of a triangular fuzzy number A~ is mu_A~(x) = (x - a)/(b - a) for a <= x <= b, (c - x)/(c - b) for b <= x <= c, and 0 otherwise. The alpha-cut is written as A_alpha = [alpha_1, alpha_2]. Find alpha_1 and alpha_2. On the left side, setting (x - a)/(b - a) = alpha gives alpha(b - a) = x - a, so alpha_1 = x = a + alpha(b - a). On the right side, setting (c - x)/(c - b) = alpha gives c - x = alpha(c - b), so alpha_2 = x = c - alpha(c - b). Hence A_alpha = [a + alpha(b - a), c - alpha(c - b)].",
+   "marks": null,
+   "answer": ""
+  },
+  {
+   "number": 24,
+   "topic": "Triangular Fuzzy Numbers",
+   "question": "Draw the graph of the triangular fuzzy number whose membership function is mu_A(x) = (x - 3)/(5 - 3) for 3 <= x <= 5, (6 - x)/(6 - 5) for 5 <= x <= 6, and 0 otherwise. The graph is a triangle with vertices at (3, 0), (5, 1) and (6, 0). Starting from 0 at x = 3, the membership value rises linearly along the line (x - 3)/2 until it reaches the peak value 1 at x = 5; it then falls linearly along the line (6 - x)/1 until it reaches 0 at x = 6. The membership value is 0 for all x outside the interval [3, 6].",
+   "marks": null,
+   "answer": ""
+  }
+ ]
+}

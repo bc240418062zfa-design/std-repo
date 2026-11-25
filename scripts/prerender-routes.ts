@@ -1205,10 +1205,8 @@ ${sitemapItems.join('\n')}
   const publicPath = path.resolve('public');
 
   fs.writeFileSync(path.join(distPath, 'sitemap-main.xml'), mainSitemapXml, 'utf-8');
-  fs.writeFileSync(path.join(distPath, 'Sitemap-main.xml'), mainSitemapXml, 'utf-8');
   if (fs.existsSync(publicPath)) {
     fs.writeFileSync(path.join(publicPath, 'sitemap-main.xml'), mainSitemapXml, 'utf-8');
-    fs.writeFileSync(path.join(publicPath, 'Sitemap-main.xml'), mainSitemapXml, 'utf-8');
   }
 
   // 2. Generate Dedicated Documents XML Sitemap covering ALL 28,328 /doc/<slug> Preview & SEO pages
@@ -1225,10 +1223,8 @@ ${docUrlEntries.join('\n')}
 </urlset>`;
 
   fs.writeFileSync(path.join(distPath, 'sitemap-docs.xml'), docsSitemapXml, 'utf-8');
-  fs.writeFileSync(path.join(distPath, 'Sitemap-docs.xml'), docsSitemapXml, 'utf-8');
   if (fs.existsSync(publicPath)) {
     fs.writeFileSync(path.join(publicPath, 'sitemap-docs.xml'), docsSitemapXml, 'utf-8');
-    fs.writeFileSync(path.join(publicPath, 'Sitemap-docs.xml'), docsSitemapXml, 'utf-8');
   }
 
   // 2B. Generate Dedicated Midterm Prep 2026 XML Sitemap covering Hub + all 664 /midterm-prep/<Filename>.pdf pages
@@ -1248,10 +1244,8 @@ ${midtermUrlEntries.join('\n')}
 </urlset>`;
 
   fs.writeFileSync(path.join(distPath, 'sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
-  fs.writeFileSync(path.join(distPath, 'Sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
   if (fs.existsSync(publicPath)) {
     fs.writeFileSync(path.join(publicPath, 'sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
-    fs.writeFileSync(path.join(publicPath, 'Sitemap-midterm.xml'), midtermSitemapXml, 'utf-8');
   }
 
   // 3. Generate Master Sitemap Index (sitemap.xml) linking sitemap-main.xml, sitemap-midterm.xml, and sitemap-docs.xml
@@ -1273,11 +1267,9 @@ ${midtermUrlEntries.join('\n')}
 
   fs.writeFileSync(path.join(distPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');
   fs.writeFileSync(path.join(distPath, 'sitemap_index.xml'), sitemapIndexXml, 'utf-8');
-  fs.writeFileSync(path.join(distPath, 'Sitemap.xml'), sitemapIndexXml, 'utf-8');
   if (fs.existsSync(publicPath)) {
     fs.writeFileSync(path.join(publicPath, 'sitemap.xml'), sitemapIndexXml, 'utf-8');
     fs.writeFileSync(path.join(publicPath, 'sitemap_index.xml'), sitemapIndexXml, 'utf-8');
-    fs.writeFileSync(path.join(publicPath, 'Sitemap.xml'), sitemapIndexXml, 'utf-8');
   }
 
   // Generate GEO LLM Context Dossiers (llms.txt & llms-full.txt)

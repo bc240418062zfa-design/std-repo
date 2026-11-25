@@ -1,1 +1,264 @@
-{"filename":"MTH622-Midterm-Important-Subjective.pdf","slug":"MTH622-Midterm-Important-Subjective.pdf","dataKey":"MTH622-Midterm-Important-Subjective","courseCode":"MTH622","courseTitle":"Vectors and Classical Mechanics","faculty":"Mathematics","kind":"subjective","headerTitle":"MTH622 — Vectors and Classical Mechanics","subtitle":"Midterm Important Subjective Questions (Solved)","pageCount":6,"itemCount":0,"topics":["Vector Calculus — Gradient, Divergence, Curl and Integral Theorems","Classical Mechanics — Momentum, Energy and Moment of Inertia"],"subjective":[],"extraLines":["1. If A = xz² î, find ∇·A.","∇·A = ∂/∂x (xz²) + ∂/∂y (0) + ∂/∂z (0) = z².","Hence ∇·A = z².","2. If φ = 3xyz, find ∇²φ.","∇φ = 3yz î + 3xz ĵ + 3xy k̂.","∇²φ = ∂/∂x (3yz) + ∂/∂y (3xz) + ∂/∂z (3xy) = 0 + 0 + 0 = 0.","Hence ∇²φ = 0, i.e. φ satisfies Laplace's equation.","3. If A = xz î − 2xy ĵ + yz² k̂, find curl A.","∇×A = | î ĵ k̂ ; ∂/∂x ∂/∂y ∂/∂z ; xz −2xy yz² |","î-component: ∂/∂y (yz²) − ∂/∂z (−2xy) = z² − 0 = z²","ĵ-component: ∂/∂z (xz) − ∂/∂x (yz²) = x − 0 = x","k̂-component: ∂/∂x (−2xy) − ∂/∂y (xz) = −2y − 0 = −2y","Hence curl A = z² î + x ĵ − 2y k̂.","4. Find the unit tangent vector T̂ for the curve r = 2t î + 4t ĵ + t k̂.","dr/dt = 2 î + 4 ĵ + k̂, and |dr/dt| = √(4 + 16 + 1) = √21.","T̂ = (dr/dt) / |dr/dt| = (2 î + 4 ĵ + k̂) / √21.","5. Find the directional derivative of φ = 3x²z at the point (2, 1, 1) in the","direction of the vector 4î − 3k̂.","∇φ = 6xz î + 3x² k̂. At (2, 1, 1): ∇φ = 12 î + 12 k̂.","Unit vector in the given direction: â = (4î − 3k̂)/√(16 + 9) = (4î − 3k̂)/5.","Directional derivative = ∇φ · â = (12)(4/5) + (12)(−3/5) = 48/5 − 36/5 = 12/5.","6. Find the unit normal vector to the plane 3x + 2y + z = 4.","For the surface φ = 3x + 2y + z − 4 = 0, ∇φ = 3 î + 2 ĵ + k̂ is normal to the plane.","|∇φ| = √(9 + 4 + 1) = √14.","Unit normal: n̂ = (3 î + 2 ĵ + k̂) / √14.","7. Find the normal vector to the surface x²yz − 3x = 2 at the point (1, 1, 1).","Let φ = x²yz − 3x − 2. A normal vector to the surface is ∇φ.","∇φ = (2xyz − 3) î + x²z ĵ + x²y k̂.","At (1, 1, 1): ∇φ = (2 − 3) î + ĵ + k̂ = −î + ĵ + k̂.","The corresponding unit normal is (−î + ĵ + k̂)/√3.","8. If A = a î − 3 k̂ and φ = y + xz, find A·∇φ.","∇φ = ∂φ/∂x î + ∂φ/∂y ĵ + ∂φ/∂z k̂ = z î + ĵ + x k̂.","A·∇φ = (a î − 3 k̂)·(z î + ĵ + x k̂) = az + 0 − 3x = az − 3x.","9. State Green's theorem in the plane.","Let R be a closed region in the xy-plane bounded by a simple closed curve C traversed in","the positive (counterclockwise) direction, and let A be a vector field with continuous first","partial derivatives in R. Then Green's theorem states:","Tangential form: ∮_C A·dr = ∬_R (∇×A)·k̂ dR.","Normal form: ∮_C A·n̂ ds = ∬_R (∇·A) dR.","In scalar form, for A = P î + Q ĵ: ∮_C (P dx + Q dy) = ∬_R (∂Q/∂x − ∂P/∂y) dx dy.","10. Prove that ∮_C A·dr = 0 for every closed curve C if ∇×A = 0.","Let S be any open surface bounded by the closed curve C. By Stokes' theorem,","∮_C A·dr = ∬_S (∇×A)·n̂ dS.","Since ∇×A = 0 everywhere, the right-hand side is zero for every such surface S.","Hence ∮_C A·dr = 0 for every closed curve C, i.e. the field A is conservative (irrotational).","11. Prove the identity ∇·(A × r) = r·(∇ × A), where r is the position vector.","Using the standard identity ∇·(A × B) = B·(∇×A) − A·(∇×B) with B = r:","∇·(A × r) = r·(∇×A) − A·(∇×r).","But ∇×r = 0, since each component such as ∂z/∂y − ∂y/∂z vanishes.","Hence ∇·(A × r) = r·(∇ × A).","12. Prove that the force field F = xz² î − 3yz ĵ + y²z k̂ is non-conservative.","A force field is conservative only if its curl vanishes. Here","∇×F = | î ĵ k̂ ; ∂/∂x ∂/∂y ∂/∂z ; xz² −3yz y²z |","î-component: ∂/∂y (y²z) − ∂/∂z (−3yz) = 2yz + 3y","ĵ-component: ∂/∂z (xz²) − ∂/∂x (y²z) = 2xz − 0 = 2xz","k̂-component: ∂/∂x (−3yz) − ∂/∂y (xz²) = 0 − 0 = 0","∇×F = (2yz + 3y) î + 2xz ĵ ≠ 0.","Since the curl does not vanish, F is non-conservative; the work done by F depends on the","path.","13. Write the necessary and sufficient conditions for a force field F to be","conservative.","A force field F is conservative if and only if any one (hence all) of the following equivalent","conditions holds:","(i) F can be expressed as the negative gradient of a scalar potential: F = −∇V.","(ii) F is irrotational: ∇×F = 0 throughout the region.","(iii) The work done around every closed path is zero: ∮_C F·dr = 0.","(iv) The work done (line integral ∫_C F·dr) between two points is independent of the path","joining them.","14. If r = r e_r is the position vector of a particle in plane polar coordinates, find","the velocity of the particle.","In plane polar coordinates the position vector is r = r e_r, where e_r is the unit radial","vector and e_θ the unit transverse vector, with de_r/dt = θ̇ e_θ.","v = dr/dt = ṙ e_r + r (de_r/dt) = ṙ e_r + r θ̇ e_θ.","Thus the radial component of velocity is ṙ and the transverse component is r θ̇.","15. State Newton's second law of motion.","Newton's second law of motion states that the rate of change of momentum of a body is","directly proportional to the net force applied on it, and takes place in the direction of the","force.","In symbols, F = dp/dt, where p = mv is the linear momentum. For a body of constant","mass this reduces to F = m dv/dt = ma.","16. A body of mass 2 kg moves so that its position vector is r = (2t² + 3t) î + t³ ĵ.","Find the force acting on the body.","Velocity: v = dr/dt = (4t + 3) î + 3t² ĵ.","Momentum: p = mv = 2(4t + 3) î + 6t² ĵ.","By Newton's second law, F = dp/dt = 8 î + 12t ĵ.","Hence the force acting on the body is (8 î + 12t ĵ) newtons.","17. Find the work done in changing the velocity of a body of mass 100 kg from","1200 m/s to 1900 m/s.","By the work–energy theorem, the work done equals the change in kinetic energy:","W = (1/2) m v₂² − (1/2) m v₁² = (1/2)(100)(1900² − 1200²)","= 50 × (3,610,000 − 1,440,000) = 50 × 2,170,000","W = 108,500,000 J = 1.085 × 10⁸ J.","18. A man of mass 64 kg is standing in a lift which is moving upward with an","acceleration of 0.35 m/s². Find the force which the man exerts on the floor of","the lift. (Take g = 9.8 m/s²)","Let R be the normal reaction of the floor on the man. The equation of motion for upward","acceleration a is","R − mg = ma, so R = m(g + a) = 64 × (9.8 + 0.35) = 64 × 10.15 = 649.6 N.","By Newton's third law, the force exerted by the man on the floor is equal and opposite,","i.e. 649.6 N.","19. Two bodies of masses m₁ = 7 kg and m₂ = 4 kg are moving with velocities u₁","= 4 m/s and u₂ = 4 m/s. After collision, the first body moves with velocity v₁ = 2","m/s. Find the velocity v₂ of the second body after collision.","By the law of conservation of linear momentum,","m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂","7(4) + 4(4) = 7(2) + 4v₂","44 = 14 + 4v₂, so 4v₂ = 30 and v₂ = 7.5 m/s.","20. State the law of conservation of linear momentum.","The law of conservation of linear momentum states that if no external force acts on a","system of bodies, the total linear momentum of the system remains constant","(conserved):","Σ mᵢ vᵢ = constant.","It follows directly from Newton's second and third laws: internal forces between the","bodies occur in equal and opposite pairs, so they cannot change the total momentum.","21. Define kinetic energy and write its formulas for translational and rotational","motion.","Kinetic energy is the energy possessed by a body by virtue of its motion; it equals the","work required to bring the body from rest to its present speed.","Translational kinetic energy: K.E. = (1/2) m v².","Rotational kinetic energy of a rigid body rotating with angular velocity ω about a fixed","axis: K.E. = (1/2) I ω², where I is the moment of inertia about that axis.","22. Define moment of inertia and write the expressions for Ixx, Iyy and Izz.","The moment of inertia of a body about an axis is the sum (integral) of the products of the","mass of each particle and the square of its distance from the axis: I = Σ m r² (for a","continuous body, I = ∫ r² dm).","For a three-dimensional body, the moments of inertia about the coordinate axes are:","Ixx = Σ m (y² + z²), Iyy = Σ m (z² + x²), Izz = Σ m (x² + y²).","23. State the perpendicular axis theorem.","The perpendicular axis theorem states that for a plane lamina, the moment of inertia","about an axis perpendicular to the plane of the lamina is equal to the sum of the","moments of inertia about two mutually perpendicular axes in the plane of the lamina","which intersect at the point where the perpendicular axis passes through it:","Iz = Ix + Iy.","24. State the parallel axis theorem.","The parallel axis theorem states that the moment of inertia of a body about any axis is","equal to the moment of inertia about a parallel axis through the centre of mass plus the","product of the total mass of the body and the square of the distance between the two","axes:","I = I_cm + M d²,","where d is the perpendicular distance between the axes.","25. For a rectangular plate of mass M, Ix = (1/3) M b² and Iy = (1/3) M a². Find","the moment of inertia of the plate about the z-axis (perpendicular to its plane).","By the perpendicular axis theorem,","Iz = Ix + Iy = (1/3) M b² + (1/3) M a² = (M/3)(a² + b²).","26. The surface area of a thin ring of radius r and thickness dr is 2πr dr. If the","mass of a disc of radius R is m, find the mass dm of such a ring cut from the","disc.","Mass per unit area of the disc: σ = m / (πR²).","Mass of the ring = σ × (area of ring) = [m / (πR²)] × 2πr dr.","dm = (2m / R²) r dr.","27. Find the moment of inertia of a small portion (element) of a hoop about an","axis through the centre of the hoop and perpendicular to its plane.","Let the hoop have radius r and let the small portion have mass δm. Every particle of the","hoop is at the same distance r from the centre, so the moment of inertia of the portion","about the perpendicular central axis is","δI = r² δm.","Summing over the whole hoop, I = r² Σ δm = m r², where m is the total mass of the hoop.","28. Derive the moment of inertia of a circular disc about an axis through its","centre and perpendicular to its plane.","Let the disc have mass M and radius R, so its mass per unit area is σ = M/(πR²). Divide","the disc into thin rings of radius r and thickness dr; the mass of one ring is dm = σ · 2πr","dr = (2M/R²) r dr, and its moment of inertia is dI = r² dm = (2M/R²) r³ dr.","Integrating from r = 0 to r = R:","I = (2M/R²) ∫₀^R r³ dr = (2M/R²)(R⁴/4) = (1/2) M R².","29. Find the moment of inertia of a solid circular cylinder about its own axis.","Divide the cylinder into thin coaxial cylindrical shells. Equivalently, using discs: for a","cylinder of mass M and radius R, the mass per unit volume is ρ = M/(πR²L). A thin shell of","radius r and thickness dr has mass dm = ρ · 2πrL dr and moment of inertia dI = r² dm.","I = ∫₀^R r² (2πρL) r dr = 2πρL (R⁴/4) = (1/2)(πR²Lρ) R² = (1/2) M R².","30. State Chasles' theorem.","Chasles' theorem states that the most general displacement of a rigid body is a","translation plus a rotation: any displacement of a rigid body can be obtained by first","translating the body (so that one chosen point moves to its final position) and then","rotating the body about an axis through that point. Equivalently, the general motion of a","rigid body is a translation of the centre of mass combined with a rotation about the","centre of mass.","31. State Euler's theorem on the motion of a rigid body.","Euler's theorem states that the general displacement of a rigid body with one point fixed","is equivalent to a single rotation about some axis passing through the fixed point. In","other words, whatever the motion of a rigid body about a fixed point, its final orientation","can be reached by one rotation through a definite angle about a definite axis through","that point.","32. Distinguish between orbital angular momentum and spin angular","momentum.","The total angular momentum of a body about an origin O can be split into two parts:","Orbital angular momentum: the angular momentum of the centre of mass, treated as a","particle of mass M moving with the velocity of the centre of mass: L_orbital = R_cm × M","V_cm.","Spin angular momentum: the angular momentum of the body about its own centre of","mass due to its rotation: L_spin = Σ rᵢ' × mᵢ vᵢ' (for a rigid body, L_spin = I ω).","Total angular momentum: L = L_orbital + L_spin. (For example, the Moon has orbital","angular momentum about the Earth and spin angular momentum about its own axis.)","33. If r = a cos ωt î + b sin ωt ĵ and the momentum is p = −amω sin ωt î + bmω","cos ωt ĵ, find the angular momentum L = r × p.","L = r × p = | î ĵ k̂ ; a cos ωt b sin ωt 0 ; −amω sin ωt bmω cos ωt 0 |","Only the k̂-component survives:","L_z = (a cos ωt)(bmω cos ωt) − (b sin ωt)(−amω sin ωt)","= abmω cos² ωt + abmω sin² ωt = abmω (cos² ωt + sin² ωt) = abmω.","Hence L = abmω k̂, which is constant in time.","34. Derive the differential equation of simple harmonic motion.","In simple harmonic motion the restoring force is proportional to the displacement and","directed towards the equilibrium position: F = −kx, where k is a positive constant.","By Newton's second law, m d²x/dt² = −kx, i.e.","d²x/dt² + (k/m) x = 0.","Writing ω² = k/m, the equation of SHM is d²x/dt² + ω²x = 0, whose solution x = A cos(ωt","+ ε) describes oscillation with period T = 2π/ω = 2π√(m/k).","35. Define torque and write its formula.","Torque is the rotational analogue of force: it is the turning effect produced by a force","about an axis or point. For a force F applied at a point with position vector r from the","reference point,","τ = r × F, with magnitude τ = r F sin θ,","where θ is the angle between r and F. Torque is also equal to the rate of change of","angular momentum, τ = dL/dt, and for a rigid body rotating about a fixed axis, τ = I α."]}
+{
+ "filename": "MTH622-Midterm-Important-Subjective.pdf",
+ "slug": "MTH622-Midterm-Important-Subjective.pdf",
+ "dataKey": "MTH622-Midterm-Important-Subjective",
+ "courseCode": "MTH622",
+ "courseTitle": "Vectors and Classical Mechanics",
+ "faculty": "Mathematics",
+ "kind": "subjective",
+ "headerTitle": "MTH622 — Vectors and Classical Mechanics",
+ "subtitle": "Midterm Important Subjective Questions (Solved)",
+ "pageCount": 6,
+ "itemCount": 35,
+ "topics": [
+  "Vector Calculus — Gradient, Divergence, Curl and Integral Theorems",
+  "Classical Mechanics — Momentum, Energy and Moment of Inertia"
+ ],
+ "subjective": [
+  {
+   "number": 1,
+   "topic": "General",
+   "question": "If A = xz² î, find ∇·A.",
+   "marks": null,
+   "answer": "∇·A = ∂/∂x (xz²) + ∂/∂y (0) + ∂/∂z (0) = z². Hence ∇·A = z²."
+  },
+  {
+   "number": 2,
+   "topic": "General",
+   "question": "If φ = 3xyz, find ∇²φ.",
+   "marks": null,
+   "answer": "∇φ = 3yz î + 3xz ĵ + 3xy k̂. ∇²φ = ∂/∂x (3yz) + ∂/∂y (3xz) + ∂/∂z (3xy) = 0 + 0 + 0 = 0. Hence ∇²φ = 0, i.e. φ satisfies Laplace's equation."
+  },
+  {
+   "number": 3,
+   "topic": "General",
+   "question": "If A = xz î − 2xy ĵ + yz² k̂, find curl A.",
+   "marks": null,
+   "answer": "∇×A = | î ĵ k̂ ; ∂/∂x ∂/∂y ∂/∂z ; xz −2xy yz² | î-component: ∂/∂y (yz²) − ∂/∂z (−2xy) = z² − 0 = z² ĵ-component: ∂/∂z (xz) − ∂/∂x (yz²) = x − 0 = x k̂-component: ∂/∂x (−2xy) − ∂/∂y (xz) = −2y − 0 = −2y Hence curl A = z² î + x ĵ − 2y k̂."
+  },
+  {
+   "number": 4,
+   "topic": "General",
+   "question": "Find the unit tangent vector T̂ for the curve r = 2t î + 4t ĵ + t k̂.",
+   "marks": null,
+   "answer": "dr/dt = 2 î + 4 ĵ + k̂, and |dr/dt| = √(4 + 16 + 1) = √21. T̂ = (dr/dt) / |dr/dt| = (2 î + 4 ĵ + k̂) / √21."
+  },
+  {
+   "number": 5,
+   "topic": "General",
+   "question": "Find the directional derivative of φ = 3x²z at the point (2, 1, 1) in the",
+   "marks": null,
+   "answer": "direction of the vector 4î − 3k̂. ∇φ = 6xz î + 3x² k̂. At (2, 1, 1): ∇φ = 12 î + 12 k̂. Unit vector in the given direction: â = (4î − 3k̂)/√(16 + 9) = (4î − 3k̂)/5. Directional derivative = ∇φ · â = (12)(4/5) + (12)(−3/5) = 48/5 − 36/5 = 12/5."
+  },
+  {
+   "number": 6,
+   "topic": "General",
+   "question": "Find the unit normal vector to the plane 3x + 2y + z = 4.",
+   "marks": null,
+   "answer": "For the surface φ = 3x + 2y + z − 4 = 0, ∇φ = 3 î + 2 ĵ + k̂ is normal to the plane. |∇φ| = √(9 + 4 + 1) = √14. Unit normal: n̂ = (3 î + 2 ĵ + k̂) / √14."
+  },
+  {
+   "number": 7,
+   "topic": "General",
+   "question": "Find the normal vector to the surface x²yz − 3x = 2 at the point (1, 1, 1).",
+   "marks": null,
+   "answer": "Let φ = x²yz − 3x − 2. A normal vector to the surface is ∇φ. ∇φ = (2xyz − 3) î + x²z ĵ + x²y k̂. At (1, 1, 1): ∇φ = (2 − 3) î + ĵ + k̂ = −î + ĵ + k̂. The corresponding unit normal is (−î + ĵ + k̂)/√3."
+  },
+  {
+   "number": 8,
+   "topic": "General",
+   "question": "If A = a î − 3 k̂ and φ = y + xz, find A·∇φ.",
+   "marks": null,
+   "answer": "∇φ = ∂φ/∂x î + ∂φ/∂y ĵ + ∂φ/∂z k̂ = z î + ĵ + x k̂. A·∇φ = (a î − 3 k̂)·(z î + ĵ + x k̂) = az + 0 − 3x = az − 3x."
+  },
+  {
+   "number": 9,
+   "topic": "General",
+   "question": "State Green's theorem in the plane.",
+   "marks": null,
+   "answer": "Let R be a closed region in the xy-plane bounded by a simple closed curve C traversed in the positive (counterclockwise) direction, and let A be a vector field with continuous first partial derivatives in R. Then Green's theorem states: Tangential form: ∮_C A·dr = ∬_R (∇×A)·k̂ dR. Normal form: ∮_C A·n̂ ds = ∬_R (∇·A) dR. In scalar form, for A = P î + Q ĵ: ∮_C (P dx + Q dy) = ∬_R (∂Q/∂x − ∂P/∂y) dx dy."
+  },
+  {
+   "number": 10,
+   "topic": "General",
+   "question": "Prove that ∮_C A·dr = 0 for every closed curve C if ∇×A = 0.",
+   "marks": null,
+   "answer": "Let S be any open surface bounded by the closed curve C. By Stokes' theorem, ∮_C A·dr = ∬_S (∇×A)·n̂ dS. Since ∇×A = 0 everywhere, the right-hand side is zero for every such surface S. Hence ∮_C A·dr = 0 for every closed curve C, i.e. the field A is conservative (irrotational)."
+  },
+  {
+   "number": 11,
+   "topic": "General",
+   "question": "Prove the identity ∇·(A × r) = r·(∇ × A), where r is the position vector.",
+   "marks": null,
+   "answer": "Using the standard identity ∇·(A × B) = B·(∇×A) − A·(∇×B) with B = r: ∇·(A × r) = r·(∇×A) − A·(∇×r). But ∇×r = 0, since each component such as ∂z/∂y − ∂y/∂z vanishes. Hence ∇·(A × r) = r·(∇ × A)."
+  },
+  {
+   "number": 12,
+   "topic": "General",
+   "question": "Prove that the force field F = xz² î − 3yz ĵ + y²z k̂ is non-conservative.",
+   "marks": null,
+   "answer": "A force field is conservative only if its curl vanishes. Here ∇×F = | î ĵ k̂ ; ∂/∂x ∂/∂y ∂/∂z ; xz² −3yz y²z | î-component: ∂/∂y (y²z) − ∂/∂z (−3yz) = 2yz + 3y ĵ-component: ∂/∂z (xz²) − ∂/∂x (y²z) = 2xz − 0 = 2xz k̂-component: ∂/∂x (−3yz) − ∂/∂y (xz²) = 0 − 0 = 0 ∇×F = (2yz + 3y) î + 2xz ĵ ≠ 0. Since the curl does not vanish, F is non-conservative; the work done by F depends on the path."
+  },
+  {
+   "number": 13,
+   "topic": "General",
+   "question": "Write the necessary and sufficient conditions for a force field F to be",
+   "marks": null,
+   "answer": "conservative. A force field F is conservative if and only if any one (hence all) of the following equivalent conditions holds: (i) F can be expressed as the negative gradient of a scalar potential: F = −∇V. (ii) F is irrotational: ∇×F = 0 throughout the region. (iii) The work done around every closed path is zero: ∮_C F·dr = 0. (iv) The work done (line integral ∫_C F·dr) between two points is independent of the path joining them."
+  },
+  {
+   "number": 14,
+   "topic": "General",
+   "question": "If r = r e_r is the position vector of a particle in plane polar coordinates, find",
+   "marks": null,
+   "answer": "the velocity of the particle. In plane polar coordinates the position vector is r = r e_r, where e_r is the unit radial vector and e_θ the unit transverse vector, with de_r/dt = θ̇ e_θ. v = dr/dt = ṙ e_r + r (de_r/dt) = ṙ e_r + r θ̇ e_θ. Thus the radial component of velocity is ṙ and the transverse component is r θ̇."
+  },
+  {
+   "number": 15,
+   "topic": "General",
+   "question": "State Newton's second law of motion.",
+   "marks": null,
+   "answer": "Newton's second law of motion states that the rate of change of momentum of a body is directly proportional to the net force applied on it, and takes place in the direction of the force. In symbols, F = dp/dt, where p = mv is the linear momentum. For a body of constant mass this reduces to F = m dv/dt = ma."
+  },
+  {
+   "number": 16,
+   "topic": "General",
+   "question": "A body of mass 2 kg moves so that its position vector is r = (2t² + 3t) î + t³ ĵ.",
+   "marks": null,
+   "answer": "Find the force acting on the body. Velocity: v = dr/dt = (4t + 3) î + 3t² ĵ. Momentum: p = mv = 2(4t + 3) î + 6t² ĵ. By Newton's second law, F = dp/dt = 8 î + 12t ĵ. Hence the force acting on the body is (8 î + 12t ĵ) newtons."
+  },
+  {
+   "number": 17,
+   "topic": "General",
+   "question": "Find the work done in changing the velocity of a body of mass 100 kg from",
+   "marks": null,
+   "answer": "1200 m/s to 1900 m/s. By the work–energy theorem, the work done equals the change in kinetic energy: W = (1/2) m v₂² − (1/2) m v₁² = (1/2)(100)(1900² − 1200²) = 50 × (3,610,000 − 1,440,000) = 50 × 2,170,000 W = 108,500,000 J = 1.085 × 10⁸ J."
+  },
+  {
+   "number": 18,
+   "topic": "General",
+   "question": "A man of mass 64 kg is standing in a lift which is moving upward with an",
+   "marks": null,
+   "answer": "acceleration of 0.35 m/s². Find the force which the man exerts on the floor of the lift. (Take g = 9.8 m/s²) Let R be the normal reaction of the floor on the man. The equation of motion for upward acceleration a is R − mg = ma, so R = m(g + a) = 64 × (9.8 + 0.35) = 64 × 10.15 = 649.6 N. By Newton's third law, the force exerted by the man on the floor is equal and opposite, i.e. 649.6 N."
+  },
+  {
+   "number": 19,
+   "topic": "General",
+   "question": "Two bodies of masses m₁ = 7 kg and m₂ = 4 kg are moving with velocities u₁",
+   "marks": null,
+   "answer": "= 4 m/s and u₂ = 4 m/s. After collision, the first body moves with velocity v₁ = 2 m/s. Find the velocity v₂ of the second body after collision. By the law of conservation of linear momentum, m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂ 7(4) + 4(4) = 7(2) + 4v₂ 44 = 14 + 4v₂, so 4v₂ = 30 and v₂ = 7.5 m/s."
+  },
+  {
+   "number": 20,
+   "topic": "General",
+   "question": "State the law of conservation of linear momentum.",
+   "marks": null,
+   "answer": "The law of conservation of linear momentum states that if no external force acts on a system of bodies, the total linear momentum of the system remains constant (conserved): Σ mᵢ vᵢ = constant. It follows directly from Newton's second and third laws: internal forces between the bodies occur in equal and opposite pairs, so they cannot change the total momentum."
+  },
+  {
+   "number": 21,
+   "topic": "General",
+   "question": "Define kinetic energy and write its formulas for translational and rotational",
+   "marks": null,
+   "answer": "motion. Kinetic energy is the energy possessed by a body by virtue of its motion; it equals the work required to bring the body from rest to its present speed. Translational kinetic energy: K.E. = (1/2) m v². Rotational kinetic energy of a rigid body rotating with angular velocity ω about a fixed axis: K.E. = (1/2) I ω², where I is the moment of inertia about that axis."
+  },
+  {
+   "number": 22,
+   "topic": "General",
+   "question": "Define moment of inertia and write the expressions for Ixx, Iyy and Izz.",
+   "marks": null,
+   "answer": "The moment of inertia of a body about an axis is the sum (integral) of the products of the mass of each particle and the square of its distance from the axis: I = Σ m r² (for a continuous body, I = ∫ r² dm). For a three-dimensional body, the moments of inertia about the coordinate axes are: Ixx = Σ m (y² + z²), Iyy = Σ m (z² + x²), Izz = Σ m (x² + y²)."
+  },
+  {
+   "number": 23,
+   "topic": "General",
+   "question": "State the perpendicular axis theorem.",
+   "marks": null,
+   "answer": "The perpendicular axis theorem states that for a plane lamina, the moment of inertia about an axis perpendicular to the plane of the lamina is equal to the sum of the moments of inertia about two mutually perpendicular axes in the plane of the lamina which intersect at the point where the perpendicular axis passes through it: Iz = Ix + Iy."
+  },
+  {
+   "number": 24,
+   "topic": "General",
+   "question": "State the parallel axis theorem.",
+   "marks": null,
+   "answer": "The parallel axis theorem states that the moment of inertia of a body about any axis is equal to the moment of inertia about a parallel axis through the centre of mass plus the product of the total mass of the body and the square of the distance between the two axes: I = I_cm + M d², where d is the perpendicular distance between the axes."
+  },
+  {
+   "number": 25,
+   "topic": "General",
+   "question": "For a rectangular plate of mass M, Ix = (1/3) M b² and Iy = (1/3) M a². Find",
+   "marks": null,
+   "answer": "the moment of inertia of the plate about the z-axis (perpendicular to its plane). By the perpendicular axis theorem, Iz = Ix + Iy = (1/3) M b² + (1/3) M a² = (M/3)(a² + b²)."
+  },
+  {
+   "number": 26,
+   "topic": "General",
+   "question": "The surface area of a thin ring of radius r and thickness dr is 2πr dr. If the",
+   "marks": null,
+   "answer": "mass of a disc of radius R is m, find the mass dm of such a ring cut from the disc. Mass per unit area of the disc: σ = m / (πR²). Mass of the ring = σ × (area of ring) = [m / (πR²)] × 2πr dr. dm = (2m / R²) r dr."
+  },
+  {
+   "number": 27,
+   "topic": "General",
+   "question": "Find the moment of inertia of a small portion (element) of a hoop about an",
+   "marks": null,
+   "answer": "axis through the centre of the hoop and perpendicular to its plane. Let the hoop have radius r and let the small portion have mass δm. Every particle of the hoop is at the same distance r from the centre, so the moment of inertia of the portion about the perpendicular central axis is δI = r² δm. Summing over the whole hoop, I = r² Σ δm = m r², where m is the total mass of the hoop."
+  },
+  {
+   "number": 28,
+   "topic": "General",
+   "question": "Derive the moment of inertia of a circular disc about an axis through its",
+   "marks": null,
+   "answer": "centre and perpendicular to its plane. Let the disc have mass M and radius R, so its mass per unit area is σ = M/(πR²). Divide the disc into thin rings of radius r and thickness dr; the mass of one ring is dm = σ · 2πr dr = (2M/R²) r dr, and its moment of inertia is dI = r² dm = (2M/R²) r³ dr. Integrating from r = 0 to r = R: I = (2M/R²) ∫₀^R r³ dr = (2M/R²)(R⁴/4) = (1/2) M R²."
+  },
+  {
+   "number": 29,
+   "topic": "General",
+   "question": "Find the moment of inertia of a solid circular cylinder about its own axis.",
+   "marks": null,
+   "answer": "Divide the cylinder into thin coaxial cylindrical shells. Equivalently, using discs: for a cylinder of mass M and radius R, the mass per unit volume is ρ = M/(πR²L). A thin shell of radius r and thickness dr has mass dm = ρ · 2πrL dr and moment of inertia dI = r² dm. I = ∫₀^R r² (2πρL) r dr = 2πρL (R⁴/4) = (1/2)(πR²Lρ) R² = (1/2) M R²."
+  },
+  {
+   "number": 30,
+   "topic": "General",
+   "question": "State Chasles' theorem.",
+   "marks": null,
+   "answer": "Chasles' theorem states that the most general displacement of a rigid body is a translation plus a rotation: any displacement of a rigid body can be obtained by first translating the body (so that one chosen point moves to its final position) and then rotating the body about an axis through that point. Equivalently, the general motion of a rigid body is a translation of the centre of mass combined with a rotation about the centre of mass."
+  },
+  {
+   "number": 31,
+   "topic": "General",
+   "question": "State Euler's theorem on the motion of a rigid body.",
+   "marks": null,
+   "answer": "Euler's theorem states that the general displacement of a rigid body with one point fixed is equivalent to a single rotation about some axis passing through the fixed point. In other words, whatever the motion of a rigid body about a fixed point, its final orientation can be reached by one rotation through a definite angle about a definite axis through that point."
+  },
+  {
+   "number": 32,
+   "topic": "General",
+   "question": "Distinguish between orbital angular momentum and spin angular",
+   "marks": null,
+   "answer": "momentum. The total angular momentum of a body about an origin O can be split into two parts: Orbital angular momentum: the angular momentum of the centre of mass, treated as a particle of mass M moving with the velocity of the centre of mass: L_orbital = R_cm × M V_cm. Spin angular momentum: the angular momentum of the body about its own centre of mass due to its rotation: L_spin = Σ rᵢ' × mᵢ vᵢ' (for a rigid body, L_spin = I ω). Total angular momentum: L = L_orbital + L_spin. (For example, the Moon has orbital angular momentum about the Earth and spin angular momentum about its own axis.)"
+  },
+  {
+   "number": 33,
+   "topic": "General",
+   "question": "If r = a cos ωt î + b sin ωt ĵ and the momentum is p = −amω sin ωt î + bmω",
+   "marks": null,
+   "answer": "cos ωt ĵ, find the angular momentum L = r × p. L = r × p = | î ĵ k̂ ; a cos ωt b sin ωt 0 ; −amω sin ωt bmω cos ωt 0 | Only the k̂-component survives: L_z = (a cos ωt)(bmω cos ωt) − (b sin ωt)(−amω sin ωt) = abmω cos² ωt + abmω sin² ωt = abmω (cos² ωt + sin² ωt) = abmω. Hence L = abmω k̂, which is constant in time."
+  },
+  {
+   "number": 34,
+   "topic": "General",
+   "question": "Derive the differential equation of simple harmonic motion.",
+   "marks": null,
+   "answer": "In simple harmonic motion the restoring force is proportional to the displacement and directed towards the equilibrium position: F = −kx, where k is a positive constant. By Newton's second law, m d²x/dt² = −kx, i.e. d²x/dt² + (k/m) x = 0. Writing ω² = k/m, the equation of SHM is d²x/dt² + ω²x = 0, whose solution x = A cos(ωt + ε) describes oscillation with period T = 2π/ω = 2π√(m/k)."
+  },
+  {
+   "number": 35,
+   "topic": "General",
+   "question": "Define torque and write its formula.",
+   "marks": null,
+   "answer": "Torque is the rotational analogue of force: it is the turning effect produced by a force about an axis or point. For a force F applied at a point with position vector r from the reference point, τ = r × F, with magnitude τ = r F sin θ, where θ is the angle between r and F. Torque is also equal to the rate of change of angular momentum, τ = dL/dt, and for a rigid body rotating about a fixed axis, τ = I α."
+  }
+ ]
+}

@@ -610,6 +610,8 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                           {q.options.map((optText, optIdx) => {
                             const letter = LETTERS[optIdx] || String(optIdx + 1);
                             const isCorrect = q.correctIndex === optIdx;
+                            const hasVerifiedAnswer =
+                              q.correctIndex !== null && q.correctIndex !== undefined;
                             const isUserPick = userPick === optIdx;
 
                             let rowClass =
@@ -623,7 +625,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                               if (isCorrect) {
                                 rowClass =
                                   'bg-emerald-50 border-emerald-400 text-emerald-950 font-semibold';
-                              } else if (isUserPick && !isCorrect) {
+                              } else if (isUserPick && !isCorrect && hasVerifiedAnswer) {
                                 rowClass =
                                   'bg-rose-50 border-rose-300 text-rose-900 font-medium';
                               }
@@ -654,7 +656,7 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                                   {hasPicked && isCorrect && (
                                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                                   )}
-                                  {hasPicked && isUserPick && !isCorrect && (
+                                  {hasPicked && isUserPick && !isCorrect && hasVerifiedAnswer && (
                                     <XCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
                                   )}
                                 </button>
@@ -765,6 +767,11 @@ export const MidtermDocPage: React.FC<MidtermDocPageProps> = ({
                             </div>
                             <p className="whitespace-pre-line">{item.answer}</p>
                           </div>
+                        )}
+                        {isRevealed && !item.answer && (
+                          <p className="text-xs text-slate-500 italic">
+                            Model answer was not extracted for this question in the source PDF.
+                          </p>
                         )}
                       </article>
                     );

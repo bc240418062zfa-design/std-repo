@@ -86,14 +86,16 @@ const fullHtml = `<!doctype html>
     <meta property="og:title" content="MIHORA VU – VU Assignment Solution 2026 Latest &amp; Solved Past Papers (All 411+ Courses)" />
     <meta property="og:description" content="Direct high-speed download for 28,328+ Virtual University solved past papers, midterms, finals, handouts, MCQs &amp; latest 2026 assignment solution guides for all 411 courses." />
     <meta property="og:url" content="https://study.mihora.tech/" />
-    <meta property="og:image" content="https://study.mihora.tech/logo.svg" />
-    <meta property="og:image:alt" content="MIHORA VU Study Library Logo" />
+    <meta property="og:image" content="https://study.mihora.tech/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="MIHORA VU Study Library — Virtual University past papers and midterm prep" />
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="MIHORA VU – VU Assignment Solution 2026 Latest &amp; Solved Past Papers (All 411+ Courses)" />
     <meta name="twitter:description" content="Direct high-speed download for 28,328+ Virtual University solved past papers, midterms, finals, handouts, MCQs &amp; latest 2026 assignment solution guides for all 411 courses." />
-    <meta name="twitter:image" content="https://study.mihora.tech/logo.svg" />
+    <meta name="twitter:image" content="https://study.mihora.tech/og-cover.jpg" />
 
     <!-- Technical Webmaster & Indexing Directives -->
     <meta name="theme-color" content="#001738" />
