@@ -59,8 +59,8 @@ const fullHtml = `<!doctype html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Primary High-Ranking Search Engine Title & Description (Targeting 'mihora vu' & 'vu assignment solution 2026') -->
-    <title>MIHORA VU – VU Assignment Solution 2026 Latest &amp; Solved Past Papers (All 411+ Courses)</title>
-    <meta name="description" content="Official MIHORA VU Study Library: Direct download VU Assignment Solution 2026 (Latest Spring &amp; Fall), 28,328+ solved past papers (Moaaz, Waqar Siddhu), handouts &amp; quizzes for all 411+ Virtual University courses." />
+    <title>MIHORA VU – VU Assignment Solution 2026 &amp; Past Papers</title>
+    <meta name="description" content="MIHORA VU Study Library: VU Assignment Solution 2026, 28,328+ solved past papers, handouts &amp; quizzes for all 411+ Virtual University courses." />
     <meta name="keywords" content="mihora vu, mihora tech vu, mihora study library, study mihora tech, mihora vu portal, vu assignment solution 2026, vu assignment solution latest, vu assignment 1 solution 2026, vu assignment 2 solution 2026, vu gdb solution 2026, vu quiz solution 2026, vu solved assignments 2026, vu assignment spring 2026, vu assignment fall 2026, vu past papers 2026, vu solved past papers, moaaz past papers, waqar siddhu past papers, vu midterm solved papers 2026, vu final term solved papers 2026, vu handouts, cs101 assignment solution 2026, cs201 assignment solution 2026, mth101 assignment solution 2026, cs301 assignment solution 2026, cs504, mgt101, eng101, pak301, isl202, cs619 fyp, virtual university of pakistan, vulms, vu datesheet, vu 20 percent rule" />
     <meta name="author" content="MIHORA TECH" />
     <meta name="publisher" content="MIHORA TECH" />
@@ -83,8 +83,8 @@ const fullHtml = `<!doctype html>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="MIHORA VU STUDY LIBRARY" />
     <meta property="og:locale" content="en_PK" />
-    <meta property="og:title" content="MIHORA VU – VU Assignment Solution 2026 Latest &amp; Solved Past Papers (All 411+ Courses)" />
-    <meta property="og:description" content="Direct high-speed download for 28,328+ Virtual University solved past papers, midterms, finals, handouts, MCQs &amp; latest 2026 assignment solution guides for all 411 courses." />
+    <meta property="og:title" content="MIHORA VU – VU Assignment Solution 2026 &amp; Past Papers" />
+    <meta property="og:description" content="28,328+ VU solved past papers, midterms, finals, handouts, MCQs &amp; 2026 assignment solution guides for all 411 courses." />
     <meta property="og:url" content="https://study.mihora.tech/" />
     <meta property="og:image" content="https://study.mihora.tech/og-cover.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -93,8 +93,8 @@ const fullHtml = `<!doctype html>
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MIHORA VU – VU Assignment Solution 2026 Latest &amp; Solved Past Papers (All 411+ Courses)" />
-    <meta name="twitter:description" content="Direct high-speed download for 28,328+ Virtual University solved past papers, midterms, finals, handouts, MCQs &amp; latest 2026 assignment solution guides for all 411 courses." />
+    <meta name="twitter:title" content="MIHORA VU – VU Assignment Solution 2026 &amp; Past Papers" />
+    <meta name="twitter:description" content="28,328+ VU solved past papers, midterms, finals, handouts, MCQs &amp; 2026 assignment solution guides for all 411 courses." />
     <meta name="twitter:image" content="https://study.mihora.tech/og-cover.jpg" />
 
     <!-- Technical Webmaster & Indexing Directives -->
