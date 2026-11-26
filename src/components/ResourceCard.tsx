@@ -102,8 +102,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
   return (
     <motion.div
       initial={{ opacity: 0, y: 18, scale: 0.985 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 'some' }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{
         duration: 0.34,
         delay: Math.min((index % 12) * 0.03, 0.24),
@@ -189,7 +188,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => onPreview(resource)}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-white/90 hover:bg-blue-50/70 text-slate-700 hover:text-blue-700 transition-colors cursor-pointer border border-slate-200/90 hover:border-blue-300 whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 px-3 py-2 min-h-[44px] rounded-xl bg-white/90 hover:bg-blue-50/70 text-slate-700 hover:text-blue-700 transition-colors cursor-pointer border border-slate-200/90 hover:border-blue-300 whitespace-nowrap"
           >
             <Eye className="w-3.5 h-3.5 text-slate-500" />
             <span>Preview</span>
@@ -215,7 +214,7 @@ export const ResourceCard: React.FC<ResourceCardProps> = ({
           type="button"
           disabled={isDownloading}
           onClick={() => onDownload(resource)}
-          className="btn-shimmer group/dl inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white transition-colors cursor-pointer disabled:opacity-50 whitespace-nowrap shadow-xs"
+          className="btn-shimmer group/dl inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] text-xs font-semibold rounded-xl bg-[#0B1526] hover:bg-blue-700 text-white transition-colors cursor-pointer disabled:opacity-50 whitespace-nowrap shadow-xs"
         >
           <Download className="w-3.5 h-3.5 transition-transform duration-200 group-hover/dl:translate-y-0.5" />
           <span>{isDownloading ? 'Resolving...' : 'Download'}</span>

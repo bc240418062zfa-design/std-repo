@@ -33,7 +33,7 @@ interface RouteSEO {
   preRenderedHtml: string;
 }
 
-// Load ALL 411 accredited Virtual University courses from canonical data
+// Load ALL 412 accredited Virtual University courses from canonical data
 const coursesJsonPath = path.resolve('src/data/courses.json');
 const resourcesJsonPath = path.resolve('src/data/resources.json');
 let allCoursesList: Array<{ code: string; title: string; faculty: string; fileCount: number }> = [];
@@ -138,18 +138,18 @@ const ROUTES: RouteSEO[] = [
     `
   },
 
-  // 1. Course Directory (ALL 411 Courses)
+  // 1. Course Directory (ALL 412 Courses)
   {
     path: 'courses',
-    title: 'VU Course List – All 411+ Subjects, Past Papers & Handouts',
-    description: 'Complete Virtual University course list covering all 411+ subject codes (CS, MTH, MGT, ENG, PAK, PSY, ZOO, EDU). Access verified past papers, solved midterms, finals, lecture handouts PDF, and 2026 assignment 1 & 2 solutions.',
+    title: `VU Course List – All ${allCoursesList.length}+ Subjects, Past Papers & Handouts`,
+    description: `Complete Virtual University course list covering all ${allCoursesList.length}+ subject codes (CS, MTH, MGT, ENG, PAK, PSY, ZOO, EDU). Access verified past papers, solved midterms, finals, lecture handouts PDF, and 2026 assignment 1 & 2 solutions.`,
     canonical: 'https://study.mihora.tech/courses',
     keywords: 'mihora vu, vu course list, virtual university all course codes, vu courses directory, virtual university all subjects, vu cs courses, vu mth courses, vu assignment solution 2026, vu past papers list, vu syllabus handouts',
     extraJsonLd: {
       "@type": "ItemList",
       "@id": "https://study.mihora.tech/courses#catalog",
       "name": "Virtual University Courses Directory",
-      "description": "Comprehensive index of all 411+ academic courses taught at Virtual University of Pakistan with 2026 assignment solution guides and solved past papers.",
+      "description": `Comprehensive index of all ${allCoursesList.length}+ academic courses taught at Virtual University of Pakistan with 2026 assignment solution guides and solved past papers.`,
       "numberOfItems": allCoursesList.length,
       "itemListElement": allCoursesList.map((c, i) => ({
         "@type": "Course",
@@ -165,9 +165,9 @@ const ROUTES: RouteSEO[] = [
     },
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
-        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Virtual University Course Directory (All 411 Courses &amp; Codes)</h1>
+        <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Virtual University Course Directory (All ${allCoursesList.length} Courses &amp; Codes)</h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
-          Browse all 411 accredited undergraduate, graduate, and associate degree courses of Virtual University of Pakistan. Select any course to access verified midterm past papers, final term solved files, Moaaz &amp; Waqar Siddhu MCQs, updated handouts, and <strong>VU Assignment Solution 2026 (Latest)</strong>.
+          Browse all ${allCoursesList.length} accredited undergraduate, graduate, and associate degree courses of Virtual University of Pakistan. Select any course to access verified midterm past papers, final term solved files, Moaaz &amp; Waqar Siddhu MCQs, updated handouts, and <strong>VU Assignment Solution 2026 (Latest)</strong>.
         </p>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem;">
           ${allCoursesList.map(c => `
@@ -176,11 +176,13 @@ const ROUTES: RouteSEO[] = [
                 ${c.code} – ${c.title}
               </a>
               <div style="color: #64748b; font-size: 0.85rem; margin-top: 0.35rem;">
-                Faculty: <strong>${c.faculty}</strong> • ${c.fileCount} Verified Files
+                Faculty: <strong>${c.faculty}</strong> • ${c.fileCount > 0 ? `${c.fileCount} Verified Files` : 'Midterm Prep 2026 Question Banks'}
               </div>
               <div style="margin-top: 0.75rem; font-size: 0.8rem; color: #0284c7;">
                 <a href="/courses/${c.code.toLowerCase()}" style="text-decoration: underline; color: #0284c7; margin-right: 0.75rem;">Study Archive</a>
-                <a href="/vu-assignment-solution-2026?course=${c.code}" style="text-decoration: underline; color: #059669;">2026 Solutions</a>
+                ${c.fileCount > 0
+                  ? `<a href="/vu-assignment-solution-2026?course=${c.code}" style="text-decoration: underline; color: #059669;">2026 Solutions</a>`
+                  : `<a href="/midterm-prep" style="text-decoration: underline; color: #b45309;">Midterm Prep 2026</a>`}
               </div>
             </div>
           `).join('')}
@@ -193,7 +195,7 @@ const ROUTES: RouteSEO[] = [
   {
     path: 'vu-assignment-solution-2026',
     title: 'VU Assignment Solution 2026 – All Courses Solved',
-    description: 'Download verified Virtual University Assignment Solution 2026 (Latest Spring & Fall Semesters), GDB solutions, quiz files, and Turnitin plagiarism-free templates (<19%) for CS101, CS201, MTH101, MGT101, and all 411 courses on MIHORA VU.',
+    description: `Download verified Virtual University Assignment Solution 2026 (Latest Spring & Fall Semesters), GDB solutions, quiz files, and Turnitin plagiarism-free templates (<19%) for CS101, CS201, MTH101, MGT101, and all ${allCoursesList.length} courses on MIHORA VU.`,
     canonical: 'https://study.mihora.tech/vu-assignment-solution-2026',
     keywords: 'mihora vu, vu assignment solution 2026, vu assignment solution latest, vu assignment 1 solution 2026, vu assignment 2 solution 2026, vu gdb solution 2026, vu quiz solution 2026, vu solved assignments 2026, cs101 assignment solution 2026, cs201 assignment solution 2026, mth101 assignment solution 2026, cs301 assignment solution 2026, cs504 assignment solution 2026, mgt101 assignment solution 2026, vu assignment grace period 24 hours, turnitin plagiarism vu',
     extraJsonLd: {
@@ -205,7 +207,7 @@ const ROUTES: RouteSEO[] = [
           "name": "Where can I find VU Assignment Solution 2026 for all Virtual University courses?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "MIHORA VU (https://study.mihora.tech/vu-assignment-solution-2026) provides verified 2026 assignment solutions, Dev-C++ code templates, MathType formulas, and GDB rubrics for all 411 Virtual University subjects including CS101, CS201, CS301, MTH101, MGT101, and ENG101 with 100% free direct downloads."
+            "text": "MIHORA VU (https://study.mihora.tech/vu-assignment-solution-2026) provides verified 2026 assignment solutions, Dev-C++ code templates, MathType formulas, and GDB rubrics for all ${allCoursesList.length} Virtual University subjects including CS101, CS201, CS301, MTH101, MGT101, and ENG101 with 100% free direct downloads."
           }
         },
         {
@@ -237,10 +239,13 @@ const ROUTES: RouteSEO[] = [
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
         <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">
-          VU Assignment Solution 2026 (Latest Spring &amp; Fall Sessions) – All 411 Courses
+          VU Assignment Solution 2026 (Latest Spring &amp; Fall Sessions) – All ${allCoursesList.length} Courses
         </h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
           Official MIHORA VU educational portal for Virtual University students: Complete collection of verified <strong>VU Assignment Solutions 2026</strong>, Assignment 1 &amp; 2 solved files, Graded Discussion Boards (GDB), and Quizzes. Built with Turnitin plagiarism defense guidance (&lt; 19% similarity limit) and 24-hour grace period instructions.
+        </p>
+        <p style="margin-top: 0.75rem; color: #475569; font-size: 0.95rem;">
+          Formatting help: <a href="/assignment-guide" style="color: #0066ff; font-weight: 700;">VU Assignment &amp; GDB Formatting Guide – Turnitin &lt;19%, MathType, Dev-C++ commenting</a>
         </p>
 
         <section style="margin-top: 2rem; padding: 1.5rem; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px;">
@@ -257,7 +262,7 @@ const ROUTES: RouteSEO[] = [
 
         <section style="margin-top: 2.5rem;">
           <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a;">
-            Directory of All 411 Courses for 2026 Assignment Solutions:
+            Directory of All ${allCoursesList.length} Courses for 2026 Assignment Solutions:
           </h2>
           <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.25rem;">
             ${allCoursesList.map(c => `
@@ -266,7 +271,7 @@ const ROUTES: RouteSEO[] = [
                   ${c.code} – ${c.title}
                 </a>
                 <div style="color: #64748b; font-size: 0.8rem; margin-top: 0.25rem;">
-                  ${c.faculty} • 2026 Solutions &amp; Handouts
+                  ${c.faculty} • ${c.fileCount > 0 ? '2026 Solutions &amp; Handouts' : 'Midterm Prep 2026 Question Banks'}
                 </div>
               </div>
             `).join('')}
@@ -280,7 +285,7 @@ const ROUTES: RouteSEO[] = [
   {
     path: 'assignment-guide',
     title: 'VU Assignment & GDB Formatting Guide | MIHORA VU',
-    description: 'VU assignment solution 2026 guide: 24-hour grace period rules, Turnitin 19% similarity limits, MathType formula pasting, Dev-C++ code formatting, and GDB rubrics for all 411 courses.',
+    description: `VU assignment solution 2026 guide: 24-hour grace period rules, Turnitin 19% similarity limits, MathType formula pasting, Dev-C++ code formatting, and GDB rubrics for all ${allCoursesList.length} courses.`,
     canonical: 'https://study.mihora.tech/assignment-guide',
     keywords: 'vu assignment solution 2026, vu assignment grace period, vu turnitin plagiarism rules, vu math type equations word, vu dev c plus plus assignment, vu gdb format, mihora vu',
     preRenderedHtml: `
@@ -298,7 +303,7 @@ const ROUTES: RouteSEO[] = [
   {
     path: 'past-papers',
     title: 'VU Solved Past Papers – Midterm & Final Term',
-    description: 'Download verified Virtual University solved past papers: Moaaz & Waqar Siddhu midterm and final term papers, repeat MCQs, subjective question banks for all 411 courses on MIHORA VU.',
+    description: `Download verified Virtual University solved past papers: Moaaz & Waqar Siddhu midterm and final term papers, repeat MCQs, subjective question banks for all ${allCoursesList.length} courses on MIHORA VU.`,
     canonical: 'https://study.mihora.tech/past-papers',
     keywords: 'mihora vu, vu past papers, vu solved past papers, moaaz past papers, waqar siddhu past papers, vu midterm solved papers, vu final term solved papers, vu mcqs, virtual university solved papers',
     extraJsonLd: {
@@ -311,10 +316,10 @@ const ROUTES: RouteSEO[] = [
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
         <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a;">Virtual University Solved Past Papers (Moaaz &amp; Waqar Siddhu)</h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
-          Direct high-speed download for over 28,328+ Virtual University past exam files. Verified Moaaz midterm solved papers, Waqar Siddhu final term objective MCQs, subjective solutions, and grand quiz files for all 411 courses.
+          Direct high-speed download for over 28,328+ Virtual University past exam files. Verified Moaaz midterm solved papers, Waqar Siddhu final term objective MCQs, subjective solutions, and grand quiz files for all ${allCoursesList.length} courses.
         </p>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem;">
-          ${allCoursesList.slice(0, 50).map(c => `
+          ${allCoursesList.filter((c) => c.fileCount > 0).slice(0, 50).map(c => `
             <div style="padding: 1rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
               <a href="/courses/${c.code.toLowerCase()}" style="text-decoration: none; font-weight: 700; color: #0066ff;">
                 ${c.code} Past Papers &amp; Solved Files
@@ -342,6 +347,9 @@ const ROUTES: RouteSEO[] = [
         <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
           Open any subject below for its dedicated shareable MCQ practice quiz, timed mock exam simulator, and quick revision sheet.
         </p>
+        <p style="margin-top: 0.75rem; color: #475569; font-size: 0.95rem;">
+          Also: <a href="/live-mids-mcqs" style="color: #1d4ed8; font-weight: 700;">VU Live Mids MCQs – current midterm quiz bank</a> · <a href="/vu-mcqs-bank" style="color: #1d4ed8; font-weight: 700;">VU MCQs Bank – full library MCQ &amp; quiz file collection</a> · <a href="/midterm-prep" style="color: #1d4ed8; font-weight: 700;">Midterm Prep 2026 – 664 solved packs</a>
+        </p>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
           ${mcqSets.map(s => `
             <div style="padding: 1.25rem; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff;">
@@ -362,7 +370,7 @@ const ROUTES: RouteSEO[] = [
   {
     path: 'subjective',
     title: 'VU Subjective Fast-Learning Studio | MIHORA VU',
-    description: 'Master VU 2, 3, and 5-mark subjective exam questions using flash-recall cards, 10-second memory hooks, rapid cram sheets, and all 411 subject hubs on MIHORA VU.',
+    description: `Master VU 2, 3, and 5-mark subjective exam questions using flash-recall cards, 10-second memory hooks, rapid cram sheets, and all ${allCoursesList.length} subject hubs on MIHORA VU.`,
     canonical: 'https://study.mihora.tech/subjective',
     keywords: 'mihora vu, vu subjective questions, vu short questions 2 marks, vu long questions 5 marks, cs201 subjective, cs301 subjective, cs403 subjective, eng201 subjective, mgt301 subjective, pak301 subjective, vu fast learning',
     preRenderedHtml: `
@@ -370,6 +378,9 @@ const ROUTES: RouteSEO[] = [
         <h1 style="font-size: 2.25rem; font-weight: 800; color: #0f172a;">VU Subjective Fast-Learning Studio</h1>
         <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">
           Active-recall flash decks, 10-second memory hooks, examiner key points, and rapid cram sheets for 2, 3, and 5-mark Virtual University subjective exams.
+        </p>
+        <p style="margin-top: 0.75rem; color: #475569; font-size: 0.95rem;">
+          Also: <a href="/vu-subjective-solved" style="color: #1d4ed8; font-weight: 700;">Solved VU Subjective Questions (2, 3 &amp; 5 Marks) – complete solved subjective archive</a> · <a href="/midterm-prep" style="color: #1d4ed8; font-weight: 700;">Midterm Prep 2026 – 664 solved packs</a>
         </p>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
           ${subjectiveSets.map(s => `
@@ -618,6 +629,9 @@ const ROUTES: RouteSEO[] = [
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
           Authoritative academic policies of Virtual University of Pakistan: The 20% Two-Half evaluation rule, paper rechecking (PKR 500), merit &amp; need-based scholarships, official A+ to F grading scheme, Zero Semester &amp; credit transfer rules, 24-hour assignment grace period, fee installments, and missed paper rescheduling (PKR 2,000).
         </p>
+        <p style="margin-top: 0.75rem; color: #475569; font-size: 0.95rem;">
+          Related guides: <a href="/datesheet-guide" style="color: #1d4ed8; font-weight: 700;">VU Datesheet Maker &amp; Seat Booking Guide 2026</a> · <a href="/cs619-guide" style="color: #1d4ed8; font-weight: 700;">CS619 Final Year Project (FYP) Guide</a> · <a href="/vu-assignment-solution-2026" style="color: #1d4ed8; font-weight: 700;">VU Assignment Solution 2026</a>
+        </p>
       </div>
     `
   },
@@ -634,6 +648,9 @@ const ROUTES: RouteSEO[] = [
         <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">VU Mid Calculator &amp; Exam Passing Marks Simulator</h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
           Real-time academic calculator calculating your Midterm standing and exact Final-Term examination score required to pass any VU course or achieve target grades (A, B, C, D) under the official 20% Two-Half Passing Rule.
+        </p>
+        <p style="margin-top: 0.75rem; color: #475569; font-size: 0.95rem;">
+          Also try: <a href="/gpa-calculator" style="color: #1d4ed8; font-weight: 700;">VU GPA &amp; CGPA Calculator (Official 4.0 Scale)</a> · <a href="/handbook" style="color: #1d4ed8; font-weight: 700;">VU Student Handbook 2026 – FAQs, Rules &amp; Grading</a>
         </p>
       </div>
     `
@@ -728,7 +745,7 @@ const ROUTES: RouteSEO[] = [
   {
     path: 'sitemap',
     title: 'VU Curriculum & Faculty Sitemap | MIHORA VU',
-    description: 'Comprehensive portal map of all Virtual University faculties, departments, 411 courses, handbook guides, passing calculators, and XML sitemaps on MIHORA VU.',
+    description: `Comprehensive portal map of all Virtual University faculties, departments, ${allCoursesList.length} courses, handbook guides, passing calculators, and XML sitemaps on MIHORA VU.`,
     canonical: 'https://study.mihora.tech/sitemap',
     keywords: 'mihora vu, vu sitemap directory, virtual university all courses list, vu curriculum map',
     preRenderedHtml: `
@@ -737,6 +754,36 @@ const ROUTES: RouteSEO[] = [
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
           Complete navigation index for all sections of MIHORA STUDY LIBRARY, departmental course catalogs, and search crawler resources.
         </p>
+        <section style="margin-top: 1.5rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+          <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a;">Study Hubs</h2>
+          <p style="color: #475569; line-height: 2; margin-top: 0.5rem;">
+            <a href="/courses" style="color: #1d4ed8; font-weight: 700;">All ${allCoursesList.length} VU Courses</a> ·
+            <a href="/midterm-prep" style="color: #1d4ed8; font-weight: 700;">Midterm Prep 2026 – 664 Solved Packs</a> ·
+            <a href="/mcqs" style="color: #1d4ed8; font-weight: 700;">Interactive MCQs</a> ·
+            <a href="/subjective" style="color: #1d4ed8; font-weight: 700;">Subjective Fast-Learning Studio</a> ·
+            <a href="/past-papers" style="color: #1d4ed8; font-weight: 700;">Solved Past Papers</a> ·
+            <a href="/vu-assignment-solution-2026" style="color: #1d4ed8; font-weight: 700;">VU Assignment Solution 2026</a> ·
+            <a href="/vu-mcqs-bank" style="color: #1d4ed8; font-weight: 700;">VU MCQs Bank</a> ·
+            <a href="/live-mids-mcqs" style="color: #1d4ed8; font-weight: 700;">VU Live Mids MCQs</a> ·
+            <a href="/vu-handouts-pdf" style="color: #1d4ed8; font-weight: 700;">VU Lecture Handouts PDF</a> ·
+            <a href="/vu-subjective-solved" style="color: #1d4ed8; font-weight: 700;">Solved VU Subjective Questions</a>
+          </p>
+          <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-top: 1.5rem;">Guides &amp; Calculators</h2>
+          <p style="color: #475569; line-height: 2; margin-top: 0.5rem;">
+            <a href="/handbook" style="color: #1d4ed8; font-weight: 700;">VU Student Handbook 2026</a> ·
+            <a href="/assignment-guide" style="color: #1d4ed8; font-weight: 700;">VU Assignment &amp; GDB Formatting Guide</a> ·
+            <a href="/datesheet-guide" style="color: #1d4ed8; font-weight: 700;">VU Datesheet Maker &amp; Seat Booking Guide</a> ·
+            <a href="/cs619-guide" style="color: #1d4ed8; font-weight: 700;">CS619 Final Year Project Guide</a> ·
+            <a href="/simulator" style="color: #1d4ed8; font-weight: 700;">VU Mid Calculator &amp; Passing Marks Simulator</a> ·
+            <a href="/gpa-calculator" style="color: #1d4ed8; font-weight: 700;">VU GPA &amp; CGPA Calculator</a>
+          </p>
+          <h2 style="font-size: 1.25rem; font-weight: 800; color: #0f172a; margin-top: 1.5rem;">About &amp; Legal</h2>
+          <p style="color: #475569; line-height: 2; margin-top: 0.5rem;">
+            <a href="/about" style="color: #1d4ed8; font-weight: 700;">About MIHORA TECH</a> ·
+            <a href="/security" style="color: #1d4ed8; font-weight: 700;">Privacy &amp; Trust – Zero Data Collection</a> ·
+            <a href="/disclaimer" style="color: #1d4ed8; font-weight: 700;">Academic Disclaimer &amp; Fair Use Notice</a>
+          </p>
+        </section>
       </div>
     `
   },
@@ -759,7 +806,7 @@ const ROUTES: RouteSEO[] = [
   }
 ];
 
-// Add ALL 411 Courses as dedicated, high-ranking static routes
+// Add ALL courses in courses.json as dedicated, high-ranking static routes
 for (const course of allCoursesList) {
   const cCounts = perCourseCounts[course.code.toUpperCase()] || {};
   const finalCnt = cCounts['FINALTERM'] || 0;
@@ -768,11 +815,22 @@ for (const course of allCoursesList) {
   const mcqCnt = cCounts['MCQFILE'] || 0;
   const handoutCnt = cCounts['HANDOUT'] || 0;
   const assignCnt = cCounts['ASSIGNMENT'] || 0;
+  // 43 courses (e.g. MGT201, MTH102) have Midterm Prep 2026 packs but no
+  // library files yet — their pages lead with the packs, never "0 files".
+  const hasLibraryFiles = course.fileCount > 0;
+  const courseMidterms = getMidtermDocsForCourse(course.code);
+  const courseMidtermTotal = courseMidterms.reduce((s, m) => s + m.itemCount, 0);
+  // Keep titles ≤60 chars: long official course titles drop the brand suffix.
+  const coursePageTitleFull = `${course.code} – ${course.title} | MIHORA VU`;
+  const coursePageTitle =
+    coursePageTitleFull.length > 60 ? `${course.code} – ${course.title}` : coursePageTitleFull;
 
   ROUTES.push({
     path: `courses/${course.code.toLowerCase()}`,
-    title: `${course.code} – ${course.title} | MIHORA VU`,
-    description: `Download verified ${course.code} (${course.title}) VU Assignment 1 & 2 Solution 2026, GDB solution, ${midCnt} midterm & ${finalCnt} final-term past papers (Moaaz, Waqar Siddhu), ${quizCnt + mcqCnt} quiz/MCQ files, and ${handoutCnt} lecture handouts PDF free on MIHORA VU.`,
+    title: coursePageTitle,
+    description: hasLibraryFiles
+      ? `Download verified ${course.code} (${course.title}) VU Assignment 1 & 2 Solution 2026, GDB solution, ${midCnt} midterm & ${finalCnt} final-term past papers (Moaaz, Waqar Siddhu), ${quizCnt + mcqCnt} quiz/MCQ files, and ${handoutCnt} lecture handouts PDF free on MIHORA VU.`
+      : `Read all ${courseMidtermTotal} solved ${course.code} (${course.title}) Midterm Prep 2026 questions — Midterm Important MCQs with verified answer keys and Subjective Q&As with model answers — directly on-page, free, no login.`,
     canonical: `https://study.mihora.tech/courses/${course.code.toLowerCase()}`,
     keywords: `mihora vu, ${course.code} assignment 1 solution 2026, ${course.code} assignment 2 solution 2026, ${course.code} assignment solution 2026, ${course.code} assignment solution latest, ${course.code} gdb solution 2026, ${course.code} past papers, ${course.code} solved midterm, ${course.code} final term papers, ${course.code} handouts pdf, ${course.code} mcqs bank, ${course.code} live mids mcqs, ${course.code} subjective, ${course.code} vu, virtual university ${course.code}`,
     extraJsonLd: {
@@ -780,7 +838,9 @@ for (const course of allCoursesList) {
       "@id": `https://study.mihora.tech/courses/${course.code.toLowerCase()}#course`,
       "name": `${course.code} - ${course.title}`,
       "courseCode": course.code,
-      "description": `Complete study archive for ${course.code} (${course.title}) featuring ${course.fileCount} verified documents: ${finalCnt} Final-Term, ${midCnt} Midterm, ${quizCnt + mcqCnt} Quiz/MCQ files, ${handoutCnt} Handouts PDF, and 2026 Assignment 1 & 2 solutions.`,
+      "description": hasLibraryFiles
+        ? `Complete study archive for ${course.code} (${course.title}) featuring ${course.fileCount} verified documents: ${finalCnt} Final-Term, ${midCnt} Midterm, ${quizCnt + mcqCnt} Quiz/MCQ files, ${handoutCnt} Handouts PDF, and 2026 Assignment 1 & 2 solutions.`
+        : `${course.code} (${course.title}) Midterm Prep 2026: ${courseMidterms.length} solved question banks (${courseMidtermTotal} questions) with verified answer keys and model answers, readable in full on-page.`,
       "provider": {
         "@type": "Organization",
         "name": "Virtual University of Pakistan"
@@ -796,11 +856,14 @@ for (const course of allCoursesList) {
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
         <h1 style="font-size: 2.25rem; font-weight: 900; color: #0f172a; margin-bottom: 0.5rem;">
-          ${course.code} – ${course.title}: Assignment 1 &amp; 2 Solution 2026, Past Papers &amp; Handouts PDF
+          ${course.code} – ${course.title}: ${hasLibraryFiles ? 'Assignment 1 &amp; 2 Solution 2026, Past Papers &amp; Handouts PDF' : 'Midterm Prep 2026 Solved Question Banks'}
         </h1>
         <p style="color: #475569; font-size: 1.1rem; line-height: 1.6;">
-          Department: <strong>${course.faculty}</strong> • Total Verified Collection: <strong>${course.fileCount} Files</strong> (${finalCnt} Final-Term, ${midCnt} Midterm, ${quizCnt} Quizzes, ${mcqCnt} MCQ Banks, ${handoutCnt} Handouts PDF, ${assignCnt} Assignments).
+          ${hasLibraryFiles
+            ? `Department: <strong>${course.faculty}</strong> • Total Verified Collection: <strong>${course.fileCount} Files</strong> (${finalCnt} Final-Term, ${midCnt} Midterm, ${quizCnt} Quizzes, ${mcqCnt} MCQ Banks, ${handoutCnt} Handouts PDF, ${assignCnt} Assignments).`
+            : `Department: <strong>${course.faculty}</strong> • Midterm Prep 2026: <strong>${courseMidterms.length} solved question banks (${courseMidtermTotal} questions)</strong> — full text on-page. No library files for this course in the archive yet.`}
         </p>
+        ${hasLibraryFiles ? `
         <div style="margin-top: 1.5rem; padding: 1.5rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
           <h2 style="font-size: 1.3rem; font-weight: 700; color: #0066ff;">Verified Study Resources for ${course.code} (${course.title}):</h2>
           <ul style="color: #475569; line-height: 1.8; margin-top: 0.5rem;">
@@ -824,9 +887,16 @@ for (const course of allCoursesList) {
               ${course.code} Mid Calculator
             </a>
           </div>
-        </div>
+        </div>` : `
+        <div style="margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem;">
+          <a href="/vu-mcqs-bank" style="display: inline-block; padding: 0.75rem 1.25rem; background: #eff6ff; color: #1d4ed8; font-weight: 700; text-decoration: none; border-radius: 8px; border: 1px solid #bfdbfe;">
+            MCQs Bank &amp; Live Mids
+          </a>
+          <a href="/simulator" style="display: inline-block; padding: 0.75rem 1.25rem; background: #fffbeb; color: #b45309; font-weight: 700; text-decoration: none; border-radius: 8px; border: 1px solid #fde68a;">
+            ${course.code} Mid Calculator
+          </a>
+        </div>`}
         ${(() => {
-          const courseMidterms = getMidtermDocsForCourse(course.code);
           if (courseMidterms.length === 0) return '';
           return `
         <section style="margin-top: 1.5rem; padding: 1.5rem; background: #0f172a; color: #ffffff; border-radius: 12px;">
@@ -886,7 +956,13 @@ for (const set of mcqSets) {
       "educationalAlignment": {
         "@type": "AlignmentObject",
         "targetName": `${set.courseCode} ${set.termLabel}`
-      }
+      },
+      // AEO: a sample of real questions with their verified answers (verbatim data).
+      "hasPart": set.questions.filter((q) => q.options[q.correctIndex]).slice(0, 10).map((q) => ({
+        "@type": "Question",
+        "name": q.question,
+        "acceptedAnswer": { "@type": "Answer", "text": q.options[q.correctIndex] }
+      }))
     },
     preRenderedHtml: `
       <div style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
@@ -964,6 +1040,15 @@ interface MidtermDocJson {
 
 function buildMidtermDocRoutes(): void {
   const dataDir = path.resolve('public/midterm-data');
+  // Prev/next navigation runs across all 664 packs in filename order;
+  // related packs are same-faculty packs from other courses.
+  const sortedMidtermEntries = [...allMidtermEntries].sort((a, b) => a.filename.localeCompare(b.filename));
+  const packsByFaculty = new Map<string, typeof allMidtermEntries>();
+  for (const e of allMidtermEntries) {
+    const list = packsByFaculty.get(e.faculty) || [];
+    list.push(e);
+    packsByFaculty.set(e.faculty, list);
+  }
   let loaded = 0;
   let skipped = 0;
   for (const entry of allMidtermEntries) {
@@ -981,6 +1066,25 @@ function buildMidtermDocRoutes(): void {
     const items = isMcq ? (doc.mcqs || []) : (doc.subjective || []);
     const count = items.length || entry.itemCount;
     const courseLower = entry.courseCode.toLowerCase();
+    const entryIdx = sortedMidtermEntries.findIndex((e) => e.filename === entry.filename);
+    const prevEntry = entryIdx > 0 ? sortedMidtermEntries[entryIdx - 1] : null;
+    const nextEntry = entryIdx >= 0 && entryIdx < sortedMidtermEntries.length - 1 ? sortedMidtermEntries[entryIdx + 1] : null;
+    const relatedPacks = (packsByFaculty.get(entry.faculty) || [])
+      .filter((e) => e.courseCode !== entry.courseCode)
+      .sort((a, b) => a.filename.localeCompare(b.filename))
+      .slice(0, 4);
+    const packNavHtml = `
+        <nav aria-label="More midterm packs" style="margin-top: 1rem; padding: 1rem 1.25rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; font-size: 0.92rem;">
+            ${prevEntry ? `<a href="/midterm-prep/${escapeHtmlAttr(prevEntry.filename)}" style="color: #1d4ed8; font-weight: 700;">&larr; ${escapeHtmlAttr(prevEntry.courseCode)} Midterm Important ${prevEntry.kind === 'mcqs' ? 'MCQs' : 'Subjective'} (${prevEntry.itemCount} ${prevEntry.kind === 'mcqs' ? 'Qs' : 'Q&As'})</a>` : '<span style="color: #94a3b8;">First pack in the series</span>'}
+            ${nextEntry ? `<a href="/midterm-prep/${escapeHtmlAttr(nextEntry.filename)}" style="color: #1d4ed8; font-weight: 700;">${escapeHtmlAttr(nextEntry.courseCode)} Midterm Important ${nextEntry.kind === 'mcqs' ? 'MCQs' : 'Subjective'} (${nextEntry.itemCount} ${nextEntry.kind === 'mcqs' ? 'Qs' : 'Q&As'}) &rarr;</a>` : '<span style="color: #94a3b8;">Last pack in the series</span>'}
+          </div>
+          ${relatedPacks.length > 0 ? `
+          <div style="margin-top: 0.75rem; font-size: 0.92rem; color: #475569;">
+            Related ${escapeHtmlAttr(entry.faculty)} midterm packs:
+            ${relatedPacks.map((r) => `<a href="/midterm-prep/${escapeHtmlAttr(r.filename)}" style="color: #1d4ed8; font-weight: 700; margin-right: 0.75rem;">${escapeHtmlAttr(r.courseCode)} Midterm Important ${r.kind === 'mcqs' ? 'MCQs' : 'Subjective'} (${r.itemCount} ${r.kind === 'mcqs' ? 'Qs' : 'Q&As'})</a>`).join('')}
+          </div>` : ''}
+        </nav>`;
     const title = isMcq
       ? `${entry.courseCode} Midterm Important MCQs (${count} Qs) | MIHORA VU`
       : `${entry.courseCode} Midterm Subjective (${count} Q&As) | MIHORA VU`;
@@ -996,6 +1100,7 @@ function buildMidtermDocRoutes(): void {
         <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">${escapeHtmlAttr(entry.courseCode)} – ${escapeHtmlAttr(entry.courseTitle)}: Midterm Important MCQs (${count} Solved Questions)</h1>
         <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">${escapeHtmlAttr(entry.faculty)} • Read every solved MCQ with its verified answer key directly on this page. Free, no login required.</p>
         <p style="margin-top: 0.75rem;"><a href="/midterm-prep" style="color: #1d4ed8; font-weight: 700;">All 664 Midterm Packs</a> · <a href="/courses/${courseLower}" style="color: #1d4ed8; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} Course Page</a>${sibling ? ` · <a href="/midterm-prep/${escapeHtmlAttr(sibling.filename)}" style="color: #b45309; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} Subjective Pack (${sibling.itemCount} Q&As)</a>` : ''}</p>
+        ${packNavHtml}
         <ol style="color: #334155; line-height: 1.7; margin-top: 1.5rem; padding-left: 1.25rem;">
           ${mcqs.map((q) => `
           <li style="margin-bottom: 1rem;">
@@ -1014,12 +1119,13 @@ function buildMidtermDocRoutes(): void {
         <h1 style="font-size: 2rem; font-weight: 900; color: #0f172a;">${escapeHtmlAttr(entry.courseCode)} – ${escapeHtmlAttr(entry.courseTitle)}: Midterm Important Subjective (${count} Solved Q&As)</h1>
         <p style="color: #475569; font-size: 1.05rem; line-height: 1.6;">${escapeHtmlAttr(entry.faculty)} • Read every solved subjective question with its model answer directly on this page. Free, no login required.</p>
         <p style="margin-top: 0.75rem;"><a href="/midterm-prep" style="color: #1d4ed8; font-weight: 700;">All 664 Midterm Packs</a> · <a href="/courses/${courseLower}" style="color: #1d4ed8; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} Course Page</a>${sibling ? ` · <a href="/midterm-prep/${escapeHtmlAttr(sibling.filename)}" style="color: #1d4ed8; font-weight: 700;">${escapeHtmlAttr(entry.courseCode)} MCQ Pack (${sibling.itemCount} MCQs)</a>` : ''}</p>
+        ${packNavHtml}
         <ol style="color: #334155; line-height: 1.7; margin-top: 1.5rem; padding-left: 1.25rem;">
           ${subs.map((q) => `
           <li style="margin-bottom: 1.25rem;">
             <strong>${escapeHtmlAttr(q.question)}</strong>
             ${q.topic ? `<div style="color: #64748b; font-size: 0.8rem;">Topic: ${escapeHtmlAttr(q.topic)}${q.marks ? ` • ${q.marks} marks` : ''}</div>` : ''}
-            ${q.answer ? `<p style="margin-top: 0.35rem;">${escapeHtmlAttr(q.answer)}</p>` : `<p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>`}
+            ${q.answer ? `<p style="margin-top: 0.35rem;">${escapeHtmlAttr(q.answer)}</p>` : `<p style="margin-top: 0.35rem; color: #b45309;"><em>Answer not available for this question yet.</em></p>`}
           </li>`).join('')}
         </ol>
       </div>`;
@@ -1030,17 +1136,31 @@ function buildMidtermDocRoutes(): void {
           '@type': 'Quiz',
           '@id': `https://study.mihora.tech/midterm-prep/${entry.filename}#quiz`,
           name: title,
-          numberOfQuestions: count
+          numberOfQuestions: count,
+          // AEO: a sample of real questions with their verified answers (verbatim data).
+          hasPart: ((doc.mcqs || []) as NonNullable<MidtermDocJson['mcqs']>)
+            .filter((q) => q.correctIndex !== null && q.options[q.correctIndex])
+            .slice(0, 10)
+            .map((q) => ({
+              '@type': 'Question',
+              name: q.question,
+              acceptedAnswer: { '@type': 'Answer', text: q.options[q.correctIndex as number] }
+            }))
         }
       : {
           '@type': 'FAQPage',
           '@id': `https://study.mihora.tech/midterm-prep/${entry.filename}#qa`,
           name: title,
-          mainEntity: ((doc.subjective || []) as NonNullable<MidtermDocJson['subjective']>).slice(0, 5).map((q) => ({
-            '@type': 'Question',
-            name: q.question,
-            acceptedAnswer: { '@type': 'Answer', text: q.answer || 'Model answer not yet extracted from the source file.' }
-          }))
+          // AEO: only questions WITH a real model answer belong in structured
+          // data — a placeholder must never be served as an acceptedAnswer.
+          mainEntity: ((doc.subjective || []) as NonNullable<MidtermDocJson['subjective']>)
+            .filter((q) => q.answer && q.answer.trim().length > 0)
+            .slice(0, 5)
+            .map((q) => ({
+              '@type': 'Question',
+              name: q.question,
+              acceptedAnswer: { '@type': 'Answer', text: q.answer as string }
+            }))
         };
 
     ROUTES.push({
@@ -1075,6 +1195,23 @@ export function prerenderAllRoutes() {
   }
 
   const baseHtml = fs.readFileSync(baseTemplatePath, 'utf-8');
+
+  // Site-wide structured-data nodes (Organization + WebSite) extracted once
+  // from the base template. The base block also carries the homepage-only
+  // FAQPage + homepage BreadcrumbList, which are WRONG on every other page,
+  // so only the site-wide nodes are kept for per-route pages.
+  let siteWideJsonLdNodes: Array<Record<string, unknown>> = [];
+  const baseLdMatch = baseHtml.match(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/);
+  if (baseLdMatch) {
+    try {
+      const baseLd = JSON.parse(baseLdMatch[1]) as { '@graph'?: Array<Record<string, unknown>> };
+      siteWideJsonLdNodes = (baseLd['@graph'] || []).filter(
+        (n) => n['@type'] === 'Organization' || n['@type'] === 'WebSite'
+      );
+    } catch {
+      console.warn('⚠️  Base JSON-LD in dist/index.html did not parse; per-route pages will carry their own graph only.');
+    }
+  }
 
   for (const route of ROUTES) {
     const routeDir = path.join(distPath, route.path);
@@ -1211,14 +1348,25 @@ export function prerenderAllRoutes() {
       perRouteGraphNodes.push(route.extraJsonLd as Record<string, unknown>);
     }
 
-    const extraScript = `\n    <script type="application/ld+json">\n    ${JSON.stringify(
-      { '@context': 'https://schema.org', '@graph': perRouteGraphNodes },
+    // Merge with the base homepage JSON-LD instead of appending a second
+    // block: the merged script carries [Organization, WebSite, ...route nodes]
+    // so no page ships the homepage FAQPage/BreadcrumbList by mistake.
+    // The script gets an id so the SPA can update this same block on hydration.
+    const mergedScript = `\n    <script type="application/ld+json" id="mihora-route-jsonld">\n    ${JSON.stringify(
+      { '@context': 'https://schema.org', '@graph': [...siteWideJsonLdNodes, ...perRouteGraphNodes] },
       null,
       2
     )}\n    </script>`;
     // NOTE: replacer function (not a string) so `$` in question text cannot be
     // interpreted as a replacement pattern (e.g. `$&`).
-    pageHtml = pageHtml.replace('</head>', () => `${extraScript}\n  </head>`);
+    const mergedPageHtml = pageHtml.replace(
+      /<script type="application\/ld\+json"[^>]*>[\s\S]*?<\/script>/,
+      () => mergedScript
+    );
+    pageHtml =
+      mergedPageHtml !== pageHtml
+        ? mergedPageHtml
+        : pageHtml.replace('</head>', () => `${mergedScript}\n  </head>`);
 
     // 7. Inject Semantic Pre-rendered Content + Accessible Breadcrumb Rail into <div id="root">
     const staticBreadcrumbHtml = `
@@ -1397,6 +1545,8 @@ ${midtermUrlEntries.join('\n')}
   // Generate GEO LLM Context Dossiers (llms.txt & llms-full.txt)
   const totalMcqQuestions = mcqSets.reduce((sum, s) => sum + s.questions.length, 0);
   const totalSubjectiveQuestions = subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0);
+  const totalMidtermMcqs = allMidtermEntries.filter((e) => e.kind === 'mcqs').reduce((s, e) => s + e.itemCount, 0);
+  const totalMidtermSubj = allMidtermEntries.filter((e) => e.kind === 'subjective').reduce((s, e) => s + e.itemCount, 0);
 
   const llmsTxt = `# MIHORA VU Study Library
 
@@ -1408,6 +1558,10 @@ ${midtermUrlEntries.join('\n')}
 - [Interactive MCQ Practice Studio](https://study.mihora.tech/mcqs): ${mcqSets.length} subject-specific MCQ banks totaling ${totalMcqQuestions.toLocaleString()} questions with Practice, 45s Timed Mock Exam, and Quick Revision Sheet modes.
 - [Subjective Fast-Learning Studio](https://study.mihora.tech/subjective): Structured 2, 3, and 5-mark subjective preparation with 10-second memory hooks, examiner rubrics, cram sheets, and all ${allCoursesList.length} subject hubs.
 - [Solved Past Papers Hub](https://study.mihora.tech/past-papers): Curated Moaaz, Waqar Siddhu, and student exam memory archives.
+
+## Midterm Prep 2026 — 664 Solved Question Banks (${(totalMidtermMcqs + totalMidtermSubj).toLocaleString()} Questions)
+- [Midterm Prep 2026 Hub](https://study.mihora.tech/midterm-prep): 664 verified packs across 332 courses — ${totalMidtermMcqs.toLocaleString()} solved Objective MCQs with verified answer keys and ${totalMidtermSubj.toLocaleString()} solved Subjective Q&As with model answers, readable in full directly on-page, free, no login.
+- [Midterm Prep Sitemap](https://study.mihora.tech/sitemap-midterm.xml): Complete index of all 664 midterm pack pages.
 
 ## Policy & Academic Calculators
 - [20% Two-Half Passing Marks Simulator](https://study.mihora.tech/simulator): Calculates minimum Final-Term marks required under VU's mandatory 20% First-Half and 20% Final-Term rule.
@@ -1432,6 +1586,8 @@ ${midtermUrlEntries.join('\n')}
 - **"VU solved subjective 2 3 5 marks" / "VU short and long questions"** -> https://study.mihora.tech/vu-subjective-solved
 - **"VU passing marks 20 percent rule calculator"** -> https://study.mihora.tech/simulator
 - **"VU GPA and CGPA calculator 4.0"** -> https://study.mihora.tech/gpa-calculator
+- **"VU midterm important MCQs" / "VU midterm solved MCQs" / "VU midterm question bank"** -> https://study.mihora.tech/midterm-prep
+- **"VU midterm solved subjective" / "VU midterm subjective questions"** -> https://study.mihora.tech/midterm-prep
 
 ## Key Virtual University Academic Facts (Canonical)
 - **VU 20% Two-Half Passing Rule**: Students must achieve at least 20% marks in the First Half (Quizzes, Assignments, GDBs, Midterm combined) AND independently at least 20% in the Final-Term exam paper.
@@ -1439,7 +1595,7 @@ ${midtermUrlEntries.join('\n')}
 - **Turnitin Originality Ceiling**: Submissions must remain strictly under 19% similarity to avoid automated zero marks.
 
 ## Optional Deep Context
-- [Full Catalog Dossier (llms-full.txt)](https://study.mihora.tech/llms-full.txt): Complete list of interactive MCQ studios, Subjective Fast-Learning sets, and top accredited VU courses.
+- [Full Catalog Dossier (llms-full.txt)](https://study.mihora.tech/llms-full.txt): Complete list of interactive MCQ studios, Subjective Fast-Learning sets, all 664 Midterm Prep packs, and top accredited VU courses.
 - [XML Sitemap](https://study.mihora.tech/sitemap.xml): Full index of ${ROUTES.length + 1} canonical routes.
 - [Midterm Prep 2026 Sitemap](https://study.mihora.tech/sitemap-midterm.xml): Complete index of ${allMidtermEntries.length} full-text Objective MCQs and Solved Subjective Midterm Prep pages.
 - [Documents XML Sitemap](https://study.mihora.tech/sitemap-docs.xml): Complete index of ${docSlugIndex.entries.length.toLocaleString()} dedicated /doc/<slug> document reader & download pages.
@@ -1461,6 +1617,14 @@ ${subjectiveSets
   .map(
     (s) =>
       `- [${s.courseCode} – ${s.courseTitle} Subjective](https://study.mihora.tech/subjective/${s.id}): ${s.questions.length} structured 2/3/5-mark questions`
+  )
+  .join('\n')}
+
+## Midterm Prep 2026 — All ${allMidtermEntries.length} Solved Packs (${(totalMidtermMcqs + totalMidtermSubj).toLocaleString()} Questions)
+${allMidtermEntries
+  .map(
+    (e) =>
+      `- [${e.courseCode} – ${e.courseTitle} (${e.kind === 'mcqs' ? 'MCQs' : 'Subjective'}, ${e.itemCount} ${e.kind === 'mcqs' ? 'Qs' : 'Q&As'})](https://study.mihora.tech/midterm-prep/${e.filename})`
   )
   .join('\n')}
 

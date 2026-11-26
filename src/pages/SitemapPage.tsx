@@ -63,7 +63,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
     {
       id: 'courses',
       title: `Course Directory (${courses.length})`,
-      description: 'Full directory of 411 courses categorized by CS, Math, Management, Economics, and Mass Media.',
+      description: 'Full directory of {courses.length} courses categorized by CS, Math, Management, Economics, and Mass Media.',
       icon: BookOpen,
       iconBg: 'bg-[#F3EFE6] text-[#0D1B2A]',
       hoverBorder: 'hover:border-blue-700',
@@ -93,7 +93,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
     {
       id: 'subjective',
       title: 'Subjective Fast-Learning Studio (2/3/5 Marks)',
-      description: '10-second memory hooks, examiner rubrics, cram sheets, and write-compare drills across 411 subject hubs.',
+      description: '10-second memory hooks, examiner rubrics, cram sheets, and write-compare drills across {courses.length} subject hubs.',
       icon: Flame,
       iconBg: 'bg-amber-50 text-amber-700',
       hoverBorder: 'hover:border-amber-600',
@@ -209,7 +209,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
       <CelestialPageHeader
         kickerIcon={<Network className="w-4 h-4" />}
         kickerText="Portal & Curriculum Directory"
-        badgeText="411 Courses · 27 Faculties"
+        badgeText={`${courses.length} Courses · 27 Faculties`}
         title={
           <>
             Academic Curriculum &amp;{' '}
@@ -218,7 +218,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             </span>
           </>
         }
-        description="Quickly navigate all sections of the MIHORA STUDY LIBRARY, including the VU Student Handbook, all 411+ Virtual University courses, exam passing simulator, student trust guarantees, and academic guidelines."
+        description="Quickly navigate all sections of the MIHORA STUDY LIBRARY, including the VU Student Handbook, all {courses.length}+ Virtual University courses, exam passing simulator, student trust guarantees, and academic guidelines."
       />
 
       {/* Main Portal Section Links */}
@@ -333,7 +333,7 @@ export const SitemapPage: React.FC<SitemapPageProps> = ({ courses, onSelectCours
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#E5E0D5] hover:border-amber-600 hover:text-amber-700 text-slate-700 font-mono transition-colors"
           >
-            <span>LLMs-Full.txt (411 Courses)</span>
+            <span>LLMs-Full.txt ({courses.length} Courses)</span>
             <ExternalLink className="w-3 h-3 text-slate-400" />
           </motion.a>
         </ScrollReveal>

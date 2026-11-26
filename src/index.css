@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+/* Phase 2 type scale: body copy was 12px almost everywhere (text-xs),
+   which is why the site read as a wall of tiny grey text. Tailwind v4
+   theme tokens — xs 12→13px, sm 14→15px, base line-height relaxed.
+   Labels/badges stay small; body text becomes readable. */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.5rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.625rem;
+}
+
 :root {
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;

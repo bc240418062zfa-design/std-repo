@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Resource } from '../types';
 import { resolveResourceLocally, ResolvedResource } from '../security/shardResolver';
-import { getDocSlug } from '../utils/docSlug';
 import {
   X,
   Download,
@@ -161,9 +160,27 @@ export const FilePreviewModal: React.FC<FilePreviewModalProps> = ({
     }
   };
 
+  // The doc slug needs the 4.1 MB catalog — load it lazily only when a
+  // preview is actually open, so the catalog stays out of the main bundle.
+  const [docSlug, setDocSlug] = useState('');
+  useEffect(() => {
+    if (!resource) {
+      setDocSlug('');
+      return;
+    }
+    let active = true;
+    import('../utils/docSlug')
+      .then((m) => {
+        if (active) setDocSlug(m.getDocSlug(resource.rlh));
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [resource]);
+
   const format = (resource?.format || '').toUpperCase();
   const driveViewUrl = resolvedData?.driveId ? createEmbedViewUrl(resolvedData.driveId) : null;
-  const docSlug = resource ? getDocSlug(resource.rlh) : '';
 
   return (
     <AnimatePresence>

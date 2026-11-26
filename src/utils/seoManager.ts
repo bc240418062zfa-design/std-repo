@@ -33,7 +33,28 @@ function upsertMeta(selector: string, attrName: 'name' | 'property', key: string
 }
 
 function upsertJsonLd(id: string, data: Record<string, unknown>) {
+  // On prerendered route pages, update the SAME script block the prerender
+  // wrote (id mihora-route-jsonld) instead of appending a second one, and
+  // keep its site-wide Organization/WebSite nodes — the runtime graph only
+  // carries this route's WebPage/BreadcrumbList nodes.
   let script = document.getElementById(id) as HTMLScriptElement | null;
+  if (!script) {
+    script = document.getElementById('mihora-route-jsonld') as HTMLScriptElement | null;
+    if (script) {
+      try {
+        const existing = JSON.parse(script.textContent || '{}') as {
+          '@graph'?: Array<Record<string, unknown>>;
+        };
+        const kept = (existing['@graph'] || []).filter(
+          (n) => n['@type'] === 'Organization' || n['@type'] === 'WebSite'
+        );
+        const incoming = (data['@graph'] as Array<Record<string, unknown>> | undefined) || [];
+        data = { ...data, '@graph': [...kept, ...incoming] };
+      } catch {
+        // Unparseable existing block: overwrite it below.
+      }
+    }
+  }
   if (!script) {
     script = document.createElement('script');
     script.id = id;
@@ -61,8 +82,11 @@ export function syncRouteSeo({
   if (typeof document === 'undefined') return;
 
   const cleanPath = pathnameOverride.toLowerCase().replace(/\/$/, '') || '';
-  let title = 'Virtual University Past Papers, Live Mids MCQs Bank & Handouts PDF | MIHORA VU';
-  let desc = `Free direct downloads for ${totalResources.toLocaleString()}+ Virtual University solved past papers (Moaaz, Waqar Siddhu), official handouts PDF, live midterm quiz & ${totalMcqQuestions.toLocaleString()}+ interactive MCQs bank, subjective 2/3/5-mark fast-prep, and 2026 assignment guides across ${courses.length} courses.`;
+  // Titles/descriptions must match the short prerendered titles exactly:
+  // the runtime overwrites document.title on hydration, so a longer title
+  // here would undo the prerender's ≤60-char titles in search results.
+  let title = 'MIHORA VU – VU Assignment Solution 2026 & Past Papers';
+  let desc = `MIHORA VU Study Library: VU Assignment Solution 2026, ${totalResources.toLocaleString()}+ solved past papers, handouts & quizzes for all ${courses.length}+ Virtual University courses.`;
   let keywords = 'vu past papers, vu mcqs bank, vu live mids mcqs, vu live quiz bank, vu solved handouts pdf, vu midterm solved papers, vu final term solved papers, vu assignment solution 2026, virtual university passing marks calculator, vu subjective solved questions, moaaz past papers, waqar siddhu past papers, mihora vu';
   let canonicalPath = '/';
   const breadcrumbs: Array<{ name: string; item: string }> = [
@@ -73,14 +97,12 @@ export function syncRouteSeo({
   if (page === 'midterm-doc' && selectedMidtermEntry) {
     const isMcq = selectedMidtermEntry.kind === 'mcqs';
     canonicalPath = `/midterm-prep/${selectedMidtermEntry.filename}`;
-    title = `${selectedMidtermEntry.courseCode} ${
-      isMcq ? 'Midterm Important MCQs' : 'Midterm Important Subjective (Solved)'
-    } (${selectedMidtermEntry.itemCount} Qs) – ${selectedMidtermEntry.courseTitle} | MIHORA VU`;
-    desc = `Complete ${selectedMidtermEntry.courseCode} (${selectedMidtermEntry.courseTitle}) ${
-      isMcq
-        ? `midterm solved objective MCQs bank (${selectedMidtermEntry.itemCount} questions with verified answer keys)`
-        : `midterm solved subjective questions and model answers (${selectedMidtermEntry.itemCount} Q&As)`
-    } across ${selectedMidtermEntry.topics.slice(0, 4).join(', ')} — free online study & PDF download.`;
+    title = isMcq
+      ? `${selectedMidtermEntry.courseCode} Midterm Important MCQs (${selectedMidtermEntry.itemCount} Qs) | MIHORA VU`
+      : `${selectedMidtermEntry.courseCode} Midterm Subjective (${selectedMidtermEntry.itemCount} Q&As) | MIHORA VU`;
+    desc = isMcq
+      ? `Read all ${selectedMidtermEntry.itemCount} solved ${selectedMidtermEntry.courseCode} Midterm Important MCQs (${selectedMidtermEntry.courseTitle}) with verified answer keys directly on-page, free, no login.`
+      : `Read all ${selectedMidtermEntry.itemCount} solved ${selectedMidtermEntry.courseCode} Midterm Important Subjective Q&As (${selectedMidtermEntry.courseTitle}) with model answers directly on-page, free, no login.`;
     keywords = `${selectedMidtermEntry.courseCode} midterm important ${
       isMcq ? 'mcqs' : 'subjective'
     }, ${selectedMidtermEntry.courseCode} midterm solved, ${selectedMidtermEntry.courseTitle} midterm preparation, ${selectedMidtermEntry.courseCode} past papers 2026, mihora vu`;
@@ -106,7 +128,7 @@ export function syncRouteSeo({
     });
   } else if (page === 'midterm-prep') {
     canonicalPath = '/midterm-prep';
-    title = 'VU Midterm Prep 2026 – 664 Solved Important MCQs & Subjective Question Banks | MIHORA VU';
+    title = 'VU Midterm Prep 2026 – 664 Solved MCQs & Subjective Banks';
     desc =
       'Complete Virtual University Midterm Preparation 2026 hub covering 332 subjects (664 verified packs): read full Objective Important MCQs with answer keys and Solved Subjective Q&As directly online.';
     keywords =
@@ -191,7 +213,7 @@ export function syncRouteSeo({
       }))
     });
   } else if (page === 'home' && activeFilterType === 'HANDOUT' && !selectedCourseCode) {
-    title = `Virtual University Lecture Handouts PDF Download (All ${courses.length} Courses) | MIHORA VU`;
+    title = `VU Lecture Handouts PDF Free Download | MIHORA VU`;
     desc = `Download 2,625+ official Virtual University lecture handouts PDF, highlighted short notes, and reference books across CS, MTH, ENG, MGT, and all ${courses.length} subjects free with zero login.`;
     keywords = 'vu handouts pdf, virtual university lecture handouts free download, vu highlighted handouts pdf, cs101 handouts pdf, cs201 handouts pdf, mth101 handouts pdf, vu short notes pdf';
     canonicalPath = '/vu-handouts-pdf';
@@ -199,8 +221,14 @@ export function syncRouteSeo({
   } else if (page === 'home' && selectedCourseCode) {
     const match = courses.find((c) => c.code === selectedCourseCode);
     const titleSuffix = match ? ` – ${match.title}` : '';
-    title = `${selectedCourseCode}${titleSuffix} Assignment 1 & 2 Solution 2026, Past Papers & Live Mids MCQs | MIHORA VU`;
-    desc = `Download verified ${selectedCourseCode}${match ? ` (${match.title})` : ''} Assignment 1 & 2 Solution 2026, GDB solutions, solved midterm & final past papers, live quiz MCQs bank, handouts PDF, and subjective notes free on MIHORA VU.`;
+    // Keep titles ≤60 chars, mirroring the prerender: long official course
+    // titles drop the brand suffix so hydration never lengthens the title.
+    const coursePageTitleFull = `${selectedCourseCode}${titleSuffix} | MIHORA VU`;
+    title =
+      coursePageTitleFull.length > 60
+        ? `${selectedCourseCode}${titleSuffix}`
+        : coursePageTitleFull;
+    desc = `Verified ${selectedCourseCode}${match ? ` (${match.title})` : ''} Assignment 1 & 2 Solution 2026, GDB, solved midterm & final past papers, live MCQs, handouts PDF and subjective notes — free on MIHORA VU.`;
     keywords = `${selectedCourseCode} assignment 1 solution 2026, ${selectedCourseCode} assignment 2 solution 2026, ${selectedCourseCode} assignment solution 2026, ${selectedCourseCode} gdb solution 2026, ${selectedCourseCode} past papers, ${selectedCourseCode} mcqs bank, ${selectedCourseCode} live mids mcqs, ${selectedCourseCode} handouts pdf, ${selectedCourseCode} midterm solved, ${selectedCourseCode} finalterm solved, ${selectedCourseCode} subjective`;
     canonicalPath = `/courses/${selectedCourseCode.toLowerCase()}`;
     breadcrumbs.push(
@@ -225,7 +253,7 @@ export function syncRouteSeo({
       }
     });
   } else if (page === 'courses') {
-    title = `VU Course List (${courses.length} Subject Codes) – Past Papers, Assignments & Handouts | MIHORA VU`;
+    title = `VU Course List – All ${courses.length}+ Subjects, Past Papers & Handouts`;
     desc = `Complete Virtual University course list covering all ${courses.length} subject codes (CS, MTH, MGT, ENG, PAK, PSY, ZOO, EDU) with solved midterm papers, final term files, handouts PDF, and 2026 assignment guides.`;
     keywords = 'vu course list, virtual university all courses list, vu course codes, vu subjects directory, vu past papers list, vu assignment solution 2026';
     canonicalPath = '/courses';
@@ -260,19 +288,19 @@ export function syncRouteSeo({
         }
       });
     } else if (cleanPath === '/live-mids-mcqs') {
-      title = `VU Live Mids MCQs & Current Midterm Quiz Bank (${totalMcqQuestions.toLocaleString()} Interactive Qs) | MIHORA VU`;
+      title = `VU Live Mids MCQs & Midterm Quiz Bank | MIHORA VU`;
       desc = `Practice live VU Midterm MCQs, current quiz solutions, and repeat objective exam questions online with instant answer keys, 45s mock timer, and flash-sheets.`;
       keywords = 'vu live mids mcqs, vu live quiz mcqs, vu current midterm papers 2026, vu midterm mcqs quiz bank, vu grand quiz mcqs solved';
       canonicalPath = '/live-mids-mcqs';
       breadcrumbs.push({ name: 'Live Mids MCQs', item: `${BASE_URL}/live-mids-mcqs` });
     } else if (cleanPath === '/vu-mcqs-bank') {
-      title = `VU MCQs Bank 2026 – 3,256 MCQ Files, 5,733 Quiz Docs & ${totalMcqQuestions.toLocaleString()} Online MCQs | MIHORA VU`;
+      title = `VU MCQs Bank – ${totalMcqQuestions.toLocaleString()} Interactive MCQs | MIHORA VU`;
       desc = `Complete Virtual University MCQs Bank for Mid-Term & Final-Term exams. Practice ${totalMcqQuestions.toLocaleString()} interactive online MCQs and download 8,989+ solved quiz & MCQ PDFs free.`;
       keywords = 'vu mcqs bank, virtual university mcqs bank pdf, vu solved mcqs file, vu quiz bank, moaaz mcqs bank, waqar siddhu mcqs';
       canonicalPath = '/vu-mcqs-bank';
       breadcrumbs.push({ name: 'VU MCQs Bank', item: `${BASE_URL}/vu-mcqs-bank` });
     } else {
-      title = `VU MCQs Bank & Live Mids Quiz Practice (${totalMcqQuestions.toLocaleString()} Verified Qs) | MIHORA VU`;
+      title = `Interactive VU Exam MCQs & Subject Practice Studios`;
       desc = `Practice ${totalMcqQuestions.toLocaleString()} verified Virtual University Live Mid-Term & Final-Term MCQs online with timed mock exams and rapid flash-sheets.`;
       keywords = 'vu mcqs bank, vu live mids mcqs, vu online quiz practice, vu midterm solved mcqs, vu final term mcqs';
       canonicalPath = '/mcqs';
@@ -307,13 +335,13 @@ export function syncRouteSeo({
         }))
       });
     } else if (cleanPath === '/vu-subjective-solved') {
-      title = `VU Solved Subjective Questions (2, 3 & 5 Marks) – Fast-Learning Studio | MIHORA VU`;
+      title = `Solved VU Subjective Questions (2, 3 & 5 Marks)`;
       desc = `Master Virtual University short (2 & 3 mark) and long (5 mark) subjective exam questions using 10-second memory hooks, examiner marking keys, and model answers across ${courses.length} subjects.`;
       keywords = 'vu subjective solved, vu short questions solved, vu long questions 5 marks, vu midterm subjective, vu finalterm subjective questions';
       canonicalPath = '/vu-subjective-solved';
       breadcrumbs.push({ name: 'VU Subjective Solved', item: `${BASE_URL}/vu-subjective-solved` });
     } else {
-      title = `VU Subjective Fast-Learning Studio (${totalSubjectiveQuestions} High-Yield Q&As) | MIHORA VU`;
+      title = `VU Subjective Fast-Learning Studio | MIHORA VU`;
       desc = `Master Virtual University 2, 3, and 5-mark subjective questions using 10-second memory hooks, examiner rubrics, cram sheets, and all ${courses.length} subject hubs.`;
       canonicalPath = '/subjective';
       breadcrumbs.push({ name: 'Subjective Fast-Learning', item: `${BASE_URL}/subjective` });
@@ -325,12 +353,12 @@ export function syncRouteSeo({
       });
     }
   } else if (page === 'past-papers') {
-    title = 'VU Solved Past Papers – Moaaz & Waqar Siddhu Archives | MIHORA VU';
-    desc = 'Explore real Virtual University midterm & final-term student exam reviews, repeated subjective questions, and Moaaz/Waqar Siddhu solved archives across all 411 courses.';
+    title = 'VU Solved Past Papers – Midterm & Final Term';
+    desc = 'Explore real Virtual University midterm & final-term student exam reviews, repeated subjective questions, and Moaaz/Waqar Siddhu solved archives across all 412 courses.';
     canonicalPath = '/past-papers';
     breadcrumbs.push({ name: 'Past Papers', item: `${BASE_URL}/past-papers` });
   } else if (page === 'assignment-guide') {
-    title = 'VU Assignment Solution 2026 Latest – Turnitin & GDB Guides | MIHORA VU';
+    title = 'VU Assignment Solution 2026 – All Courses Solved';
     desc = 'Download verified 2026 VU assignment templates, Dev-C++ boilerplate, GDB word-count rubrics, 24-hour grace period guide, and Turnitin <19% originality checklist.';
     canonicalPath = '/vu-assignment-solution-2026';
     breadcrumbs.push(
@@ -338,13 +366,13 @@ export function syncRouteSeo({
       { name: 'Assignments 2026', item: `${BASE_URL}${canonicalPath}` }
     );
   } else if (page === 'handbook') {
-    title = 'VU Student Handbook 2026 – 33 Authentic FAQs, 20% Rule & Policies | MIHORA VU';
+    title = 'VU Student Handbook 2026 – FAQs, Rules & Grading';
     desc = 'Official Virtual University Student Handbook guide: Master the 20% Two-Half rule, paper rechecking (PKR 500), merit & need-based scholarships, A+ to F grading scheme, datesheet booking, CGPA probation, and paper rescheduling (PKR 2,000).';
     keywords = 'vu student handbook, handbook vu edu pk guide, virtual university student handbook, vu 20 percent passing rule, vu paper rechecking fee 500, vu merit scholarship cgpa, vu grading scale, vu paper reschedule fee';
     canonicalPath = '/handbook';
     breadcrumbs.push({ name: 'VU Handbook', item: `${BASE_URL}/handbook` });
   } else if (page === 'simulator') {
-    title = 'VU Mid & Final Passing Marks Calculator (20% Two-Half Rule Simulator) | MIHORA VU';
+    title = 'VU Mid Calculator & Passing Marks Simulator';
     desc = 'Official VU Mid Calculator & Passing Marks Simulator: Calculate your midterm, sessional, and exact Final-Term marks required to pass or reach an A grade under Virtual University 20% Two-Half rules.';
     keywords = 'vu mid calculator, vu midterm calculator, vu passing marks simulator, vu final term marks calculator, vu 20 percent rule calculator, virtual university grade calculator';
     canonicalPath = '/simulator';
@@ -371,7 +399,7 @@ export function syncRouteSeo({
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'PKR' }
     });
   } else if (page === 'datesheet-guide') {
-    title = 'VU Datesheet Maker & Exam Seat Strategy Guide 2026 | MIHORA VU';
+    title = 'VU Datesheet Maker & Seat Booking Guide 2026';
     desc = 'Step-by-step strategy for VU datesheet opening, first-come first-served lab seats, exam timeslots, and paper reschedule rules.';
     canonicalPath = '/datesheet-guide';
     breadcrumbs.push(
@@ -387,7 +415,7 @@ export function syncRouteSeo({
       { name: 'CS619 FYP Guide', item: `${BASE_URL}/cs619-guide` }
     );
   } else if (page === 'security') {
-    title = 'Privacy & Safety Guarantee – Zero Telemetry Archive | MIHORA VU';
+    title = 'Privacy & Trust – Zero Data Collection | MIHORA VU';
     desc = 'Zero login walls, zero analytics cookies, verified educational files, and direct instant downloads for Virtual University students.';
     canonicalPath = '/security';
     breadcrumbs.push(
@@ -395,17 +423,17 @@ export function syncRouteSeo({
       { name: 'Privacy & Safety', item: `${BASE_URL}/security` }
     );
   } else if (page === 'about') {
-    title = 'About MIHORA TECH – Free VU Study Library Initiative | MIHORA VU';
+    title = 'About MIHORA TECH – Free VU Study Resources';
     desc = 'Learn about MIHORA TECH’s independent, non-commercial CSR initiative organizing Virtual University academic resources for Pakistani students.';
     canonicalPath = '/about';
     breadcrumbs.push({ name: 'About', item: `${BASE_URL}/about` });
   } else if (page === 'sitemap') {
-    title = `VU Curriculum & Portal Sitemap (${courses.length} Courses) | MIHORA VU`;
+    title = `VU Curriculum & Faculty Sitemap | MIHORA VU`;
     desc = `Complete faculty-by-faculty index of all ${courses.length} Virtual University courses, interactive quiz studios, and academic calculators.`;
     canonicalPath = '/sitemap';
     breadcrumbs.push({ name: 'Curriculum Directory', item: `${BASE_URL}/sitemap` });
   } else if (page === 'disclaimer') {
-    title = 'Academic Disclaimer & Fair Educational Use | MIHORA VU';
+    title = 'Academic Disclaimer & Fair Use Notice | MIHORA VU';
     desc = 'Independent educational resource fair-use notice and non-affiliation disclosure for Virtual University students.';
     canonicalPath = '/disclaimer';
     breadcrumbs.push(

@@ -154,4 +154,3 @@ Sitemap: https://study.mihora.tech/sitemap.xml
 Sitemap: https://study.mihora.tech/sitemap-main.xml
 Sitemap: https://study.mihora.tech/sitemap-midterm.xml
 Sitemap: https://study.mihora.tech/sitemap-docs.xml
-Host: study.mihora.tech

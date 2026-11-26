@@ -661,8 +661,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                     <motion.div
                       key={set.id}
                       initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 'some' }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{
                         duration: 0.24,
                         delay: Math.min(idx * 0.03, 0.16),
@@ -766,7 +765,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
 
           <CelestialDivider />
 
-          {/* Curriculum Expansion Directory (All 411 Courses Linked to Real Files & Student Reviews) */}
+          {/* Curriculum Expansion Directory (All 455 Courses Linked to Real Files & Student Reviews) */}
           <section className="space-y-6">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-[#E5E0D5]">
               <div className="space-y-1">
@@ -785,7 +784,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                   value={courseFinderQuery}
                   onChange={(e) => setCourseFinderQuery(e.target.value)}
                   placeholder="Find CS101, MGT501, STA301..."
-                  aria-label="Search all 411 VU courses"
+                  aria-label={`Search all ${coursesData.length} VU courses`}
                   className="celestial-input h-10 w-full pl-10 pr-4 rounded-xl text-xs sm:text-sm text-slate-900"
                 />
               </div>
@@ -991,7 +990,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setMode(id)}
-                  className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                  className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                     isActive ? 'text-white' : 'text-slate-700 hover:text-[#0D1B2A]'
                   }`}
                 >
@@ -1537,7 +1536,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                       className="bg-white rounded-2xl border border-[#E5E0D5] p-5 sm:p-6 flex flex-col justify-between gap-4"
                     >
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between gap-2 text-xs font-mono">
+                        <div className="flex items-center justify-between gap-2 text-sm font-mono">
                           <div className="flex items-center gap-2">
                             <span className="font-bold text-[#0D1B2A]">Q{q.num}</span>
                             <span aria-hidden="true" className="text-slate-300">·</span>
@@ -1546,13 +1545,13 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                           <span className="truncate text-slate-500">{q.topic}</span>
                         </div>
 
-                        <h3 className="text-sm sm:text-base font-bold text-[#0D1B2A] leading-snug">
+                        <h3 className="text-base sm:text-lg font-bold text-[#0D1B2A] leading-snug">
                           {q.question}
                         </h3>
 
                         {isItemVisible ? (
                           <div className="space-y-3 pt-1">
-                            <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] text-xs sm:text-[13px] font-semibold text-[#0D1B2A] leading-relaxed">
+                            <div className="p-3 rounded-xl bg-[#FAF8F4] border border-[#DDD6C8] text-sm sm:text-base font-semibold text-[#0D1B2A] leading-relaxed">
                               <span className="font-mono text-[10px] uppercase tracking-wider text-amber-800 block mb-0.5">
                                 10-Sec Hook
                               </span>
@@ -1560,7 +1559,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                             </div>
 
                             {!hooksOnlyMode && (
-                              <ul className="space-y-1.5 text-xs text-slate-700 leading-relaxed">
+                              <ul className="space-y-1.5 text-sm text-slate-700 leading-relaxed">
                                 {q.keyPoints.map((kp, i) => (
                                   <li key={i} className="flex items-start gap-2">
                                     <span className="font-mono font-bold text-blue-700 shrink-0">{i + 1}.</span>
@@ -1571,7 +1570,7 @@ export const SubjectivePage: React.FC<SubjectivePageProps> = ({
                             )}
 
                             {!hooksOnlyMode && q.codeSnippet && (
-                              <pre className="p-3 rounded-xl bg-[#0D1B2A] text-slate-100 text-[11px] font-mono overflow-x-auto leading-relaxed">
+                              <pre className="p-3 rounded-xl bg-[#0D1B2A] text-slate-100 text-xs font-mono overflow-x-auto leading-relaxed">
                                 <code>{q.codeSnippet}</code>
                               </pre>
                             )}
