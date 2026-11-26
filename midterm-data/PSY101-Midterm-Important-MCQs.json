@@ -9,7 +9,7 @@
  "headerTitle": "PSY101 — Introduction to Psychology",
  "subtitle": "Midterm Important MCQs",
  "pageCount": 73,
- "itemCount": 334,
+ "itemCount": 431,
  "topics": [
   "Introduction and History of Psychology",
   "Schools of Thought and Approaches",
@@ -19,7 +19,10 @@
   "Endocrine System and Hormones",
   "Sensation, Vision and Hearing",
   "Perception",
-  "Learning and Conditioning"
+  "Learning and Conditioning",
+  "Psychology 101 Practice Exam",
+  "Quiz # 4",
+  "Additional Quiz Questions"
  ],
  "mcqs": [
   {
@@ -3529,7 +3532,7 @@
   {
    "number": 293,
    "topic": "Learning and Conditioning",
-   "question": "If a man experiences chest pains while at a department store, and later explained by what type of learning?",
+   "question": "If a man experiences chest pains while at a department store, and later experiences anxiety attacks when visiting department stores, this can be explained by what type of learning?",
    "options": [
     "Operant",
     "Classical conditioning",
@@ -4029,6 +4032,1190 @@
     "Pons"
    ],
    "correctIndex": 0
+  },
+  {
+   "number": 335,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "When Joan touched her infants cheek, he turned his head toward the side that was touched and opened his mouth. Joan was eliciting the:",
+   "options": [
+    "Startle reaction",
+    "Rooting reflex",
+    "Grasping reflex",
+    "Attachment reflex",
+    "Attention reflex"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 336,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Which psychologist was most influential in shaping our understanding of cognitive development?",
+   "options": [
+    "B.F. Skinner",
+    "Konrad Lorenz",
+    "Jean Piaget",
+    "Sigmund Freud",
+    "Erik Erikson"
+   ],
+   "correctIndex": 2
+  },
+  {
+   "number": 337,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "According to Piaget, an egocentric child can best be described as:",
+   "options": [
+    "Selfish",
+    "Conceited",
+    "Lacking in self-esteem",
+    "Cognitively Limited"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 338,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "At 12 months of age Jeremy shows no more desire to be held by his own parents than by complete strangers. His behaviour best illustrates:",
+   "options": [
+    "Object permanence",
+    "Insecure attachment",
+    "Habituation",
+    "Conservation",
+    "Egocentrism"
+   ],
+   "correctIndex": 0
+  },
+  {
+   "number": 339,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Psychologists describe child-rearing in which the rules are imposed without explanation as a(n) ___________ style.",
+   "options": [
+    "Authoritative",
+    "Egocentric",
+    "Disengaged",
+    "Authoritarian"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 340,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Formal operational thought is most necessary for the development of ______ morality.",
+   "options": [
+    "Preoperational",
+    "Conventional",
+    "Preconventional",
+    "Postconventional"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 341,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "According to Erikson, committing oneself to meaningful social roles would be most indicative of the achievement of:",
+   "options": [
+    "Integrity",
+    "Autonomy",
+    "Competence",
+    "Initiative",
+    "Identity"
+   ],
+   "correctIndex": 4
+  },
+  {
+   "number": 342,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Menopause is associated with a reduction in:",
+   "options": [
+    "Adrenaline",
+    "Testosterone",
+    "Estrogen",
+    "Acetylcholine",
+    "Dopamine"
+   ],
+   "correctIndex": 2
+  },
+  {
+   "number": 343,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "An early sign of Alzheimer’s disease would most likely be:",
+   "options": [
+    "An inability to recognise oneself in a mirror.",
+    "The use of profane and abusive language",
+    "An increase in crystallized intelligence",
+    "Difficulty in naming familiar objects or people"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 344,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Erik Erikson maintained that the two basic aspects of life that dominate adulthood are:",
+   "options": [
+    "Identity and Independence",
+    "Intimacy and Identity",
+    "Intimacy and generativity",
+    "Independence and generativity"
+   ],
+   "correctIndex": 2
+  },
+  {
+   "number": 345,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "In developing a test of intellectual ability for Parisian school children, Binet and Simon assumed that:",
+   "options": [
+    "The test would measure capacities that were determined by heredity and thus unalterable.",
+    "The test would yield an intelligence quotient consisting of chronological age divided by mental age multiplied by 100",
+    "A bright child would preform like a normal child of an older age",
+    "Measures of physical and sensory skills would be good predictors of school achievement"
+   ],
+   "correctIndex": 2
+  },
+  {
+   "number": 346,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "A Person with savant syndrome is one who:",
+   "options": [
+    "Is capable of becoming socially and vocationally successful",
+    "Possesses an amazing specific skill",
+    "Suffers no obvious physical or emotional defects",
+    "Is unable to profit from special educational training",
+    "Is born with an extra chromosome"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 347,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "The Flynn effect best illustrates the process of intelligence testing requires up-to-date:",
+   "options": [
+    "Factor analyses",
+    "Standardization samples",
+    "Reliability indices",
+    "Heritability estimates"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 348,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "The stability of children’s intelligence test scores over time is most positively correlated with their:",
+   "options": [
+    "Chronological age",
+    "Mental age",
+    "Head size",
+    "Brain size"
+   ],
+   "correctIndex": 0
+  },
+  {
+   "number": 349,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Intelligence tests are most likely to be considered culturally biased in terms of their:",
+   "options": [
+    "Content validity",
+    "Predictive validity",
+    "Normal distribution",
+    "Reliability"
+   ],
+   "correctIndex": 0
+  },
+  {
+   "number": 350,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Which of the following observations provides the best evidence that intelligence test scores are influenced by environment?",
+   "options": [
+    "Fraternal twins are most similar in their intelligence scores than are ordinary siblings",
+    "The intelligence scores of children are positively correlated with those of their parents",
+    "Identical twins are more similar in their intelligence scores than are fraternal twins",
+    "The intelligence scores of siblings reared together are positively correlated",
+    "Different national groups have different average intelligence scores"
+   ],
+   "correctIndex": 0
+  },
+  {
+   "number": 351,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Prior to his use of free association, Freud had encouraged patients to retrieve their forgotten memoires by means of:",
+   "options": [
+    "Hypnosis",
+    "Projective tests",
+    "Psychoactive drugs",
+    "Fixation"
+   ],
+   "correctIndex": 0
+  },
+  {
+   "number": 352,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "According to Freud, our gender identity develops most rapidly during the _______stage.",
+   "options": [
+    "Anal",
+    "Phallic",
+    "Genital",
+    "Oral"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 353,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Displacement refers to the process by which people",
+   "options": [
+    "Offer self-justifying explanations in place of real, but unacceptable, unconscious reasons for action.",
+    "Consciously express feelings that are the opposite of unacceptable, unconscious impulses",
+    "Disguise threatening impulses by attributing them to others.",
+    "Retreat to behaviour patterns characteristic if an earlier stage of development",
+    "Redirect aggressive or sexual impulses towards less threatening targets"
+   ],
+   "correctIndex": 4
+  },
+  {
+   "number": 354,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "According to Maslow, the psychological need that arises after all other needs have been met is the need for:",
+   "options": [
+    "Personal control",
+    "Self-actualisation",
+    "Self-esteem",
+    "Unconditional positive regard"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 355,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "When people compare themselves with others, they are most likely to experience:",
+   "options": [
+    "Reciprocal determinism",
+    "Unconditional positive regard",
+    "An external locus of control",
+    "The Barnum effect",
+    "Positive self-esteem"
+   ],
+   "correctIndex": 4
+  },
+  {
+   "number": 356,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Which perspective on human personality emphasizes reciprocal determinism?",
+   "options": [
+    "Psychoanalytic",
+    "Social-cognitive",
+    "Trait",
+    "Humanistic"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 357,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "The trait of optimism is most closely rated to a strong sense of:",
+   "options": [
+    "Conditional positive regard",
+    "Gender identity",
+    "Ideal self",
+    "Personal control",
+    "The pleasure principle"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 358,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "According to the social-cognitive perspective, one of the best ways to predict a person’s future behaviour is to:",
+   "options": [
+    "Identify that the person’s most central traits by having him or her take a personality inventory",
+    "Observe the person’s behaviour in various relevant situations",
+    "Assess that person’s general level of self-esteem",
+    "Uncover that person’s hidden motives, as revealed by projective tests"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 359,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Psychoanalysts would suggest that resistance during therapy supports and maintains the process of",
+   "options": [
+    "Sublimation",
+    "Transference",
+    "Free association",
+    "Dream interpretation",
+    "Repression"
+   ],
+   "correctIndex": 4
+  },
+  {
+   "number": 360,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Counterconditioning techniques were derived from principles first developed by",
+   "options": [
+    "Aaron Beck",
+    "Ivan Pavlov",
+    "Carl Rogers",
+    "B.F. Skinner",
+    "Sigmund Freud"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 361,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "To help Michael overcome hid fear of taking tests, his therapist instructs him to relax and then to imagine taking a quiz. The therapist is using:",
+   "options": [
+    "Psychoanalysis",
+    "Client-centered therapy",
+    "Cognitive therapy",
+    "Systematic desensitisation",
+    "Aversive conditioning"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 362,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "A useful feature of group therapy is that it:",
+   "options": [
+    "Ensures that therapists will become more emotionally involves in a clients’ real-life problems",
+    "Eliminates the possibility that clients will experience anxiety during therapy",
+    "Encourages clients to develop active listening skills",
+    "Enables severely disturbed individuals to quickly regain normal social functioning"
+   ],
+   "correctIndex": 2
+  },
+  {
+   "number": 363,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "The biomedical treatment most widely used today is:",
+   "options": [
+    "Psychoanalysis",
+    "Electroconvulsive therapy",
+    "Psychosurgery",
+    "Systematic desensitisation",
+    "Drug therapy"
+   ],
+   "correctIndex": 4
+  },
+  {
+   "number": 364,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Alex feels so hopeless and depressed that he has recently thought about taking his own life. The drug most likely to prove beneficial to him is:",
+   "options": [
+    "Valium",
+    "Prozac",
+    "Librium",
+    "Thorazine"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 365,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Aversive conditioning is to behaviour therapy as a lobotomy is to:",
+   "options": [
+    "Systematic desensitisation",
+    "Electroconvulsive therapy",
+    "Psychosurgery",
+    "The placebo effect",
+    "Drug therapy"
+   ],
+   "correctIndex": 2
+  },
+  {
+   "number": 366,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Cognitive dissonance theory is most helpful of understanding:",
+   "options": [
+    "The mere exposure effect",
+    "Group polarization",
+    "The fundamental attribution error",
+    "The foot-in-the-door phenomenon",
+    "The bystander effect"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 367,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Social facilitation is most likely to occur in the performance of_________tasks.",
+   "options": [
+    "Challenging",
+    "Unenjoyable",
+    "Novel",
+    "Simple"
+   ],
+   "correctIndex": 3
+  },
+  {
+   "number": 368,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "Social loafing refers to the tendency for people to:",
+   "options": [
+    "Perform a complex task more poorly when others are present",
+    "Exert less effort when they are pooling their efforts towards a common goal",
+    "Exert less effort when they are paid by the hour, not by the amount of work completed",
+    "Become more distracted from their tasks when working with friends than when working with strangers",
+    "Stop working once they have reached their goal"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 369,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "The just-world phenomenon often leads people to:",
+   "options": [
+    "Dislike and distrust those who are wealthy",
+    "Believe that victims of misfortune deserve to suffer",
+    "Express higher levels of prejudice after suffering frustration",
+    "Respond with kindness to those who mistreat them"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 370,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "A stressor is a(n):",
+   "options": [
+    "Lower back muscle that frequently produces a feeling of physical tension",
+    "Competitive, hard-driving, impatient person",
+    "Environmental event that threatens or challenges us",
+    "Exercise program designed to increase our ability to handle normal stress",
+    "Hormone released by the adrenal gland during periods of stress"
+   ],
+   "correctIndex": 2
+  },
+  {
+   "number": 371,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "What is the best example of a Type B personality?",
+   "options": [
+    "Tammy, an ambitious, self-confident waitress",
+    "Mauriucca, a relaxed understanding social worker",
+    "Tena, a time conscious, competitive lawyer",
+    "Juanita, an impatient, pessimistic librarian"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 372,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "During the manic phase of a bi-polar disorder, individuals are most likely to experience:",
+   "options": [
+    "High self-esteem",
+    "Delusions of persecution",
+    "Uncontrollable grief and despair",
+    "Visual or auditory hallucinations"
+   ],
+   "correctIndex": 0
+  },
+  {
+   "number": 373,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "The medical model of psychologically disordered behaviour is most likely to be criticised for neglecting the importance of:",
+   "options": [
+    "Anxiety and depression",
+    "Social circumstances",
+    "Personality disorders",
+    "The DSM-IV",
+    "Genetic abnormalities"
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 374,
+   "topic": "Psychology 101 Practice Exam",
+   "question": "The tendency for observers to underestimate the impact of the situation and to overestimate the impact of personal dispositions upon another’s behaviour is called:",
+   "options": [
+    "The bystander effect",
+    "The fundamental attribution error",
+    "Deindividuation",
+    "Ingroup bias",
+    "The mere exposure effect."
+   ],
+   "correctIndex": 1
+  },
+  {
+   "number": 375,
+   "topic": "Quiz # 4",
+   "question": "Learning to play a piano is an example of which of the following;",
+   "options": [
+    "Shaping",
+    "Classical Conditioning",
+    "Learning by insight",
+    "Generalization"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 376,
+   "topic": "Quiz # 4",
+   "question": "According to which of the following theory, physiological changes create specific sensations and our brain interprets these sensations as different emotions;",
+   "options": [
+    "James-Lange Theory of Emotions",
+    "Cannon-Bard Theory of Emotions",
+    "Opponent Process Theory",
+    "Activation Theory"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 377,
+   "topic": "Quiz # 4",
+   "question": "Which of the following statements best describes the concept of an illusion?",
+   "options": [
+    "It is due to the action of the rods versus cones in the retina",
+    "Corresponds something directly that you dreamed",
+    "It is a perception that doesn’t relate to the reality",
+    "It is the same thing as vision"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 378,
+   "topic": "Quiz # 4",
+   "question": "Giving 2 candies after 6 days and one after two days is the example of which of the following schedules of reinforcement?",
+   "options": [
+    "Fixed-ratio schedule",
+    "Fixed-interval schedule",
+    "Variable-interval schedule",
+    "Variable-amount schedule"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 379,
+   "topic": "Quiz # 4",
+   "question": "When people hear a sound, their ears turn the vibrations in the air in the neural messages from the auditory nerve, which makes it possible for the brain to interpret the sound. This process is called .",
+   "options": [
+    "Evaluation",
+    "Storage",
+    "Encoding",
+    "Retrieval"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 380,
+   "topic": "Quiz # 4",
+   "question": "Who among the following gave the Cognitive Appraisal Theory of Emotions?",
+   "options": [
+    "Richard Solomon and John Corbit",
+    "Richard Lazarus",
+    "Albert Elis",
+    "Cannon-Bard"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 381,
+   "topic": "Quiz # 4",
+   "question": "Which of the following is a process in which logical conclusions, inferences, and implications are drawn by using a set of assumptions?",
+   "options": [
+    "Statistical Analysis",
+    "Deductive reasoning",
+    "Inductive reasoning",
+    "Eclectic reasoning"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 382,
+   "topic": "Quiz # 4",
+   "question": "All of the following are stimulants except;",
+   "options": [
+    "Cocaine",
+    "Amphetamines",
+    "Benzedrine",
+    "Barbiturates"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 383,
+   "topic": "Quiz # 4",
+   "question": "Ahmed is scared of neighbor’s dog that barks every time the child passes by; but loves his own dog. This is and example of what?",
+   "options": [
+    "Extinction",
+    "Generalization",
+    "Reinforcement",
+    "Discrimination"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 384,
+   "topic": "Quiz # 4",
+   "question": "Which of the following situation can NOT be considered as Operant conditioning?",
+   "options": [
+    "Teacher gives silver and golden stars on child’s workbooks",
+    "Horses gallop faster when the rider whips them",
+    "Arsalan starts feeling bad at the thought of visit dentist",
+    "Usman earned profit to the organization gets a bonus at the end of the year"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 385,
+   "topic": "Quiz # 4",
+   "question": "A rectangle has two opposite sides equal, if it is not the case, then it is not a rectangle. This is an example of which of the following type of concept?",
+   "options": [
+    "Artificial",
+    "Prototype",
+    "Natural",
+    "Prolonged"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 386,
+   "topic": "Quiz # 4",
+   "question": "Who among the following talked about the ‘cognitive maps’?",
+   "options": [
+    "Tolman",
+    "Skinner",
+    "Thomdike",
+    "Maslow"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 387,
+   "topic": "Quiz # 4",
+   "question": "In ‘Little Albert Study’ which of the following was the fear producing stimulus used as UCS?",
+   "options": [
+    "Fear of the place",
+    "Fear of the rat",
+    "Loud noise",
+    "White rat"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 388,
+   "topic": "Quiz # 4",
+   "question": "In the theory of Classical Conditioning the acronym CR stands for which of the following;",
+   "options": [
+    "Conditional reinforcement",
+    "Conditioned response",
+    "Contingent reflex",
+    "Contingent reflection"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 389,
+   "topic": "Quiz # 4",
+   "question": "The rate at which food converts into energy and is then expended by the body is known as what;",
+   "options": [
+    "Metabolism",
+    "Deuteranopia",
+    "Calcitonin",
+    "Oxytocin"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 390,
+   "topic": "Additional Quiz Questions",
+   "question": "American Psychological Association has ___________ divisions.",
+   "options": [
+    "55",
+    "65",
+    "54",
+    "45"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 391,
+   "topic": "Additional Quiz Questions",
+   "question": "__________ version of DSM was published in 2000 .",
+   "options": [
+    "DSM III",
+    "DSM IV",
+    "DSM IV TR",
+    "DSM II"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 392,
+   "topic": "Additional Quiz Questions",
+   "question": "_____________ contributions began with the revolutionary changes at the La Bicetre hospital in Paris.",
+   "options": [
+    "Philippe Pinel",
+    "Galen",
+    "Plato",
+    "Mesmer"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 393,
+   "topic": "Additional Quiz Questions",
+   "question": "Hierarchical theory of intelligence is consists of ________ levels.",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 394,
+   "topic": "Additional Quiz Questions",
+   "question": "According to Sternberg theory, intelligence has three components which component is not a part of this theory.",
+   "options": [
+    "Analytic intelligence",
+    "Crystalline intelligence",
+    "Practical intelligence",
+    "Creative intelligence"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 395,
+   "topic": "Additional Quiz Questions",
+   "question": "Galton considered intelligence to be _____________________.",
+   "options": [
+    "Not heritable",
+    "Similar between most people",
+    "A property of our nervous system or hereditary",
+    "The product of social differences"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 396,
+   "topic": "Additional Quiz Questions",
+   "question": "Social phobia is characterized by _____.",
+   "options": [
+    "A fear of people",
+    "A fear of rejection",
+    "A fear of social situations",
+    "A fear of social isolation"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 397,
+   "topic": "Additional Quiz Questions",
+   "question": "Which one is NOT a type of schizophrenia?",
+   "options": [
+    "Disorganized type",
+    "Catatonic type",
+    "Paranoid type",
+    "Differentiated type"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 398,
+   "topic": "Additional Quiz Questions",
+   "question": "Which model of psychotherapy consists of Systematic de-sensitization and contingency management?",
+   "options": [
+    "Biological",
+    "Family and couples.",
+    "Behavioral",
+    "Cognitive"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 399,
+   "topic": "Additional Quiz Questions",
+   "question": "In terms of its causes and the factors affecting its course, bipolar disorder is most similar to which of these disorders?",
+   "options": [
+    "Panic disorder.",
+    "Schizophrenia.",
+    "Substance use disorders.",
+    "Unipolar depression."
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 400,
+   "topic": "Additional Quiz Questions",
+   "question": "The therapy based upon __________ theory is too time consuming and therefore expensive.",
+   "options": [
+    "Psychodynamic",
+    "Psycho social",
+    "Trait",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 401,
+   "topic": "Additional Quiz Questions",
+   "question": "__________ described personality in terms of two major dimensions.",
+   "options": [
+    "Cattell",
+    "Eysenik",
+    "Adler",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 402,
+   "topic": "Additional Quiz Questions",
+   "question": "TAT is a __________.",
+   "options": [
+    "Self Report Inventory",
+    "Projection Test",
+    "Perception Test",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 403,
+   "topic": "Additional Quiz Questions",
+   "question": "__________ was the first to use the term “Mental Test” for devices used to measure intelligence.",
+   "options": [
+    "Galton",
+    "Cattell",
+    "Thorndike",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 404,
+   "topic": "Additional Quiz Questions",
+   "question": "Multiple Intelligence theory maintains that human possesses around __________ kinds of intelligence.",
+   "options": [
+    "Two",
+    "Seven",
+    "Eight",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 405,
+   "topic": "Additional Quiz Questions",
+   "question": "Binet and Simon were________ scientists. They were the first to measure intelligence formally.",
+   "options": [
+    "German",
+    "American",
+    "French",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 406,
+   "topic": "Additional Quiz Questions",
+   "question": "Cole and Hass gave the idea of __________.",
+   "options": [
+    "Social Intelligence",
+    "Moral Intelligence",
+    "Emotional Intelligence",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 407,
+   "topic": "Additional Quiz Questions",
+   "question": "Available statistics show that majority of the people have an I.Q level between __________.",
+   "options": [
+    "75 - 115",
+    "80 - 115",
+    "85 - 115",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 408,
+   "topic": "Additional Quiz Questions",
+   "question": "The function of memory responsible for the initial recording of information is __________.",
+   "options": [
+    "Encoding",
+    "Storage",
+    "Retrieval",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 409,
+   "topic": "Additional Quiz Questions",
+   "question": "Information gathered by our visual sense is reflected by the __________.",
+   "options": [
+    "Echoic Memory",
+    "Iconic Memory",
+    "Long Term Memory",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 410,
+   "topic": "Additional Quiz Questions",
+   "question": "__________ is a technique used to transfer short-term memory information into long-term memory.",
+   "options": [
+    "Chunking",
+    "Echoic Memory",
+    "Retrieval",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 411,
+   "topic": "Additional Quiz Questions",
+   "question": "According to __________ information is remembered in terms of schemas.",
+   "options": [
+    "Maslow",
+    "John Jenkins",
+    "Bartlet",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 412,
+   "topic": "Additional Quiz Questions",
+   "question": "MCI stands for __________.",
+   "options": [
+    "Memory Critical Impairment",
+    "Memory Coding Impairment",
+    "Memory Cognitive Impairment",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 413,
+   "topic": "Additional Quiz Questions",
+   "question": "A process which is responsible for a stable and well-maintained state of internal biological balance is called __________.",
+   "options": [
+    "Motivation",
+    "Adaptation",
+    "Metabolism",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 414,
+   "topic": "Additional Quiz Questions",
+   "question": "A motivation from within that energizes the person to satisfy or accomplish a goal in which no external tangible reward is involved is called __________.",
+   "options": [
+    "Intrinsic Motivation",
+    "Curiosity",
+    "Extrinsic Motivation",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 415,
+   "topic": "Additional Quiz Questions",
+   "question": "________ divided the emotions in three types as primary, secondary and derived.",
+   "options": [
+    "Maslow",
+    "Freud",
+    "Mc Dougall",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 416,
+   "topic": "Additional Quiz Questions",
+   "question": "J.B. Watson talked about three main emotions anger, love and __________.",
+   "options": [
+    "Disgust",
+    "Fear",
+    "Sadness",
+    "None of the above"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 417,
+   "topic": "Additional Quiz Questions",
+   "question": "While maintenance rehearsal will help keep information in short-term memory for longer periods of time, it does not help transfer information into long-term memory. In order to get information into long-term memory we need to engage in:",
+   "options": [
+    "Elaborative rehearsal",
+    "Maintenance priming",
+    "Chunking",
+    "Episodic rehearsal"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 418,
+   "topic": "Additional Quiz Questions",
+   "question": "In sensory memory, visual stimuli are held for a very brief time as _____ memories, whereas auditory stimuli are held as _____ memories.",
+   "options": [
+    "Short-term; long-term",
+    "Iconic; echoic",
+    "Echoic; iconic",
+    "Long-term; short-term"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 419,
+   "topic": "Additional Quiz Questions",
+   "question": "Which of the following is NOT true of long-term memory?",
+   "options": [
+    "It has unlimited space",
+    "It includes both semantic and episodic memory",
+    "It can hold information for unlimited lengths of time",
+    "It has about seven slots or chunks for information storage"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 420,
+   "topic": "Additional Quiz Questions",
+   "question": "______ is synonymous with short-term memory.",
+   "options": [
+    "Sensory registers",
+    "Shadow memory",
+    "Working memory",
+    "Secondary memory"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 421,
+   "topic": "Additional Quiz Questions",
+   "question": "________________________ of the following statements is true about retrieval.",
+   "options": [
+    "It is a process of getting information from the sensory receptors to the brain",
+    "It is a process that allows an extinguished CR to recover.",
+    "It is the reason that conditioned taste aversions last so long.",
+    "It is a process of getting stored memories back out intoconsciousness."
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 422,
+   "topic": "Additional Quiz Questions",
+   "question": "_______________ is the process of perceiving information and bringing it into the memory system",
+   "options": [
+    "Storage",
+    "Retrieval",
+    "Recording",
+    "Encoding"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 423,
+   "topic": "Additional Quiz Questions",
+   "question": "According to Woodworth Memory =L -I –R, R stands for ___________.",
+   "options": [
+    "recording",
+    "remembering",
+    "resonance",
+    "recall"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 424,
+   "topic": "Additional Quiz Questions",
+   "question": "__________ derives from the Latin word “Emovere” means to excite, stir up.",
+   "options": [
+    "Motion",
+    "Emotion",
+    "Motivation",
+    "Cognition"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 425,
+   "topic": "Additional Quiz Questions",
+   "question": "_______________ was the first person who identify pupillometrics phenomenon.",
+   "options": [
+    "William James",
+    "Wilhelm Wundt",
+    "Lazarus",
+    "Darwin"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 426,
+   "topic": "Additional Quiz Questions",
+   "question": "According to___________ every emotional arousal has an opposite, i.e. When one type of emotion is elicited, and then there must be an opposite that is there to suppress or cancel it.",
+   "options": [
+    "Opponent process theory",
+    "Activation theory",
+    "Cognitive theory",
+    "None of the above option"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 427,
+   "topic": "Additional Quiz Questions",
+   "question": "The branch of psychology that studies cognition, and related areas issues are called_____________.",
+   "options": [
+    "Forensic psychology",
+    "Cognitive psychology",
+    "Counseling psychology",
+    "Clinical psychology"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 428,
+   "topic": "Additional Quiz Questions",
+   "question": "__________________ is the universal forms and patterns of thought. These include themes that can be seen in myths e.g. masculinity, femininity, good and evil opposites.",
+   "options": [
+    "Ego",
+    "Superego",
+    "Unconscious",
+    "Archetypes"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 429,
+   "topic": "Additional Quiz Questions",
+   "question": "MMPI stands for _____________________________________.",
+   "options": [
+    "Minnesota Multiphasic Personal Inventory",
+    "Minnesota Multiphasic Personality Inventory",
+    "Minnesota Multiphasic Psychology Inventory",
+    "None of the above options"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 430,
+   "topic": "Additional Quiz Questions",
+   "question": "s ________________ are the people who are quiet, passive and careful people.",
+   "options": [
+    "Extroverts",
+    "Introverts",
+    "Neurotics",
+    "Stable"
+   ],
+   "correctIndex": null
+  },
+  {
+   "number": 431,
+   "topic": "Additional Quiz Questions",
+   "question": "______________ is a Greek word which means forgetfulness.",
+   "options": [
+    "Amnesia",
+    "Dementia",
+    "Alzheimer’s disease",
+    "None of the above option"
+   ],
+   "correctIndex": null
   }
  ],
  "extraLines": [
