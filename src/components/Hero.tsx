@@ -466,7 +466,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <SpotlightCard
                   onClick={onOpenMcqs}
                   spotlightColor="rgba(56, 189, 248, 0.16)"
-                  className="group glass-panel-dark rounded-2xl p-5 sm:p-6 text-left transition-colors hover:border-sky-400/60 cursor-pointer flex flex-col justify-between min-h-[188px]"
+                  className="group glass-panel-dark rounded-2xl p-5 sm:p-6 text-left transition-colors hover:border-sky-400/60 cursor-pointer flex flex-col justify-between min-h-[168px] sm:min-h-[188px]"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-2">
@@ -481,7 +481,7 @@ export const Hero: React.FC<HeroProps> = ({
                       <h2 className="text-base sm:text-lg font-bold text-white group-hover:text-sky-200 transition-colors">
                         Interactive MCQ Studio
                       </h2>
-                      <p className="text-xs text-slate-300 leading-relaxed">
+                      <p className="text-sm text-slate-300 leading-relaxed">
                         Practice {mcqSets.length} verified subject banks with 45s timed mock exams and rapid flash-sheets.
                       </p>
                     </div>
@@ -500,7 +500,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <SpotlightCard
                   onClick={onOpenSubjective}
                   spotlightColor="rgba(217, 119, 6, 0.18)"
-                  className="group glass-panel-dark rounded-2xl p-5 sm:p-6 text-left transition-colors hover:border-amber-400/60 cursor-pointer flex flex-col justify-between min-h-[188px]"
+                  className="group glass-panel-dark rounded-2xl p-5 sm:p-6 text-left transition-colors hover:border-amber-400/60 cursor-pointer flex flex-col justify-between min-h-[168px] sm:min-h-[188px]"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-2">
@@ -515,7 +515,7 @@ export const Hero: React.FC<HeroProps> = ({
                       <h2 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-200 transition-colors">
                         Subjective Fast-Learning
                       </h2>
-                      <p className="text-xs text-slate-300 leading-relaxed">
+                      <p className="text-sm text-slate-300 leading-relaxed">
                         Master 2, 3 &amp; 5-mark prompts via 10-second memory hooks, cram sheets, and marking keys.
                       </p>
                     </div>
@@ -537,7 +537,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <SpotlightCard
                   onClick={onOpenPastPapers}
                   spotlightColor="rgba(52, 211, 153, 0.14)"
-                  className="group glass-panel-dark rounded-2xl p-4 sm:p-5 text-left transition-colors hover:border-emerald-400/55 cursor-pointer flex items-center justify-between gap-4 flex-1"
+                  className="group glass-panel-dark rounded-2xl p-4 sm:p-5 text-left transition-colors hover:border-emerald-400/55 cursor-pointer flex items-center justify-between gap-4 flex-1 min-h-[168px] lg:min-h-0"
                 >
                   <div className="flex items-start gap-3.5 min-w-0">
                     <div className="w-10 h-10 rounded-xl bg-emerald-500/18 border border-emerald-400/30 flex items-center justify-center text-emerald-300 shrink-0 transition-transform duration-150 group-hover:scale-105">
@@ -563,7 +563,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <SpotlightCard
                   onClick={onOpenSimulator}
                   spotlightColor="rgba(56, 189, 248, 0.14)"
-                  className="group glass-panel-dark rounded-2xl p-4 sm:p-5 text-left transition-colors hover:border-sky-400/55 cursor-pointer flex items-center justify-between gap-4 flex-1"
+                  className="group glass-panel-dark rounded-2xl p-4 sm:p-5 text-left transition-colors hover:border-sky-400/55 cursor-pointer flex items-center justify-between gap-4 flex-1 min-h-[168px] lg:min-h-0"
                 >
                   <div className="flex items-start gap-3.5 min-w-0">
                     <div className="w-10 h-10 rounded-xl bg-teal-500/18 border border-teal-400/30 flex items-center justify-center text-teal-300 shrink-0 transition-transform duration-150 group-hover:scale-105">

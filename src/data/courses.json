@@ -180,6 +180,12 @@
     "fileCount": 3
   },
   {
+    "code": "BNK611",
+    "title": "Economic Ideology in Islam",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "BT101",
     "title": "Ecology, Biodiversity & Evolution",
     "faculty": "Bio-Technology",
@@ -348,6 +354,12 @@
     "fileCount": 7
   },
   {
+    "code": "BT613T",
+    "title": "Agricultural Biotechnology",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "BT614",
     "title": "Clinical Research in Biotechnology",
     "faculty": "Bio-Technology",
@@ -456,6 +468,12 @@
     "fileCount": 347
   },
   {
+    "code": "CS306",
+    "title": "Introduction to Python",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "CS310",
     "title": "Introduction to Programming (Python)",
     "faculty": "Computer Science",
@@ -556,6 +574,18 @@
     "title": "Cloud Computing Infrastructure",
     "faculty": "Computer Science",
     "fileCount": 8
+  },
+  {
+    "code": "CS441",
+    "title": "Big Data Concepts",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "CS442",
+    "title": "Introduction to Data Science",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "CS501",
@@ -702,6 +732,12 @@
     "fileCount": 8
   },
   {
+    "code": "CS620",
+    "title": "Modeling & Simulation",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "CS621",
     "title": "Information Retrieval Techniques",
     "faculty": "Computer Science",
@@ -724,6 +760,24 @@
     "title": "Big Data Analytics",
     "faculty": "Computer Science",
     "fileCount": 2
+  },
+  {
+    "code": "CS701",
+    "title": "Theory of Computation",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "CS703",
+    "title": "Operating Systems",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "CS704",
+    "title": "Advanced Computer Architecture",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "CS708",
@@ -754,6 +808,12 @@
     "title": "Introduction to Early Childhood Care & Education",
     "faculty": "Education",
     "fileCount": 2
+  },
+  {
+    "code": "ECO302",
+    "title": "Microeconomics",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "ECO401",
@@ -910,6 +970,12 @@
     "title": "Teaching of General Science",
     "faculty": "Education",
     "fileCount": 264
+  },
+  {
+    "code": "EDU407",
+    "title": "EDU407",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "EDU410",
@@ -1090,6 +1156,12 @@
     "title": "Business Communication",
     "faculty": "English",
     "fileCount": 96
+  },
+  {
+    "code": "ENG401",
+    "title": "Introduction to Literature: Short Story and Poetry",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "ENG501",
@@ -1344,6 +1416,12 @@
     "fileCount": 26
   },
   {
+    "code": "GSC201",
+    "title": "Teaching of General Science",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "HRM613",
     "title": "Human Resource Development",
     "faculty": "Human Resources",
@@ -1512,6 +1590,12 @@
     "fileCount": 4
   },
   {
+    "code": "MCM516",
+    "title": "TV News Reporting and Production",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MCM517",
     "title": "Advertising Strategy & Campaigns",
     "faculty": "Mass Communication",
@@ -1578,6 +1662,12 @@
     "fileCount": 1
   },
   {
+    "code": "MGMT611",
+    "title": "Human Relations",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MGMT614",
     "title": "Leadership & Team Building",
     "faculty": "Management Sciences",
@@ -1626,6 +1716,12 @@
     "fileCount": 3
   },
   {
+    "code": "MGMT629",
+    "title": "Crisis Management",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MGMT630",
     "title": "Business Strategy & Policy",
     "faculty": "Management Sciences",
@@ -1650,6 +1746,12 @@
     "fileCount": 2
   },
   {
+    "code": "MGT201",
+    "title": "Financial Management",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MGT211",
     "title": "Introduction to Business",
     "faculty": "Management Sciences",
@@ -1662,10 +1764,22 @@
     "fileCount": 113
   },
   {
+    "code": "MGT401",
+    "title": "Financial Accounting II",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MGT402",
     "title": "Cost & Management Accounting",
     "faculty": "Management Sciences",
     "fileCount": 6
+  },
+  {
+    "code": "MGT404",
+    "title": "MGT404",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "MGT411",
@@ -1692,16 +1806,46 @@
     "fileCount": 95
   },
   {
+    "code": "MGT504",
+    "title": "Organization Theory & Design",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MGT510",
     "title": "Total Quality Management",
     "faculty": "Management Sciences",
     "fileCount": 20
   },
   {
+    "code": "MGT520",
+    "title": "International Business",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MGT522",
+    "title": "MGT522",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MGT601",
+    "title": "SME Management",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MGT602",
     "title": "Entrepreneurship",
     "faculty": "Management Sciences",
     "fileCount": 20
+  },
+  {
+    "code": "MGT603",
+    "title": "Strategic Management",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "MGT604",
@@ -1720,6 +1864,30 @@
     "title": "Business & Labor Law",
     "faculty": "Management Sciences",
     "fileCount": 7
+  },
+  {
+    "code": "MGT613",
+    "title": "Production and Operations Management",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MGT703",
+    "title": "Strategic Management",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MGT705",
+    "title": "Advanced Cost and Management Accounting",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MGT713",
+    "title": "Production / Operations Management",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "MGTE630",
@@ -1782,10 +1950,22 @@
     "fileCount": 68
   },
   {
+    "code": "MTH102",
+    "title": "Basic Algebra and Trigonometry",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MTH104",
     "title": "Sets & Logic",
     "faculty": "Mathematics",
     "fileCount": 26
+  },
+  {
+    "code": "MTH201",
+    "title": "Multivariable Calculus",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "MTH202",
@@ -1806,10 +1986,34 @@
     "fileCount": 0
   },
   {
+    "code": "MTH304",
+    "title": "Mechanics",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MTH401",
     "title": "Differential Equations",
     "faculty": "Mathematics",
     "fileCount": 51
+  },
+  {
+    "code": "MTH403",
+    "title": "MTH403",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MTH404",
+    "title": "MTH404",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MTH405",
+    "title": "MTH405",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "MTH501",
@@ -1830,6 +2034,12 @@
     "fileCount": 58
   },
   {
+    "code": "MTH621",
+    "title": "Real Analysis I",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MTH622",
     "title": "Vector & Tensor Analysis",
     "faculty": "Mathematics",
@@ -1848,6 +2058,12 @@
     "fileCount": 2
   },
   {
+    "code": "MTH633",
+    "title": "Group Theory",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "MTH634",
     "title": "Topology",
     "faculty": "Mathematics",
@@ -1858,6 +2074,18 @@
     "title": "Functional Analysis",
     "faculty": "Mathematics",
     "fileCount": 1
+  },
+  {
+    "code": "MTH642",
+    "title": "Fluid Mechanics",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "MTH643",
+    "title": "MTH643",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "MTH644",
@@ -1902,6 +2130,12 @@
     "fileCount": 2
   },
   {
+    "code": "PAK303",
+    "title": "PAK303",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
     "code": "PAK522",
     "title": "Ideology & Constitution of Pakistan",
     "faculty": "Social Studies",
@@ -1924,6 +2158,12 @@
     "title": "Circuit Theory",
     "faculty": "Physics",
     "fileCount": 71
+  },
+  {
+    "code": "PSC401",
+    "title": "Public International Law",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "PSY101",
@@ -1978,6 +2218,12 @@
     "title": "Health Psychology",
     "faculty": "Psychology",
     "fileCount": 2
+  },
+  {
+    "code": "PSY409",
+    "title": "Positive Psychology",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "PSY502",
@@ -2062,6 +2308,18 @@
     "title": "Psychological Assessment Lab Practical",
     "faculty": "Psychology",
     "fileCount": 2
+  },
+  {
+    "code": "SE601",
+    "title": "Software Construction & Development",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
+  },
+  {
+    "code": "SE602",
+    "title": "Software Re—engineering",
+    "faculty": "Virtual University of Pakistan",
+    "fileCount": 0
   },
   {
     "code": "SOC101",

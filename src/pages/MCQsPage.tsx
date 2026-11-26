@@ -752,8 +752,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 <motion.div
                   key={set.id}
                   initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 'some' }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{
                     duration: 0.24,
                     delay: Math.min(idx * 0.03, 0.16),
@@ -1021,7 +1020,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setMode(id)}
-                  className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                  className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                     isActive ? 'text-white' : 'text-slate-700 hover:text-[#0D1B2A]'
                   }`}
                 >
@@ -1995,27 +1994,19 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                 {filteredQuestions.map((q, idx) => {
                   const isRevealed = showAllAnswers || revealedIds.has(q.id);
                   return (
-                    <motion.div
+                    <div
                       key={q.id}
-                      initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 'some' }}
-                      transition={{
-                        duration: 0.22,
-                        delay: Math.min((idx % 6) * 0.025, 0.14),
-                        ease: [0.16, 1, 0.3, 1]
-                      }}
                       className="bg-white rounded-2xl border border-[#E5E0D5] shadow-xs p-5 space-y-3 flex flex-col justify-between"
                     >
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between gap-2 text-xs font-mono text-slate-500">
+                        <div className="flex items-center justify-between gap-2 text-sm font-mono text-slate-500">
                           <span className="font-bold text-blue-700">Q{q.num}</span>
                           {q.topic && <span className="truncate text-slate-500">{q.topic}</span>}
                         </div>
-                        <p className="text-sm font-semibold text-slate-900 leading-snug">
+                        <p className="text-base font-semibold text-slate-900 leading-snug">
                           {q.question}
                         </p>
-                        <ul className="space-y-1.5 text-xs">
+                        <ul className="space-y-1.5 text-sm">
                           {q.options.map((opt, oIdx) => {
                             const isRight = oIdx === q.correctIndex;
                             return (
@@ -2050,7 +2041,7 @@ export const MCQsPage: React.FC<MCQsPageProps> = ({
                           <span>{isRevealed ? 'Hide Answer' : 'Show Answer'}</span>
                         </button>
                       )}
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>

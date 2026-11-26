@@ -206,7 +206,7 @@ export const MidtermPrepHubPage: React.FC<MidtermPrepHubPageProps> = ({
                   role="tab"
                   aria-selected={active}
                   onClick={() => setTrackFilter(tab.id)}
-                  className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap tabular-nums ${
+                  className={`px-3.5 py-2 min-h-[44px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap tabular-nums ${
                     active
                       ? 'bg-[#0B1526] text-white shadow-xs'
                       : 'text-slate-600 hover:text-slate-950'
@@ -286,7 +286,7 @@ export const MidtermPrepHubPage: React.FC<MidtermPrepHubPageProps> = ({
       </ScrollReveal>
 
       {/* Results Summary Bar */}
-      <div className="flex items-center justify-between text-xs text-slate-600 px-1">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-xs text-slate-600 px-1">
         <span className="tabular-nums">
           Showing <strong className="text-slate-950 font-mono">{visibleCourses.length}</strong> of{' '}
           <strong className="text-slate-950 font-mono">{filteredCourses.length}</strong> subjects

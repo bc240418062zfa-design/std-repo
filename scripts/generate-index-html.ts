@@ -60,7 +60,7 @@ const fullHtml = `<!doctype html>
     
     <!-- Primary High-Ranking Search Engine Title & Description (Targeting 'mihora vu' & 'vu assignment solution 2026') -->
     <title>MIHORA VU – VU Assignment Solution 2026 &amp; Past Papers</title>
-    <meta name="description" content="MIHORA VU Study Library: VU Assignment Solution 2026, 28,328+ solved past papers, handouts &amp; quizzes for all 411+ Virtual University courses." />
+    <meta name="description" content="MIHORA VU Study Library: VU Assignment Solution 2026, 28,328+ solved past papers, handouts &amp; quizzes for all ${courses.length}+ Virtual University courses." />
     <meta name="keywords" content="mihora vu, mihora tech vu, mihora study library, study mihora tech, mihora vu portal, vu assignment solution 2026, vu assignment solution latest, vu assignment 1 solution 2026, vu assignment 2 solution 2026, vu gdb solution 2026, vu quiz solution 2026, vu solved assignments 2026, vu assignment spring 2026, vu assignment fall 2026, vu past papers 2026, vu solved past papers, moaaz past papers, waqar siddhu past papers, vu midterm solved papers 2026, vu final term solved papers 2026, vu handouts, cs101 assignment solution 2026, cs201 assignment solution 2026, mth101 assignment solution 2026, cs301 assignment solution 2026, cs504, mgt101, eng101, pak301, isl202, cs619 fyp, virtual university of pakistan, vulms, vu datesheet, vu 20 percent rule" />
     <meta name="author" content="MIHORA TECH" />
     <meta name="publisher" content="MIHORA TECH" />
@@ -76,7 +76,6 @@ const fullHtml = `<!doctype html>
     <meta name="distribution" content="Global" />
     <meta name="rating" content="General" />
     <link rel="alternate" href="https://study.mihora.tech/" hreflang="en-PK" />
-    <link rel="alternate" href="https://study.mihora.tech/" hreflang="ur-PK" />
     <link rel="alternate" href="https://study.mihora.tech/" hreflang="x-default" />
 
     <!-- OpenGraph Social Sharing Card (Facebook, WhatsApp, LinkedIn, Discord) -->
@@ -84,7 +83,7 @@ const fullHtml = `<!doctype html>
     <meta property="og:site_name" content="MIHORA VU STUDY LIBRARY" />
     <meta property="og:locale" content="en_PK" />
     <meta property="og:title" content="MIHORA VU – VU Assignment Solution 2026 &amp; Past Papers" />
-    <meta property="og:description" content="28,328+ VU solved past papers, midterms, finals, handouts, MCQs &amp; 2026 assignment solution guides for all 411 courses." />
+    <meta property="og:description" content="28,328+ VU solved past papers, midterms, finals, handouts, MCQs &amp; 2026 assignment solution guides for all ${courses.length} courses." />
     <meta property="og:url" content="https://study.mihora.tech/" />
     <meta property="og:image" content="https://study.mihora.tech/og-cover.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -94,7 +93,7 @@ const fullHtml = `<!doctype html>
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="MIHORA VU – VU Assignment Solution 2026 &amp; Past Papers" />
-    <meta name="twitter:description" content="28,328+ VU solved past papers, midterms, finals, handouts, MCQs &amp; 2026 assignment solution guides for all 411 courses." />
+    <meta name="twitter:description" content="28,328+ VU solved past papers, midterms, finals, handouts, MCQs &amp; 2026 assignment solution guides for all ${courses.length} courses." />
     <meta name="twitter:image" content="https://study.mihora.tech/og-cover.jpg" />
 
     <!-- Technical Webmaster & Indexing Directives -->
@@ -105,10 +104,10 @@ const fullHtml = `<!doctype html>
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
     <!-- Comprehensive Schema.org Structured Data (JSON-LD) with FAQPage & Sitelinks Searchbox -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="mihora-site-jsonld">
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -134,7 +133,7 @@ const fullHtml = `<!doctype html>
             "Virtual University Past Papers Library",
             "VU Assignment Solution 2026 Portal"
           ],
-          "description": "Comprehensive academic library for Virtual University of Pakistan containing 28,328+ past papers, lecture handouts, and 2026 assignment solutions for all 411+ courses.",
+          "description": "Comprehensive academic library for Virtual University of Pakistan containing 28,328+ past papers, lecture handouts, and 2026 assignment solutions for all ${courses.length}+ courses.",
           "publisher": {
             "@id": "https://www.mihora.tech/#organization"
           },
@@ -157,7 +156,7 @@ const fullHtml = `<!doctype html>
               "name": "Where can I download VU Assignment Solution 2026 for CS101, CS201, MTH101, and all subjects?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "MIHORA VU (https://study.mihora.tech/vu-assignment-solution-2026) offers verified 2026 assignment solutions, GDB answers, quiz files, and Dev-C++ code templates for all 411 Virtual University courses with 100% free direct downloads."
+                "text": "MIHORA VU (https://study.mihora.tech/vu-assignment-solution-2026) offers verified 2026 assignment solutions, GDB answers, quiz files, and Dev-C++ code templates for all ${courses.length} Virtual University courses with 100% free direct downloads."
               }
             },
             {
@@ -181,7 +180,7 @@ const fullHtml = `<!doctype html>
               "name": "Where can I get Moaaz and Waqar Siddhu solved midterm and final past papers?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "MIHORA VU hosts over 28,328 verified documents including complete Moaaz and Waqar Siddhu past paper collections for all 411 VU subjects, available via direct download without registration."
+                "text": "MIHORA VU hosts over 28,328 verified documents including complete Moaaz and Waqar Siddhu past paper collections for all ${courses.length} VU subjects, available via direct download without registration."
               }
             },
             {
@@ -213,7 +212,7 @@ const fullHtml = `<!doctype html>
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Courses Directory (411)",
+              "name": "Courses Directory (${courses.length})",
               "item": "https://study.mihora.tech/courses"
             },
             {
@@ -235,7 +234,12 @@ const fullHtml = `<!doctype html>
         <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-family: sans-serif;">
           <a href="/" style="font-weight: 800; color: #001738; text-decoration: none; font-size: 1.25rem;">MIHORA VU STUDY LIBRARY</a>
           <div style="display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.95rem; font-weight: 600;">
-            <a href="/courses" style="color: #475569; text-decoration: none;">Courses (411)</a>
+            <a href="/courses" style="color: #475569; text-decoration: none;">Courses (${courses.length})</a>
+            <a href="/midterm-prep" style="color: #b45309; text-decoration: none; font-weight: 700;">Midterm Prep 2026 (664)</a>
+            <a href="/mcqs" style="color: #475569; text-decoration: none;">MCQs</a>
+            <a href="/subjective" style="color: #475569; text-decoration: none;">Subjective</a>
+            <a href="/vu-handouts-pdf" style="color: #475569; text-decoration: none;">Handouts PDF</a>
+            <a href="/gpa-calculator" style="color: #475569; text-decoration: none;">GPA Calculator</a>
             <a href="/vu-assignment-solution-2026" style="color: #059669; text-decoration: none; font-weight: 700;">VU Assignment Solution 2026</a>
             <a href="/past-papers" style="color: #475569; text-decoration: none;">Past Papers</a>
             <a href="/handbook" style="color: #475569; text-decoration: none;">VU Handbook</a>
@@ -247,10 +251,10 @@ const fullHtml = `<!doctype html>
 
       <main style="max-width: 1200px; margin: 2rem auto; padding: 0 1rem; font-family: sans-serif;">
         <h1 style="font-size: 2.35rem; font-weight: 900; color: #0f172a; margin-bottom: 0.75rem; line-height: 1.2;">
-          MIHORA VU – Virtual University Assignment Solutions 2026, Solved Past Papers &amp; All 411+ Courses
+          MIHORA VU – Virtual University Assignment Solutions 2026, Solved Past Papers &amp; All ${courses.length}+ Courses
         </h1>
         <p style="font-size: 1.15rem; color: #475569; max-width: 850px; line-height: 1.6;">
-          Official MIHORA TECH academic repository offering 28,328+ verified study documents for all 411+ Virtual University of Pakistan courses. Access <strong>VU Assignment Solution 2026 (Latest Session)</strong>, Moaaz &amp; Waqar Siddhu solved midterm &amp; final papers, lecture handouts, and quizzes with 100% direct high-speed links.
+          Official MIHORA TECH academic repository offering 28,328+ verified study documents for all ${courses.length}+ Virtual University of Pakistan courses. Access <strong>VU Assignment Solution 2026 (Latest Session)</strong>, Moaaz &amp; Waqar Siddhu solved midterm &amp; final papers, lecture handouts, and quizzes with 100% direct high-speed links.
         </p>
 
         <!-- Dedicated Section 1: VU Assignment Solution 2026 -->
@@ -281,13 +285,13 @@ const fullHtml = `<!doctype html>
           </div>
         </section>
 
-        <!-- Dedicated Section 3: Comprehensive Directory of ALL 411 VU Courses -->
+        <!-- Dedicated Section 3: Comprehensive Directory of ALL ${courses.length} VU Courses -->
         <section style="margin-top: 3rem;">
           <h2 style="font-size: 1.65rem; font-weight: 900; color: #0f172a; margin-bottom: 0.5rem;">
-            Complete Directory of All 411 Virtual University Courses &amp; Codes
+            Complete Directory of All ${courses.length} Virtual University Courses &amp; Codes
           </h2>
           <p style="color: #64748b; font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">
-            Browse the complete curriculum of all 411 accredited courses across 27 faculties of Virtual University of Pakistan. Every course includes verified lecture handouts, Moaaz &amp; Waqar Siddhu solved papers, and 2026 assignment solution templates.
+            Browse the complete curriculum of all ${courses.length} accredited courses across 27 faculties of Virtual University of Pakistan. Every course includes verified lecture handouts, Moaaz &amp; Waqar Siddhu solved papers, and 2026 assignment solution templates.
           </p>
           <div>
             ${coursesCatalogHtml}
@@ -315,26 +319,42 @@ const fullHtml = `<!doctype html>
           <div style="display: flex; flex-direction: column; gap: 1rem;">
             <div style="padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
               <h3 style="font-size: 1.1rem; font-weight: 700; color: #0066ff; margin-bottom: 0.25rem;">
-                Where can I download VU Assignment Solution 2026 for all subjects?
+                Where can I download VU Assignment Solution 2026 for CS101, CS201, MTH101, and all subjects?
               </h3>
               <p style="color: #475569; line-height: 1.6; font-size: 0.95rem;">
-                MIHORA VU (<a href="/vu-assignment-solution-2026" style="color: #0066ff;">study.mihora.tech/vu-assignment-solution-2026</a>) provides verified 2026 assignment solutions, Dev-C++ templates, and GDB guides for all 411 VU courses.
+                MIHORA VU (<a href="/vu-assignment-solution-2026" style="color: #0066ff;">https://study.mihora.tech/vu-assignment-solution-2026</a>) offers verified 2026 assignment solutions, GDB answers, quiz files, and Dev-C++ code templates for all ${courses.length} Virtual University courses with 100% free direct downloads.
               </p>
             </div>
             <div style="padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
               <h3 style="font-size: 1.1rem; font-weight: 700; color: #0066ff; margin-bottom: 0.25rem;">
-                How does the VU 24-hour assignment grace period work?
+                What is the 24-hour assignment grace period in Virtual University?
               </h3>
               <p style="color: #475569; line-height: 1.6; font-size: 0.95rem;">
-                Virtual University grants an automatic 24-hour grace window after the due date with zero marks penalty. Submissions during grace hours receive full credit.
+                Virtual University gives students an automatic 24-hour grace period after the official assignment deadline. Submissions during this grace window are awarded full credit with 0 marks deduction.
               </p>
             </div>
             <div style="padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
               <h3 style="font-size: 1.1rem; font-weight: 700; color: #0066ff; margin-bottom: 0.25rem;">
-                Are Moaaz and Waqar Siddhu past papers updated for 2026 exams?
+                How to avoid zero marks in VU assignments due to Turnitin plagiarism?
               </h3>
               <p style="color: #475569; line-height: 1.6; font-size: 0.95rem;">
-                Yes, our archive includes Moaaz midterm solved papers, Waqar Siddhu final term MCQs, and recent exam files verified by VU toppers.
+                Never copy-paste solutions directly from YouTube or public groups. Keep Turnitin similarity under 19% by renaming code variables, rearranging logical statements, and writing custom explanations.
+              </p>
+            </div>
+            <div style="padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #0066ff; margin-bottom: 0.25rem;">
+                Where can I get Moaaz and Waqar Siddhu solved midterm and final past papers?
+              </h3>
+              <p style="color: #475569; line-height: 1.6; font-size: 0.95rem;">
+                MIHORA VU hosts over 28,328 verified documents including complete Moaaz and Waqar Siddhu past paper collections for all ${courses.length} VU subjects, available via direct download without registration.
+              </p>
+            </div>
+            <div style="padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: #0066ff; margin-bottom: 0.25rem;">
+                What is the 20% Two-Half passing rule in Virtual University?
+              </h3>
+              <p style="color: #475569; line-height: 1.6; font-size: 0.95rem;">
+                Students must score at least 20% in the First Half (Quizzes, Assignments, GDBs, and Midterms) AND independently at least 20% in the Final Term exam paper to pass any course.
               </p>
             </div>
           </div>
@@ -342,7 +362,16 @@ const fullHtml = `<!doctype html>
       </main>
 
       <footer style="padding: 2rem 1rem; border-top: 1px solid #e2e8f0; background: #001738; color: #ffffff; font-family: sans-serif; text-align: center;">
-        <p style="font-size: 0.9rem; color: #94a3b8;">
+        <p style="font-size: 0.9rem; color: #cbd5e1;">
+          <a href="/about" style="color: #cbd5e1; text-decoration: none;">About MIHORA TECH</a> ·
+          <a href="/midterm-prep" style="color: #cbd5e1; text-decoration: none;">Midterm Prep 2026</a> ·
+          <a href="/mcqs" style="color: #cbd5e1; text-decoration: none;">MCQs</a> ·
+          <a href="/subjective" style="color: #cbd5e1; text-decoration: none;">Subjective</a> ·
+          <a href="/sitemap" style="color: #cbd5e1; text-decoration: none;">Sitemap</a> ·
+          <a href="/security" style="color: #cbd5e1; text-decoration: none;">Privacy &amp; Safety</a> ·
+          <a href="/disclaimer" style="color: #cbd5e1; text-decoration: none;">Disclaimer</a>
+        </p>
+        <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 0.75rem;">
           &copy; ${new Date().getFullYear()} MIHORA TECH. Educational Welfare &amp; CSR Initiative.
         </p>
         <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">
@@ -358,4 +387,4 @@ const fullHtml = `<!doctype html>
 `;
 
 fs.writeFileSync(path.resolve('index.html'), fullHtml, 'utf-8');
-console.log('✅ Generated comprehensive index.html with all 411 courses & 2026 assignment solutions!');
+console.log(`✅ Generated comprehensive index.html with all ${courses.length} courses & 2026 assignment solutions!`);

@@ -22,7 +22,10 @@ import {
   Zap
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { generatePassingReportPDF, SimulatorData } from '../utils/pdfGenerator';
+// jsPDF (via pdfGenerator) is loaded lazily inside the export handler
+// (Phase 2 speed fix) — the PDF library used to ship inside the main
+// bundle even though it is only used on one click.
+import type { SimulatorData } from '../utils/pdfGenerator';
 import coursesData from '../data/courses.json';
 import { Course } from '../types';
 import {
@@ -341,8 +344,11 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
     }
   };
 
-  // PDF Export
-  const handleDownloadPDF = () => {
+  // PDF Export — jsPDF (via pdfGenerator) is loaded lazily here
+  // (Phase 2 speed fix): it used to ship inside the main bundle even
+  // though it is only used on this one click.
+  const handleDownloadPDF = async () => {
+    const { generatePassingReportPDF } = await import('../utils/pdfGenerator');
     const data: SimulatorData = {
       courseCode: selectedCourse.code,
       courseTitle: selectedCourse.title,
@@ -434,7 +440,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
               <span>Select Real Virtual University Course</span>
             </h2>
             <p className="text-xs text-slate-500">
-              Pick from 411 real courses or search by course code (e.g., CS101, MTH101, ENG101).
+              Pick from {allCourses.length} real courses or search by course code (e.g., CS101, MTH101, ENG101).
             </p>
           </div>
 
@@ -521,7 +527,7 @@ export const PassingSimulatorPage: React.FC<PassingSimulatorPageProps> = ({ onSe
         {/* Real Course Search Autocomplete Box */}
         <div className="relative max-w-xl">
           <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1.5">
-            Search All 411 Real Courses:
+            Search All {allCourses.length} Real Courses:
           </label>
           <div className="relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />

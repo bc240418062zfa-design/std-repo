@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react';
 import { MotionConfig, motion, AnimatePresence } from 'motion/react';
 import { Resource, Course, FilterState, DownloadSession } from './types';
 import { searchResources, countDedupedResources } from './search/searchEngine';
@@ -9,7 +9,6 @@ import { Navbar } from './components/Navbar';
 import { BreadcrumbBar, BreadcrumbItem } from './components/BreadcrumbBar';
 import { Hero } from './components/Hero';
 import { FilterBar } from './components/FilterBar';
-import { ResourceCard } from './components/ResourceCard';
 import { MultiDownloadBar } from './components/MultiDownloadBar';
 import { DownloadModal } from './components/DownloadModal';
 import { FilePreviewModal } from './components/FilePreviewModal';
@@ -22,31 +21,41 @@ import {
   EASE_OUT_EXPO
 } from './components/MotionPrimitives';
 import { CelestialStarfield, CelestialOrbitalRings, CelestialDivider } from './components/CelestialBackdrop';
-import { syncRouteSeo } from './utils/seoManager';
 import observatoryArt from './assets/images/mihora_observatory_art_1795287185839.jpg';
-import { CoursesPage } from './pages/CoursesPage';
-import { SecurityPage } from './pages/SecurityPage';
-import { AboutPage } from './pages/AboutPage';
-import { SitemapPage } from './pages/SitemapPage';
-import { DisclaimerPage } from './pages/DisclaimerPage';
-import { NotFoundPage } from './pages/NotFoundPage';
-import { PassingSimulatorPage } from './pages/PassingSimulatorPage';
-import { StudentHandbookPage } from './pages/StudentHandbookPage';
-import { VUGPACalculatorPage } from './pages/VUGPACalculatorPage';
-import { VUDatesheetGuidePage } from './pages/VUDatesheetGuidePage';
-import { VUCS619GuidePage } from './pages/VUCS619GuidePage';
-import { VUAssignmentGuidePage } from './pages/VUAssignmentGuidePage';
-import { PastPapersPage } from './pages/PastPapersPage';
-import { MCQsPage } from './pages/MCQsPage';
-import { SubjectivePage } from './pages/SubjectivePage';
-import { DocumentViewerPage } from './pages/DocumentViewerPage';
-import { MidtermPrepHubPage } from './pages/MidtermPrepHubPage';
-import { MidtermDocPage } from './pages/MidtermDocPage';
+// Route-based code splitting (Phase 2 speed fix): every page is a lazy
+// chunk so the first load only ships the app shell + home view. The
+// SEO manager is also lazy — it is only needed after mount, and its
+// static import used to drag the 4.1 MB resources catalog into the
+// main bundle via docSlug. Pages export named components, so each lazy
+// import maps the named export to a default export.
+const CoursesPage = lazy(() => import('./pages/CoursesPage').then((m) => ({ default: m.CoursesPage })));
+const SecurityPage = lazy(() => import('./pages/SecurityPage').then((m) => ({ default: m.SecurityPage })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage })));
+const SitemapPage = lazy(() => import('./pages/SitemapPage').then((m) => ({ default: m.SitemapPage })));
+const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage').then((m) => ({ default: m.DisclaimerPage })));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })));
+const PassingSimulatorPage = lazy(() => import('./pages/PassingSimulatorPage').then((m) => ({ default: m.PassingSimulatorPage })));
+const StudentHandbookPage = lazy(() => import('./pages/StudentHandbookPage').then((m) => ({ default: m.StudentHandbookPage })));
+const VUGPACalculatorPage = lazy(() => import('./pages/VUGPACalculatorPage').then((m) => ({ default: m.VUGPACalculatorPage })));
+const VUDatesheetGuidePage = lazy(() => import('./pages/VUDatesheetGuidePage').then((m) => ({ default: m.VUDatesheetGuidePage })));
+const VUCS619GuidePage = lazy(() => import('./pages/VUCS619GuidePage').then((m) => ({ default: m.VUCS619GuidePage })));
+const VUAssignmentGuidePage = lazy(() => import('./pages/VUAssignmentGuidePage').then((m) => ({ default: m.VUAssignmentGuidePage })));
+const PastPapersPage = lazy(() => import('./pages/PastPapersPage').then((m) => ({ default: m.PastPapersPage })));
+const MCQsPage = lazy(() => import('./pages/MCQsPage').then((m) => ({ default: m.MCQsPage })));
+const SubjectivePage = lazy(() => import('./pages/SubjectivePage').then((m) => ({ default: m.SubjectivePage })));
+const DocumentViewerPage = lazy(() => import('./pages/DocumentViewerPage').then((m) => ({ default: m.DocumentViewerPage })));
+const MidtermPrepHubPage = lazy(() => import('./pages/MidtermPrepHubPage').then((m) => ({ default: m.MidtermPrepHubPage })));
+const MidtermDocPage = lazy(() => import('./pages/MidtermDocPage').then((m) => ({ default: m.MidtermDocPage })));
+// The library card pulls the doc-slug index (and with it the catalog
+// chunk) — lazy so the home shell paints before the cards arrive.
+const ResourceCard = lazy(() => import('./components/ResourceCard').then((m) => ({ default: m.ResourceCard })));
+// Pure slug helpers only — importing these from ./docSlug would bundle
+// the whole catalog into the main chunk (see docSlugBase.ts).
 import {
   cleanDocumentDisplayTitle,
-  extractDocSlugFromPath,
-  findDocEntryBySlug
-} from './utils/docSlug';
+  extractDocSlugFromPath
+} from './utils/docSlugBase';
+import type { DocSlugEntry } from './utils/docSlugBase';
 import {
   extractMidtermSlugFromPath,
   findMidtermEntryBySlug,
@@ -65,15 +74,30 @@ import {
   FileText,
   GraduationCap,
   Flame,
+  Loader2,
   Zap
 } from 'lucide-react';
 
 // Static sanitized data compiled at build time
 import coursesData from './data/courses.json';
-import resourcesData from './data/resources.json';
 
 const courses: Course[] = coursesData as Course[];
-const resources: Resource[] = resourcesData as Resource[];
+
+// The library catalog (4.1 MB, 28,328 records) used to ship inside the
+// main JS bundle via a static import. It now loads as its own chunk
+// after mount, so first paint is not blocked by it. Counts shown before
+// it arrives use the same 28,328 fallback the prerender script uses.
+const TOTAL_RESOURCES_FALLBACK = 28328;
+
+// Shown while a lazy route chunk is downloading.
+function PageFallback() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center space-y-3">
+      <Loader2 className="w-7 h-7 animate-spin text-blue-700 mx-auto" />
+      <p className="text-sm font-semibold text-slate-700">Loading page…</p>
+    </div>
+  );
+}
 
 export type AppPage = 
   | 'home' 
@@ -259,6 +283,13 @@ export default function App() {
   const [limit, setLimit] = useState<number>(12);
   const [selectedRLHs, setSelectedRLHs] = useState<Set<string>>(new Set());
 
+  // Library catalog — loaded as a separate chunk after mount (see the
+  // TOTAL_RESOURCES_FALLBACK comment above). Empty until it arrives; the
+  // library list shows a loading state meanwhile instead of "no results".
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [catalogReady, setCatalogReady] = useState(false);
+  const displayTotalResources = resources.length || TOTAL_RESOURCES_FALLBACK;
+
   // Download Session States
   const [downloadSession, setDownloadSession] = useState<DownloadSession | null>(null);
   const [isDownloadingZip, setIsDownloadingZip] = useState(false);
@@ -282,7 +313,7 @@ export default function App() {
       interactiveMcqs: mcqSets.reduce((sum, s) => sum + s.questions.length, 0),
       interactiveSubjective: subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0)
     };
-  }, []);
+  }, [resources]);
 
   // Listen to popstate changes for real browser back/forward and clean URLs
   useEffect(() => {
@@ -336,6 +367,31 @@ export default function App() {
       // Ignore URL parsing errors
     }
   }, []);
+
+  // Load the 28,328-record library catalog as its own chunk — but only
+  // on the home/library page, which is the only place that searches or
+  // lists it. Other pages (doc viewer, courses, MCQs, simulator) never
+  // need it, so they skip the download entirely. The hero, filters and
+  // counts paint first; search results and the library grid fill in
+  // when the chunk arrives.
+  useEffect(() => {
+    if (currentPage !== 'home') return;
+    let active = true;
+    import('./data/resources.json')
+      .then((m) => {
+        if (!active) return;
+        setResources(m.default as Resource[]);
+        setCatalogReady(true);
+      })
+      .catch(() => {
+        // Catalog failed to load — library stays in its loading state;
+        // the rest of the site (midterm pages, calculators) does not
+        // depend on it.
+      });
+    return () => {
+      active = false;
+    };
+  }, [currentPage]);
 
   const handleNavigate = (page: AppPage, customPath?: string) => {
     setCurrentPage(page);
@@ -435,10 +491,28 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const activeDocEntry = useMemo(
-    () => (selectedDocSlug ? findDocEntryBySlug(selectedDocSlug) : null),
-    [selectedDocSlug]
-  );
+  // The doc entry lookup needs the catalog chunk (docSlug imports it
+  // statically), so it loads lazily and only for /doc/ routes — the
+  // viewer itself is a lazy page, so the chunk arrives with it.
+  const [activeDocEntry, setActiveDocEntry] = useState<DocSlugEntry | null>(null);
+  useEffect(() => {
+    if (!selectedDocSlug) {
+      setActiveDocEntry(null);
+      return;
+    }
+    let active = true;
+    import('./utils/docSlug')
+      .then((m) => {
+        if (!active) return;
+        setActiveDocEntry(m.findDocEntryBySlug(selectedDocSlug));
+      })
+      .catch(() => {
+        if (active) setActiveDocEntry(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, [selectedDocSlug]);
 
   const activeMidtermEntry = useMemo(
     () => (selectedMidtermSlug ? findMidtermEntryBySlug(selectedMidtermSlug) : null),
@@ -451,6 +525,10 @@ export default function App() {
   );
 
   // Dynamically synchronize document title, OpenGraph, canonical URL, and JSON-LD (SEO + AEO Speakable)
+  // seoManager is loaded lazily: its static import used to pull the
+  // whole catalog into the main bundle via docSlug. The prerendered
+  // HTML already carries correct meta, so the runtime sync can wait
+  // for the chunk.
   useEffect(() => {
     const activeMcqSet = selectedMcqSetId
       ? mcqSets.find((s) => s.id === selectedMcqSetId) || null
@@ -461,21 +539,32 @@ export default function App() {
     const totalMcqQuestions = mcqSets.reduce((sum, s) => sum + s.questions.length, 0);
     const totalSubjectiveQuestions = subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0);
 
-    syncRouteSeo({
-      page: currentPage,
-      selectedMcqSet: activeMcqSet,
-      selectedSubjectiveSet: activeSubjectiveSet,
-      selectedDocSlug: activeDocEntry?.slug || selectedDocSlug,
-      selectedDoc: activeDocEntry?.resource || null,
-      selectedMidtermEntry: activeMidtermEntry,
-      selectedCourseCode: filters.course,
-      activeFilterType: filters.type,
-      pathnameOverride: currentPathname,
-      courses,
-      totalResources: resources.length,
-      totalMcqQuestions,
-      totalSubjectiveQuestions
-    });
+    let active = true;
+    import('./utils/seoManager')
+      .then(({ syncRouteSeo }) => {
+        if (!active) return;
+        syncRouteSeo({
+          page: currentPage,
+          selectedMcqSet: activeMcqSet,
+          selectedSubjectiveSet: activeSubjectiveSet,
+          selectedDocSlug: activeDocEntry?.slug || selectedDocSlug,
+          selectedDoc: activeDocEntry?.resource || null,
+          selectedMidtermEntry: activeMidtermEntry,
+          selectedCourseCode: filters.course,
+          activeFilterType: filters.type,
+          pathnameOverride: currentPathname,
+          courses,
+          totalResources: resources.length,
+          totalMcqQuestions,
+          totalSubjectiveQuestions
+        });
+      })
+      .catch(() => {
+        // SEO sync is best-effort at runtime; prerendered meta stays.
+      });
+    return () => {
+      active = false;
+    };
   }, [
     currentPage,
     currentPathname,
@@ -485,17 +574,18 @@ export default function App() {
     selectedSubjectiveSetId,
     selectedDocSlug,
     activeDocEntry,
-    activeMidtermEntry
+    activeMidtermEntry,
+    resources
   ]);
 
   // Compute search results with ranking algorithm
   const { resources: filteredResources, totalCount: totalMatchingCount } = useMemo(() => {
     return searchResources(resources, query, filters, limit);
-  }, [query, filters, limit]);
+  }, [query, filters, limit, resources]);
 
   // Unique-file counts per type/format for the filter dropdown labels, so
   // the numbers stay truthful now that repeat listings are collapsed.
-  const dedupedCounts = useMemo(() => countDedupedResources(resources), []);
+  const dedupedCounts = useMemo(() => countDedupedResources(resources), [resources]);
 
   // Handle single resource download with Resilient Shard Fallback
   const handleDownload = async (resource: Resource) => {
@@ -1125,7 +1215,7 @@ export default function App() {
                   setQuery('');
                   scrollToSearch();
                 }}
-                totalResources={resources.length}
+                totalResources={displayTotalResources}
                 totalCourses={courses.length}
                 courses={courses}
                 onOpenMcqs={() => handleSelectMcqSet(null)}
@@ -1163,7 +1253,7 @@ export default function App() {
                           role="tab"
                           aria-selected={examStudioTab === 'mcqs'}
                           onClick={() => setExamStudioTab('mcqs')}
-                          className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                          className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                             examStudioTab === 'mcqs' ? 'text-white' : 'text-slate-600 hover:text-slate-950'
                           }`}
                         >
@@ -1183,7 +1273,7 @@ export default function App() {
                           role="tab"
                           aria-selected={examStudioTab === 'subjective'}
                           onClick={() => setExamStudioTab('subjective')}
-                          className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
+                          className={`relative inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] rounded-lg text-xs font-semibold transition-colors cursor-pointer whitespace-nowrap ${
                             examStudioTab === 'subjective' ? 'text-white' : 'text-slate-600 hover:text-slate-950'
                           }`}
                         >
@@ -1285,8 +1375,7 @@ export default function App() {
                                 handleSelectMcqSet(set.id);
                               }}
                               initial={{ opacity: 0, y: 14 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true, amount: 'some' }}
+                              animate={{ opacity: 1, y: 0 }}
                               transition={{
                                 duration: 0.28,
                                 delay: Math.min(idx * 0.03, 0.2),
@@ -1298,7 +1387,7 @@ export default function App() {
                             >
                               <div className="flex items-center gap-2.5 min-w-0">
                                 <div
-                                  className={`w-10 h-10 rounded-xl ${badgeCls} font-mono font-bold text-[11px] flex items-center justify-center shrink-0 shadow-xs transition-transform duration-150 group-hover:scale-105`}
+                                  className={`w-10 h-10 rounded-xl ${badgeCls} font-mono font-bold text-[10px] flex items-center justify-center shrink-0 shadow-xs transition-transform duration-150 group-hover:scale-105`}
                                 >
                                   {set.courseCode}
                                 </div>
@@ -1328,7 +1417,7 @@ export default function App() {
                         <div className="pointer-events-none absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-400/70 to-transparent" />
                         <div className="space-y-3 relative z-10">
                           <div className="text-[11px] font-mono uppercase tracking-wider text-amber-300 font-semibold tabular-nums">
-                            {subjectiveSets.length} Starter Studios · {subjectiveSets.reduce((acc, s) => acc + s.questions.length, 0)} High-Yield Prompts · 411 Subject Hubs
+                            {subjectiveSets.length} Starter Studios · {subjectiveSets.reduce((acc, s) => acc + s.questions.length, 0)} High-Yield Prompts · {subjectiveSets.length} Subject Hubs
                           </div>
                           <h3 className="text-xl font-extrabold tracking-tight leading-snug">
                             10-Second Memory Hooks, Marking Keys &amp; Write-Compare Drills
@@ -1344,7 +1433,7 @@ export default function App() {
                             onClick={() => handleSelectSubjectiveSet(null)}
                             className="w-full py-2.5 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold flex items-center justify-between transition-colors cursor-pointer"
                           >
-                            <span>Open Subjective Studio &amp; 411 Hubs</span>
+                            <span>Open Subjective Studio &amp; {subjectiveSets.length} Hubs</span>
                             <ArrowRight className="w-4 h-4" />
                           </button>
                           <button
@@ -1380,8 +1469,7 @@ export default function App() {
                                 handleSelectSubjectiveSet(sub.id);
                               }}
                               initial={{ opacity: 0, y: 14 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true, amount: 'some' }}
+                              animate={{ opacity: 1, y: 0 }}
                               transition={{
                                 duration: 0.28,
                                 delay: Math.min(idx * 0.04, 0.2),
@@ -1394,7 +1482,7 @@ export default function App() {
                               <div className="flex items-start justify-between gap-3">
                                 <div className="flex items-center gap-3 min-w-0">
                                   <div
-                                    className={`w-11 h-11 rounded-xl ${badgeCls} font-mono font-bold text-xs flex items-center justify-center shrink-0 shadow-xs transition-transform duration-150 group-hover:scale-105`}
+                                    className={`w-11 h-11 rounded-xl ${badgeCls} font-mono font-bold text-[11px] flex items-center justify-center shrink-0 shadow-xs transition-transform duration-150 group-hover:scale-105`}
                                   >
                                     {sub.courseCode}
                                   </div>
@@ -1431,7 +1519,7 @@ export default function App() {
               <main
                 ref={searchResultsRef}
                 id="catalog"
-                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full"
+                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full scroll-mt-16"
               >
                 {/* Filter Control Surface */}
                 <FilterBar
@@ -1503,7 +1591,17 @@ export default function App() {
 
                 {/* Resource Cards Grid */}
                 <div className="mt-8">
-                  {filteredResources.length === 0 ? (
+                  {!catalogReady ? (
+                    <div className="card-celestial rounded-3xl border p-12 text-center space-y-3">
+                      <Loader2 className="w-7 h-7 animate-spin text-blue-700 mx-auto" />
+                      <p className="text-sm font-semibold text-slate-800">
+                        Loading the 28,328-file library…
+                      </p>
+                      <p className="text-xs text-slate-500 max-w-md mx-auto">
+                        The search index is downloading now — filters and results appear as soon as it arrives.
+                      </p>
+                    </div>
+                  ) : filteredResources.length === 0 ? (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -1540,6 +1638,14 @@ export default function App() {
                       </button>
                     </motion.div>
                   ) : (
+                    <Suspense
+                      fallback={
+                        <div className="card-celestial rounded-3xl border p-12 text-center">
+                          <Loader2 className="w-7 h-7 animate-spin text-blue-700 mx-auto" />
+                          <p className="mt-3 text-sm font-semibold text-slate-800">Loading library cards…</p>
+                        </div>
+                      }
+                    >
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
                       {filteredResources.map((res, idx) => (
                         <ResourceCard
@@ -1554,6 +1660,7 @@ export default function App() {
                         />
                       ))}
                     </div>
+                    </Suspense>
                   )}
                 </div>
 
@@ -1635,8 +1742,7 @@ export default function App() {
                       <motion.div
                         key={tool.page}
                         initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                        viewport={{ once: true, amount: 'some' }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{
                           duration: 0.38,
                           delay: idx * 0.06,
@@ -1761,7 +1867,7 @@ export default function App() {
                   <ScrollReveal direction="up" distance={18} className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                     <div>
                       <div className="text-xs font-mono font-semibold uppercase tracking-wider text-blue-700">
-                        Verified Document Banks · {resources.length.toLocaleString()} Files Indexed
+                        Verified Document Banks · {displayTotalResources.toLocaleString()} Files Indexed
                       </div>
                       <h2 id="exam-banks-directory-heading" className="text-2xl sm:text-3xl font-bold text-slate-950 mt-0.5">
                         Complete VU Exam Banks, Live Mids &amp; Handouts Index
@@ -1800,7 +1906,7 @@ export default function App() {
                         kicker: 'CURRENT MIDTERM & QUIZ',
                         title: 'Live Mids MCQs & Quiz Bank',
                         stat: `${resourceTypeCounts.quiz.toLocaleString()} Quiz Files · ${resourceTypeCounts.midterm.toLocaleString()} Midterm Papers`,
-                        desc: 'Access current semester quiz screenshots, live midterm repeated MCQs, and recent student exam memory files across 411 subjects.',
+                        desc: 'Access current semester quiz screenshots, live midterm repeated MCQs, and recent student exam memory files across 455 subjects.',
                         cta: 'Filter Quiz & Midterm Files',
                         href: '/live-mids-mcqs',
                         secondaryCta: 'Launch Live Mock Quiz',
@@ -1962,7 +2068,7 @@ export default function App() {
                       />
                       <div className="pointer-events-none absolute inset-x-0 bottom-0 px-3.5 py-2 bg-gradient-to-t from-[#050B18]/90 via-[#050B18]/50 to-transparent flex items-center justify-between text-[11px] font-mono text-slate-200">
                         <span>MIHORA VU ARCHIVE</span>
-                        <span className="text-amber-300 tabular-nums">{resources.length.toLocaleString()} FILES</span>
+                        <span className="text-amber-300 tabular-nums">{displayTotalResources.toLocaleString()} FILES</span>
                       </div>
                     </div>
                   </div>
@@ -1971,6 +2077,8 @@ export default function App() {
             </>
           )}
 
+        {/* Lazy routes (Phase 2): each page loads as its own chunk. */}
+        <Suspense fallback={<PageFallback />}>
         {/* 2. Page: Course Directory */}
         {currentPage === 'courses' && (
           <CoursesPage courses={courses} onSelectCourse={handleSelectCourse} />
@@ -2081,7 +2189,7 @@ export default function App() {
           />
         )}
 
-        {/* Page: Subjective Fast-Learning Studio & 411 Course Hubs */}
+        {/* Page: Subjective Fast-Learning Studio & 455 Course Hubs */}
         {currentPage === 'subjective' && (
           <SubjectivePage
             activeSetId={selectedSubjectiveSetId}
@@ -2142,6 +2250,7 @@ export default function App() {
             }}
           />
         )}
+        </Suspense>
         </motion.div>
 
         {/* Floating Multi-Download Action Bar */}
@@ -2229,7 +2338,7 @@ export default function App() {
                       }}
                       className="hover:text-white transition-colors"
                     >
-                      All 411 VU Courses
+                      All {courses.length} VU Courses
                     </a>
                   </li>
                   <li>
@@ -2503,7 +2612,7 @@ export default function App() {
                 <div>
                   <div className="text-xs font-semibold text-slate-200 uppercase tracking-wider flex items-center gap-2">
                     <BookOpen className="w-4 h-4 text-slate-400" />
-                    <span>All 411 Courses Quick Index</span>
+                    <span>All {courses.length} Courses Quick Index</span>
                   </div>
                   <div className="text-xs text-slate-400 mt-0.5">
                     Jump directly to verified solved past papers, handouts, and assignment templates for any course code.
@@ -2517,7 +2626,7 @@ export default function App() {
                   onClick={() => setShowAllCoursesFooter(!showAllCoursesFooter)}
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-medium border border-slate-700 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
                 >
-                  <span>{showAllCoursesFooter ? 'Collapse 411 Courses' : 'Browse All 411 Courses'}</span>
+                  <span>{showAllCoursesFooter ? `Collapse ${courses.length} Courses` : `Browse All ${courses.length} Courses`}</span>
                   {showAllCoursesFooter ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </motion.button>
               </div>

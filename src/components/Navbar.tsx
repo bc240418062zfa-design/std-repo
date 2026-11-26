@@ -26,6 +26,7 @@ import {
 import { EASE_OUT_EXPO } from './MotionPrimitives';
 import { mcqSets } from '../data/mcqs';
 import { subjectiveSets } from '../data/subjective';
+import coursesData from '../data/courses.json';
 
 const TOTAL_MCQ_QS = mcqSets.reduce((sum, s) => sum + s.questions.length, 0);
 const TOTAL_SUB_QS = subjectiveSets.reduce((sum, s) => sum + s.questions.length, 0);
@@ -193,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </motion.a>
 
         {/* Zone 2: Fluid Animated Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-3.5 xl:gap-5" aria-label="Primary Navigation">
+        <nav className="hidden xl:flex items-center gap-3 xl:gap-4" aria-label="Primary Navigation">
           {primaryLinks.map((link) => {
             const active =
               currentPage === link.id ||
@@ -367,7 +368,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <Network className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
                     <div>
                       <div className="text-xs font-semibold text-slate-900">Curriculum Directory</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">All 411 subjects grouped by faculty</div>
+                      <div className="text-[11px] text-slate-500 mt-0.5">All {coursesData.length} subjects grouped by faculty</div>
                     </div>
                   </motion.a>
 
@@ -423,7 +424,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             whileTap={{ scale: 0.94 }}
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition-colors cursor-pointer"
+            className="xl:hidden flex items-center gap-2 px-3 py-2 min-h-[44px] rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 transition-colors cursor-pointer"
             aria-label="Open navigation menu"
           >
             <Menu className="w-5 h-5 text-slate-700" />
@@ -443,7 +444,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <AnimatePresence>
         {mobileMenuOpen && (
           <div
-            className="fixed inset-0 z-50 lg:hidden flex justify-end"
+            className="fixed inset-0 z-50 xl:hidden flex justify-end"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile Navigation Drawer"
@@ -508,7 +509,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <BookOpen className="w-4 h-4 text-slate-500" />
                       <span>Course Directory</span>
                     </span>
-                    <span className="text-xs font-mono text-slate-400 tabular-nums">411</span>
+                    <span className="text-xs font-mono text-slate-400 tabular-nums">{coursesData.length}</span>
                   </a>
 
                   <a

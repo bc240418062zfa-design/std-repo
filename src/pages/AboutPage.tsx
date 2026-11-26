@@ -24,6 +24,7 @@ import {
   AnimatedCounter
 } from '../components/MotionPrimitives';
 import { CelestialPageHeader } from '../components/CelestialBackdrop';
+import coursesData from '../data/courses.json';
 
 interface AboutPageProps {
   onNavigateHome: () => void;
@@ -130,7 +131,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
                   01
                 </div>
                 <h3 className="text-base font-bold text-slate-900">
-                  <AnimatedCounter value={411} suffix="+" /> Unified Courses
+                  <AnimatedCounter value={coursesData.length} suffix="+" /> Unified Courses
                 </h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Every course code (e.g. CS101, CS201, CS504, MTH101, MTH302, MGT211, ENG101) is indexed systematically across Computer Science, Business, Mathematics, and Humanities faculties.
@@ -232,7 +233,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateHome, onNavigate
             onClick={onNavigateCourses}
             className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs transition-colors cursor-pointer whitespace-nowrap"
           >
-            Browse All 411 Courses
+            Browse All {coursesData.length} Courses
           </AnimatedButton>
           <AnimatedButton
             type="button"

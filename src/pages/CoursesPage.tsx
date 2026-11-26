@@ -55,16 +55,16 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
       <CelestialPageHeader
         kickerIcon={<BookOpen className="w-4 h-4" />}
         kickerText="Virtual University Academic Curriculum"
-        badgeText="27 Faculties · 411 Accredited Courses"
+        badgeText={`27 Faculties · ${courses.length} Accredited Courses`}
         title={
           <>
             Virtual University{' '}
             <span className="text-amber-300">
-              All 411 Courses Directory
+              All {courses.length} Courses Directory
             </span>
           </>
         }
-        description="Comprehensive curriculum index of all 411 accredited courses across 27 faculties. Select any course to access verified lecture handouts, Moaaz & Waqar Siddhu solved papers, and 2026 assignment solution templates."
+        description={`Comprehensive curriculum index of all ${courses.length} accredited courses across 27 faculties. Select any course to access verified lecture handouts, Moaaz & Waqar Siddhu solved papers, and 2026 assignment solution templates.`}
       >
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-2">
           {[
@@ -118,13 +118,13 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
                   whileTap={{ scale: 0.96 }}
                   type="button"
                   onClick={() => setSelectedFaculty(fac)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors duration-150 cursor-pointer whitespace-nowrap border ${
+                  className={`px-3 py-2 min-h-[44px] inline-flex items-center rounded-lg text-xs font-semibold transition-colors duration-150 cursor-pointer whitespace-nowrap border ${
                     isSelected
                       ? 'bg-[#0D1B2A] border-[#0D1B2A] text-white'
                       : 'bg-[#FAF8F4] hover:bg-[#F3EFE6] border-[#E5E0D5] text-slate-700'
                   }`}
                 >
-                  {fac === 'ALL' ? 'All Faculties (411)' : fac}
+                  {fac === 'ALL' ? `All Faculties (${courses.length})` : fac}
                 </motion.button>
               );
             })}
@@ -164,17 +164,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredCourses.map((c, idx) => (
-              <motion.div
-                key={c.code}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 'some' }}
-                transition={{
-                  duration: 0.28,
-                  delay: Math.min((idx % 12) * 0.02, 0.2),
-                  ease: EASE_OUT_EXPO
-                }}
-              >
+              <div key={c.code}>
                 <SpotlightCard
                   onClick={() => onSelectCourse(c.code)}
                   className="group h-full p-5 rounded-2xl bg-white border border-[#E5E0D5] hover:border-blue-700 cursor-pointer transition-colors"
@@ -207,7 +197,7 @@ export const CoursesPage: React.FC<CoursesPageProps> = ({ courses, onSelectCours
                     </span>
                   </div>
                 </SpotlightCard>
-              </motion.div>
+              </div>
             ))}
           </div>
         )}

@@ -39,6 +39,7 @@ import {
   EASE_OUT_EXPO
 } from '../components/MotionPrimitives';
 import { CelestialOrbitalRings, CelestialPageHeader } from '../components/CelestialBackdrop';
+import coursesData from '../data/courses.json';
 
 interface GuideItem {
   id: string;
@@ -1465,7 +1466,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
           </AnimatedButton>
         </div>
 
-        {/* Banner 2: 411 Course Library */}
+        {/* Banner 2: 455 Course Library */}
         <SpotlightCard className="group p-6 sm:p-8 rounded-2xl bg-white border border-[#E5E0D5]">
           <div className="space-y-4 h-full flex flex-col justify-between">
             <div className="space-y-2">
@@ -1474,7 +1475,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
                 <span>28,328+ Verified Study Files</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                Explore All 411 Real VU Courses
+                Explore All {coursesData.length} Real VU Courses
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 Access handouts, solved past papers, grand quiz files, and mid/final term preparation notes for CS101, MTH101, ENG101, MGT101, and 400+ other real courses with our in-browser reader.
@@ -1487,7 +1488,7 @@ export const StudentHandbookPage: React.FC<StudentHandbookPageProps> = ({
               onClick={onNavigateToCourses}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm transition-colors cursor-pointer shadow-xs whitespace-nowrap"
             >
-              <span>Browse 411 Course Directory</span>
+              <span>Browse {coursesData.length} Course Directory</span>
               <ExternalLink className="w-4 h-4 text-blue-400" />
             </AnimatedButton>
           </div>

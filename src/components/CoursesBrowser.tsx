@@ -73,7 +73,7 @@ export const CoursesBrowser: React.FC<CoursesBrowserProps> = ({
                     Curated Course Directory
                   </h2>
                   <p className="text-xs text-slate-300">
-                    Browse through all 411+ Virtual University course resource catalogues
+                    Browse through all {courses.length}+ Virtual University course resource catalogues
                   </p>
                 </div>
               </div>

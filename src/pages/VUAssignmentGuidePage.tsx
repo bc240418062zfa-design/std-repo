@@ -111,7 +111,7 @@ int main() {
             VU Assignment Solutions 2026 &amp; GDB Strategy Guide
           </h1>
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-            Official MIHORA VU guide for scoring full marks in Virtual University assignments. Master the 24-hour grace period, Turnitin plagiarism limits (&lt; 19%), MathType equation pasting, and download study files for all 411 courses.
+            Official MIHORA VU guide for scoring full marks in Virtual University assignments. Master the 24-hour grace period, Turnitin plagiarism limits (&lt; 19%), MathType equation pasting, and download study files for all {allCourses.length} courses.
           </p>
         </div>
       </ScrollReveal>
@@ -205,13 +205,13 @@ int main() {
         </pre>
       </ScrollReveal>
 
-      {/* Directory of All 411 Courses for 2026 Assignment Solutions */}
+      {/* Directory of All 455 Courses for 2026 Assignment Solutions */}
       <section className="bg-white rounded-2xl border border-[#E5E0D5] p-6 sm:p-10 space-y-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h2 className="text-2xl font-black text-slate-900 flex items-center gap-2">
               <BookOpen className="w-6 h-6 text-emerald-600" />
-              All 411 VU Courses Directory for 2026 Assignment Solutions
+              All {allCourses.length} VU Courses Directory for 2026 Assignment Solutions
             </h2>
             <p className="text-slate-600 text-sm mt-1">
               Select any Virtual University course code to access lecture handouts, past papers, and assignment guidance.
@@ -245,7 +245,7 @@ int main() {
             >
               {faculties.map((f) => (
                 <option key={f} value={f}>
-                  {f === 'ALL' ? 'All Faculties (411 Courses)' : f}
+                  {f === 'ALL' ? `All Faculties (${allCourses.length} Courses)` : f}
                 </option>
               ))}
             </select>
