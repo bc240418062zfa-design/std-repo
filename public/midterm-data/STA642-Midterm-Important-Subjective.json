@@ -33,37 +33,37 @@
   {
    "number": 2,
    "topic": "Random Variables and Probability Mass Function",
-   "question": "Define the probability mass function (pmf) of a discrete random variable and state the two conditions it must satisfy.",
+   "question": "Define the probability mass function (pmf) of a discrete random variable and state the two conditions it must satisfy. Verify that p(x) = x/15 for x = 1, 2, 3, 4, 5 is a valid pmf.",
    "marks": null,
-   "answer": "Verify that p(x) = x/15 for x = 1, 2, 3, 4, 5 is a valid pmf. The pmf of a discrete random variable X is the function p(x) = P(X = x), which gives the probability that X takes the value x. It must satisfy: (i) p(x) ≥ 0 for all x, and (ii) Σ p(x) = 1, the sum being taken over all possible values of X. For p(x) = x/15: each value 1/15, 2/15, 3/15, 4/15, 5/15 is non-negative, and the sum is (1 + 2 + 3 + 4 + 5)/15 = 15/15 = 1. Hence p(x) is a valid pmf."
+   "answer": "The pmf of a discrete random variable X is the function p(x) = P(X = x), which gives the probability that X takes the value x. It must satisfy: (i) p(x) ≥ 0 for all x, and (ii) Σ p(x) = 1, the sum being taken over all possible values of X. For p(x) = x/15: each value 1/15, 2/15, 3/15, 4/15, 5/15 is non-negative, and the sum is (1 + 2 + 3 + 4 + 5)/15 = 15/15 = 1. Hence p(x) is a valid pmf."
   },
   {
    "number": 3,
    "topic": "Random Variables and Probability Mass Function",
-   "question": "A random variable X has pmf p(0) = 0.1, p(1) = 0.3, p(2) = 0.4, p(3) = 0.2. Find (i) P(X ≤ 2), (ii) P(X > 1), (iii) P(1 ≤ X ≤ 3). (i) P(X ≤ 2) = p(0) + p(1) + p(2) = 0.1 + 0.3 + 0.4 = 0.8. (ii) P(X > 1) = p(2) + p(3) = 0.4 + 0.2 = 0.6. (iii) P(1 ≤ X ≤ 3) = p(1) + p(2) + p(3) = 0.3 + 0.4 + 0.2 = 0.9.",
+   "question": "A random variable X has pmf p(0) = 0.1, p(1) = 0.3, p(2) = 0.4, p(3) = 0.2. Find (i) P(X ≤ 2), (ii) P(X > 1), (iii) P(1 ≤ X ≤ 3).",
    "marks": null,
-   "answer": ""
+   "answer": "(i) P(X ≤ 2) = p(0) + p(1) + p(2) = 0.1 + 0.3 + 0.4 = 0.8. (ii) P(X > 1) = p(2) + p(3) = 0.4 + 0.2 = 0.6. (iii) P(1 ≤ X ≤ 3) = p(1) + p(2) + p(3) = 0.3 + 0.4 + 0.2 = 0.9."
   },
   {
    "number": 4,
    "topic": "Probability Generating Function",
-   "question": "Define the probability generating function (pgf) of a discrete random variable.",
+   "question": "Define the probability generating function (pgf) of a discrete random variable. Show that G(1) = 1, and use the pgf of a Poisson random variable to find its mean.",
    "marks": null,
-   "answer": "Show that G(1) = 1, and use the pgf of a Poisson random variable to find its mean. If X is a discrete random variable taking values in {0, 1, 2, …} with pmf p(x), its pgf is G(z) = E(z^X) = Σ p(x) z^x. Putting z = 1 gives G(1) = Σ p(x) = 1, since the probabilities sum to 1. For a Poisson random variable with mean λ, G(z) = e^{λ(z − 1)}. Differentiating, G′(z) = λ e^{λ(z − 1)}, so the mean is E(X) = G′(1) = λ e^{0} = λ."
+   "answer": "If X is a discrete random variable taking values in {0, 1, 2, …} with pmf p(x), its pgf is G(z) = E(z^X) = Σ p(x) z^x. Putting z = 1 gives G(1) = Σ p(x) = 1, since the probabilities sum to 1. For a Poisson random variable with mean λ, G(z) = e^{λ(z − 1)}. Differentiating, G′(z) = λ e^{λ(z − 1)}, so the mean is E(X) = G′(1) = λ e^{0} = λ."
   },
   {
    "number": 5,
    "topic": "Probability Generating Function",
-   "question": "How are the probabilities p(k) = P(X = k) recovered from the probability generating function?",
+   "question": "How are the probabilities p(k) = P(X = k) recovered from the probability generating function? Illustrate with the pgf of the number of heads in one toss of a fair coin.",
    "marks": null,
-   "answer": "Illustrate with the pgf of the number of heads in one toss of a fair coin. The k-th probability is obtained from the k-th derivative of G at z = 0: p(k) = G^{(k)}(0)/k!. For one toss of a fair coin, G(z) = 1/2 + z/2. Then p(0) = G(0) = 1/2, and since G′(z) = 1/2, p(1) = G′(0)/1! = 1/2. These agree with P(X = 0) = P(X = 1) = 1/2."
+   "answer": "The k-th probability is obtained from the k-th derivative of G at z = 0: p(k) = G^{(k)}(0)/k!. For one toss of a fair coin, G(z) = 1/2 + z/2. Then p(0) = G(0) = 1/2, and since G′(z) = 1/2, p(1) = G′(0)/1! = 1/2. These agree with P(X = 0) = P(X = 1) = 1/2."
   },
   {
    "number": 6,
    "topic": "Probability Density Function and Cumulative Distribution Function",
-   "question": "Define the probability density function (pdf) of a continuous random variable and state its properties.",
+   "question": "Define the probability density function (pdf) of a continuous random variable and state its properties. If f(x) = 3x² for 0 ≤ x ≤ 1, find P(X < 1/2).",
    "marks": null,
-   "answer": "If f(x) = 3x² for 0 ≤ x ≤ 1, find P(X < 1/2). The pdf of a continuous random variable X is a non-negative function f(x) such that the probability that X falls in an interval is the area under the curve over that interval: P(a ≤ X ≤ b) = ∫_a^b f(x) dx. Its properties are: (i) f(x) ≥ 0 for all x, and (ii) the total area under the curve is 1, i.e. ∫_{−∞}^{∞} f(x) dx = 1. Here P(X < 1/2) = ∫_0^{1/2} 3x² dx = [x³]_0^{1/2} = (1/2)³ = 1/8 = 0.125."
+   "answer": "The pdf of a continuous random variable X is a non-negative function f(x) such that the probability that X falls in an interval is the area under the curve over that interval: P(a ≤ X ≤ b) = ∫_a^b f(x) dx. Its properties are: (i) f(x) ≥ 0 for all x, and (ii) the total area under the curve is 1, i.e. ∫_{−∞}^{∞} f(x) dx = 1. Here P(X < 1/2) = ∫_0^{1/2} 3x² dx = [x³]_0^{1/2} = (1/2)³ = 1/8 = 0.125."
   },
   {
    "number": 7,
@@ -75,9 +75,9 @@
   {
    "number": 8,
    "topic": "Probability Density Function and Cumulative Distribution Function",
-   "question": "The pdf of a continuous random variable is f(x) = 2e^{−2x} for x > 0 (and 0 elsewhere). Find its CDF and P(0.5 < X < 1). For x > 0, F(x) = ∫_0^x 2e^{−2u} du = [−e^{−2u}]_0^x = 1 − e^{−2x} (and F(x) = 0 for x ≤ 0). Hence P(0.5 < X < 1) = F(1) − F(0.5) = (1 − e^{−2}) − (1 − e^{−1}) = e^{−1} − e^{−2} ≈ 0.3679 − 0.1353 ≈ 0.2325.",
+   "question": "The pdf of a continuous random variable is f(x) = 2e^{−2x} for x > 0 (and 0 elsewhere). Find its CDF and P(0.5 < X < 1).",
    "marks": null,
-   "answer": ""
+   "answer": "For x > 0, F(x) = ∫_0^x 2e^{−2u} du = [−e^{−2u}]_0^x = 1 − e^{−2x} (and F(x) = 0 for x ≤ 0). Hence P(0.5 < X < 1) = F(1) − F(0.5) = (1 − e^{−2}) − (1 − e^{−1}) = e^{−1} − e^{−2} ≈ 0.3679 − 0.1353 ≈ 0.2325."
   },
   {
    "number": 9,
@@ -89,37 +89,37 @@
   {
    "number": 10,
    "topic": "Transformations, Mode, Median and Percentiles",
-   "question": "Let X have pdf f(x) = 2x for 0 ≤ x ≤ 1. Using the CDF method, find the pdf of Y = X². For 0 ≤ y ≤ 1, F_Y(y) = P(Y ≤ y) = P(X² ≤ y) = P(X ≤ √y) = ∫_0^{√y} 2x dx = [x²]_0^{√y} = y. Differentiating with respect to y, f_Y(y) = F′_Y(y) = 1 for 0 ≤ y ≤ 1 (and 0 elsewhere); thus Y follows the uniform distribution on (0, 1).",
+   "question": "Let X have pdf f(x) = 2x for 0 ≤ x ≤ 1. Using the CDF method, find the pdf of Y = X².",
    "marks": null,
-   "answer": ""
+   "answer": "For 0 ≤ y ≤ 1, F_Y(y) = P(Y ≤ y) = P(X² ≤ y) = P(X ≤ √y) = ∫_0^{√y} 2x dx = [x²]_0^{√y} = y. Differentiating with respect to y, f_Y(y) = F′_Y(y) = 1 for 0 ≤ y ≤ 1 (and 0 elsewhere); thus Y follows the uniform distribution on (0, 1)."
   },
   {
    "number": 11,
    "topic": "Transformations, Mode, Median and Percentiles",
-   "question": "State the Jacobian (transformation) formula for the pdf of a monotone transformation Y = g(X) of a continuous random variable, and explain the role of the Jacobian factor. If Y = g(X) is a strictly monotone (one-to-one) transformation with inverse X = g^{−1}(Y), then the pdf of Y is f_Y(y) = f_X(g^{−1}(y)) · |d/dy g^{−1}(y)| = f_X(x) · |dx/dy|, where x is expressed in terms of y. The factor |dx/dy| is the Jacobian of the inverse transformation; it adjusts for the stretching or compression of probability when the scale changes from x to y, and the absolute value is used because a density must be non-negative.",
+   "question": "State the Jacobian (transformation) formula for the pdf of a monotone transformation Y = g(X) of a continuous random variable, and explain the role of the Jacobian factor.",
    "marks": null,
-   "answer": ""
+   "answer": "If Y = g(X) is a strictly monotone (one-to-one) transformation with inverse X = g^{−1}(Y), then the pdf of Y is f_Y(y) = f_X(g^{−1}(y)) · |d/dy g^{−1}(y)| = f_X(x) · |dx/dy|, where x is expressed in terms of y. The factor |dx/dy| is the Jacobian of the inverse transformation; it adjusts for the stretching or compression of probability when the scale changes from x to y, and the absolute value is used because a density must be non-negative."
   },
   {
    "number": 12,
    "topic": "Transformations, Mode, Median and Percentiles",
-   "question": "Define the mode, the median and the (100p)th percentile of a continuous distribution.",
+   "question": "Define the mode, the median and the (100p)th percentile of a continuous distribution. Find the median of the distribution with pdf f(x) = 2x for 0 ≤ x ≤ 1.",
    "marks": null,
-   "answer": "Find the median of the distribution with pdf f(x) = 2x for 0 ≤ x ≤ 1. The mode is the value of x at which the pdf attains its maximum. The median m is the value that divides the distribution into two equal halves, i.e. F(m) = 1/2. The (100p)th percentile is the value x_p such that F(x_p) = p, i.e. 100p percent of the probability lies below it. Here F(x) = ∫_0^x 2u du = x², so the median satisfies m² = 1/2, giving m = 1/√2 ≈ 0.707."
+   "answer": "The mode is the value of x at which the pdf attains its maximum. The median m is the value that divides the distribution into two equal halves, i.e. F(m) = 1/2. The (100p)th percentile is the value x_p such that F(x_p) = p, i.e. 100p percent of the probability lies below it. Here F(x) = ∫_0^x 2u du = x², so the median satisfies m² = 1/2, giving m = 1/√2 ≈ 0.707."
   },
   {
    "number": 13,
    "topic": "Transformations, Mode, Median and Percentiles",
-   "question": "What is the quantile function (inverse CDF)?",
+   "question": "What is the quantile function (inverse CDF)? State one important use of it.",
    "marks": null,
-   "answer": "State one important use of it. The quantile function is the inverse of the CDF: for 0 < p < 1, Q(p) = F^{−1}(p) is the value x_p such that F(x_p) = p. It gives any required percentile directly from p; an important use is in simulation, where if U is uniform on (0, 1) then Q(U) has the distribution with CDF F, so random values from any distribution can be generated from uniform random numbers."
+   "answer": "The quantile function is the inverse of the CDF: for 0 < p < 1, Q(p) = F^{−1}(p) is the value x_p such that F(x_p) = p. It gives any required percentile directly from p; an important use is in simulation, where if U is uniform on (0, 1) then Q(U) has the distribution with CDF F, so random values from any distribution can be generated from uniform random numbers."
   },
   {
    "number": 14,
    "topic": "Mathematical Expectation",
-   "question": "Define the expected value E(X) of a random variable for the discrete and continuous cases.",
+   "question": "Define the expected value E(X) of a random variable for the discrete and continuous cases. Compute E(X) when p(1) = 0.2, p(2) = 0.5 and p(3) = 0.3.",
    "marks": null,
-   "answer": "Compute E(X) when p(1) = 0.2, p(2) = 0.5 and p(3) = 0.3. For a discrete random variable, E(X) = Σ x·p(x), the sum being over all possible values of X. For a continuous random variable with pdf f(x), E(X) = ∫_{−∞}^{∞} x f(x) dx. Here E(X) = 1(0.2) + 2(0.5) + 3(0.3) = 0.2 + 1.0 + 0.9 = 2.1."
+   "answer": "For a discrete random variable, E(X) = Σ x·p(x), the sum being over all possible values of X. For a continuous random variable with pdf f(x), E(X) = ∫_{−∞}^{∞} x f(x) dx. Here E(X) = 1(0.2) + 2(0.5) + 3(0.3) = 0.2 + 1.0 + 0.9 = 2.1."
   },
   {
    "number": 15,
@@ -131,9 +131,9 @@
   {
    "number": 16,
    "topic": "Mathematical Expectation",
-   "question": "For the pdf f(x) = 3x², 0 ≤ x ≤ 1, compute E(X²). E(X²) = ∫_0^1 x² · 3x² dx = ∫_0^1 3x⁴ dx = 3 [x⁵/5]_0^1 = 3/5 = 0.6.",
+   "question": "For the pdf f(x) = 3x², 0 ≤ x ≤ 1, compute E(X²).",
    "marks": null,
-   "answer": ""
+   "answer": "E(X²) = ∫_0^1 x² · 3x² dx = ∫_0^1 3x⁴ dx = 3 [x⁵/5]_0^1 = 3/5 = 0.6."
   },
   {
    "number": 17,
@@ -145,37 +145,37 @@
   {
    "number": 18,
    "topic": "Variance and Standard Deviation",
-   "question": "For the distribution p(1) = 0.2, p(2) = 0.5, p(3) = 0.3, find the variance and the standard deviation of X. E(X) = 2.1 and E(X²) = 1²(0.2) + 2²(0.5) + 3²(0.3) = 0.2 + 2.0 + 2.7 = 4.9. Hence Var(X) = E(X²) − [E(X)]² = 4.9 − (2.1)² = 4.9 − 4.41 = 0.49, and the standard deviation is σ = √0.49 = 0.7.",
+   "question": "For the distribution p(1) = 0.2, p(2) = 0.5, p(3) = 0.3, find the variance and the standard deviation of X.",
    "marks": null,
-   "answer": ""
+   "answer": "E(X) = 2.1 and E(X²) = 1²(0.2) + 2²(0.5) + 3²(0.3) = 0.2 + 2.0 + 2.7 = 4.9. Hence Var(X) = E(X²) − [E(X)]² = 4.9 − (2.1)² = 4.9 − 4.41 = 0.49, and the standard deviation is σ = √0.49 = 0.7."
   },
   {
    "number": 19,
    "topic": "Variance and Standard Deviation",
-   "question": "State the effect of a linear transformation on the variance.",
+   "question": "State the effect of a linear transformation on the variance. If Var(X) = 4, find Var(2X + 3) and the standard deviation of 2X + 3.",
    "marks": null,
-   "answer": "If Var(X) = 4, find Var(2X + 3) and the standard deviation of 2X + 3. For constants a and b, Var(aX + b) = a² Var(X): adding a constant b shifts the distribution without changing its spread, while multiplying by a multiplies the variance by a². Thus Var(2X + 3) = 2² × 4 = 16, and the standard deviation of 2X + 3 is √16 = 4."
+   "answer": "For constants a and b, Var(aX + b) = a² Var(X): adding a constant b shifts the distribution without changing its spread, while multiplying by a multiplies the variance by a². Thus Var(2X + 3) = 2² × 4 = 16, and the standard deviation of 2X + 3 is √16 = 4."
   },
   {
    "number": 20,
    "topic": "Variance and Standard Deviation",
-   "question": "What is a degenerate random variable?",
+   "question": "What is a degenerate random variable? Show that its variance is zero. Also define the standardized variable and state its mean and variance.",
    "marks": null,
-   "answer": "Show that its variance is zero. Also define the standardized variable and state its mean and variance. A degenerate random variable takes a single constant value c with probability 1. Then E(X) = c and E(X²) = c², so Var(X) = c² − c² = 0; there is no spread at all. The standardized variable is Z = (X − μ)/σ. Its mean is E(Z) = (E(X) − μ)/σ = 0 and its variance is Var(Z) = Var(X)/σ² = 1."
+   "answer": "A degenerate random variable takes a single constant value c with probability 1. Then E(X) = c and E(X²) = c², so Var(X) = c² − c² = 0; there is no spread at all. The standardized variable is Z = (X − μ)/σ. Its mean is E(Z) = (E(X) − μ)/σ = 0 and its variance is Var(Z) = Var(X)/σ² = 1."
   },
   {
    "number": 21,
    "topic": "Moments, Skewness and Kurtosis",
-   "question": "Define the raw moments and the central moments of a distribution.",
+   "question": "Define the raw moments and the central moments of a distribution. Define the moment ratios β_1 and β_2 and state their values for a symmetric distribution and for the normal distribution.",
    "marks": null,
-   "answer": "Define the moment ratios β_1 and β_2 and state their values for a symmetric distribution and for the normal distribution. The r-th raw moment (moment about the origin) is μ′_r = E(X^r); the r-th central moment (moment about the mean) is μ_r = E[(X − μ)^r]. Note μ_1 = 0 and μ_2 = Var(X). The moment ratio β_1 = μ_3²/μ_2³ measures skewness (asymmetry); β_1 = 0 for a symmetric distribution. The moment ratio β_2 = μ_4/μ_2² measures kurtosis (peakedness); for the normal distribution β_2 = 3."
+   "answer": "The r-th raw moment (moment about the origin) is μ′_r = E(X^r); the r-th central moment (moment about the mean) is μ_r = E[(X − μ)^r]. Note μ_1 = 0 and μ_2 = Var(X). The moment ratio β_1 = μ_3²/μ_2³ measures skewness (asymmetry); β_1 = 0 for a symmetric distribution. The moment ratio β_2 = μ_4/μ_2² measures kurtosis (peakedness); for the normal distribution β_2 = 3."
   },
   {
    "number": 22,
    "topic": "Moment Generating Function",
-   "question": "Define the moment generating function (MGF) of a random variable and explain how the moments are obtained from it.",
+   "question": "Define the moment generating function (MGF) of a random variable and explain how the moments are obtained from it. Use the MGF of the Poisson distribution to find its mean.",
    "marks": null,
-   "answer": "Use the MGF of the Poisson distribution to find its mean. The MGF of X is M_X(t) = E(e^{tX}), defined for t in a neighbourhood of 0. Expanding e^{tX} as a power series shows that the coefficient of t^r/r! in M_X(t) is E(X^r); hence E(X^r) = M^{(r)}_X(0), the r-th derivative of the MGF at t = 0. For a Poisson random variable, M(t) = e^{λ(e^t − 1)}. Then M′(t) = λ e^t e^{λ(e^t − 1)}, so E(X) = M′(0) = λ e^{0} e^{0} = λ."
+   "answer": "The MGF of X is M_X(t) = E(e^{tX}), defined for t in a neighbourhood of 0. Expanding e^{tX} as a power series shows that the coefficient of t^r/r! in M_X(t) is E(X^r); hence E(X^r) = M^{(r)}_X(0), the r-th derivative of the MGF at t = 0. For a Poisson random variable, M(t) = e^{λ(e^t − 1)}. Then M′(t) = λ e^t e^{λ(e^t − 1)}, so E(X) = M′(0) = λ e^{0} e^{0} = λ."
   },
   {
    "number": 23,
@@ -187,9 +187,9 @@
   {
    "number": 24,
    "topic": "Moment Generating Function",
-   "question": "Write down the MGFs of the Normal(μ, σ²) and the continuous Uniform(a, b) distributions.",
+   "question": "Write down the MGFs of the Normal(μ, σ²) and the continuous Uniform(a, b) distributions. Name one well-known distribution for which the MGF does not exist.",
    "marks": null,
-   "answer": "Name one well-known distribution for which the MGF does not exist. For Normal(μ, σ²), M(t) = e^{μt + σ²t²/2}. For the continuous Uniform(a, b), M(t) = (e^{tb} − e^{ta})/(t(b − a)). The MGF does not exist for the Cauchy distribution, because E(e^{tX}) diverges for every t ≠ 0 due to its heavy tails."
+   "answer": "For Normal(μ, σ²), M(t) = e^{μt + σ²t²/2}. For the continuous Uniform(a, b), M(t) = (e^{tb} − e^{ta})/(t(b − a)). The MGF does not exist for the Cauchy distribution, because E(e^{tX}) diverges for every t ≠ 0 due to its heavy tails."
   },
   {
    "number": 25,
@@ -215,9 +215,9 @@
   {
    "number": 28,
    "topic": "Chebyshev's Inequality",
-   "question": "A distribution has mean μ = 50 and standard deviation σ = 5. Using Chebyshev's inequality, find the minimum percentage of values lying between 35 and 65. The interval (35, 65) is μ ± 15, i.e. μ ± 3σ, so k = 3. By Chebyshev's inequality, the proportion within k = 3 standard deviations of the mean is at least 1 − 1/k² = 1 − 1/9 = 8/9 ≈ 88.9%. Hence at least about 88.9% of the values lie between 35 and 65, whatever the shape of the distribution.",
+   "question": "A distribution has mean μ = 50 and standard deviation σ = 5. Using Chebyshev's inequality, find the minimum percentage of values lying between 35 and 65.",
    "marks": null,
-   "answer": ""
+   "answer": "The interval (35, 65) is μ ± 15, i.e. μ ± 3σ, so k = 3. By Chebyshev's inequality, the proportion within k = 3 standard deviations of the mean is at least 1 − 1/k² = 1 − 1/9 = 8/9 ≈ 88.9%. Hence at least about 88.9% of the values lie between 35 and 65, whatever the shape of the distribution."
   }
  ]
 }

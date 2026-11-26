@@ -9,7 +9,7 @@
  "headerTitle": "BIO101 — Biology",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 7,
- "itemCount": 60,
+ "itemCount": 32,
  "topics": [
   "Cell Structure & Organelles",
   "Cell Division & Reproduction",
@@ -42,84 +42,7 @@
    "topic": "Cell Structure & Organelles",
    "question": "Label the organelles of a cell (animal cell). (5 marks) The organelles to label in a diagram of an animal cell are:",
    "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 1,
-   "topic": "Cell Structure & Organelles",
-   "question": "Cell membrane — the outer boundary of the cell.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 2,
-   "topic": "Cell Structure & Organelles",
-   "question": "Cytoplasm — the jelly-like substance in which all organelles lie; its fluid part is called cytosol.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 3,
-   "topic": "Cell Structure & Organelles",
-   "question": "Nucleus — the control centre of the cell; it contains the DNA (genetic material).",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 4,
-   "topic": "Cell Structure & Organelles",
-   "question": "Nucleolus — a dense body inside the nucleus.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 5,
-   "topic": "Cell Structure & Organelles",
-   "question": "Mitochondria — the powerhouse of the cell; they produce energy (ATP).",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 6,
-   "topic": "Cell Structure & Organelles",
-   "question": "Ribosomes — small granules that make proteins.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 7,
-   "topic": "Cell Structure & Organelles",
-   "question": "Endoplasmic reticulum — a network of membranes; the rough ER (with ribosomes) makes proteins and the smooth ER makes lipids.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 8,
-   "topic": "Cell Structure & Organelles",
-   "question": "Golgi apparatus (Golgi bodies) — packages and transports proteins.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 9,
-   "topic": "Cell Structure & Organelles",
-   "question": "Lysosomes — contain digestive enzymes that break down waste materials.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 10,
-   "topic": "Cell Structure & Organelles",
-   "question": "Vacuole — a small fluid-filled sac (large in plant cells).",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 11,
-   "topic": "Cell Structure & Organelles",
-   "question": "Centrosome (centrioles) — present in animal cells; helps in cell division.",
-   "marks": null,
-   "answer": ""
+   "answer": "1. Cell membrane - the outer boundary of the cell. 2. Cytoplasm - the jelly-like substance in which all organelles lie; its fluid part is called cytosol. 3. Nucleus - the control centre of the cell; it contains the DNA (genetic material). 4. Nucleolus - a dense body inside the nucleus. 5. Mitochondria - the powerhouse of the cell; they produce energy (ATP). 6. Ribosomes - small granules that make proteins. 7. Endoplasmic reticulum - a network of membranes; the rough ER (with ribosomes) makes proteins and the smooth ER makes lipids. 8. Golgi apparatus (Golgi bodies) - packages and transports proteins. 9. Lysosomes - contain digestive enzymes that break down waste materials. 10. Vacuole - a small fluid-filled sac (large in plant cells). 11. Centrosome (centrioles) - present in animal cells; helps in cell division."
   },
   {
    "number": 4,
@@ -133,112 +56,14 @@
    "topic": "Cell Division & Reproduction",
    "question": "How does a female cell create a twin baby? (How are twins produced?) Twins are produced in two ways:",
    "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 1,
-   "topic": "Cell Division & Reproduction",
-   "question": "Identical (monozygotic) twins: A single egg (female cell) is fertilized by a single sperm, and the resulting zygote splits into two separate embryos early in development. Because both babies come from the same fertilized egg, they are genetically identical and are always of the same sex.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 2,
-   "topic": "Cell Division & Reproduction",
-   "question": "Fraternal (dizygotic) twins: Two separate eggs are released and each is fertilized by a different sperm. The two babies are genetically different, like ordinary brothers and sisters, and may be of the same or different sexes.",
-   "marks": null,
-   "answer": ""
+   "answer": "1. Identical (monozygotic) twins: A single egg (female cell) is fertilized by a single sperm, and the resulting zygote splits into two separate embryos early in development. Because both babies come from the same fertilized egg, they are genetically identical and are always of the same sex. 2. Fraternal (dizygotic) twins: Two separate eggs are released and each is fertilized by a different sperm. The two babies are genetically different, like ordinary brothers and sisters, and may be of the same or different sexes."
   },
   {
    "number": 6,
    "topic": "Biological Organization & Nutrition",
    "question": "Name the levels of biological organization and define each level in one line.",
    "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 1,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Atom — the smallest unit of an element.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 2,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Molecule — two or more atoms joined together.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 3,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Organelle — a specialized structure inside a cell that performs a specific job.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 4,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Cell — the basic structural and functional unit of life.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 5,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Tissue — a group of similar cells working together to perform a specific function.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 6,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Organ — a structure made of different tissues that performs a specific function.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 7,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Organ system — a group of organs working together to perform a major body function.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 8,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Organism — a complete living individual.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 9,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Population — all individuals of the same species living in one area.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 10,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Community — all the populations of different species living and interacting in one area.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 11,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Ecosystem — a community together with its non-living environment.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 12,
-   "topic": "Biological Organization & Nutrition",
-   "question": "Biosphere — the part of the Earth where all life exists.",
-   "marks": null,
-   "answer": ""
+   "answer": "1. Atom - the smallest unit of an element. 2. Molecule - two or more atoms joined together. 3. Organelle - a specialized structure inside a cell that performs a specific job. 4. Cell - the basic structural and functional unit of life. 5. Tissue - a group of similar cells working together to perform a specific function. 6. Organ - a structure made of different tissues that performs a specific function. 7. Organ system - a group of organs working together to perform a major body function. 8. Organism - a complete living individual. 9. Population - all individuals of the same species living in one area. 10. Community - all the populations of different species living and interacting in one area. 11. Ecosystem - a community together with its non-living environment. 12. Biosphere - the part of the Earth where all life exists."
   },
   {
    "number": 7,
@@ -357,28 +182,7 @@
    "topic": "Ecology & Environment",
    "question": "Name and describe the three zones of a river. A river is divided into three zones along its length:",
    "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 1,
-   "topic": "Ecology & Environment",
-   "question": "Source zone — the uppermost part of the river, usually in hills or mountains; the water here is cold, clear, fast-flowing and rich in oxygen.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 2,
-   "topic": "Ecology & Environment",
-   "question": "Transition zone — the middle part; the river becomes wider, the flow slower and the water warmer, so more species can live here.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 3,
-   "topic": "Ecology & Environment",
-   "question": "Floodplain zone — the lowermost part; the water is slow-moving, muddy and rich in nutrients, and the river flows over flat floodplains before reaching its mouth.",
-   "marks": null,
-   "answer": ""
+   "answer": "1. Source zone - the uppermost part of the river, usually in hills or mountains; the water here is cold, clear, fast-flowing and rich in oxygen. 2. Transition zone - the middle part; the river becomes wider, the flow slower and the water warmer, so more species can live here. 3. Floodplain zone - the lowermost part; the water is slow-moving, muddy and rich in nutrients, and the river flows over flat floodplains before reaching its mouth."
   },
   {
    "number": 24,
@@ -411,9 +215,9 @@
   {
    "number": 28,
    "topic": "Photosynthesis & Respiration",
-   "question": "What is photosynthesis?",
+   "question": "What is photosynthesis? Write its equation and state its importance.",
    "marks": null,
-   "answer": "Write its equation and state its importance. Photosynthesis is the process by which green plants, algae and some bacteria prepare their own food (glucose) from carbon dioxide and water, using sunlight energy trapped by the green pigment chlorophyll; oxygen is released as a by-product. Equation: 6CO2 + 6H2O —(sunlight / chlorophyll) → C6H12O6 + 6O2 Importance: (1) It produces food for almost all living organisms, directly or indirectly. (2) It releases the oxygen that animals and plants need for respiration. (3) It keeps the balance of carbon dioxide and oxygen in the atmosphere."
+   "answer": "Photosynthesis is the process by which green plants, algae and some bacteria prepare their own food (glucose) from carbon dioxide and water, using sunlight energy trapped by the green pigment chlorophyll; oxygen is released as a by-product. Equation: 6CO2 + 6H2O —(sunlight / chlorophyll)→ C6H12O6 + 6O2 Importance: (1) It produces food for almost all living organisms, directly or indirectly. (2) It releases the oxygen that animals and plants need for respiration. (3) It keeps the balance of carbon dioxide and oxygen in the atmosphere."
   },
   {
    "number": 29,
