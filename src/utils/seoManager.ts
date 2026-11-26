@@ -1,7 +1,11 @@
 import { Course, McqSet, Resource, SubjectiveSet } from '../types';
 import { MidtermPrepIndexEntry } from '../types/midterm';
-import { cleanDocumentDisplayTitle, getDocSlug } from './docSlug';
 import { enrichDocumentMetadata } from './docEnricher';
+import {
+  buildDocJsonLdGraph,
+  buildDocMetaDescription,
+  buildDocPageTitle
+} from './docPageSeo';
 
 export interface SeoSyncParams {
   page: string;
@@ -143,75 +147,28 @@ export function syncRouteSeo({
     });
   } else if (page === 'doc' && selectedDoc) {
     const enriched = enrichDocumentMetadata(selectedDoc);
-    const canonicalSlug = getDocSlug(selectedDoc.rlh) || selectedDocSlug || '';
+    // selectedDocSlug is the canonical slug resolved by the caller; the
+    // prerendered page carries the same canonical URL.
+    const canonicalSlug = selectedDocSlug || '';
     canonicalPath = `/doc/${canonicalSlug}`;
-    title = `${enriched.displayName} (${enriched.courseCode} ${enriched.format}) – Online Preview & Free Download | MIHORA VU`;
-    desc = enriched.overviewSummary;
+    // Shared builders (src/utils/docPageSeo.ts) — identical to the
+    // prerendered values, so hydration never lengthens the title or
+    // restores the 5th FAQ in structured data.
+    title = buildDocPageTitle(enriched);
+    desc = buildDocMetaDescription(enriched);
     keywords = enriched.targetKeywords.join(', ');
     breadcrumbs.push(
       { name: 'Courses', item: `${BASE_URL}/courses` },
       { name: enriched.courseCode, item: `${BASE_URL}/courses/${enriched.courseCode.toLowerCase()}` },
       { name: enriched.displayName, item: `${BASE_URL}${canonicalPath}` }
     );
-    graphNodes.push({
-      '@type': 'DigitalDocument',
-      '@id': `${BASE_URL}${canonicalPath}#document`,
-      name: enriched.displayName,
-      fileFormat: enriched.format,
-      numberOfPages: enriched.estimatedPages,
-      educationalUse: enriched.typeLabel,
-      description: enriched.overviewSummary,
-      about: {
-        '@type': 'Course',
-        name: `${enriched.courseCode} – ${enriched.courseTitle}`,
-        courseCode: enriched.courseCode,
-        provider: {
-          '@type': 'CollegeOrUniversity',
-          name: 'Virtual University of Pakistan'
-        }
-      },
-      hasPart: enriched.curriculumModules.map((m) => ({
-        '@type': 'Chapter',
-        position: m.moduleNumber,
-        name: m.title,
-        description: `${m.lectureSpan} (${m.pageRange}): ${m.keyTopics.join('; ')}. Exam focus: ${m.examWeightage}.`
-      })),
-      provider: {
-        '@type': 'Organization',
-        name: 'MIHORA VU STUDY LIBRARY',
-        url: BASE_URL
-      },
-      isAccessibleForFree: true,
-      inLanguage: 'en-PK',
-      url: `${BASE_URL}${canonicalPath}`
-    });
-
-    graphNodes.push({
-      '@type': 'LearningResource',
-      '@id': `${BASE_URL}${canonicalPath}#learning-resource`,
-      name: `${enriched.displayName} – ${enriched.courseCode} Exam Prep Material`,
-      learningResourceType: enriched.typeLabel,
-      educationalLevel: enriched.termScope,
-      numberOfPages: enriched.estimatedPages,
-      teaches: `${enriched.courseCode} – ${enriched.courseTitle}`,
-      isAccessibleForFree: true,
-      inLanguage: 'en-PK',
-      url: `${BASE_URL}${canonicalPath}`
-    });
-
-    graphNodes.push({
-      '@type': 'FAQPage',
-      '@id': `${BASE_URL}${canonicalPath}#faqs`,
-      name: `${enriched.courseCode} Examination & Document FAQs`,
-      mainEntity: enriched.faqs.map((faq) => ({
-        '@type': 'Question',
-        name: faq.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: faq.answer
-        }
-      }))
-    });
+    // WebPage + BreadcrumbList are built by the common code below; only
+    // the doc-specific nodes come from the shared builder.
+    graphNodes.push(
+      ...buildDocJsonLdGraph(enriched, `${BASE_URL}${canonicalPath}`).filter((n) =>
+        ['DigitalDocument', 'LearningResource', 'FAQPage'].includes(n['@type'] as string)
+      )
+    );
   } else if (page === 'home' && activeFilterType === 'HANDOUT' && !selectedCourseCode) {
     title = `VU Lecture Handouts PDF Free Download | MIHORA VU`;
     desc = `Download 2,625+ official Virtual University lecture handouts PDF, highlighted short notes, and reference books across CS, MTH, ENG, MGT, and all ${courses.length} subjects free with zero login.`;
