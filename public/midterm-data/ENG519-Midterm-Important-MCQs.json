@@ -9,7 +9,7 @@
  "headerTitle": "ENG519 — Curriculum Design",
  "subtitle": "Midterm Important MCQs",
  "pageCount": 49,
- "itemCount": 328,
+ "itemCount": 329,
  "topics": [
   "Origins of Language Curriculum Design",
   "From Syllabus Design to Curriculum Development",
@@ -3395,6 +3395,18 @@
     "none"
    ],
    "correctIndex": 1
+  },
+  {
+   "number": 282,
+   "topic": "Providing for Effective Teaching",
+   "question": "An evaluation form that seemed adequate twenty or forty years ago now seems_____.",
+   "options": [
+    "Both a & b",
+    "None",
+    "Inappropriate",
+    "Appropriate"
+   ],
+   "correctIndex": null
   },
   {
    "number": 283,

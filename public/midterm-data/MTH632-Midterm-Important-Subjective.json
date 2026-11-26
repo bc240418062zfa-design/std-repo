@@ -22,16 +22,16 @@
   {
    "number": 1,
    "topic": "Basic Algebraic Operations",
-   "question": "Verify that (2 − i) − i(1 − 2i) = −2i. L.H.S. = (2 − i) − i(1 − 2i) = 2 − i − i + 2i² = 2 − 2i + 2(−1) = 2 − 2i − 2 = −2i = R.H.S.",
+   "question": "Verify that (2 − i) − i(1 − 2i) = −2i.",
    "marks": null,
-   "answer": ""
+   "answer": "L.H.S. = (2 − i) − i(1 − 2i) = 2 − i − i + 2i² = 2 − 2i + 2(−1) = 2 − 2i − 2 = −2i = R.H.S."
   },
   {
    "number": 2,
    "topic": "Basic Algebraic Operations",
-   "question": "Verify that each of the two numbers z = 1 + i and z = 1 − i satisfies the equation z² − 2z + 2 = 0. For z = 1 + i: z² = (1 + i)² = 2i, so z² − 2z + 2 = 2i − 2(1 + i) + 2 = 2i − 2 − 2i + 2 = 0. For z = 1 − i: z² = (1 − i)² = −2i, so z² − 2z + 2 = −2i − 2(1 − i) + 2 = −2i − 2 + 2i + 2 = 0. Hence both numbers satisfy the equation.",
+   "question": "Verify that each of the two numbers z = 1 + i and z = 1 − i satisfies the equation z² − 2z + 2 = 0.",
    "marks": null,
-   "answer": ""
+   "answer": "For z = 1 + i: z² = (1 + i)² = 2i, so z² − 2z + 2 = 2i − 2(1 + i) + 2 = 2i − 2 − 2i + 2 = 0. For z = 1 − i: z² = (1 − i)² = −2i, so z² − 2z + 2 = −2i − 2(1 − i) + 2 = −2i − 2 + 2i + 2 = 0. Hence both numbers satisfy the equation."
   },
   {
    "number": 3,
@@ -43,37 +43,37 @@
   {
    "number": 4,
    "topic": "Basic Algebraic Operations",
-   "question": "Using −1 = (−1, 0) and z = (x, y), show that (−1)z = −z. (−1)z = (−1, 0)(x, y) = ((−1)x − 0·y, (−1)y + 0·x) = (−x, −y) = −(x, y) = −z.",
+   "question": "Using −1 = (−1, 0) and z = (x, y), show that (−1)z = −z.",
    "marks": null,
-   "answer": ""
+   "answer": "(−1)z = (−1, 0)(x, y) = ((−1)x − 0·y, (−1)y + 0·x) = (−x, −y) = −(x, y) = −z."
   },
   {
    "number": 5,
    "topic": "Basic Algebraic Operations",
-   "question": "Solve the equation z² + z + 1 = 0 for z = (x, y) by writing (x, y)(x, y) + (x, y) + (1, 0) = (0, 0). z² + z + 1 = (x² − y², 2xy) + (x, y) + (1, 0) = (x² − y² + x + 1, 2xy + y). Equating real and imaginary parts to zero: x² − y² + x + 1 = 0 …(1) and 2xy + y = y(2x + 1) = 0 …(2). From (2), y = 0 or x = −1/2. y = 0 does not satisfy (1), so x = −1/2; putting this in (1): 1/4 − y² − 1/2 + 1 = 0, giving y² = 3/4, y = ±√3/2. Hence z = (−1 ± i√3)/2.",
+   "question": "Solve the equation z² + z + 1 = 0 for z = (x, y) by writing (x, y)(x, y) + (x, y) + (1, 0) = (0, 0).",
    "marks": null,
-   "answer": ""
+   "answer": "z² + z + 1 = (x² − y², 2xy) + (x, y) + (1, 0) = (x² − y² + x + 1, 2xy + y). Equating real and imaginary parts to zero: x² − y² + x + 1 = 0 …(1) and 2xy + y = y(2x + 1) = 0 …(2). From (2), y = 0 or x = −1/2. y = 0 does not satisfy (1), so x = −1/2; putting this in (1): 1/4 − y² − 1/2 + 1 = 0, giving y² = 3/4, y = ±√3/2. Hence z = (−1 ± i√3)/2."
   },
   {
    "number": 6,
    "topic": "Basic Algebraic Operations",
-   "question": "Reduce the quantity (1 + 2i)/(3 − 4i) + (2 − i)/(5i) to a real number. (1 + 2i)/(3 − 4i) = [(1 + 2i)(3 + 4i)]/25 = (−5 + 10i)/25. Also (2 − i)/(5i) = [(2 − i)(−i)]/(5i·(−i)) = (−1 − 2i)/5 = (−5 − 10i)/25. Adding: (−5 + 10i − 5 − 10i)/25 = −10/25 = −2/5, a real number.",
+   "question": "Reduce the quantity (1 + 2i)/(3 − 4i) + (2 − i)/(5i) to a real number.",
    "marks": null,
-   "answer": ""
+   "answer": "(1 + 2i)/(3 − 4i) = [(1 + 2i)(3 + 4i)]/25 = (−5 + 10i)/25. Also (2 − i)/(5i) = [(2 − i)(−i)]/(5i·(−i)) = (−1 − 2i)/5 = (−5 − 10i)/25. Adding: (−5 + 10i − 5 − 10i)/25 = −10/25 = −2/5, a real number."
   },
   {
    "number": 7,
    "topic": "Basic Algebraic Operations",
-   "question": "Reduce 5i/[(1 − i)(2 − i)(3 − i)] to a real number. (1 − i)(2 − i) = 1 − 3i, and (1 − 3i)(3 − i) = −10i, so the denominator is −10i. Hence 5i/(−10i) = −1/2, a real number. (Equivalently, multiplying numerator and denominator by the conjugates step by step gives the same value −1/2.)",
+   "question": "Reduce 5i/[(1 − i)(2 − i)(3 − i)] to a real number.",
    "marks": null,
-   "answer": ""
+   "answer": "(1 − i)(2 − i) = 1 − 3i, and (1 − 3i)(3 − i) = −10i, so the denominator is −10i. Hence 5i/(−10i) = −1/2, a real number. (Equivalently, multiplying numerator and denominator by the conjugates step by step gives the same value −1/2.)"
   },
   {
    "number": 8,
    "topic": "Basic Algebraic Operations",
-   "question": "Show that (1 − i)⁴ = −4. (1 − i)² = 1 − 2i + i² = 1 − 2i − 1 = −2i. Therefore (1 − i)⁴ = [(1 − i)²]² = (−2i)² = 4i² = −4.",
+   "question": "Show that (1 − i)⁴ = −4.",
    "marks": null,
-   "answer": ""
+   "answer": "(1 − i)² = 1 − 2i + i² = 1 − 2i − 1 = −2i. Therefore (1 − i)⁴ = [(1 − i)²]² = (−2i)² = 4i² = −4."
   },
   {
    "number": 9,
@@ -85,23 +85,23 @@
   {
    "number": 10,
    "topic": "Basic Algebraic Operations",
-   "question": "Verify that (2, −3)(−2, 1) = (−1, 8). (2, −3)(−2, 1) = (2·(−2) − (−3)(1), (−3)(−2) + 2·1) = (−4 + 3, 6 + 2) = (−1, 8).",
+   "question": "Verify that (2, −3)(−2, 1) = (−1, 8).",
    "marks": null,
-   "answer": ""
+   "answer": "(2, −3)(−2, 1) = (2·(−2) − (−3)(1), (−3)(−2) + 2·1) = (−4 + 3, 6 + 2) = (−1, 8)."
   },
   {
    "number": 11,
    "topic": "Basic Algebraic Operations",
-   "question": "Verify that [(3, 1)(3, −1)](1/5, 1/10) = (2, 1). First (3, 1)(3, −1) = (3·3 − 1·(−1), 1·3 + 3·(−1)) = (10, 0) = 10. Then 10·(1/5, 1/10) = (10/5, 10/10) = (2, 1).",
+   "question": "Verify that [(3, 1)(3, −1)](1/5, 1/10) = (2, 1).",
    "marks": null,
-   "answer": ""
+   "answer": "First (3, 1)(3, −1) = (3·3 − 1·(−1), 1·3 + 3·(−1)) = (10, 0) = 10. Then 10·(1/5, 1/10) = (10/5, 10/10) = (2, 1)."
   },
   {
    "number": 12,
    "topic": "Basic Algebraic Operations",
-   "question": "Prove that (√2 − i) − i(1 − √2 i) = −2i. L.H.S. = (√2 − i) − i + √2 i² = √2 − i − i + √2(−1) = √2 − 2i − √2 = −2i = R.H.S.",
+   "question": "Prove that (√2 − i) − i(1 − √2 i) = −2i.",
    "marks": null,
-   "answer": ""
+   "answer": "L.H.S. = (√2 − i) − i + √2 i² = √2 − i − i + √2(−1) = √2 − 2i − √2 = −2i = R.H.S."
   },
   {
    "number": 13,
@@ -113,65 +113,65 @@
   {
    "number": 14,
    "topic": "Exponential Form and Arguments",
-   "question": "Write (√3 − i)⁶ in rectangular form and find its principal argument. √3 − i has modulus 2 and argument −π/6, so √3 − i = 2e^(−iπ/6).",
+   "question": "Write (√3 − i)⁶ in rectangular form and find its principal argument.",
    "marks": null,
-   "answer": "Then (√3 − i)⁶ = 2⁶ e^(−iπ) = 64(cos π − i sin π) = −64. The principal argument is Arg z = π."
+   "answer": "√3 − i has modulus 2 and argument −π/6, so √3 − i = 2e^(−iπ/6). Then (√3 − i)⁶ = 2⁶ e^(−iπ) = 64(cos π − i sin π) = −64. The principal argument is Arg z = π."
   },
   {
    "number": 15,
    "topic": "Exponential Form and Arguments",
-   "question": "Show that |e^(iθ)| = 1 and that the conjugate of e^(iθ) is e^(−iθ). e^(iθ) = cos θ + i sin θ, so |e^(iθ)| = √(cos²θ + sin²θ) = √1 = 1.",
+   "question": "Show that |e^(iθ)| = 1 and that the conjugate of e^(iθ) is e^(−iθ).",
    "marks": null,
-   "answer": "Also conj(e^(iθ)) = cos θ − i sin θ = cos(−θ) + i sin(−θ) = e^(−iθ)."
+   "answer": "e^(iθ) = cos θ + i sin θ, so |e^(iθ)| = √(cos²θ + sin²θ) = √1 = 1. Also conj(e^(iθ)) = cos θ − i sin θ = cos(−θ) + i sin(−θ) = e^(−iθ)."
   },
   {
    "number": 16,
    "topic": "Exponential Form and Arguments",
-   "question": "By writing the individual factors in exponential form, show that i(1 − √3 i)(√3 + i) = 2(1 + √3 i). Exponential forms: i = e^(iπ/2); 1 − √3 i = 2e^(−iπ/3); √3 + i = 2e^(iπ/6). Product: e^(iπ/2) · 2e^(−iπ/3) · 2e^(iπ/6) = 4e^(i(π/2 − π/3 + π/6)) = 4e^(iπ/3) = 4(cos π/3 + i sin π/3) = 4(1/2 + i√3/2) = 2 + 2√3 i = 2(1 + √3 i).",
+   "question": "By writing the individual factors in exponential form, show that i(1 − √3 i)(√3 + i) = 2(1 + √3 i).",
    "marks": null,
-   "answer": ""
+   "answer": "Exponential forms: i = e^(iπ/2); 1 − √3 i = 2e^(−iπ/3); √3 + i = 2e^(iπ/6). Product: e^(iπ/2) · 2e^(−iπ/3) · 2e^(iπ/6) = 4e^(i(π/2 − π/3 + π/6)) = 4e^(iπ/3) = 4(cos π/3 + i sin π/3) = 4(1/2 + i√3/2) = 2 + 2√3 i = 2(1 + √3 i)."
   },
   {
    "number": 17,
    "topic": "Exponential Form and Arguments",
-   "question": "Use De Moivre's formula to derive expressions for cos 3θ and sin 3θ. By De Moivre, cos 3θ + i sin 3θ = (cos θ + i sin θ)³ = cos³θ + 3i cos²θ sin θ − 3 cos θ sin²θ − i sin³θ = (cos³θ − 3 cos θ sin²θ) + i(3 cos²θ sin θ − sin³θ). Equating real and imaginary parts: cos 3θ = cos³θ − 3 cos θ sin²θ = 4cos³θ − 3cos θ, and sin 3θ = 3cos²θ sin θ − sin³θ.",
+   "question": "Use De Moivre's formula to derive expressions for cos 3θ and sin 3θ.",
    "marks": null,
-   "answer": ""
+   "answer": "By De Moivre, cos 3θ + i sin 3θ = (cos θ + i sin θ)³ = cos³θ + 3i cos²θ sin θ − 3 cos θ sin²θ − i sin³θ = (cos³θ − 3 cos θ sin²θ) + i(3 cos²θ sin θ − sin³θ). Equating real and imaginary parts: cos 3θ = cos³θ − 3 cos θ sin²θ = 4cos³θ − 3cos θ, and sin 3θ = 3cos²θ sin θ − sin³θ."
   },
   {
    "number": 18,
    "topic": "Exponential Form and Arguments",
-   "question": "Express −1 + i in exponential form. r = √((−1)² + 1²) = √2, and θ = tan⁻¹(−1) adjusted to the second quadrant = 3π/4. Hence −1 + i = √2 e^(3πi/4).",
+   "question": "Express −1 + i in exponential form.",
    "marks": null,
-   "answer": ""
+   "answer": "r = √((−1)² + 1²) = √2, and θ = tan⁻¹(−1) adjusted to the second quadrant = 3π/4. Hence −1 + i = √2 e^(3πi/4)."
   },
   {
    "number": 19,
    "topic": "Exponential Form and Arguments",
-   "question": "Express √3 − i in exponential form. r = √(3 + 1) = 2, and θ = tan⁻¹(−1/√3) = −π/6 (fourth quadrant). Hence √3 − i = 2e^(−iπ/6).",
+   "question": "Express √3 − i in exponential form.",
    "marks": null,
-   "answer": ""
+   "answer": "r = √(3 + 1) = 2, and θ = tan⁻¹(−1/√3) = −π/6 (fourth quadrant). Hence √3 − i = 2e^(−iπ/6)."
   },
   {
    "number": 20,
    "topic": "Exponential Form and Arguments",
-   "question": "Express −√3 + i in exponential form. r = √(3 + 1) = 2, and θ = π − tan⁻¹(1/√3) = π − π/6 = 5π/6 (second quadrant). Hence −√3 + i = 2e^(5πi/6).",
+   "question": "Express −√3 + i in exponential form.",
    "marks": null,
-   "answer": ""
+   "answer": "r = √(3 + 1) = 2, and θ = π − tan⁻¹(1/√3) = π − π/6 = 5π/6 (second quadrant). Hence −√3 + i = 2e^(5πi/6)."
   },
   {
    "number": 21,
    "topic": "Exponential Form and Arguments",
-   "question": "Evaluate (1 + √3 i)⁴. 1 + √3 i = 2e^(iπ/3), so (1 + √3 i)⁴ = 2⁴ e^(4πi/3) = 16(cos(4π/3) + i sin(4π/3)) = 16(−1/2 − i√3/2) = −8 − 8√3 i.",
+   "question": "Evaluate (1 + √3 i)⁴.",
    "marks": null,
-   "answer": ""
+   "answer": "1 + √3 i = 2e^(iπ/3), so (1 + √3 i)⁴ = 2⁴ e^(4πi/3) = 16(cos(4π/3) + i sin(4π/3)) = 16(−1/2 − i√3/2) = −8 − 8√3 i."
   },
   {
    "number": 22,
    "topic": "Exponential Form and Arguments",
-   "question": "Evaluate (−4 − 4i)³. (−4 − 4i)² = 16 + 32i + 16i² = 32i. Hence (−4 − 4i)³ = 32i·(−4 − 4i) = −128i − 128i² = 128 − 128i.",
+   "question": "Evaluate (−4 − 4i)³.",
    "marks": null,
-   "answer": ""
+   "answer": "(−4 − 4i)² = 16 + 32i + 16i² = 32i. Hence (−4 − 4i)³ = 32i·(−4 − 4i) = −128i − 128i² = 128 − 128i."
   },
   {
    "number": 23,
@@ -183,16 +183,16 @@
   {
    "number": 24,
    "topic": "Roots of Complex Numbers",
-   "question": "Find the square roots of 1 − √3 i. 1 − √3 i has modulus 2 and argument −π/3, so 1 − √3 i = 2e^(−iπ/3) = 2e^(i(−π/3 + 2kπ)).",
+   "question": "Find the square roots of 1 − √3 i.",
    "marks": null,
-   "answer": "The square roots are √2 e^(i(−π/6 + kπ)), k = 0, 1. For k = 0: √2(cos π/6 − i sin π/6) = √2(√3/2 − i/2) = (√6 − √2 i)/2. The other root is its negative. Hence the roots are ±(√6 − √2 i)/2."
+   "answer": "1 − √3 i has modulus 2 and argument −π/3, so 1 − √3 i = 2e^(−iπ/3) = 2e^(i(−π/3 + 2kπ)). The square roots are √2 e^(i(−π/6 + kπ)), k = 0, 1. For k = 0: √2(cos π/6 − i sin π/6) = √2(√3/2 − i/2) = (√6 − √2 i)/2. The other root is its negative. Hence the roots are ±(√6 − √2 i)/2."
   },
   {
    "number": 25,
    "topic": "Roots of Complex Numbers",
-   "question": "Find all three cube roots of −8i. −8i = 8e^(i(−π/2 + 2kπ)), so the cube roots are 2e^(i(−π/6 + 2kπ/3)), k = 0, 1, 2.",
+   "question": "Find all three cube roots of −8i.",
    "marks": null,
-   "answer": "For k = 0: 2(cos(−π/6) + i sin(−π/6)) = 2(√3/2 − i/2) = √3 − i. For k = 1: 2e^(iπ/2) = 2i. For k = 2: 2e^(i7π/6) = 2(−√3/2 − i/2) = −√3 − i. Hence the cube roots of −8i are √3 − i, 2i and −√3 − i."
+   "answer": "−8i = 8e^(i(−π/2 + 2kπ)), so the cube roots are 2e^(i(−π/6 + 2kπ/3)), k = 0, 1, 2. For k = 0: 2(cos(−π/6) + i sin(−π/6)) = 2(√3/2 − i/2) = √3 − i. For k = 1: 2e^(iπ/2) = 2i. For k = 2: 2e^(i7π/6) = 2(−√3/2 − i/2) = −√3 − i. Hence the cube roots of −8i are √3 − i, 2i and −√3 − i."
   },
   {
    "number": 26,
@@ -218,65 +218,65 @@
   {
    "number": 29,
    "topic": "Limits",
-   "question": "Compute lim (z → i) (z² + z + 1). Using the limit laws (limit of a sum/product equals the sum/product of the limits): lim (z → i) (z² + z + 1) = (lim z)² + lim z + 1 = i² + i + 1 = −1 + i + 1 = i.",
+   "question": "Compute lim (z → i) (z² + z + 1).",
    "marks": null,
-   "answer": ""
+   "answer": "Using the limit laws (limit of a sum/product equals the sum/product of the limits): lim (z → i) (z² + z + 1) = (lim z)² + lim z + 1 = i² + i + 1 = −1 + i + 1 = i."
   },
   {
    "number": 30,
    "topic": "Limits",
-   "question": "Evaluate lim (z → 4) (2 − √z)/(4 − z). Since 4 − z = (2 − √z)(2 + √z), we have (2 − √z)/(4 − z) = 1/(2 + √z) for z ≠ 4. Hence the limit is 1/(2 + √4) = 1/4.",
+   "question": "Evaluate lim (z → 4) (2 − √z)/(4 − z).",
    "marks": null,
-   "answer": ""
+   "answer": "Since 4 − z = (2 − √z)(2 + √z), we have (2 − √z)/(4 − z) = 1/(2 + √z) for z ≠ 4. Hence the limit is 1/(2 + √4) = 1/4."
   },
   {
    "number": 31,
    "topic": "Limits",
-   "question": "Evaluate lim (z → i) (z − i)/(z² + 1). Factor z² + 1 = (z − i)(z + i). For z ≠ i, (z − i)/(z² + 1) = 1/(z + i), so the limit is 1/(i + i) = 1/(2i) = −i/2.",
+   "question": "Evaluate lim (z → i) (z − i)/(z² + 1).",
    "marks": null,
-   "answer": ""
+   "answer": "Factor z² + 1 = (z − i)(z + i). For z ≠ i, (z − i)/(z² + 1) = 1/(z + i), so the limit is 1/(i + i) = 1/(2i) = −i/2."
   },
   {
    "number": 32,
    "topic": "Limits",
-   "question": "Evaluate lim (z → 4i) (z² + 16)/(z − 4i). Factor z² + 16 = (z − 4i)(z + 4i). For z ≠ 4i, the quotient equals z + 4i, so the limit is 4i + 4i = 8i.",
+   "question": "Evaluate lim (z → 4i) (z² + 16)/(z − 4i).",
    "marks": null,
-   "answer": ""
+   "answer": "Factor z² + 16 = (z − 4i)(z + 4i). For z ≠ 4i, the quotient equals z + 4i, so the limit is 4i + 4i = 8i."
   },
   {
    "number": 33,
    "topic": "Limits",
-   "question": "Evaluate lim (z → ∞) (5z² + 1)/(3z² − z). Divide numerator and denominator by z²: (5 + 1/z²)/(3 − 1/z). As z → ∞, 1/z → 0 and 1/z² → 0, so the limit is 5/3.",
+   "question": "Evaluate lim (z → ∞) (5z² + 1)/(3z² − z).",
    "marks": null,
-   "answer": ""
+   "answer": "Divide numerator and denominator by z²: (5 + 1/z²)/(3 − 1/z). As z → ∞, 1/z → 0 and 1/z² → 0, so the limit is 5/3."
   },
   {
    "number": 34,
    "topic": "Limits",
-   "question": "Evaluate lim (z → 2 + i) (z² − 4z + 2 + 5i). The function is a polynomial, hence continuous, so substitute z = 2 + i: (2 + i)² − 4(2 + i) + 2 + 5i = (3 + 4i) − (8 + 4i) + 2 + 5i = −3 + 5i.",
+   "question": "Evaluate lim (z → 2 + i) (z² − 4z + 2 + 5i).",
    "marks": null,
-   "answer": ""
+   "answer": "The function is a polynomial, hence continuous, so substitute z = 2 + i: (2 + i)² − 4(2 + i) + 2 + 5i = (3 + 4i) − (8 + 4i) + 2 + 5i = −3 + 5i."
   },
   {
    "number": 35,
    "topic": "Limits",
-   "question": "Evaluate lim (z → 1 + i) (z² + z − 2 + i)/(z² − 2z + 1). Substitute z = 1 + i. Numerator: z² = 2i, so z² + z − 2 + i = 2i + (1 + i) − 2 + i = −1 + 4i. Denominator: z² − 2z + 1 = (z − 1)² = i² = −1. Hence the limit is (−1 + 4i)/(−1) = 1 − 4i.",
+   "question": "Evaluate lim (z → 1 + i) (z² + z − 2 + i)/(z² − 2z + 1).",
    "marks": null,
-   "answer": ""
+   "answer": "Substitute z = 1 + i. Numerator: z² = 2i, so z² + z − 2 + i = 2i + (1 + i) − 2 + i = −1 + 4i. Denominator: z² − 2z + 1 = (z − 1)² = i² = −1. Hence the limit is (−1 + 4i)/(−1) = 1 − 4i."
   },
   {
    "number": 36,
    "topic": "Limits",
-   "question": "Check the continuity of f(z) = (z² + 3z + 2)/(z² + 1) at z = i. At z = i the denominator z² + 1 = i² + 1 = 0, so f(i) is not defined. A function must be defined at the point to be continuous there; hence f is not continuous (it is discontinuous) at z = i.",
+   "question": "Check the continuity of f(z) = (z² + 3z + 2)/(z² + 1) at z = i.",
    "marks": null,
-   "answer": ""
+   "answer": "At z = i the denominator z² + 1 = i² + 1 = 0, so f(i) is not defined. A function must be defined at the point to be continuous there; hence f is not continuous (it is discontinuous) at z = i."
   },
   {
    "number": 37,
    "topic": "Limits",
-   "question": "Check the continuity of f(z) = z⁴ − 9z² + iz − 2 at z = −i. f is a polynomial, so lim (z → −i) f(z) = f(−i). Compute f(−i) = (−i)⁴ − 9(−i)² + i(−i) − 2 = 1 − 9(−1) + 1 − 2 = 9. Since the limit equals the value f(−i) = 9, f is continuous at z = −i.",
+   "question": "Check the continuity of f(z) = z⁴ − 9z² + iz − 2 at z = −i.",
    "marks": null,
-   "answer": ""
+   "answer": "f is a polynomial, so lim (z → −i) f(z) = f(−i). Compute f(−i) = (−i)⁴ − 9(−i)² + i(−i) − 2 = 1 − 9(−1) + 1 − 2 = 9. Since the limit equals the value f(−i) = 9, f is continuous at z = −i."
   },
   {
    "number": 38,
@@ -288,44 +288,44 @@
   {
    "number": 39,
    "topic": "Derivatives and Cauchy–Riemann Equations",
-   "question": "Verify the Cauchy–Riemann equations for f(z) = z² and hence write down f′(z). f(z) = z² = (x + iy)² = (x² − y²) + i(2xy), so u = x² − y² and v = 2xy. Then u_x = 2x = v_y and u_y = −2y = −v_x, so the C–R equations hold at every point. Therefore f is differentiable everywhere with f′(z) = u_x + iv_x = 2x + i(2y) = 2(x + iy) = 2z.",
+   "question": "Verify the Cauchy–Riemann equations for f(z) = z² and hence write down f′(z).",
    "marks": null,
-   "answer": ""
+   "answer": "f(z) = z² = (x + iy)² = (x² − y²) + i(2xy), so u = x² − y² and v = 2xy. Then u_x = 2x = v_y and u_y = −2y = −v_x, so the C–R equations hold at every point. Therefore f is differentiable everywhere with f′(z) = u_x + iv_x = 2x + i(2y) = 2(x + iy) = 2z."
   },
   {
    "number": 40,
    "topic": "Derivatives and Cauchy–Riemann Equations",
-   "question": "Find f′(z) if f(z) = (z − 1)/(2z + 1). By the quotient rule: f′(z) = [(1)(2z + 1) − (z − 1)(2)]/(2z + 1)² = [2z + 1 − 2z + 2]/(2z + 1)² = 3/(2z + 1)².",
+   "question": "Find f′(z) if f(z) = (z − 1)/(2z + 1).",
    "marks": null,
-   "answer": ""
+   "answer": "By the quotient rule: f′(z) = [(1)(2z + 1) − (z − 1)(2)]/(2z + 1)² = [2z + 1 − 2z + 2]/(2z + 1)² = 3/(2z + 1)²."
   },
   {
    "number": 41,
    "topic": "Derivatives and Cauchy–Riemann Equations",
-   "question": "Using the definition dw/dz = lim (Δz → 0) Δw/Δz, prove that dw/dz = −1/z² when w = 1/z (z ≠ 0). Δw = 1/(z + Δz) − 1/z = [z − (z + Δz)]/[z(z + Δz)] = −Δz/[z(z + Δz)]. Hence Δw/Δz = −1/[z(z + Δz)]. Taking the limit as Δz → 0 gives dw/dz = −1/z².",
+   "question": "Using the definition dw/dz = lim (Δz → 0) Δw/Δz, prove that dw/dz = −1/z² when w = 1/z (z ≠ 0).",
    "marks": null,
-   "answer": ""
+   "answer": "Δw = 1/(z + Δz) − 1/z = [z − (z + Δz)]/[z(z + Δz)] = −Δz/[z(z + Δz)]. Hence Δw/Δz = −1/[z(z + Δz)]. Taking the limit as Δz → 0 gives dw/dz = −1/z²."
   },
   {
    "number": 42,
    "topic": "Analytic and Harmonic Functions",
-   "question": "Find the harmonic conjugate of u(x, y) = e^y cos x and hence write the analytic function f(z) = u + iv in terms of z. u_x = −e^y sin x and u_y = e^y cos x.",
+   "question": "Find the harmonic conjugate of u(x, y) = e^y cos x and hence write the analytic function f(z) = u + iv in terms of z.",
    "marks": null,
-   "answer": "By the C–R equations, v_y = u_x = −e^y sin x, so v = −e^y sin x + φ(x). Then v_x = −e^y cos x + φ′(x) must equal −u_y = −e^y cos x, so φ′(x) = 0 and φ is a constant c. Hence v = −e^y sin x + c, and f(z) = e^y cos x − i e^y sin x + ic = e^(y − ix) + ic = e^(−iz) + ic."
+   "answer": "u_x = −e^y sin x and u_y = e^y cos x. By the C–R equations, v_y = u_x = −e^y sin x, so v = −e^y sin x + φ(x). Then v_x = −e^y cos x + φ′(x) must equal −u_y = −e^y cos x, so φ′(x) = 0 and φ is a constant c. Hence v = −e^y sin x + c, and f(z) = e^y cos x − i e^y sin x + ic = e^(y − ix) + ic = e^(−iz) + ic."
   },
   {
    "number": 43,
    "topic": "Analytic and Harmonic Functions",
-   "question": "Find the harmonic conjugate of u(x, y) = 2x(1 − y). u = 2x − 2xy, so u_x = 2 − 2y and u_y = −2x.",
+   "question": "Find the harmonic conjugate of u(x, y) = 2x(1 − y).",
    "marks": null,
-   "answer": "By the C–R equations, v_y = u_x = 2 − 2y, giving v = 2y − y² + φ(x). Then v_x = φ′(x) must equal −u_y = 2x, so φ(x) = x² + c. Hence the harmonic conjugate is v = x² − y² + 2y + c."
+   "answer": "u = 2x − 2xy, so u_x = 2 − 2y and u_y = −2x. By the C–R equations, v_y = u_x = 2 − 2y, giving v = 2y − y² + φ(x). Then v_x = φ′(x) must equal −u_y = 2x, so φ(x) = x² + c. Hence the harmonic conjugate is v = x² − y² + 2y + c."
   },
   {
    "number": 44,
    "topic": "Analytic and Harmonic Functions",
-   "question": "If f(z) = x + ay + i(bx + cy) is analytic, find the relation between a, b and c. Here u = x + ay and v = bx + cy. The C–R equations give u_x = v_y ⇒ 1 = c, and u_y = −v_x ⇒ a = −b. Hence f is analytic exactly when c = 1 and a = −b.",
+   "question": "If f(z) = x + ay + i(bx + cy) is analytic, find the relation between a, b and c.",
    "marks": null,
-   "answer": ""
+   "answer": "Here u = x + ay and v = bx + cy. The C–R equations give u_x = v_y ⇒ 1 = c, and u_y = −v_x ⇒ a = −b. Hence f is analytic exactly when c = 1 and a = −b."
   }
  ]
 }
