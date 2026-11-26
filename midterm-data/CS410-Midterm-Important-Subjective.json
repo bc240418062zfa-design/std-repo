@@ -9,7 +9,7 @@
  "headerTitle": "CS410 — Visual Programming",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 15,
- "itemCount": 58,
+ "itemCount": 57,
  "topics": [
   "C Language and Preprocessor",
   "Windows Programming Basics",
@@ -24,14 +24,7 @@
    "topic": "C Language and Preprocessor",
    "question": "What are macros? Discuss their types with examples.",
    "marks": null,
-   "answer": "A macro is a fragment of code which has been given a name. Whenever the name is used, it is replaced by the contents of the macro. There are two kinds of macros: 1. Object-like macros — they resemble data objects when used, e.g. #define PI 3.14159"
-  },
-  {
-   "number": 2,
-   "topic": "C Language and Preprocessor",
-   "question": "Function-like macros — they resemble function calls, e.g. a macro that computes the maximum of two numeric values: #define MAX(X, Y) ((X) > (Y) ?",
-   "marks": null,
-   "answer": "(X) : (Y)) To define a macro that takes arguments, the #define command is used with a list of parameters in parentheses after the name of the macro. The parameters may be any valid C identifiers separated by commas, and the left parenthesis must follow the macro name immediately, with no space in between."
+   "answer": "A macro is a fragment of code which has been given a name. Whenever the name is used, it is replaced by the contents of the macro. There are two kinds of macros: 1. Object-like macros — they resemble data objects when used, e.g. #define PI 3.14159 2. Function-like macros — they resemble function calls, e.g. a macro that computes the maximum of two numeric values: #define MAX(X, Y) ((X) > (Y) ? (X) : (Y)) To define a macro that takes arguments, the #define command is used with a list of parameters in parentheses after the name of the macro. The parameters may be any valid C identifiers separated by commas, and the left parenthesis must follow the macro name immediately, with no space in between."
   },
   {
    "number": 2,

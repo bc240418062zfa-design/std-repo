@@ -173,7 +173,7 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-BmmpHUnP.js"></script>
+    <script type="module" crossorigin src="/assets/index-DDvw3T3W.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-aeoAIkOL.css">
   
     <script type="application/ld+json">
@@ -237,34 +237,34 @@
         },
         {
           "@type": "Question",
-          "name": "Write the expression Z = (x + y)^6 / (x²y) in MATLAB and find the value of Z by substituting x = 6 and y = 7 using the subs command. clc clear all close all syms x y Z = (x + y)^6 / (x^2 * y) answer = subs(Z, {x, y}, {6, 7}) Z = (x + y)^6/(x²y). Substituting x = 6, y = 7 gives (13)^6/(36 × 7) = 4826809/252 ≈ 19154.0040.",
+          "name": "Write the expression Z = (x + y)^6 / (x²y) in MATLAB and find the value of Z by substituting x = 6 and y = 7 using the subs command.",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Model answer not yet extracted from the source file."
+            "text": "clc clear all close all syms x y Z = (x + y)^6 / (x^2 * y) answer = subs(Z, {x, y}, {6, 7}) Z = (x + y)^6/(x²y). Substituting x = 6, y = 7 gives (13)^6/(36 × 7) = 4826809/252 ≈ 19154.0040."
           }
         },
         {
           "@type": "Question",
-          "name": "Find the value of the following using the subs command: (i) u(x, y) = 2x + xy² + 3y at x = 5; (ii) f(x) = sin(x) at x = π/2. clc clear all close all syms x y u = 2*x + x*y^2 + 3*y; f = sin(x); Answer1 = subs(u, x, 5) Answer2 = subs(f, x, pi/2) Answer1 = 5y² + 3y + 10 and Answer2 = 1.",
+          "name": "Find the value of the following using the subs command: (i) u(x, y) = 2x + xy² + 3y at x = 5; (ii) f(x) = sin(x) at x = π/2.",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Model answer not yet extracted from the source file."
+            "text": "clc clear all close all syms x y u = 2*x + x*y^2 + 3*y; f = sin(x); Answer1 = subs(u, x, 5) Answer2 = subs(f, x, pi/2) Answer1 = 5y² + 3y + 10 and Answer2 = 1."
           }
         },
         {
           "@type": "Question",
-          "name": "Find the values of the trigonometric functions cos(x), sin(x) and tan(x) at x = π/2 using the subs command. clc clear all syms x a = cos(x) b = sin(x) c = tan(x) A = subs(a, x, pi/2) B = subs(b, x, pi/2) C = subs(c, x, pi/2) A = 0, B = 1 and C = Inf (tan(π/2) is undefined). The same values are obtained with the sym command, e.g. A = cos(sym(pi/2)), B = sin(sym(pi/2)), C = tan(sym(pi/2)).",
+          "name": "Find the values of the trigonometric functions cos(x), sin(x) and tan(x) at x = π/2 using the subs command.",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Model answer not yet extracted from the source file."
+            "text": "clc clear all syms x a = cos(x) b = sin(x) c = tan(x) A = subs(a, x, pi/2) B = subs(b, x, pi/2) C = subs(c, x, pi/2) A = 0, B = 1 and C = Inf (tan(π/2) is undefined). The same values are obtained with the sym command, e.g. A = cos(sym(pi/2)), B = sin(sym(pi/2)), C = tan(sym(pi/2))."
           }
         },
         {
           "@type": "Question",
-          "name": "Find the values of the following using the subs command: (i) p(x, y) = x² + 3y²x + 10 at x = 2; (ii) u(x) = x³ + 4x + 10 at x = 2. clc clear all syms x y p(x, y) = x^2 + 3*y^2*x + 10 u(x) = x^3 + 4*x + 10 P = subs(p(x, y), x, 2) U = subs(u(x), x, 2) P = 6y² + 14 and U = 8 + 8 + 10 = 26.",
+          "name": "Find the values of the following using the subs command: (i) p(x, y) = x² + 3y²x + 10 at x = 2; (ii) u(x) = x³ + 4x + 10 at x = 2.",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Model answer not yet extracted from the source file."
+            "text": "clc clear all syms x y p(x, y) = x^2 + 3*y^2*x + 10 u(x) = x^3 + 4*x + 10 P = subs(p(x, y), x, 2) U = subs(u(x), x, 2) P = 6y² + 14 and U = 8 + 8 + 10 = 26."
           }
         }
       ]
@@ -314,34 +314,34 @@
             <p style="margin-top: 0.35rem;">Take the square root of x and store the answer in variable y. Then write the code for the expression w = x^y × sin(π). clc clear all close all syms x x = 15 y = sqrt(x) w = x^y * sin(sym(pi)) Output: x = 15, y = 3.8730 and w = 0 (because sin(π) = 0).</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write the expression Z = (x + y)^6 / (x²y) in MATLAB and find the value of Z by substituting x = 6 and y = 7 using the subs command. clc clear all close all syms x y Z = (x + y)^6 / (x^2 * y) answer = subs(Z, {x, y}, {6, 7}) Z = (x + y)^6/(x²y). Substituting x = 6, y = 7 gives (13)^6/(36 × 7) = 4826809/252 ≈ 19154.0040.</strong>
+            <strong>Write the expression Z = (x + y)^6 / (x²y) in MATLAB and find the value of Z by substituting x = 6 and y = 7 using the subs command.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x y Z = (x + y)^6 / (x^2 * y) answer = subs(Z, {x, y}, {6, 7}) Z = (x + y)^6/(x²y). Substituting x = 6, y = 7 gives (13)^6/(36 × 7) = 4826809/252 ≈ 19154.0040.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the value of the following using the subs command: (i) u(x, y) = 2x + xy² + 3y at x = 5; (ii) f(x) = sin(x) at x = π/2. clc clear all close all syms x y u = 2*x + x*y^2 + 3*y; f = sin(x); Answer1 = subs(u, x, 5) Answer2 = subs(f, x, pi/2) Answer1 = 5y² + 3y + 10 and Answer2 = 1.</strong>
+            <strong>Find the value of the following using the subs command: (i) u(x, y) = 2x + xy² + 3y at x = 5; (ii) f(x) = sin(x) at x = π/2.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x y u = 2*x + x*y^2 + 3*y; f = sin(x); Answer1 = subs(u, x, 5) Answer2 = subs(f, x, pi/2) Answer1 = 5y² + 3y + 10 and Answer2 = 1.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the values of the trigonometric functions cos(x), sin(x) and tan(x) at x = π/2 using the subs command. clc clear all syms x a = cos(x) b = sin(x) c = tan(x) A = subs(a, x, pi/2) B = subs(b, x, pi/2) C = subs(c, x, pi/2) A = 0, B = 1 and C = Inf (tan(π/2) is undefined). The same values are obtained with the sym command, e.g. A = cos(sym(pi/2)), B = sin(sym(pi/2)), C = tan(sym(pi/2)).</strong>
+            <strong>Find the values of the trigonometric functions cos(x), sin(x) and tan(x) at x = π/2 using the subs command.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all syms x a = cos(x) b = sin(x) c = tan(x) A = subs(a, x, pi/2) B = subs(b, x, pi/2) C = subs(c, x, pi/2) A = 0, B = 1 and C = Inf (tan(π/2) is undefined). The same values are obtained with the sym command, e.g. A = cos(sym(pi/2)), B = sin(sym(pi/2)), C = tan(sym(pi/2)).</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the values of the following using the subs command: (i) p(x, y) = x² + 3y²x + 10 at x = 2; (ii) u(x) = x³ + 4x + 10 at x = 2. clc clear all syms x y p(x, y) = x^2 + 3*y^2*x + 10 u(x) = x^3 + 4*x + 10 P = subs(p(x, y), x, 2) U = subs(u(x), x, 2) P = 6y² + 14 and U = 8 + 8 + 10 = 26.</strong>
+            <strong>Find the values of the following using the subs command: (i) p(x, y) = x² + 3y²x + 10 at x = 2; (ii) u(x) = x³ + 4x + 10 at x = 2.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all syms x y p(x, y) = x^2 + 3*y^2*x + 10 u(x) = x^3 + 4*x + 10 P = subs(p(x, y), x, 2) U = subs(u(x), x, 2) P = 6y² + 14 and U = 8 + 8 + 10 = 26.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the solution of the equations x² - y = 2 and y - 2x = 5 using the solve command. clc clear all syms x y [x, y] = solve(x^2 - y - 2, y - 2*x - 5) Substituting y = x² - 2 in the second equation gives x² - 2x - 7 = 0, so the two solutions are x = 1 + 2√2, y = 7 + 4√2 and x = 1 - 2√2, y = 7 - 4√2.</strong>
+            <strong>Find the solution of the equations x² - y = 2 and y - 2x = 5 using the solve command.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all syms x y [x, y] = solve(x^2 - y - 2, y - 2*x - 5) Substituting y = x² - 2 in the second equation gives x² - 2x - 7 = 0, so the two solutions are x = 1 + 2√2, y = 7 + 4√2 and x = 1 - 2√2, y = 7 - 4√2.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the solution of the equation 2x³ + x² + 3x + 4 = 0 using the solve command. clc clear all syms x u = 2*x^3 + x^2 + 3*x + 4 A = solve(u) The roots are x = -1 and the complex pair x = 0.25 ± 1.3919i. (Check: 2(-1) + 1 + 3(-1) + 4 = 0.)</strong>
+            <strong>Find the solution of the equation 2x³ + x² + 3x + 4 = 0 using the solve command.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all syms x u = 2*x^3 + x^2 + 3*x + 4 A = solve(u) The roots are x = -1 and the complex pair x = 0.25 ± 1.3919i. (Check: 2(-1) + 1 + 3(-1) + 4 = 0.)</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
             <strong>Solve the equations 2x + 7y = 3 and 3x² + 2y = 1 using the solve command.</strong>
@@ -349,124 +349,124 @@
             <p style="margin-top: 0.35rem;">Also plot the graph of 3x² + 2y = 1, give it the title &#39;parabola&#39; and label the x-axis and y-axis. clc clear all syms x y u = 2*x + 7*y - 3 v = 3*x^2 + 2*y - 1 [U, V] = solve(u, v) ezplot(v, [-2, 2]) xlabel(&#39;x-axis&#39;) ylabel(&#39;y-axis&#39;) title(&#39;parabola&#39;) The solutions are (x, y) = (1/3, 1/3) and (x, y) = (-1/7, 23/49). The ezplot command draws the parabola 3x² + 2y = 1 on [-2, 2] with the required labels and title.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the solution of the system of linear equations x + y + z = 2, -x + y - z = 3, x + 2y + 3z = -10 in MATLAB (the values of x, y and z should be displayed). clc clear all close all syms x y z [x, y, z] = solve(x + y + z - 2, -x + y - z - 3, x + 2*y + 3*z + 10) x = 27/4, y = 5/2 and z = -29/4.</strong>
+            <strong>Find the solution of the system of linear equations x + y + z = 2, -x + y - z = 3, x + 2y + 3z = -10 in MATLAB (the values of x, y and z should be displayed).</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x y z [x, y, z] = solve(x + y + z - 2, -x + y - z - 3, x + 2*y + 3*z + 10) x = 27/4, y = 5/2 and z = -29/4.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Expand the expression x(x + y)³(x - y)² in MATLAB. clc clear all close all syms x y expand(x * (x + y)^3 * (x - y)^2) The expanded form is x⁶ + x⁵y - 2x⁴y² - 2x³y³ + x²y⁴ + xy⁵.</strong>
+            <strong>Expand the expression x(x + y)³(x - y)² in MATLAB.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x y expand(x * (x + y)^3 * (x - y)^2) The expanded form is x⁶ + x⁵y - 2x⁴y² - 2x³y³ + x²y⁴ + xy⁵.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the derivative of the function f(x, y) = xye^(-x-y) in MATLAB. clc clear all syms x y f = x*y*exp(-x - y) diff(f, x) diff(f, y) ∂f/∂x = ye^(-x-y)(1 - x) and ∂f/∂y = xe^(-x-y)(1 - y).</strong>
+            <strong>Find the derivative of the function f(x, y) = xye^(-x-y) in MATLAB.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all syms x y f = x*y*exp(-x - y) diff(f, x) diff(f, y) ∂f/∂x = ye^(-x-y)(1 - x) and ∂f/∂y = xe^(-x-y)(1 - y).</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write the expression S = ax³ + bx² + cx + d in MATLAB and compute its value when a = 1, b = 2, c = 3 and d = 4. syms a b c d x S = a*x^3 + b*x^2 + c*x + d a = 1; b = 2; c = 3; d = 4; Z = a*x^3 + b*x^2 + c*x + d With the given values, Z = x³ + 2x² + 3x + 4.</strong>
+            <strong>Write the expression S = ax³ + bx² + cx + d in MATLAB and compute its value when a = 1, b = 2, c = 3 and d = 4.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Symbolic Mathematics — syms, subs, solve, expand, diff</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">syms a b c d x S = a*x^3 + b*x^2 + c*x + d a = 1; b = 2; c = 3; d = 4; Z = a*x^3 + b*x^2 + c*x + d With the given values, Z = x³ + 2x² + 3x + 4.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the contour of f(x, y) = sin(x) + cos(y) over the interval -5 ≤ x ≤ 5 and -5 ≤ y ≤ 5. clc clear all close all syms x y z [x, y] = meshgrid(-5:0.1:5, -5:0.1:5); f = sin(x) + cos(y); contour(x, y, f) The meshgrid command creates the grid over [-5, 5] × [-5, 5] and contour(x, y, f) draws the contour lines of sin(x) + cos(y).</strong>
+            <strong>Plot the contour of f(x, y) = sin(x) + cos(y) over the interval -5 ≤ x ≤ 5 and -5 ≤ y ≤ 5.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x y z [x, y] = meshgrid(-5:0.1:5, -5:0.1:5); f = sin(x) + cos(y); contour(x, y, f) The meshgrid command creates the grid over [-5, 5] × [-5, 5] and contour(x, y, f) draws the contour lines of sin(x) + cos(y).</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the graphs of e^(-x) and sin(x) on the interval [0, 8] using the plot command with hold on and hold off. Label the horizontal axis x and the vertical axis y, and give the title &#39;Multiple Graphs&#39;. clc clear all x = 0:0.01:8 f = exp(-x) g = sin(x) plot(x, f) hold on plot(x, g) hold off xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Multiple Graphs&#39;) Both curves are drawn in a single figure: plot draws e^(-x), hold on retains it, the second plot adds sin(x), and hold off releases the figure. The same result is obtained with ezplot(f, [0, 8]) and ezplot(g, [0, 8]) for symbolic f and g.</strong>
+            <strong>Plot the graphs of e^(-x) and sin(x) on the interval [0, 8] using the plot command with hold on and hold off. Label the horizontal axis x and the vertical axis y, and give the title &#39;Multiple Graphs&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all x = 0:0.01:8 f = exp(-x) g = sin(x) plot(x, f) hold on plot(x, g) hold off xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Multiple Graphs&#39;) Both curves are drawn in a single figure: plot draws e^(-x), hold on retains it, the second plot adds sin(x), and hold off releases the figure. The same result is obtained with ezplot(f, [0, 8]) and ezplot(g, [0, 8]) for symbolic f and g.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the curves f(x) = 2x⁴ + 3x³ + 5x² + 2x - 3 and g(x) = 5x⁴ + 2x² + 2x - 2 in one graph on the domain [-10, 10]. clc clear all close all syms x f = @(x) 2*x^4 + 3*x^3 + 5*x^2 + 2*x - 3; g = @(x) 5*x^4 + 2*x^2 + 2*x - 2; ezplot(f, [-10, 10]) hold on ezplot(g, [-10, 10]) hold off ezplot draws the first quartic on [-10, 10]; hold on keeps it in the same figure while the second quartic is plotted, and hold off ends the overplotting.</strong>
+            <strong>Plot the curves f(x) = 2x⁴ + 3x³ + 5x² + 2x - 3 and g(x) = 5x⁴ + 2x² + 2x - 2 in one graph on the domain [-10, 10].</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x f = @(x) 2*x^4 + 3*x^3 + 5*x^2 + 2*x - 3; g = @(x) 5*x^4 + 2*x^2 + 2*x - 2; ezplot(f, [-10, 10]) hold on ezplot(g, [-10, 10]) hold off ezplot draws the first quartic on [-10, 10]; hold on keeps it in the same figure while the second quartic is plotted, and hold off ends the overplotting.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the parametric graph of the circle with centre (0, 0) and radius 1, with an increment of 0.01 in the domain. Label the axes, make the shape of the graph square and give the title &#39;Parametric plot of the circle&#39;. clc clear all t = 0:0.01:1; plot(cos(2*pi*t), sin(2*pi*t)) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Parametric plot of the circle&#39;) axis(&#39;square&#39;) x = cos(2πt) and y = sin(2πt) trace the unit circle as t goes from 0 to 1; axis square makes the circle appear with the correct shape.</strong>
+            <strong>Plot the parametric graph of the circle with centre (0, 0) and radius 1, with an increment of 0.01 in the domain. Label the axes, make the shape of the graph square and give the title &#39;Parametric plot of the circle&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all t = 0:0.01:1; plot(cos(2*pi*t), sin(2*pi*t)) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Parametric plot of the circle&#39;) axis(&#39;square&#39;) x = cos(2πt) and y = sin(2πt) trace the unit circle as t goes from 0 to 1; axis square makes the circle appear with the correct shape.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the contour plot of the expression x² + y² using the meshgrid and contour commands. Label the axes, make the shape of the graph square and give the title &#39;Contour plotting of squares&#39;. clc clear all x = -2:0.01:2; y = -2:0.01:2; [X, Y] = meshgrid(x, y); Z = X.^2 + Y.^2; contour(X, Y, Z) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour plotting of squares&#39;) axis(&#39;square&#39;) The contour lines of Z = X² + Y² are concentric circles, drawn square with the given title and axis labels. The same question appears with the domain [-3, 3] and step 0.1.</strong>
+            <strong>Plot the contour plot of the expression x² + y² using the meshgrid and contour commands. Label the axes, make the shape of the graph square and give the title &#39;Contour plotting of squares&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all x = -2:0.01:2; y = -2:0.01:2; [X, Y] = meshgrid(x, y); Z = X.^2 + Y.^2; contour(X, Y, Z) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour plotting of squares&#39;) axis(&#39;square&#39;) The contour lines of Z = X² + Y² are concentric circles, drawn square with the given title and axis labels. The same question appears with the domain [-3, 3] and step 0.1.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the graph of x³ + x² + 4 on the interval [-2, 2] using ezplot. Label the axes and give the title &#39;x³ + x² + 4&#39;. clc clear all syms x A = x^3 + x^2 + 4 ezplot(A, [-2, 2]) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;x^3 + x^2 + 4&#39;) axis(&#39;square&#39;) ezplot draws the cubic x³ + x² + 4 on [-2, 2] with the required title, labels and square axes.</strong>
+            <strong>Plot the graph of x³ + x² + 4 on the interval [-2, 2] using ezplot. Label the axes and give the title &#39;x³ + x² + 4&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all syms x A = x^3 + x^2 + 4 ezplot(A, [-2, 2]) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;x^3 + x^2 + 4&#39;) axis(&#39;square&#39;) ezplot draws the cubic x³ + x² + 4 on [-2, 2] with the required title, labels and square axes.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the graph of the function sin(x) + cos(x) on the interval [0, 1] using the plot command. Label the axes, make the shape square, keep the layout as grid and give the title &#39;The Graph of sin(x) + cos(x)&#39;. clc clear all x = 0:0.01:1; y = sin(x) + cos(x) plot(x, y) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;The Graph of sin(x) + cos(x)&#39;) axis(&#39;square&#39;) grid on The curve sin(x) + cos(x) is plotted on [0, 1] with labels, title, square axes and grid lines.</strong>
+            <strong>Plot the graph of the function sin(x) + cos(x) on the interval [0, 1] using the plot command. Label the axes, make the shape square, keep the layout as grid and give the title &#39;The Graph of sin(x) + cos(x)&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all x = 0:0.01:1; y = sin(x) + cos(x) plot(x, y) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;The Graph of sin(x) + cos(x)&#39;) axis(&#39;square&#39;) grid on The curve sin(x) + cos(x) is plotted on [0, 1] with labels, title, square axes and grid lines.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the multiple curves of sin(x) + cos(x) and e^(-x) + x² on the interval [0, 4] using the ezplot command, with axis labels, square shape, grid layout and the title &#39;The Graph of Multiple curves using ezplot command&#39;. clc clear all syms x f = sin(x) + cos(x) g = exp(-x) + x^2 ezplot(f, [0, 4]) hold on ezplot(g, [0, 4]) hold off xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;The Graph of Multiple curves using ezplot command&#39;) axis(&#39;square&#39;) grid on Both curves appear in one figure on [0, 4] with the required title, labels, square axes and grid.</strong>
+            <strong>Plot the multiple curves of sin(x) + cos(x) and e^(-x) + x² on the interval [0, 4] using the ezplot command, with axis labels, square shape, grid layout and the title &#39;The Graph of Multiple curves using ezplot command&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all syms x f = sin(x) + cos(x) g = exp(-x) + x^2 ezplot(f, [0, 4]) hold on ezplot(g, [0, 4]) hold off xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;The Graph of Multiple curves using ezplot command&#39;) axis(&#39;square&#39;) grid on Both curves appear in one figure on [0, 4] with the required title, labels, square axes and grid.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the contour plots of the circles x² + y² of radii 1, √2, √3 and 2. Label the axes, make the shape square, keep the layout as grid and give the title &#39;Contour Plots of Circles&#39;. clc clear all x = -2:0.1:2; y = -2:0.1:2; [X, Y] = meshgrid(x, y); f = X.^2 + Y.^2 - 1; g = X.^2 + Y.^2 - 4; m = X.^2 + Y.^2 - 2; n = X.^2 + Y.^2 - 3; contour(X, Y, f) hold on contour(X, Y, g) contour(X, Y, m) contour(X, Y, n) hold off xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour Plots of Circles&#39;) axis(&#39;square&#39;) grid on The zero-level contours of X² + Y² - r² for r² = 1, 2, 3, 4 are the circles of radii 1, √2, √3 and 2.</strong>
+            <strong>Plot the contour plots of the circles x² + y² of radii 1, √2, √3 and 2. Label the axes, make the shape square, keep the layout as grid and give the title &#39;Contour Plots of Circles&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all x = -2:0.1:2; y = -2:0.1:2; [X, Y] = meshgrid(x, y); f = X.^2 + Y.^2 - 1; g = X.^2 + Y.^2 - 4; m = X.^2 + Y.^2 - 2; n = X.^2 + Y.^2 - 3; contour(X, Y, f) hold on contour(X, Y, g) contour(X, Y, m) contour(X, Y, n) hold off xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour Plots of Circles&#39;) axis(&#39;square&#39;) grid on The zero-level contours of X² + Y² - r² for r² = 1, 2, 3, 4 are the circles of radii 1, √2, √3 and 2.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the contour plot of sin(x) + cos(y), where x ranges from -2π to 2π and y ranges from 0 to 4π. Label the axes and keep the title &#39;Contour Plot of Sin(x) + Cos(y)&#39;. clc clear all x = -2*pi:pi/100:2*pi; y = 0:pi/100:4*pi; [X, Y] = meshgrid(x, y); Z = sin(X) + cos(Y) contour(X, Y, Z) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour Plot of Sin(x) + Cos(y)&#39;) meshgrid builds the grid over the given ranges and contour draws the level curves of sin(x) + cos(y) with the required title and labels.</strong>
+            <strong>Plot the contour plot of sin(x) + cos(y), where x ranges from -2π to 2π and y ranges from 0 to 4π. Label the axes and keep the title &#39;Contour Plot of Sin(x) + Cos(y)&#39;.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all x = -2*pi:pi/100:2*pi; y = 0:pi/100:4*pi; [X, Y] = meshgrid(x, y); Z = sin(X) + cos(Y) contour(X, Y, Z) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour Plot of Sin(x) + Cos(y)&#39;) meshgrid builds the grid over the given ranges and contour draws the level curves of sin(x) + cos(y) with the required title and labels.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the contour plot of the expression z = xe^(-x²-y²) for -2 &lt; x &lt; 2 and -3 &lt; y &lt; 3, with axis labels and a title. clc clear all x = -2:0.1:2; y = -3:0.1:3; [X, Y] = meshgrid(x, y); Z = X .* exp(-X.^2 - Y.^2) contour(X, Y, Z) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour plot of z = x*exp(-x^2 - y^2)&#39;) grid on The element-wise product X .* exp(-X.² - Y.²) is evaluated on the grid and its contour lines are drawn over the given ranges.</strong>
+            <strong>Plot the contour plot of the expression z = xe^(-x²-y²) for -2 &lt; x &lt; 2 and -3 &lt; y &lt; 3, with axis labels and a title.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all x = -2:0.1:2; y = -3:0.1:3; [X, Y] = meshgrid(x, y); Z = X .* exp(-X.^2 - Y.^2) contour(X, Y, Z) xlabel(&#39;x&#39;) ylabel(&#39;y&#39;) title(&#39;Contour plot of z = x*exp(-x^2 - y^2)&#39;) grid on The element-wise product X .* exp(-X.² - Y.²) is evaluated on the grid and its contour lines are drawn over the given ranges.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the curve x² - y² - 2xy = 0 over the domain [-2π, 2π] using ezplot. clc clear all close all syms x y ezplot(x^2 - y^2 - 2*x*y, [-2*pi, 2*pi]) ezplot draws the implicit curve x² - y² - 2xy = 0 over [-2π, 2π].</strong>
+            <strong>Plot the curve x² - y² - 2xy = 0 over the domain [-2π, 2π] using ezplot.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x y ezplot(x^2 - y^2 - 2*x*y, [-2*pi, 2*pi]) ezplot draws the implicit curve x² - y² - 2xy = 0 over [-2π, 2π].</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Plot the function x² - y⁴ = 0 on the interval [-π, π]. clear all clc syms x y f = @(x, y) x.^2 - y.^4 ezplot(f, [-pi, pi]) The anonymous function f(x, y) = x² - y⁴ is plotted implicitly by ezplot on [-π, π].</strong>
+            <strong>Plot the function x² - y⁴ = 0 on the interval [-π, π].</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Plotting — plot, ezplot and contour</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clear all clc syms x y f = @(x, y) x.^2 - y.^4 ezplot(f, [-pi, pi]) The anonymous function f(x, y) = x² - y⁴ is plotted implicitly by ezplot on [-π, π].</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Create the matrix A = [x 3 1; 2 2 7; 4 3 y] in MATLAB and then substitute the values x = 3 and y = 7. clc clear all close all syms x y A = [x 3 1; 2 2 7; 4 3 y]; subs(A, {x, y}, {3, 7}) The resulting numeric matrix is A = [3 3 1; 2 2 7; 4 3 7].</strong>
+            <strong>Create the matrix A = [x 3 1; 2 2 7; 4 3 y] in MATLAB and then substitute the values x = 3 and y = 7.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Matrices and Linear Systems</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all syms x y A = [x 3 1; 2 2 7; 4 3 y]; subs(A, {x, y}, {3, 7}) The resulting numeric matrix is A = [3 3 1; 2 2 7; 4 3 7].</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>For the system 2x + y + z = 2, -x + y - z = 3, x + 2y + 3z = -10: (i) write the system in MATLAB as an augmented matrix; (ii) make its reduced row echelon form and hence solve the system. clc clear all close all A = [2, 1, 1; -1, 1, -1; 1, 2, 3] B = [2; 3; -10] Aug = [A B] R = rref(Aug) rref of the augmented matrix gives the identity with solution column [3; 1; -5], so x = 3, y = 1 and z = -5.</strong>
+            <strong>For the system 2x + y + z = 2, -x + y - z = 3, x + 2y + 3z = -10: (i) write the system in MATLAB as an augmented matrix; (ii) make its reduced row echelon form and hence solve the system.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Matrices and Linear Systems</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all A = [2, 1, 1; -1, 1, -1; 1, 2, 3] B = [2; 3; -10] Aug = [A B] R = rref(Aug) rref of the augmented matrix gives the identity with solution column [3; 1; -5], so x = 3, y = 1 and z = -5.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the value of X if A = [1 3; 2 4] and B = [-2; 3], where AX = B. clc clear all close all A = [1, 3; 2, 4] B = [-2; 3] C = inv(A) X = C * B As AX = B, X = A⁻¹B. A⁻¹ = [-2 1.5; 1 -0.5], so X = [8.5; -3.5].</strong>
+            <strong>Find the value of X if A = [1 3; 2 4] and B = [-2; 3], where AX = B.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Matrices and Linear Systems</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all A = [1, 3; 2, 4] B = [-2; 3] C = inv(A) X = C * B As AX = B, X = A⁻¹B. A⁻¹ = [-2 1.5; 1 -0.5], so X = [8.5; -3.5].</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Solve the system of linear equations 3x + 2y + z = 1, y = 2, x + 2y = 3 by using the solve command. clc clear all close all A = &#39;3*x + 2*y + z = 1&#39; B = &#39;y = 2&#39; C = &#39;x + 2*y = 3&#39; sol = solve(A, B, C) Answer = double([sol.x, sol.y, sol.z]) From y = 2 and x + 2y = 3, x = -1; then z = 1 - 3x - 2y = 0. So x = -1, y = 2 and z = 0.</strong>
+            <strong>Solve the system of linear equations 3x + 2y + z = 1, y = 2, x + 2y = 3 by using the solve command.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Matrices and Linear Systems</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all A = &#39;3*x + 2*y + z = 1&#39; B = &#39;y = 2&#39; C = &#39;x + 2*y = 3&#39; sol = solve(A, B, C) Answer = double([sol.x, sol.y, sol.z]) From y = 2 and x + 2y = 3, x = -1; then z = 1 - 3x - 2y = 0. So x = -1, y = 2 and z = 0.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Given A = [3/11 2/5 4/7; 2/3 4/5 6/5] and B = [1/3 8/4 4; 2/9 3/7 9/6; 6 7/4 5/7], find (i) the sum of the 3rd row of B and (ii) the sum of the 2nd column of A. clc clear all close all A = sym([3/11 2/5 4/7; 2/3 4/5 6/5]) B = sym([1/3 8/4 4; 2/9 3/7 9/6; 6 7/4 5/7]) SumB = sum(B(3, :)) SumA = sum(A(:, 2)) Sum of the 3rd row of B = 6 + 7/4 + 5/7 = 237/28 ≈ 8.4643. Sum of the 2nd column of A = 2/5 + 4/5 = 6/5 = 1.2.</strong>
+            <strong>Given A = [3/11 2/5 4/7; 2/3 4/5 6/5] and B = [1/3 8/4 4; 2/9 3/7 9/6; 6 7/4 5/7], find (i) the sum of the 3rd row of B and (ii) the sum of the 2nd column of A.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Matrices and Linear Systems</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all A = sym([3/11 2/5 4/7; 2/3 4/5 6/5]) B = sym([1/3 8/4 4; 2/9 3/7 9/6; 6 7/4 5/7]) SumB = sum(B(3, :)) SumA = sum(A(:, 2)) Sum of the 3rd row of B = 6 + 7/4 + 5/7 = 237/28 ≈ 8.4643. Sum of the 2nd column of A = 2/5 + 4/5 = 6/5 = 1.2.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the eigenvalues and eigenvectors of the matrix A = [3 1 4; 7 8 9; 3 1 3]. clc clear all close all A = [3, 1, 4; 7, 8, 9; 3, 1, 3] V = eig(A) [u, v] = eig(A) eig(A) gives the eigenvalues λ ≈ 11.3007, -0.4740 and 3.1734. With two output arguments, u contains the corresponding eigenvectors as columns (approximately [0.2074, 0.9595, 0.1906] for λ = 11.3007) and v is the diagonal matrix of eigenvalues.</strong>
+            <strong>Find the eigenvalues and eigenvectors of the matrix A = [3 1 4; 7 8 9; 3 1 3].</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Matrices and Linear Systems</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all A = [3, 1, 4; 7, 8, 9; 3, 1, 3] V = eig(A) [u, v] = eig(A) eig(A) gives the eigenvalues λ ≈ 11.3007, -0.4740 and 3.1734. With two output arguments, u contains the corresponding eigenvectors as columns (approximately [0.2074, 0.9595, 0.1906] for λ = 11.3007) and v is the diagonal matrix of eigenvalues.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Base and height of a triangle are given. Write MATLAB code to find its area using the formula A = (1/2) × base × height (take base = 6 and height = 7). clc clear all close all a = 6; h = 7; A = 1/2 * a * h; disp(&#39;Area of triangle is: &#39;), disp(A) A = (1/2)(6)(7) = 21, which is displayed as the area of the triangle.</strong>
+            <strong>Base and height of a triangle are given. Write MATLAB code to find its area using the formula A = (1/2) × base × height (take base = 6 and height = 7).</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all a = 6; h = 7; A = 1/2 * a * h; disp(&#39;Area of triangle is: &#39;), disp(A) A = (1/2)(6)(7) = 21, which is displayed as the area of the triangle.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
             <strong>Take input from the user: (i) What is your name? (ii) What is your age?</strong>
@@ -474,84 +474,84 @@
             <p style="margin-top: 0.35rem;">Then display the name and the age. clc clear all close all Name = input(&#39;What is Your Name: &#39;, &#39;s&#39;); Age = input(&#39;What is Your age: &#39;); disp(&#39;My name is: &#39;), disp(Name) disp(&#39;My age is: &#39;), disp(Age) The input command with &#39;s&#39; reads the name as a string and without &#39;s&#39; reads the age as a number; disp then prints both, e.g. &#39;My name is: SANAULLAH KHAN&#39; and &#39;My age is: 25&#39;.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Compute the values of sin(x) at x = 0, 1 and 2 using a for loop. clc clear all for i = 0:1:2 sin(i) end The loop displays ans = 0, ans = 0.8415 and ans = 0.9093 for i = 0, 1 and 2 respectively.</strong>
+            <strong>Compute the values of sin(x) at x = 0, 1 and 2 using a for loop.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all for i = 0:1:2 sin(i) end The loop displays ans = 0, ans = 0.8415 and ans = 0.9093 for i = 0, 1 and 2 respectively.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a program that displays whether an entered number is positive, negative or zero, using if, elseif and else. x = input(&#39;Enter a number: &#39;) if x &gt; 0 disp(&#39;This number is positive&#39;) elseif x &lt; 0 disp(&#39;This number is negative&#39;) else disp(&#39;Zero&#39;) end The if-elseif-else structure tests the sign of x and displays the corresponding message; for example, entering -13 displays &#39;This number is negative&#39;.</strong>
+            <strong>Write a program that displays whether an entered number is positive, negative or zero, using if, elseif and else.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">x = input(&#39;Enter a number: &#39;) if x &gt; 0 disp(&#39;This number is positive&#39;) elseif x &lt; 0 disp(&#39;This number is negative&#39;) else disp(&#39;Zero&#39;) end The if-elseif-else structure tests the sign of x and displays the corresponding message; for example, entering -13 displays &#39;This number is negative&#39;.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Print today&#39;s weather and temperature using the fprintf command, given Day = &#39;Wednesday&#39;, weather = &#39;sunny&#39; and temp = 75. Day = &#39;Wednesday&#39;; weather = &#39;sunny&#39;; temp = 75 fprintf(&#39;The weather today is %s and the temperature is %i\n&#39;, weather, temp) Output: &#39;The weather today is sunny and the temperature is 75&#39;. The %s placeholder prints the string and %i prints the integer.</strong>
+            <strong>Print today&#39;s weather and temperature using the fprintf command, given Day = &#39;Wednesday&#39;, weather = &#39;sunny&#39; and temp = 75.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">Day = &#39;Wednesday&#39;; weather = &#39;sunny&#39;; temp = 75 fprintf(&#39;The weather today is %s and the temperature is %i\n&#39;, weather, temp) Output: &#39;The weather today is sunny and the temperature is 75&#39;. The %s placeholder prints the string and %i prints the integer.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Demonstrate the use of the menu command to ask &#39;What day is today?</strong>
+            <strong>Demonstrate the use of the menu command to ask &#39;What day is today?&#39; with the options Monday to Friday and Weekend, and display the chosen day.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem;">&#39; with the options Monday to Friday and Weekend, and display the chosen day. answer = menu(&#39;What day is today&#39;, &#39;Monday&#39;, &#39;Tuesday&#39;, &#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;, &#39;Weekend&#39;) if answer == 1 disp(&#39;Today is Monday&#39;); elseif answer == 2 disp(&#39;Today is Tuesday&#39;); elseif answer == 3 disp(&#39;Today is Wednesday&#39;); elseif answer == 4 disp(&#39;Today is Thursday&#39;); else disp(&#39;Today is not weekend&#39;); end menu displays a pop-up with the given options and returns the number of the button clicked; the if-elseif chain then displays the corresponding day.</p>
+            <p style="margin-top: 0.35rem;">answer = menu(&#39;What day is today&#39;, &#39;Monday&#39;, &#39;Tuesday&#39;, &#39;Wednesday&#39;, &#39;Thursday&#39;, &#39;Friday&#39;, &#39;Weekend&#39;) if answer == 1 disp(&#39;Today is Monday&#39;); elseif answer == 2 disp(&#39;Today is Tuesday&#39;); elseif answer == 3 disp(&#39;Today is Wednesday&#39;); elseif answer == 4 disp(&#39;Today is Thursday&#39;); else disp(&#39;Today is not weekend&#39;); end menu displays a pop-up with the given options and returns the number of the button clicked; the if-elseif chain then displays the corresponding day.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a for loop to add the first 20 numbers which are divisible by 5. clc clear all close all sum = 0; for k = 5:5:100; sum = sum + k; end disp(sum) The numbers are 5, 10, ..., 100 and their sum is 5(1 + 2 + ... + 20) = 5 × 210 = 1050.</strong>
+            <strong>Write a for loop to add the first 20 numbers which are divisible by 5.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all sum = 0; for k = 5:5:100; sum = sum + k; end disp(sum) The numbers are 5, 10, ..., 100 and their sum is 5(1 + 2 + ... + 20) = 5 × 210 = 1050.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a program which takes a value from the user and then, using a for loop, displays all of its divisors. clc clear all close all x = input(&#39;Enter a number: &#39;) for j = 1:x; if mod(x, j) == 0 disp(j) end end Every j from 1 to x with mod(x, j) == 0 is a divisor of x and is displayed; for example, for x = 12 the divisors 1, 2, 3, 4, 6 and 12 are printed.</strong>
+            <strong>Write a program which takes a value from the user and then, using a for loop, displays all of its divisors.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all x = input(&#39;Enter a number: &#39;) for j = 1:x; if mod(x, j) == 0 disp(j) end end Every j from 1 to x with mod(x, j) == 0 is a divisor of x and is displayed; for example, for x = 12 the divisors 1, 2, 3, 4, 6 and 12 are printed.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a program which prints all the numbers divisible by 3 and 5 for a given number. clc clear all close all x = input(&#39;Enter a number: &#39;) for i = 1:x; if mod(i, 3) == 0 &amp;&amp; mod(i, 5) == 0 disp(i) end end The numbers divisible by both 3 and 5 (i.e. by 15) up to x are displayed; for x = 50 these are 15, 30 and 45.</strong>
+            <strong>Write a program which prints all the numbers divisible by 3 and 5 for a given number.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all x = input(&#39;Enter a number: &#39;) for i = 1:x; if mod(i, 3) == 0 &amp;&amp; mod(i, 5) == 0 disp(i) end end The numbers divisible by both 3 and 5 (i.e. by 15) up to x are displayed; for x = 50 these are 15, 30 and 45.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a for loop which adds the first 30 odd numbers. clc clear all close all sum = 0; for i = 1:2:59; sum = sum + i; end disp(sum) The sum of the first n odd numbers is n², so for n = 30 the loop displays 900.</strong>
+            <strong>Write a for loop which adds the first 30 odd numbers.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all sum = 0; for i = 1:2:59; sum = sum + i; end disp(sum) The sum of the first n odd numbers is n², so for n = 30 the loop displays 900.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Find the factorial of a number using a for loop, and also using a while loop. % Using for loop n = input(&#39;Enter a number: &#39;) fact = 1; for i = 1:n; fact = fact * i; end disp(fact) % Using while loop n = input(&#39;Enter a number: &#39;) i = n; fact = 1; while i &gt; 0 fact = fact * i; i = i - 1; end disp(fact) Both loops multiply fact by every integer from 1 to n; for example, the factorial of 10 is 3628800 in both versions.</strong>
+            <strong>Find the factorial of a number using a for loop, and also using a while loop.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">% Using for loop n = input(&#39;Enter a number: &#39;) fact = 1; for i = 1:n; fact = fact * i; end disp(fact) % Using while loop n = input(&#39;Enter a number: &#39;) i = n; fact = 1; while i &gt; 0 fact = fact * i; i = i - 1; end disp(fact) Both loops multiply fact by every integer from 1 to n; for example, the factorial of 10 is 3628800 in both versions.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Evaluate the sum Σ (3/x)^k for k = 1 to n, taking the input x = 4 and n = 12. clc clear all close all x = 4; sum = 0; for k = 1:12; sum = sum + (3/x)^k; end disp(sum) The sum is the geometric series Σ (3/4)^k for k = 1 to 12, which equals approximately 2.9050.</strong>
+            <strong>Evaluate the sum Σ (3/x)^k for k = 1 to n, taking the input x = 4 and n = 12.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">clc clear all close all x = 4; sum = 0; for k = 1:12; sum = sum + (3/x)^k; end disp(sum) The sum is the geometric series Σ (3/4)^k for k = 1 to 12, which equals approximately 2.9050.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a function named &#39;myfunction&#39; which takes any two numbers as input and returns the greater number. function [m] = myfunction(n1, n2) if n1 &gt; n2 m = n1; else m = n2; end end The function compares the two inputs with if-else and returns the larger one as the output m.</strong>
+            <strong>Write a function named &#39;myfunction&#39; which takes any two numbers as input and returns the greater number.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">function [m] = myfunction(n1, n2) if n1 &gt; n2 m = n1; else m = n2; end end The function compares the two inputs with if-else and returns the larger one as the output m.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a function named &#39;newfunction&#39; which takes any two numbers as input and returns the highest common factor (HCF) of the numbers. function [HCF] = newfunction(n1, n2) for i = 1:1:(n1 + n2); if mod(n1, i) == 0 &amp;&amp; mod(n2, i) == 0 HCF = i; end end end The loop tests every common divisor of n1 and n2; the last (largest) one stored is the HCF — for example, newfunction(12, 18) returns 6.</strong>
+            <strong>Write a function named &#39;newfunction&#39; which takes any two numbers as input and returns the highest common factor (HCF) of the numbers.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">function [HCF] = newfunction(n1, n2) for i = 1:1:(n1 + n2); if mod(n1, i) == 0 &amp;&amp; mod(n2, i) == 0 HCF = i; end end end The loop tests every common divisor of n1 and n2; the last (largest) one stored is the HCF — for example, newfunction(12, 18) returns 6.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a function named &#39;cube&#39; which takes a number as input; if the number is even it returns its cube, and if it is odd it returns its square. function [out] = cube(n) if mod(n, 2) == 1 out = n^2; else out = n^3; end end mod(n, 2) == 1 tests whether n is odd: odd inputs return n² and even inputs return n³.</strong>
+            <strong>Write a function named &#39;cube&#39; which takes a number as input; if the number is even it returns its cube, and if it is odd it returns its square.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">function [out] = cube(n) if mod(n, 2) == 1 out = n^2; else out = n^3; end end mod(n, 2) == 1 tests whether n is odd: odd inputs return n² and even inputs return n³.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a function named &#39;examquestions&#39; which takes any two numbers as input and returns the sum and the product of those numbers as output. function [s, p] = examquestions(x, y) s = x + y p = x * y end The function returns two outputs: the sum s = x + y and the product p = x × y of the two input numbers.</strong>
+            <strong>Write a function named &#39;examquestions&#39; which takes any two numbers as input and returns the sum and the product of those numbers as output.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">function [s, p] = examquestions(x, y) s = x + y p = x * y end The function returns two outputs: the sum s = x + y and the product p = x × y of the two input numbers.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a function named &#39;practisefunction&#39; which takes any three numbers as input and returns the numbers in ascending order. function [Ascending] = practisefunction(n1, n2, n3) A = [n1, n2, n3] Ascending = sort(A) end The three inputs are collected into the vector A and sort(A) returns them arranged in ascending order.</strong>
+            <strong>Write a function named &#39;practisefunction&#39; which takes any three numbers as input and returns the numbers in ascending order.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">function [Ascending] = practisefunction(n1, n2, n3) A = [n1, n2, n3] Ascending = sort(A) end The three inputs are collected into the vector A and sort(A) returns them arranged in ascending order.</p>
           </li>
           <li style="margin-bottom: 1.25rem;">
-            <strong>Write a function named &#39;circlecalculation&#39; which takes the radius of a circle as input and returns its circumference as output. function [circf] = circlecalculation(radius) circf = 2 * pi * radius end The circumference is computed as circf = 2πr; for example, for radius 7 the circumference is approximately 43.98.</strong>
+            <strong>Write a function named &#39;circlecalculation&#39; which takes the radius of a circle as input and returns its circumference as output.</strong>
             <div style="color: #64748b; font-size: 0.8rem;">Topic: Programming — Input/Output, Loops, Conditions and Functions</div>
-            <p style="margin-top: 0.35rem; color: #b45309;"><em>Model answer not yet extracted from the source file.</em></p>
+            <p style="margin-top: 0.35rem;">function [circf] = circlecalculation(radius) circf = 2 * pi * radius end The circumference is computed as circf = 2πr; for example, for radius 7 the circumference is approximately 43.98.</p>
           </li>
         </ol>
       </div>

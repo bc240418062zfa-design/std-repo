@@ -9,7 +9,7 @@
  "headerTitle": "CHE301",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 7,
- "itemCount": 22,
+ "itemCount": 21,
  "topics": [
   "Analytical Chemistry Basics",
   "Sampling and Sample Preparation",
@@ -87,9 +87,9 @@
   {
    "number": 10,
    "topic": "Data Handling and Statistics",
-   "question": "For the readings 3, 7, 8, 5 and 10, calculate the mean and the median, and state the mode. Mean = sum of readings / number of readings = (3 + 7 + 8 + 5 + 10) / 5 = 33 / 5 = 6.6. Median is the middle value after arranging the data in ascending (or descending) order: 3, 5, 7, 8, 10. The middle (3rd) value is 7, so the median is 7. Mode is the most frequently occurring value. Every value occurs only once, so this data set has no mode.",
+   "question": "For the readings 3, 7, 8, 5 and 10, calculate the mean and the median, and state the mode.",
    "marks": null,
-   "answer": ""
+   "answer": "Mean = sum of readings / number of readings = (3 + 7 + 8 + 5 + 10) / 5 = 33 / 5 = 6.6. Median is the middle value after arranging the data in ascending (or descending) order: 3, 5, 7, 8, 10. The middle (3rd) value is 7, so the median is 7. Mode is the most frequently occurring value. Every value occurs only once, so this data set has no mode."
   },
   {
    "number": 11,
@@ -103,28 +103,21 @@
    "topic": "Data Handling and Statistics",
    "question": "State the rules for rounding off numbers in analytical data.",
    "marks": null,
-   "answer": "While rounding off a number to the required number of figures, the following rules are applied: (i) If the digit to be dropped is less than 5, the last retained digit is kept unchanged (retained). For example, 5.04 rounds to 5.0. (ii) If the digit to be dropped is greater than 5, the last retained digit is increased by 1. For example, 5.06 rounds to 5.1. (iii) If the digit to be dropped is exactly 5, the number is rounded so that the result ends with an even number. For example, 4.45 becomes 4.4 (the retained digit 4 is already even) and"
-  },
-  {
-   "number": 4,
-   "topic": "Data Handling and Statistics",
-   "question": "35 becomes 4.4 (the retained digit is increased to make it even). Only one figure is dropped at a time, and rounding is done only at the final step of a calculation.",
-   "marks": null,
-   "answer": ""
+   "answer": "While rounding off a number to the required number of figures, the following rules are applied: (i) If the digit to be dropped is less than 5, the last retained digit is kept unchanged (retained). For example, 5.04 rounds to 5.0. (ii) If the digit to be dropped is greater than 5, the last retained digit is increased by 1. For example, 5.06 rounds to 5.1. (iii) If the digit to be dropped is exactly 5, the number is rounded so that the result ends with an even number. For example, 4.45 becomes 4.4 (the retained digit 4 is already even) and 4.35 becomes 4.4 (the retained digit is increased to make it even). Only one figure is dropped at a time, and rounding is done only at the final step of a calculation."
   },
   {
    "number": 13,
    "topic": "Spectroscopy and Flame Photometry",
    "question": "State Beer–Lambert law, give its mathematical form and define each term.",
    "marks": null,
-   "answer": "Beer–Lambert law states that when a beam of light of a particular wavelength passes through a sample, its intensity decreases exponentially with the concentration of the absorbing species and the path length of the sample. In mathematical form: A = ε l c where A = absorbance (log of incident intensity/transmitted intensity), ε = molar absorptivity (a constant for the analyte at the given wavelength), l = path length of the cell (usually in cm) and c = concentration of the analyte. Thus absorbance is directly proportional to concentration, which is the basis of quantitative estimation of unknowns by UV spectroscopy. All spectroscopic techniques that use electromagnetic radiation for quantitative work are based on this law."
+   "answer": "Beer–Lambert law states that when a beam of light of a particular wavelength passes through a sample, its intensity decreases exponentially with the concentration of the absorbing species and the path length of the sample. In mathematical form: A=εlc where A = absorbance (log of incident intensity/transmitted intensity), ε = molar absorptivity (a constant for the analyte at the given wavelength), l = path length of the cell (usually in cm) and c = concentration of the analyte. Thus absorbance is directly proportional to concentration, which is the basis of quantitative estimation of unknowns by UV spectroscopy. All spectroscopic techniques that use electromagnetic radiation for quantitative work are based on this law."
   },
   {
    "number": 14,
    "topic": "Spectroscopy and Flame Photometry",
-   "question": "A solution shows an absorbance of 0.450 in a 1 cm cell. If the molar absorptivity of the analyte is 1.5 × 10⁴ L mol⁻¹ cm⁻¹, calculate the concentration of the solution. From Beer–Lambert law: A = ε l c. Given A = 0.450, ε = 1.5 × 10⁴ L mol⁻¹ cm⁻¹, l = 1 cm. c = A / (ε l) = 0.450 / (1.5 × 10⁴ × 1) = 3.0 × 10⁻⁵ mol/L. Hence the concentration of the solution is 3.0 × 10⁻⁵ mol/L.",
+   "question": "A solution shows an absorbance of 0.450 in a 1 cm cell. If the molar absorptivity of the analyte is 1.5 × 10⁴ L mol⁻¹ cm⁻¹, calculate the concentration of the solution.",
    "marks": null,
-   "answer": ""
+   "answer": "From Beer–Lambert law: A = ε l c. Given A = 0.450, ε = 1.5 × 10⁴ L mol⁻¹ cm⁻¹, l = 1 cm. c = A / (ε l) = 0.450 / (1.5 × 10⁴ × 1) = 3.0 × 10⁻⁵ mol/L. Hence the concentration of the solution is 3.0 × 10⁻⁵ mol/L."
   },
   {
    "number": 15,

@@ -22,9 +22,9 @@
   {
    "number": 1,
    "topic": "Sets and Fuzzy Sets",
-   "question": "Define a set with examples. A set is a collection of well-defined objects. For example, A = {1, 2, 3, 4, 5} is a set of numbers, and Z = {0, 1, 2, ...} is the set of integers.",
+   "question": "Define a set with examples.",
    "marks": null,
-   "answer": ""
+   "answer": "A set is a collection of well-defined objects. For example, A = {1, 2, 3, 4, 5} is a set of numbers, and Z = {0, 1, 2, ...} is the set of integers."
   },
   {
    "number": 2,
@@ -92,9 +92,9 @@
   {
    "number": 11,
    "topic": "Fuzzy Set Operations",
-   "question": "Let A~ = {(x1, 0.1), (x2, 0.9), (x3, 1), (x4, 0), (x5, 0.3), (x6, 0.7)} and B~ = {(x1, 0.3), (x2, 0.8), (x3, 0), (x4, 1), (x5, 0.1), (x6, 0.9)}. Find the degree of subsethood S(A~, B~). Taking element-wise minima, A~ intersection B~ = {(x1, 0.1), (x2, 0.8), (x3, 0), (x4, 0), (x5, 0.1), (x6, 0.7)}, so |A~ intersection B~| = 0.1 + 0.8 + 0 + 0 + 0.1 + 0.7 = 1.7. Also |A~| = 0.1 + 0.9 + 1 + 0 + 0.3 + 0.7 = 3.0. Therefore S(A~, B~) = 1.7 / 3.0 = 0.57 (approximately).",
+   "question": "Let A~ = {(x1, 0.1), (x2, 0.9), (x3, 1), (x4, 0), (x5, 0.3), (x6, 0.7)} and B~ = {(x1, 0.3), (x2, 0.8), (x3, 0), (x4, 1), (x5, 0.1), (x6, 0.9)}. Find the degree of subsethood S(A~, B~).",
    "marks": null,
-   "answer": ""
+   "answer": "Taking element-wise minima, A~ intersection B~ = {(x1, 0.1), (x2, 0.8), (x3, 0), (x4, 0), (x5, 0.1), (x6, 0.7)}, so |A~ intersection B~| = 0.1 + 0.8 + 0 + 0 + 0.1 + 0.7 = 1.7. Also |A~| = 0.1 + 0.9 + 1 + 0 + 0.3 + 0.7 = 3.0. Therefore S(A~, B~) = 1.7 / 3.0 = 0.57 (approximately)."
   },
   {
    "number": 12,
@@ -106,9 +106,9 @@
   {
    "number": 13,
    "topic": "Fuzzy Relations",
-   "question": "Let A = {10, 15, 20}. Find A^2 and show it graphically. A^2 = A x A = {10, 15, 20} x {10, 15, 20} = {(10, 10), (10, 15), (10, 20), (15, 10), (15, 15), (15, 20), (20, 10), (20, 15), (20, 20)}. Graphically, A^2 is shown as the nine points of a 3 x 3 grid plotted on the plane at the x- and y-coordinates 10, 15 and 20.",
+   "question": "Let A = {10, 15, 20}. Find A^2 and show it graphically.",
    "marks": null,
-   "answer": ""
+   "answer": "A^2 = A x A = {10, 15, 20} x {10, 15, 20} = {(10, 10), (10, 15), (10, 20), (15, 10), (15, 15), (15, 20), (20, 10), (20, 15), (20, 20)}. Graphically, A^2 is shown as the nine points of a 3 x 3 grid plotted on the plane at the x- and y-coordinates 10, 15 and 20."
   },
   {
    "number": 14,
@@ -120,9 +120,9 @@
   {
    "number": 15,
    "topic": "Fuzzy Relations",
-   "question": "Make the membership table for the fuzzy relation R = {((a, c), 0.7), ((b, a), 0.9), ((c, b), 1), ((c, d), 0.2)}. The membership table M_R (rows and columns a, b, c, d) is: row a: 0, 0, 0.7, 0; row b: 0.9, 0, 0, 0; row c: 0, 1, 0, 0.2; row d: 0, 0, 0, 0. All pairs not listed in R have membership value 0.",
+   "question": "Make the membership table for the fuzzy relation R = {((a, c), 0.7), ((b, a), 0.9), ((c, b), 1), ((c, d), 0.2)}.",
    "marks": null,
-   "answer": ""
+   "answer": "The membership table M_R (rows and columns a, b, c, d) is: row a: 0, 0, 0.7, 0; row b: 0.9, 0, 0, 0; row c: 0, 1, 0, 0.2; row d: 0, 0, 0, 0. All pairs not listed in R have membership value 0."
   },
   {
    "number": 16,
@@ -134,23 +134,23 @@
   {
    "number": 17,
    "topic": "Fuzzy Relations",
-   "question": "Given the relation tables M_R (rows 1, 2, 3; columns a, b, c): row 1: 0.1, 0.7, 0; row 2: 0, 1, 0.9; row 3: 0.5, 0, 0.2; and S_R: row 1: 1, 0.8, 0.1; row 2: 0.3, 0, 0.5; row 3: 0.9, 1, 0. Find M_{R union S}. The union of two fuzzy relations is obtained by taking the element-wise maximum of their tables. Hence M_{R union S} (rows 1, 2, 3; columns a, b, c) is: row 1: 1, 0.8, 0.1; row 2: 0.3, 1, 0.9; row 3: 0.9, 1, 0.2.",
+   "question": "Given the relation tables M_R (rows 1, 2, 3; columns a, b, c): row 1: 0.1, 0.7, 0; row 2: 0, 1, 0.9; row 3: 0.5, 0, 0.2; and S_R: row 1: 1, 0.8, 0.1; row 2: 0.3, 0, 0.5; row 3: 0.9, 1, 0. Find M_{R union S}.",
    "marks": null,
-   "answer": ""
+   "answer": "The union of two fuzzy relations is obtained by taking the element-wise maximum of their tables. Hence M_{R union S} (rows 1, 2, 3; columns a, b, c) is: row 1: 1, 0.8, 0.1; row 2: 0.3, 1, 0.9; row 3: 0.9, 1, 0.2."
   },
   {
    "number": 18,
    "topic": "T-Norms",
-   "question": "Show that x Delta_4 x = x / (2 - x). As we know, x Delta_4 y = xy / (x + y - xy). Putting y = x, x Delta_4 x = x^2 / (x + x - x^2) = x^2 / (2x - x^2) = x^2 / (x(2 - x)) = x / (2 - x). Hence proved.",
+   "question": "Show that x Delta_4 x = x / (2 - x).",
    "marks": null,
-   "answer": ""
+   "answer": "As we know, x Delta_4 y = xy / (x + y - xy). Putting y = x, x Delta_4 x = x^2 / (x + x - x^2) = x^2 / (2x - x^2) = x^2 / (x(2 - x)) = x / (2 - x). Hence proved."
   },
   {
    "number": 19,
    "topic": "T-Norms",
-   "question": "Find x Delta_1 x. As we know, x Delta_1 y = 0 OR (x + y - 1) = max(0, x + y - 1). Putting y = x, x Delta_1 x = max(0, x + x - 1) = max(0, 2x - 1).",
+   "question": "Find x Delta_1 x.",
    "marks": null,
-   "answer": ""
+   "answer": "As we know, x Delta_1 y = 0 OR (x + y - 1) = max(0, x + y - 1). Putting y = x, x Delta_1 x = max(0, x + x - 1) = max(0, 2x - 1)."
   },
   {
    "number": 20,
@@ -176,16 +176,16 @@
   {
    "number": 23,
    "topic": "Triangular Fuzzy Numbers",
-   "question": "The membership function of a triangular fuzzy number A~ is mu_A~(x) = (x - a)/(b - a) for a <= x <= b, (c - x)/(c - b) for b <= x <= c, and 0 otherwise. The alpha-cut is written as A_alpha = [alpha_1, alpha_2]. Find alpha_1 and alpha_2. On the left side, setting (x - a)/(b - a) = alpha gives alpha(b - a) = x - a, so alpha_1 = x = a + alpha(b - a). On the right side, setting (c - x)/(c - b) = alpha gives c - x = alpha(c - b), so alpha_2 = x = c - alpha(c - b). Hence A_alpha = [a + alpha(b - a), c - alpha(c - b)].",
+   "question": "The membership function of a triangular fuzzy number A~ is mu_A~(x) = (x - a)/(b - a) for a <= x <= b, (c - x)/(c - b) for b <= x <= c, and 0 otherwise. The alpha-cut is written as A_alpha = [alpha_1, alpha_2]. Find alpha_1 and alpha_2.",
    "marks": null,
-   "answer": ""
+   "answer": "On the left side, setting (x - a)/(b - a) = alpha gives alpha(b - a) = x - a, so alpha_1 = x = a + alpha(b - a). On the right side, setting (c - x)/(c - b) = alpha gives c - x = alpha(c - b), so alpha_2 = x = c - alpha(c - b). Hence A_alpha = [a + alpha(b - a), c - alpha(c - b)]."
   },
   {
    "number": 24,
    "topic": "Triangular Fuzzy Numbers",
-   "question": "Draw the graph of the triangular fuzzy number whose membership function is mu_A(x) = (x - 3)/(5 - 3) for 3 <= x <= 5, (6 - x)/(6 - 5) for 5 <= x <= 6, and 0 otherwise. The graph is a triangle with vertices at (3, 0), (5, 1) and (6, 0). Starting from 0 at x = 3, the membership value rises linearly along the line (x - 3)/2 until it reaches the peak value 1 at x = 5; it then falls linearly along the line (6 - x)/1 until it reaches 0 at x = 6. The membership value is 0 for all x outside the interval [3, 6].",
+   "question": "Draw the graph of the triangular fuzzy number whose membership function is mu_A(x) = (x - 3)/(5 - 3) for 3 <= x <= 5, (6 - x)/(6 - 5) for 5 <= x <= 6, and 0 otherwise.",
    "marks": null,
-   "answer": ""
+   "answer": "The graph is a triangle with vertices at (3, 0), (5, 1) and (6, 0). Starting from 0 at x = 3, the membership value rises linearly along the line (x - 3)/2 until it reaches the peak value 1 at x = 5; it then falls linearly along the line (6 - x)/1 until it reaches 0 at x = 6. The membership value is 0 for all x outside the interval [3, 6]."
   }
  ]
 }

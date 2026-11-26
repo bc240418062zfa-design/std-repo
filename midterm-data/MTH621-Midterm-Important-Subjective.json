@@ -40,9 +40,9 @@
   {
    "number": 4,
    "topic": "Definitions and Statements",
-   "question": "Define an upper bound of a set. Let A be a nonempty set of real numbers. A real number b is called an upper bound of A if x <= b for every x in A. If such a b exists, A is said to be bounded above.",
+   "question": "Define an upper bound of a set.",
    "marks": null,
-   "answer": ""
+   "answer": "Let A be a nonempty set of real numbers. A real number b is called an upper bound of A if x <= b for every x in A. If such a b exists, A is said to be bounded above."
   },
   {
    "number": 5,
@@ -54,23 +54,23 @@
   {
    "number": 6,
    "topic": "Definitions and Statements",
-   "question": "Define a Cauchy sequence. A sequence {s_n} of real numbers is called a Cauchy sequence if for every ε > 0 there is an integer N such that |s_n - s_m| < ε whenever m, n >= N.",
+   "question": "Define a Cauchy sequence.",
    "marks": null,
-   "answer": ""
+   "answer": "A sequence {s_n} of real numbers is called a Cauchy sequence if for every ε > 0 there is an integer N such that |s_n - s_m| < ε whenever m, n >= N."
   },
   {
    "number": 7,
    "topic": "Definitions and Statements",
-   "question": "Define an oscillatory series. A divergent series that does not diverge to +∞ or to -∞ is said to be an oscillatory series (it oscillates, finitely or infinitely).",
+   "question": "Define an oscillatory series.",
    "marks": null,
-   "answer": ""
+   "answer": "A divergent series that does not diverge to +∞ or to -∞ is said to be an oscillatory series (it oscillates, finitely or infinitely)."
   },
   {
    "number": 8,
    "topic": "Definitions and Statements",
-   "question": "Define the number e. The number e is defined by the infinite series e = Σ_{n=0}^{∞} 1/n! = 1 + 1 + 1/2! + 1/3! + ..., where n! = 1.2.3...n and 0! = 1.",
+   "question": "Define the number e.",
    "marks": null,
-   "answer": ""
+   "answer": "The number e is defined by the infinite series e = Σ_{n=0}^{∞} 1/n! = 1 + 1 + 1/2! + 1/3! + ..., where n! = 1.2.3...n and 0! = 1."
   },
   {
    "number": 9,
@@ -110,9 +110,9 @@
   {
    "number": 14,
    "topic": "Definitions and Statements",
-   "question": "State the Bolzano-Weierstrass theorem. Every bounded sequence of real numbers has a convergent subsequence. Equivalently, every bounded infinite set of real numbers has a limit point in R.",
+   "question": "State the Bolzano-Weierstrass theorem.",
    "marks": null,
-   "answer": ""
+   "answer": "Every bounded sequence of real numbers has a convergent subsequence. Equivalently, every bounded infinite set of real numbers has a limit point in R."
   },
   {
    "number": 15,
@@ -187,9 +187,9 @@
   {
    "number": 25,
    "topic": "Proofs",
-   "question": "Test the series Σ (-1)^n n! / (α(α + 1)...(α + n - 1)), α > 0, for absolute convergence. (Raabe's test) Apply Raabe's test to b_n = n! / (α(α + 1)...(α + n - 1)) > 0. We have b_n / b_{n+1} = (α + n)/(n + 1), so n(b_n/b_{n+1} - 1) = n(α + n - (n + 1))/(n + 1) = n(α - 1)/(n + 1) -> α - 1. By Raabe's test, Σ b_n converges if α - 1 > 1, i.e. α > 2, and diverges if α - 1 < 1, i.e. α < 2. Hence the given series converges absolutely if α > 2 and does not converge absolutely if α < 2.",
+   "question": "Test the series Σ (-1)^n n!",
    "marks": null,
-   "answer": ""
+   "answer": "/ (α(α + 1)...(α + n - 1)), α > 0, for absolute convergence. (Raabe's test) Apply Raabe's test to b_n = n! / (α(α + 1)...(α + n - 1)) > 0. We have b_n / b_{n+1} = (α + n)/(n + 1), so n(b_n/b_{n+1} - 1) = n(α + n - (n + 1))/(n + 1) = n(α - 1)/(n + 1) -> α - 1. By Raabe's test, Σ b_n converges if α - 1 > 1, i.e. α > 2, and diverges if α - 1 < 1, i.e. α < 2. Hence the given series converges absolutely if α > 2 and does not converge absolutely if α < 2."
   },
   {
    "number": 26,
@@ -208,9 +208,9 @@
   {
    "number": 28,
    "topic": "Problems and Computations",
-   "question": "Find the limit of the sequence s_n = (1/n) sin(nπ/4) + 2(1 + 3/n)/(1 + 1/n). lim s_n = lim (1/n) sin(nπ/4) + 2(1 + 3/n)/(1 + 1/n).",
+   "question": "Find the limit of the sequence s_n = (1/n) sin(nπ/4) + 2(1 + 3/n)/(1 + 1/n).",
    "marks": null,
-   "answer": "The first term tends to 0 because |(1/n) sin(nπ/4)| <= 1/n -> 0. The second term tends to 2(1 + 0)/(1 + 0) = 2. Hence lim s_n = 0 + 2 = 2."
+   "answer": "lim s_n = lim (1/n) sin(nπ/4) + 2(1 + 3/n)/(1 + 1/n). The first term tends to 0 because |(1/n) sin(nπ/4)| <= 1/n -> 0. The second term tends to 2(1 + 0)/(1 + 0) = 2. Hence lim s_n = 0 + 2 = 2."
   },
   {
    "number": 29,
@@ -222,9 +222,9 @@
   {
    "number": 30,
    "topic": "Problems and Computations",
-   "question": "If S = {x : x >= -2}, find sup S and inf S. Every element of S is >= -2 and -2 itself belongs to S, so inf S = -2 (the greatest lower bound, attained). S is not bounded above, since x can be arbitrarily large; hence S has no supremum in R (one writes sup S = +∞ in the extended real number system).",
+   "question": "If S = {x : x >= -2}, find sup S and inf S.",
    "marks": null,
-   "answer": ""
+   "answer": "Every element of S is >= -2 and -2 itself belongs to S, so inf S = -2 (the greatest lower bound, attained). S is not bounded above, since x can be arbitrarily large; hence S has no supremum in R (one writes sup S = +∞ in the extended real number system)."
   },
   {
    "number": 31,
@@ -243,23 +243,23 @@
   {
    "number": 33,
    "topic": "Problems and Computations",
-   "question": "For the power series Σ [sin(nπ/6) / 2^n] (x - 1)^n, find a_n, x_0 and the radius of convergence R. Comparing with Σ a_n (x - x_0)^n gives a_n = sin(nπ/6)/2^n and x_0 = 1. By the root test, lim sup |a_n|^{1/n} = (1/2) . lim sup |sin(nπ/6)|^{1/n} = 1/2 (since |sin(nπ/6)| <= 1 and the values arbitrarily close to 1 occur). Hence R = 1/(1/2) = 2.",
+   "question": "For the power series Σ [sin(nπ/6) / 2^n] (x - 1)^n, find a_n, x_0 and the radius of convergence R.",
    "marks": null,
-   "answer": ""
+   "answer": "Comparing with Σ a_n (x - x_0)^n gives a_n = sin(nπ/6)/2^n and x_0 = 1. By the root test, lim sup |a_n|^{1/n} = (1/2) . lim sup |sin(nπ/6)|^{1/n} = 1/2 (since |sin(nπ/6)| <= 1 and the values arbitrarily close to 1 occur). Hence R = 1/(1/2) = 2."
   },
   {
    "number": 34,
    "topic": "Problems and Computations",
-   "question": "Determine the radius of convergence of the power series Σ x^n / n!. Here a_n = 1/n!. By the ratio test, |a_{n+1}/a_n| = n!/(n + 1)! = 1/(n + 1) -> 0. Hence R = ∞: the series converges for every real x.",
+   "question": "Determine the radius of convergence of the power series Σ x^n / n!.",
    "marks": null,
-   "answer": ""
+   "answer": "Here a_n = 1/n!. By the ratio test, |a_{n+1}/a_n| = n!/(n + 1)! = 1/(n + 1) -> 0. Hence R = ∞: the series converges for every real x."
   },
   {
    "number": 35,
    "topic": "Problems and Computations",
-   "question": "Find the radius of convergence of the power series Σ n! x^n. Here a_n = n!. By the ratio test, |a_{n+1}/a_n| = (n + 1)!/n! = n + 1 -> ∞. Hence R = 0: the series converges only at x = 0.",
+   "question": "Find the radius of convergence of the power series Σ n!",
    "marks": null,
-   "answer": ""
+   "answer": "x^n. Here a_n = n!. By the ratio test, |a_{n+1}/a_n| = (n + 1)!/n! = n + 1 -> ∞. Hence R = 0: the series converges only at x = 0."
   },
   {
    "number": 36,

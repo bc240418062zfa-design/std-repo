@@ -21,16 +21,16 @@
   {
    "number": 1,
    "topic": "General",
-   "question": "Define a metric space. Verify that the discrete metric on a non-empty set X is",
+   "question": "Define a metric space. Verify that the discrete metric on a non-empty set X is a metric on X.",
    "marks": null,
-   "answer": "a metric on X. A metric space is a pair (X, d), where X is a non-empty set and d : X × X → R is a function (called a metric) such that for all x, y, z ∈ X: (i) d(x, y) ≥ 0, and d(x, y) = 0 if and only if x = y; (ii) d(x, y) = d(y, x) (symmetry); (iii) d(x, z) ≤ d(x, y) + d(y, z) (triangle inequality). For the discrete metric, d(x, y) = 0 if x = y and d(x, y) = 1 if x ≠ y. Then (i) holds since the values are 0 and 1, and d(x, y) = 0 exactly when x = y. (ii) holds since the definition is symmetric in x and y. For (iii), if x = z then d(x, z) = 0 ≤ d(x, y) + d(y, z). If x ≠ z, then x ≠ y or y ≠ z (otherwise x = y = z), so d(x, y) + d(y, z) ≥ 1 = d(x, z). Hence d is a metric on X."
+   "answer": "A metric space is a pair (X, d), where X is a non-empty set and d : X × X → R is a function (called a metric) such that for all x, y, z ∈ X: (i) d(x, y) ≥ 0, and d(x, y) = 0 if and only if x = y; (ii) d(x, y) = d(y, x) (symmetry); (iii) d(x, z) ≤ d(x, y) + d(y, z) (triangle inequality). For the discrete metric, d(x, y) = 0 if x = y and d(x, y) = 1 if x ≠ y. Then (i) holds since the values are 0 and 1, and d(x, y) = 0 exactly when x = y. (ii) holds since the definition is symmetric in x and y. For (iii), if x = z then d(x, z) = 0 ≤ d(x, y) + d(y, z). If x ≠ z, then x ≠ y or y ≠ z (otherwise x = y = z), so d(x, y) + d(y, z) ≥ 1 = d(x, z). Hence d is a metric on X."
   },
   {
    "number": 2,
    "topic": "General",
-   "question": "Show that every convergent sequence in a metric space is a Cauchy",
+   "question": "Show that every convergent sequence in a metric space is a Cauchy sequence.",
    "marks": null,
-   "answer": "sequence. Let (xₙ) converge to x in the metric space (X, d). Let ε > 0. Then there exists N such that d(xₙ, x) < ε/2 for all n > N. Hence for all m, n > N, by the triangle inequality, d(xₘ, xₙ) ≤ d(xₘ, x) + d(x, xₙ) < ε/2 + ε/2 = ε. Thus (xₙ) satisfies the Cauchy condition, so every convergent sequence is a Cauchy sequence. (The converse is not true in a general metric space; it holds in a complete metric space.)"
+   "answer": "Let (xₙ) converge to x in the metric space (X, d). Let ε > 0. Then there exists N such that d(xₙ, x) < ε/2 for all n > N. Hence for all m, n > N, by the triangle inequality, d(xₘ, xₙ) ≤ d(xₘ, x) + d(x, xₙ) < ε/2 + ε/2 = ε. Thus (xₙ) satisfies the Cauchy condition, so every convergent sequence is a Cauchy sequence. (The converse is not true in a general metric space; it holds in a complete metric space.)"
   },
   {
    "number": 3,
@@ -42,16 +42,16 @@
   {
    "number": 4,
    "topic": "General",
-   "question": "Show that the sequence (xₙ) = (1 + 1/n) is a Cauchy sequence in R with the",
+   "question": "Show that the sequence (xₙ) = (1 + 1/n) is a Cauchy sequence in R with the usual metric.",
    "marks": null,
-   "answer": "usual metric. For m, n ≥ 1, d(xₘ, xₙ) = |(1 + 1/m) − (1 + 1/n)| = |1/m − 1/n| ≤ 1/m + 1/n. Given ε > 0, choose N > 2/ε. Then for all m, n > N, d(xₘ, xₙ) < 1/N + 1/N = 2/N < ε. Hence (xₙ) is a Cauchy sequence. (In fact xₙ → 1.)"
+   "answer": "For m, n ≥ 1, d(xₘ, xₙ) = |(1 + 1/m) − (1 + 1/n)| = |1/m − 1/n| ≤ 1/m + 1/n. Given ε > 0, choose N > 2/ε. Then for all m, n > N, d(xₘ, xₙ) < 1/N + 1/N = 2/N < ε. Hence (xₙ) is a Cauchy sequence. (In fact xₙ → 1.)"
   },
   {
    "number": 5,
    "topic": "General",
-   "question": "Give an example showing that Q with the usual metric is not a complete",
+   "question": "Give an example showing that Q with the usual metric is not a complete metric space.",
    "marks": null,
-   "answer": "metric space. Let (xₙ) be the sequence of decimal approximations of √2: x₁ = 1, x₂ = 1.4, x₃ = 1.41, x₄ = 1.414, … Each xₙ ∈ Q and xₙ → √2 in R, so (xₙ) is a Cauchy sequence in Q (every convergent sequence in R is Cauchy). But its limit √2 ∉ Q, so (xₙ) has no limit in Q. Hence Q is not complete."
+   "answer": "Let (xₙ) be the sequence of decimal approximations of √2: x₁ = 1, x₂ = 1.4, x₃ = 1.41, x₄ = 1.414, … Each xₙ ∈ Q and xₙ → √2 in R, so (xₙ) is a Cauchy sequence in Q (every convergent sequence in R is Cauchy). But its limit √2 ∉ Q, so (xₙ) has no limit in Q. Hence Q is not complete."
   },
   {
    "number": 6,
@@ -77,16 +77,16 @@
   {
    "number": 9,
    "topic": "General",
-   "question": "State the extension theorem for bounded linear operators. Let T : D(T) → Y be",
+   "question": "State the extension theorem for bounded linear operators. Let T : D(T) → Y be a bounded linear operator, where D(T) lies in a normed space X and Y is a Banach space. What can be said about the extension of T?",
    "marks": null,
-   "answer": "a bounded linear operator, where D(T) lies in a normed space X and Y is a Banach space. What can be said about the extension of T? Extension theorem (BLT theorem): T has an extension T̃ : closure of D(T) → Y which is a bounded linear operator with the same norm, ||T̃|| = ||T||. The extension is obtained by defining T̃x = lim Txₙ for xₙ → x with xₙ ∈ D(T); the limit exists because Y is complete and (Txₙ) is Cauchy, and the extension so obtained is unique."
+   "answer": "Extension theorem (BLT theorem): T has an extension T̃ : closure of D(T) → Y which is a bounded linear operator with the same norm, ||T̃|| = ||T||. The extension is obtained by defining T̃x = lim Txₙ for xₙ → x with xₙ ∈ D(T); the limit exists because Y is complete and (Txₙ) is Cauchy, and the extension so obtained is unique."
   },
   {
    "number": 10,
    "topic": "General",
-   "question": "Let T : D(T) → Y be a linear operator, where D(T) ⊆ X and X, Y are normed",
+   "question": "Let T : D(T) → Y be a linear operator, where D(T) ⊆ X and X, Y are normed spaces. Show that if T is continuous at a single point, then T is continuous everywhere.",
    "marks": null,
-   "answer": "spaces. Show that if T is continuous at a single point, then T is continuous everywhere. Suppose T is continuous at x₀ ∈ D(T). Let x ∈ D(T) and let (xₙ) be a sequence in D(T) with xₙ → x. Then xₙ − x + x₀ → x₀, so by continuity at x₀, T(xₙ − x + x₀) → Tx₀. By linearity, Txₙ − Tx + Tx₀ → Tx₀, hence Txₙ → Tx. Thus T is continuous at the arbitrary point x, i.e. T is continuous on all of D(T)."
+   "answer": "Suppose T is continuous at x₀ ∈ D(T). Let x ∈ D(T) and let (xₙ) be a sequence in D(T) with xₙ → x. Then xₙ − x + x₀ → x₀, so by continuity at x₀, T(xₙ − x + x₀) → Tx₀. By linearity, Txₙ − Tx + Tx₀ → Tx₀, hence Txₙ → Tx. Thus T is continuous at the arbitrary point x, i.e. T is continuous on all of D(T)."
   },
   {
    "number": 11,
@@ -98,9 +98,9 @@
   {
    "number": 12,
    "topic": "General",
-   "question": "Define the norm and the inner product on Rⁿ which make Rⁿ an inner",
+   "question": "Define the norm and the inner product on Rⁿ which make Rⁿ an inner product space.",
    "marks": null,
-   "answer": "product space. For x = (x₁, …, xₙ) and y = (y₁, …, yₙ) in Rⁿ, the (standard) inner product is ⟨x, y⟩ = x₁y₁ + x₂y₂ + ··· + xₙyₙ = Σᵢ xᵢyᵢ. The norm induced by this inner product is ||x|| = √⟨x, x⟩ = √(x₁² + x₂² + ··· + xₙ²), the usual Euclidean length. With this inner product, Rⁿ is a (complete, hence Hilbert) inner product space."
+   "answer": "For x = (x₁, …, xₙ) and y = (y₁, …, yₙ) in Rⁿ, the (standard) inner product is ⟨x, y⟩ = x₁y₁ + x₂y₂ + ··· + xₙyₙ = Σᵢ xᵢyᵢ. The norm induced by this inner product is ||x|| = √⟨x, x⟩ = √(x₁² + x₂² + ··· + xₙ²), the usual Euclidean length. With this inner product, Rⁿ is a (complete, hence Hilbert) inner product space."
   },
   {
    "number": 13,
@@ -112,9 +112,9 @@
   {
    "number": 14,
    "topic": "General",
-   "question": "In an inner product space V, the function ||·|| : V → R⁺ given by ||x|| = √⟨x, x⟩",
+   "question": "In an inner product space V, the function ||·|| : V → R⁺ given by ||x|| = √⟨x, x⟩ defines a norm in V. Show that ||x|| = 0 if and only if x = 0.",
    "marks": null,
-   "answer": "defines a norm in V. Show that ||x|| = 0 if and only if x = 0. By the definiteness axiom of the inner product, ⟨x, x⟩ = 0 if and only if x = 0, and ⟨x, x⟩ > 0 for x ≠ 0. Since ||x|| = √⟨x, x⟩ and the square root of a non-negative number is 0 only when the number itself is 0, we get ||x|| = 0 ⇔ ⟨x, x⟩ = 0 ⇔ x = 0."
+   "answer": "By the definiteness axiom of the inner product, ⟨x, x⟩ = 0 if and only if x = 0, and ⟨x, x⟩ > 0 for x ≠ 0. Since ||x|| = √⟨x, x⟩ and the square root of a non-negative number is 0 only when the number itself is 0, we get ||x|| = 0 ⇔ ⟨x, x⟩ = 0 ⇔ x = 0."
   },
   {
    "number": 15,
@@ -133,16 +133,16 @@
   {
    "number": 17,
    "topic": "General",
-   "question": "If x and y are orthogonal elements of an inner product space, prove the",
+   "question": "If x and y are orthogonal elements of an inner product space, prove the Pythagorean relation ||x + y||² = ||x||² + ||y||².",
    "marks": null,
-   "answer": "Pythagorean relation ||x + y||² = ||x||² + ||y||². Since x ⊥ y, ⟨x, y⟩ = 0 and also ⟨y, x⟩ = conjugate of ⟨x, y⟩ = 0. Hence ||x + y||² = ⟨x + y, x + y⟩ = ||x||² + ⟨x, y⟩ + ⟨y, x⟩ + ||y||² = ||x||² + 0 + 0 + ||y||² = ||x||² + ||y||²."
+   "answer": "Since x ⊥ y, ⟨x, y⟩ = 0 and also ⟨y, x⟩ = conjugate of ⟨x, y⟩ = 0. Hence ||x + y||² = ⟨x + y, x + y⟩ = ||x||² + ⟨x, y⟩ + ⟨y, x⟩ + ||y||² = ||x||² + 0 + 0 + ||y||² = ||x||² + ||y||²."
   },
   {
    "number": 18,
    "topic": "General",
-   "question": "If (xₙ) and (yₙ) are Cauchy sequences in an inner product space V, show that",
+   "question": "If (xₙ) and (yₙ) are Cauchy sequences in an inner product space V, show that (⟨xₙ, yₙ⟩) is a Cauchy sequence in the scalar field.",
    "marks": null,
-   "answer": "(⟨xₙ, yₙ⟩) is a Cauchy sequence in the scalar field. Cauchy sequences are bounded, so there are constants a, b with ||xₙ|| ≤ a and ||yₙ|| ≤ b for all n. Then |⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| = |⟨xₘ, yₘ − yₙ⟩ + ⟨xₘ − xₙ, yₙ⟩| ≤ ||xₘ||·||yₘ − yₙ|| + ||xₘ − xₙ||·||yₙ|| ≤ a||yₘ − yₙ|| + b||xₘ − xₙ|| by the Cauchy–Schwarz inequality. Given ε > 0, choose N so that ||xₘ − xₙ|| < ε and ||yₘ − yₙ|| < ε for m, n > N (possible since both sequences are Cauchy, with ε scaled by max(a, b, 1)). Then |⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| is small for m, n > N, so (⟨xₙ, yₙ⟩) is Cauchy in the scalar field."
+   "answer": "Cauchy sequences are bounded, so there are constants a, b with ||xₙ|| ≤ a and ||yₙ|| ≤ b for all n. Then |⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| = |⟨xₘ, yₘ − yₙ⟩ + ⟨xₘ − xₙ, yₙ⟩| ≤ ||xₘ||·||yₘ − yₙ|| + ||xₘ − xₙ||·||yₙ|| ≤ a||yₘ − yₙ|| + b||xₘ − xₙ|| by the Cauchy–Schwarz inequality. Given ε > 0, choose N so that ||xₘ − xₙ|| < ε and ||yₘ − yₙ|| < ε for m, n > N (possible since both sequences are Cauchy, with ε scaled by max(a, b, 1)). Then |⟨xₘ, yₘ⟩ − ⟨xₙ, yₙ⟩| is small for m, n > N, so (⟨xₙ, yₙ⟩) is Cauchy in the scalar field."
   },
   {
    "number": 19,
