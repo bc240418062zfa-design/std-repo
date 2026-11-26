@@ -9,7 +9,7 @@
  "headerTitle": "MGT713 — Production / Operations Management",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 7,
- "itemCount": 32,
+ "itemCount": 29,
  "topics": [
   "Introduction, Strategy and Productivity",
   "The Decision Process",
@@ -71,28 +71,14 @@
   {
    "number": 8,
    "topic": "The Decision Process",
-   "question": "A company is deciding the size of a new facility. The payoffs (Rs. million) are: Small facility 10 (low demand), 10 (moderate), 10 (high); Medium facility 5, 8, 12; Large facility 1, 2,",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 15,
-   "topic": "The Decision Process",
-   "question": "Apply the Maximin, Maximax and Laplace criteria and state the decision under each.",
+   "question": "A company is deciding the size of a new facility. The payoffs (Rs. million) are: Small facility 10 (low demand), 10 (moderate), 10 (high); Medium facility 5, 8, 12; Large facility 1, 2, 15. Apply the Maximin, Maximax and Laplace criteria and state the decision under each.",
    "marks": null,
    "answer": "Maximin (pessimistic - best of the worst payoffs): the worst payoffs are Small = 10, Medium = 5, Large = 1; the maximum of these is 10, so the Maximin decision is the Small facility. Maximax (optimistic - best of the best payoffs): the best payoffs are Small = 10, Medium = 12, Large = 15; the maximum is 15, so the Maximax decision is the Large facility. Laplace (equally likely - best average payoff): Small = (10 + 10 + 10) / 3 = 10; Medium = (5 + 8 + 12) / 3 = 8.33; Large = (1 + 2 + 15) / 3 = 6; the highest average is 10, so the Laplace decision is the Small facility."
   },
   {
    "number": 9,
    "topic": "The Decision Process",
-   "question": "Using the payoff table of the previous question, with probabilities low = 0.3, moderate =",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 0,
-   "topic": "The Decision Process",
-   "question": "5 and high = 0.2, compute the expected monetary value (EMV) of each facility and state the best decision. Also define EVPI.",
+   "question": "Using the payoff table of the previous question, with probabilities low = 0.3, moderate = 0.5 and high = 0.2, compute the expected monetary value (EMV) of each facility and state the best decision. Also define EVPI.",
    "marks": null,
    "answer": "EMV of Small facility = 10(0.3) + 10(0.5) + 10(0.2) = 10. EMV of Medium facility = 5(0.3) + 8(0.5) + 12(0.2) = 1.5 + 4.0 + 2.4 = 7.9. EMV of Large facility = 1(0.3) + 2(0.5) + 15(0.2) = 0.3 + 1.0 + 3.0 = 4.3. The highest EMV is Rs. 10 million for the Small facility, so the Small facility should be selected. EVPI (Expected Value of Perfect Information) is the difference between the expected payoff under certainty and the expected payoff under risk; it shows the maximum amount a decision maker should pay for perfect information about the future."
   },
@@ -232,14 +218,7 @@
   {
    "number": 29,
    "topic": "Work Systems and Location",
-   "question": "List the factors considered in selecting a location for a manufacturing facility.",
-   "marks": null,
-   "answer": "Also solve: at an output of 10,000 units, Location A has FC Rs. 250,000 and VC Rs. 11; B has FC Rs. 100,000 and VC Rs. 30; C has FC Rs. 150,000 and VC Rs. 20; D has FC Rs. 200,000 and VC Rs."
-  },
-  {
-   "number": 35,
-   "topic": "Work Systems and Location",
-   "question": "Which location has the lowest total cost?",
+   "question": "List the factors considered in selecting a location for a manufacturing facility. Also solve: at an output of 10,000 units, Location A has FC Rs. 250,000 and VC Rs. 11; B has FC Rs. 100,000 and VC Rs. 30; C has FC Rs. 150,000 and VC Rs. 20; D has FC Rs. 200,000 and VC Rs. 35. Which location has the lowest total cost?",
    "marks": null,
    "answer": "Important factors for a manufacturing location are: (1) Favorable labor climate, (2) Proximity to markets, (3) Quality of life, (4) Proximity to suppliers and resources, (5) Proximity to the parent company's facilities, (6) Utilities, taxes and real estate costs, and (7) Other factors such as scope for expansion and construction costs. Total cost = FC + VC x Q. Location A: 250,000 + 11(10,000) = Rs. 360,000. Location B: 100,000 + 30(10,000) = Rs. 400,000. Location C: 150,000 + 20(10,000) = Rs. 350,000. Location D: 200,000 + 35(10,000) = Rs. 550,000. Location C has the lowest total cost (Rs. 350,000), so Location C should be selected."
   }

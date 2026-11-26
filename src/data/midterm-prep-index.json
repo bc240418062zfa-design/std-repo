@@ -90,7 +90,7 @@
   "faculty": "Accounting & Finance",
   "kind": "subjective",
   "pageCount": 17,
-  "itemCount": 84,
+  "itemCount": 82,
   "topics": [
    "Ratio Analysis & Financial Planning",
    "Time Value of Money",
@@ -139,7 +139,7 @@
   "faculty": "Bioinformatics",
   "kind": "subjective",
   "pageCount": 16,
-  "itemCount": 71,
+  "itemCount": 69,
   "topics": [
    "Bioinformatics: Concepts, Databases & Issues",
    "Sequence Alignment & Similarity Searching",
@@ -188,7 +188,7 @@
   "faculty": "Bioinformatics",
   "kind": "subjective",
   "pageCount": 10,
-  "itemCount": 55,
+  "itemCount": 52,
   "topics": [
    "Introduction to Bioinformatics",
    "Biological Databases",
@@ -274,7 +274,7 @@
   "faculty": "Biological Sciences",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 60,
+  "itemCount": 32,
   "topics": [
    "Cell Structure & Organelles",
    "Cell Division & Reproduction",
@@ -458,7 +458,7 @@
   "faculty": "Biological Sciences",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 23,
+  "itemCount": 21,
   "topics": [
    "Continuous Culture and the Chemostat",
    "Fed-Batch Culture and Product Formation",
@@ -812,7 +812,7 @@
   "faculty": "Biological Sciences",
   "kind": "subjective",
   "pageCount": 6,
-  "itemCount": 27,
+  "itemCount": 19,
   "topics": [
    "Cell Wall and Chromosomes",
    "Inheritance: Mendelian and Non-Mendelian",
@@ -850,7 +850,7 @@
   "faculty": "Biological Sciences",
   "kind": "subjective",
   "pageCount": 18,
-  "itemCount": 70,
+  "itemCount": 69,
   "topics": [
    "Bioenergetics and Thermodynamics",
    "Enzymes and Ligands",
@@ -899,7 +899,7 @@
   "faculty": "Accounting & Finance",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 37,
+  "itemCount": 33,
   "topics": [
    "Banking Mohtasib & Customer Rights",
    "Agency Law",
@@ -1144,7 +1144,7 @@
   "faculty": "Bio-Technology",
   "kind": "subjective",
   "pageCount": 19,
-  "itemCount": 92,
+  "itemCount": 88,
   "topics": [
    "Introduction, Classification and Microbial Diversity",
    "Microscopy and Staining",
@@ -1195,7 +1195,7 @@
   "faculty": "Bio-Technology",
   "kind": "subjective",
   "pageCount": 13,
-  "itemCount": 54,
+  "itemCount": 53,
   "topics": [
    "Ecology Foundations",
    "Community Ecology",
@@ -1361,7 +1361,7 @@
   "faculty": "Bio-Technology",
   "kind": "subjective",
   "pageCount": 25,
-  "itemCount": 141,
+  "itemCount": 138,
   "topics": [
    "Genetic Resources — Concepts and Types",
    "Plant Genetic Resources, GSPC and Policy",
@@ -1605,7 +1605,7 @@
   "faculty": "Bio-Technology",
   "kind": "subjective",
   "pageCount": 6,
-  "itemCount": 34,
+  "itemCount": 33,
   "topics": [
    "Core Subjective Topics",
    "2. Concepts, Propositions, Theory & Hypothesis",
@@ -1657,7 +1657,7 @@
   "faculty": "Bio-Technology",
   "kind": "subjective",
   "pageCount": 22,
-  "itemCount": 66,
+  "itemCount": 64,
   "topics": [
    "Human Genome Project and Genomics",
    "Recombinant DNA Technology, Cloning Vectors and PCR",
@@ -2169,7 +2169,7 @@
   "faculty": "Chemistry",
   "kind": "subjective",
   "pageCount": 8,
-  "itemCount": 34,
+  "itemCount": 33,
   "topics": [
    "Thermodynamic Systems and Properties",
    "Gas Laws and Real Gases",
@@ -2212,7 +2212,7 @@
   "faculty": "Chemistry",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 22,
+  "itemCount": 21,
   "topics": [
    "Analytical Chemistry Basics",
    "Sampling and Sample Preparation",
@@ -2303,7 +2303,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 6,
-  "itemCount": 34,
+  "itemCount": 33,
   "topics": [
    "Computer Basics & History",
    "Data Representation & Number Systems",
@@ -2358,7 +2358,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 12,
-  "itemCount": 39,
+  "itemCount": 36,
   "topics": [
    "Programming Basics, Design & Development Tools",
    "Expressions, Output Prediction & Error Finding",
@@ -2690,7 +2690,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 10,
-  "itemCount": 59,
+  "itemCount": 58,
   "topics": [
    "OOP Fundamentals — Classes, Objects & Encapsulation",
    "Constructors, Object Arrays & Initialization Order",
@@ -2736,7 +2736,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 35,
+  "itemCount": 30,
   "topics": [
    "Python Basics",
    "Variables and Data Types",
@@ -2827,7 +2827,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 45,
+  "itemCount": 43,
   "topics": [
    "XML Basics, Syntax & Well-Formedness",
    "XML Tree, DTD & Entities",
@@ -2994,7 +2994,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 11,
-  "itemCount": 67,
+  "itemCount": 63,
   "topics": [
    "Alphabets, Strings & Languages",
    "Kleene's Theorem, TG & GTG Conversions",
@@ -3131,7 +3131,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 41,
+  "itemCount": 36,
   "topics": [
    "Network Fundamentals and IOS",
    "Network Layer and IPv4 Addressing",
@@ -3213,7 +3213,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 34,
+  "itemCount": 30,
   "topics": [
    "Database Schema & Its Categories",
    "Metadata & Data Dictionary",
@@ -3262,7 +3262,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 15,
-  "itemCount": 58,
+  "itemCount": 57,
   "topics": [
    "C Language and Preprocessor",
    "Windows Programming Basics",
@@ -3302,7 +3302,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 17,
-  "itemCount": 107,
+  "itemCount": 102,
   "topics": [
    "C# Language Basics & OOP",
    "WPF & XAML Basics",
@@ -3531,7 +3531,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 14,
-  "itemCount": 46,
+  "itemCount": 30,
   "topics": [
    "Short Questions (3 Marks Each)",
    "Long Questions (5 Marks Each)"
@@ -3660,7 +3660,7 @@
   "faculty": "Software Engineering",
   "kind": "subjective",
   "pageCount": 17,
-  "itemCount": 110,
+  "itemCount": 103,
   "topics": [
    "Software Engineering Process, Phases & Activities",
    "Requirements Engineering & Analysis",
@@ -3792,7 +3792,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 14,
-  "itemCount": 66,
+  "itemCount": 62,
   "topics": [
    "Decision Making & Decision Support Systems",
    "Systems Development & SDLC",
@@ -3832,7 +3832,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 17,
-  "itemCount": 96,
+  "itemCount": 95,
   "topics": [
    "Language History & Evolution",
    "Language Evaluation Criteria & Design Issues",
@@ -4042,7 +4042,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 45,
+  "itemCount": 44,
   "topics": [
    "Display Devices & CRT",
    "Line & Circle Drawing",
@@ -4171,7 +4171,7 @@
   "faculty": "Software Engineering",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 43,
+  "itemCount": 39,
   "topics": [
    "Software Process and Project Management",
    "Project Planning, Scheduling and Tracking",
@@ -4324,7 +4324,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 42,
+  "itemCount": 40,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -4718,7 +4718,7 @@
   "faculty": "Computer Science",
   "kind": "subjective",
   "pageCount": 10,
-  "itemCount": 33,
+  "itemCount": 28,
   "topics": [
    "Introduction to Formal Methods",
    "Petri Nets",
@@ -4907,7 +4907,7 @@
   "faculty": "Economics",
   "kind": "mcqs",
   "pageCount": 45,
-  "itemCount": 300,
+  "itemCount": 306,
   "topics": [
    "Core Concepts",
    "Demand, Supply and Market Equilibrium",
@@ -5270,7 +5270,7 @@
   "faculty": "Education",
   "kind": "subjective",
   "pageCount": 8,
-  "itemCount": 35,
+  "itemCount": 34,
   "topics": [
    "Human Development: Concepts and Principles",
    "Stages of Development and Developmental Tasks",
@@ -5675,7 +5675,7 @@
   "faculty": "Education",
   "kind": "subjective",
   "pageCount": 11,
-  "itemCount": 38,
+  "itemCount": 35,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -6290,7 +6290,7 @@
   "faculty": "English",
   "kind": "subjective",
   "pageCount": 11,
-  "itemCount": 60,
+  "itemCount": 50,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -7105,7 +7105,7 @@
   "faculty": "English",
   "kind": "mcqs",
   "pageCount": 49,
-  "itemCount": 328,
+  "itemCount": 329,
   "topics": [
    "Origins of Language Curriculum Design",
    "From Syllabus Design to Curriculum Development",
@@ -7130,7 +7130,7 @@
   "faculty": "English",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 29,
+  "itemCount": 28,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -7209,7 +7209,7 @@
   "faculty": "English",
   "kind": "subjective",
   "pageCount": 6,
-  "itemCount": 25,
+  "itemCount": 21,
   "topics": [
    "Key Concepts and Definitions",
    "Short Questions",
@@ -7783,7 +7783,7 @@
   "faculty": "Human Resources",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 45,
+  "itemCount": 34,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -8036,7 +8036,7 @@
   "faculty": "Microbiology",
   "kind": "subjective",
   "pageCount": 11,
-  "itemCount": 33,
+  "itemCount": 32,
   "topics": [
    "Questions from Past Midterm Papers",
    "DNA Structure and Genetic Material",
@@ -8940,7 +8940,7 @@
   "faculty": "Management Sciences",
   "kind": "subjective",
   "pageCount": 10,
-  "itemCount": 34,
+  "itemCount": 24,
   "topics": [
    "Project Manager & Project Management",
    "Foundations of Management & Projects",
@@ -9048,7 +9048,7 @@
   "faculty": "Management Sciences",
   "kind": "subjective",
   "pageCount": 11,
-  "itemCount": 50,
+  "itemCount": 40,
   "topics": [
    "Basic Concepts of Accounting",
    "Accounting Equation & Classification of Accounts",
@@ -9352,7 +9352,7 @@
   "faculty": "Management Sciences",
   "kind": "mcqs",
   "pageCount": 39,
-  "itemCount": 278,
+  "itemCount": 277,
   "topics": [
    "The Financial System, Instruments, Markets & Institutions",
    "Money, Payments & the Monetary Aggregates",
@@ -9375,7 +9375,7 @@
   "faculty": "Management Sciences",
   "kind": "subjective",
   "pageCount": 13,
-  "itemCount": 38,
+  "itemCount": 33,
   "topics": [
    "The Financial System & Financial Intermediaries",
    "Money, Payments & Information Problems",
@@ -9471,7 +9471,7 @@
   "faculty": "Management Sciences",
   "kind": "subjective",
   "pageCount": 11,
-  "itemCount": 44,
+  "itemCount": 43,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -9553,7 +9553,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 10,
-  "itemCount": 44,
+  "itemCount": 36,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -9583,7 +9583,7 @@
   "faculty": "Management Sciences",
   "kind": "subjective",
   "pageCount": 15,
-  "itemCount": 72,
+  "itemCount": 69,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -9620,7 +9620,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 24,
+  "itemCount": 22,
   "topics": [
    "Legal and Political Environment",
    "International Trade Theories",
@@ -9787,7 +9787,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 39,
+  "itemCount": 31,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -9970,7 +9970,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 38,
+  "itemCount": 29,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -10041,7 +10041,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 33,
+  "itemCount": 29,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -10079,7 +10079,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 32,
+  "itemCount": 29,
   "topics": [
    "Introduction, Strategy and Productivity",
    "The Decision Process",
@@ -10382,7 +10382,7 @@
   "faculty": "Marketing",
   "kind": "subjective",
   "pageCount": 12,
-  "itemCount": 35,
+  "itemCount": 31,
   "topics": [
    "Overview of International Marketing",
    "International Marketing Process and Company Orientations",
@@ -10465,7 +10465,7 @@
   "faculty": "Mathematics",
   "kind": "subjective",
   "pageCount": 11,
-  "itemCount": 100,
+  "itemCount": 103,
   "topics": [
    "Sets and Number Systems",
    "Complex Numbers",
@@ -10753,7 +10753,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 8,
-  "itemCount": 56,
+  "itemCount": 55,
   "topics": [
    "Percentages, Ratios and Proportions",
    "Discounts, Markup and Markdown",
@@ -10792,7 +10792,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 4,
-  "itemCount": 21,
+  "itemCount": 20,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -12626,7 +12626,7 @@
   "faculty": "Psychology",
   "kind": "subjective",
   "pageCount": 7,
-  "itemCount": 24,
+  "itemCount": 22,
   "topics": [
    "Foundations of Statistics in Psychology",
    "Research Methods and SPSS",
@@ -12863,7 +12863,7 @@
   "faculty": "Virtual University of Pakistan",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 29,
+  "itemCount": 25,
   "topics": [
    "Short Questions",
    "Long Questions"
@@ -13169,7 +13169,7 @@
   "faculty": "Statistics",
   "kind": "subjective",
   "pageCount": 9,
-  "itemCount": 51,
+  "itemCount": 50,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -13203,7 +13203,7 @@
   "faculty": "Statistics",
   "kind": "subjective",
   "pageCount": 4,
-  "itemCount": 19,
+  "itemCount": 18,
   "topics": [
    "Time Series and Secular Trend",
    "Seasonal Variations and Seasonal Indices",
@@ -13316,7 +13316,7 @@
   "faculty": "Statistics",
   "kind": "subjective",
   "pageCount": 4,
-  "itemCount": 15,
+  "itemCount": 14,
   "topics": [
    "Core Subjective Topics"
   ],
@@ -13991,7 +13991,7 @@
   "faculty": "Zoology",
   "kind": "subjective",
   "pageCount": 19,
-  "itemCount": 63,
+  "itemCount": 56,
   "topics": [
    "Core Subjective Topics"
   ],
