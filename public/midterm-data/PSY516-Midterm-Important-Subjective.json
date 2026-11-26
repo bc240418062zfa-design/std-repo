@@ -9,7 +9,7 @@
  "headerTitle": "PSY516 — Statistics in Psychology",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 7,
- "itemCount": 24,
+ "itemCount": 22,
  "topics": [
   "Foundations of Statistics in Psychology",
   "Research Methods and SPSS",
@@ -44,14 +44,7 @@
    "topic": "Foundations of Statistics in Psychology",
    "question": "Differentiate between discrete and continuous variables. What are real limits?",
    "marks": null,
-   "answer": "A discrete variable consists of separate, indivisible categories; no values can exist between two neighbouring categories. Such variables are commonly restricted to whole, countable numbers — e.g. the number of children in a family can be 18 or 19 students in class, never"
-  },
-  {
-   "number": 18,
-   "topic": "Foundations of Statistics in Psychology",
-   "question": "5. A continuous variable can take an infinite number of possible values between any two observed values and is divisible into an infinite number of fractional parts — e.g. time, height and weight. Because a continuous measurement is actually an interval, each score is defined by boundaries called real limits, positioned exactly halfway between adjacent scores: a weight of X = 150 pounds represents the interval from the lower real limit 149.5 to the upper real limit 150.5. Two consequences follow: identical measurements for two individuals should be very rare, and each category must be defined by its real limits.",
-   "marks": null,
-   "answer": ""
+   "answer": "A discrete variable consists of separate, indivisible categories; no values can exist between two neighbouring categories. Such variables are commonly restricted to whole, countable numbers — e.g. the number of children in a family can be 18 or 19 students in class, never 18.5. A continuous variable can take an infinite number of possible values between any two observed values and is divisible into an infinite number of fractional parts — e.g. time, height and weight. Because a continuous measurement is actually an interval, each score is defined by boundaries called real limits, positioned exactly halfway between adjacent scores: a weight of X = 150 pounds represents the interval from the lower real limit 149.5 to the upper real limit 150.5. Two consequences follow: identical measurements for two individuals should be very rare, and each category must be defined by its real limits."
   },
   {
    "number": 5,
@@ -63,9 +56,9 @@
   {
    "number": 6,
    "topic": "Research Methods and SPSS",
-   "question": "What are quasi-experiments and other non-experimental methods?",
+   "question": "What are quasi-experiments and other non-experimental methods? State their advantages and disadvantages.",
    "marks": null,
-   "answer": "State their advantages and disadvantages. Non-experimental designs include correlational designs, quasi-experiments, case studies and observational designs. A quasi-experiment manipulates an independent variable (the quasi-independent variable) but has no random assignment of participants to conditions; its two subtypes are nonequivalent-groups studies, which compare pre-existing groups (e.g. boys vs girls, 8-year-olds vs 10-year-olds), and pre-post studies, which measure the same variable before and after a treatment without controlling the passage of time. A single case study is an intensive, detailed description and analysis of one case using interviews, tests and observations. Observational designs collect data by direct observation (participant, structured, or field experiments) or indirect observation (archival records, physical traces). Advantages: they provide new ideas and hypotheses, are the best method for rare phenomena, allow trying new therapeutic interventions, and can challenge or generate theories. Disadvantages: cause-and-effect assumptions are difficult, findings are often subjective and biased, generalization is problematic, and selection biases occur."
+   "answer": "Non-experimental designs include correlational designs, quasi-experiments, case studies and observational designs. A quasi-experiment manipulates an independent variable (the quasi-independent variable) but has no random assignment of participants to conditions; its two subtypes are nonequivalent-groups studies, which compare pre-existing groups (e.g. boys vs girls, 8-year-olds vs 10-year-olds), and pre-post studies, which measure the same variable before and after a treatment without controlling the passage of time. A single case study is an intensive, detailed description and analysis of one case using interviews, tests and observations. Observational designs collect data by direct observation (participant, structured, or field experiments) or indirect observation (archival records, physical traces). Advantages: they provide new ideas and hypotheses, are the best method for rare phenomena, allow trying new therapeutic interventions, and can challenge or generate theories. Disadvantages: cause-and-effect assumptions are difficult, findings are often subjective and biased, generalization is problematic, and selection biases occur."
   },
   {
    "number": 7,
@@ -77,9 +70,9 @@
   {
    "number": 8,
    "topic": "Frequency Distributions, Central Tendency and Variability",
-   "question": "What is a frequency distribution?",
+   "question": "What is a frequency distribution? Explain grouped frequency distributions and the rules for constructing them.",
    "marks": null,
-   "answer": "Explain grouped frequency distributions and the rules for constructing them. A frequency distribution is an organized tabulation of the number of individuals located in each category on the scale of measurement. It presents two elements: the set of categories that make up the original measurement scale, and a record of the frequency (f), or number of individuals, in each category. Proportions (p = f/N, also called relative frequencies) and percentages (p × 100) can be added as further columns. When scores cover a wide range, listing every score would need too many rows, so scores are grouped into class intervals, producing a grouped frequency distribution table. The rules of thumb are: use about 5 to 10 intervals (roughly 10) that cover the whole range; make all intervals the same width; choose a simple width (e.g. 5 or 10); and start the lowest interval at a multiple of the width so that the lowest score is included. For interval or ratio data the distribution is graphed as a histogram or polygon; for nominal or ordinal data a bar graph with spaces between bars is used."
+   "answer": "A frequency distribution is an organized tabulation of the number of individuals located in each category on the scale of measurement. It presents two elements: the set of categories that make up the original measurement scale, and a record of the frequency (f), or number of individuals, in each category. Proportions (p = f/N, also called relative frequencies) and percentages (p × 100) can be added as further columns. When scores cover a wide range, listing every score would need too many rows, so scores are grouped into class intervals, producing a grouped frequency distribution table. The rules of thumb are: use about 5 to 10 intervals (roughly 10) that cover the whole range; make all intervals the same width; choose a simple width (e.g. 5 or 10); and start the lowest interval at a multiple of the width so that the lowest score is included. For interval or ratio data the distribution is graphed as a histogram or polygon; for nominal or ordinal data a bar graph with spaces between bars is used."
   },
   {
    "number": 9,
@@ -98,9 +91,9 @@
   {
    "number": 11,
    "topic": "Frequency Distributions, Central Tendency and Variability",
-   "question": "For the scores 6, 8, 8, 10, 12, 8, 14, compute the mean, median and mode. Show your working. Step 1 — Mean: Σx = 6 + 8 + 8 + 10 + 12 + 8 + 14 = 66; n = 7; M = Σx/n = 66/7 ≈ 9.43. Step 2 — Median: arrange the scores in order: 6, 8, 8, 8, 10, 12, 14. With n = 7 (odd), the median is the middle (4th) score = 8. Step 3 — Mode: the most frequent score is 8, which occurs three times, so the mode = 8. The mean (9.43) is pulled above the median by the high score of 14, while the median and mode (both 8) better represent the typical score.",
+   "question": "For the scores 6, 8, 8, 10, 12, 8, 14, compute the mean, median and mode. Show your working.",
    "marks": null,
-   "answer": ""
+   "answer": "Step 1 — Mean: Σx = 6 + 8 + 8 + 10 + 12 + 8 + 14 = 66; n = 7; M = Σx/n = 66/7 ≈ 9.43. Step 2 — Median: arrange the scores in order: 6, 8, 8, 8, 10, 12, 14. With n = 7 (odd), the median is the middle (4th) score = 8. Step 3 — Mode: the most frequent score is 8, which occurs three times, so the mode = 8. The mean (9.43) is pulled above the median by the high score of 14, while the median and mode (both 8) better represent the typical score."
   },
   {
    "number": 12,
@@ -112,16 +105,16 @@
   {
    "number": 13,
    "topic": "Frequency Distributions, Central Tendency and Variability",
-   "question": "Why does the formula for sample variance divide by n - 1 rather than n?",
+   "question": "Why does the formula for sample variance divide by n - 1 rather than n? Discuss biased and unbiased estimators.",
    "marks": null,
-   "answer": "Discuss biased and unbiased estimators. Samples consistently tend to be less variable than their populations, because the extreme scores that make population variability large are unlikely to be selected in a sample. Sample variability computed with n in the denominator therefore gives a biased estimate that systematically underestimates the population variance. The correction is to divide SS by n - 1 (the degrees of freedom, df = n - 1 — the number of scores that are independent and free to vary). Dividing by the smaller number increases the value just enough to remove the bias. A statistic is unbiased if the average of all possible sample values of that statistic equals the population parameter; it is biased if that average systematically underestimates or overestimates the parameter. With the n - 1 adjustment, sample variance is an unbiased estimator of population variance: individual samples may over- or underestimate, but on average they are accurate."
+   "answer": "Samples consistently tend to be less variable than their populations, because the extreme scores that make population variability large are unlikely to be selected in a sample. Sample variability computed with n in the denominator therefore gives a biased estimate that systematically underestimates the population variance. The correction is to divide SS by n - 1 (the degrees of freedom, df = n - 1 — the number of scores that are independent and free to vary). Dividing by the smaller number increases the value just enough to remove the bias. A statistic is unbiased if the average of all possible sample values of that statistic equals the population parameter; it is biased if that average systematically underestimates or overestimates the parameter. With the n - 1 adjustment, sample variance is an unbiased estimator of population variance: individual samples may over- or underestimate, but on average they are accurate."
   },
   {
    "number": 14,
    "topic": "Z-Scores, Probability and Sampling Distributions",
-   "question": "What is a z-score?",
+   "question": "What is a z-score? State its formula and the properties of a z-score distribution. Convert X = 130 from a distribution with μ = 100 and σ = 15 into a z-score.",
    "marks": null,
-   "answer": "State its formula and the properties of a z-score distribution. Convert X = 130 from a distribution with μ = 100 and σ = 15 into a z-score. A z-score specifies the precise location of each X value within a distribution: its sign tells whether the score is above (+) or below (-) the mean, and its numerical value tells the distance from the mean counted in standard deviations. The formula is z = (X - μ)/σ for a population (and z = (X - M)/s for a sample); conversely X = μ + zσ. If every score is transformed, the z-score distribution has three properties: (1) Shape — exactly the same shape as the original distribution, because transformation only relabels scores without moving them; (2) Mean — always 0, since the original mean becomes z = 0; (3) Standard deviation — always 1, so the z value itself equals the number of standard deviations from the mean. Worked example: z = (130 - 100)/15 = 30/15 = +2.00, meaning the score lies 2 standard deviations above the mean."
+   "answer": "A z-score specifies the precise location of each X value within a distribution: its sign tells whether the score is above (+) or below (-) the mean, and its numerical value tells the distance from the mean counted in standard deviations. The formula is z = (X - μ)/σ for a population (and z = (X - M)/s for a sample); conversely X = μ + zσ. If every score is transformed, the z-score distribution has three properties: (1) Shape — exactly the same shape as the original distribution, because transformation only relabels scores without moving them; (2) Mean — always 0, since the original mean becomes z = 0; (3) Standard deviation — always 1, so the z value itself equals the number of standard deviations from the mean. Worked example: z = (130 - 100)/15 = 30/15 = +2.00, meaning the score lies 2 standard deviations above the mean."
   },
   {
    "number": 15,
@@ -133,9 +126,9 @@
   {
    "number": 16,
    "topic": "Z-Scores, Probability and Sampling Distributions",
-   "question": "IQ scores form a normal distribution with μ = 100 and σ = 15. Find the probability of randomly selecting an individual with an IQ score less than 120. Show the two-step procedure. Step 1 — Transform the X value into a z-score: z = (X - μ)/σ = (120 - 100)/15 = 20/15 = +1.33. So IQ scores less than 120 correspond to z-scores less than +1.33. Step 2 — Use the unit normal table: because we want the proportion of the distribution in the body to the left of this point, we read column B (proportion in the body) for z = 1.33, which gives 0.9082. Therefore p(X < 120) = p(z < 1.33) = 0.9082, i.e. there is about a 90.82% probability that a randomly selected individual has an IQ below 120. (Sketching the normal curve and shading the required area first is recommended to avoid errors.)",
+   "question": "IQ scores form a normal distribution with μ = 100 and σ = 15. Find the probability of randomly selecting an individual with an IQ score less than 120. Show the two-step procedure.",
    "marks": null,
-   "answer": ""
+   "answer": "Step 1 — Transform the X value into a z-score: z = (X - μ)/σ = (120 - 100)/15 = 20/15 = +1.33. So IQ scores less than 120 correspond to z-scores less than +1.33. Step 2 — Use the unit normal table: because we want the proportion of the distribution in the body to the left of this point, we read column B (proportion in the body) for z = 1.33, which gives 0.9082. Therefore p(X < 120) = p(z < 1.33) = 0.9082, i.e. there is about a 90.82% probability that a randomly selected individual has an IQ below 120. (Sketching the normal curve and shading the required area first is recommended to avoid errors.)"
   },
   {
    "number": 17,
@@ -147,23 +140,16 @@
   {
    "number": 18,
    "topic": "Z-Scores, Probability and Sampling Distributions",
-   "question": "What is a sampling distribution?",
+   "question": "What is a sampling distribution? Describe the central limit theorem and the standard error of the mean, with an example.",
    "marks": null,
-   "answer": "Describe the central limit theorem and the standard error of the mean, with an example. A sampling distribution is a distribution of statistics obtained by selecting all possible samples of a specific size from a population; the distribution of sample means (the sampling distribution of M) is the collection of means of all possible random samples of size n. The central limit theorem describes it precisely: for any population with mean μ and standard deviation σ, the distribution of sample means for sample size n will (1) have a mean equal to μ — called the expected value of M; (2) have a standard deviation of σ/√n; and (3) approach a normal distribution as n increases (it is almost perfectly normal if the population is normal or n is around 30 or more). The standard deviation of this distribution, σM = σ/√n, is called the standard error of M: it describes how much difference is expected between sample means and how well a single sample mean represents the population. Example: with σ = 20 and n = 25, σM = 20/√25 = 20/5 = 4. By the law of large numbers, larger samples give smaller standard errors and sample means closer to μ."
+   "answer": "A sampling distribution is a distribution of statistics obtained by selecting all possible samples of a specific size from a population; the distribution of sample means (the sampling distribution of M) is the collection of means of all possible random samples of size n. The central limit theorem describes it precisely: for any population with mean μ and standard deviation σ, the distribution of sample means for sample size n will (1) have a mean equal to μ — called the expected value of M; (2) have a standard deviation of σ/√n; and (3) approach a normal distribution as n increases (it is almost perfectly normal if the population is normal or n is around 30 or more). The standard deviation of this distribution, σM = σ/√n, is called the standard error of M: it describes how much difference is expected between sample means and how well a single sample mean represents the population. Example: with σ = 20 and n = 25, σM = 20/√25 = 20/5 = 4. By the law of large numbers, larger samples give smaller standard errors and sample means closer to μ."
   },
   {
    "number": 19,
    "topic": "Confidence Intervals and Hypothesis Testing",
-   "question": "What is a confidence interval?",
+   "question": "What is a confidence interval? Construct the 95% confidence interval for the mean age of graduate students when a sample of n = 30 has M = 33 years and SD = 4.3 years.",
    "marks": null,
-   "answer": "Construct the 95% confidence interval for the mean age of graduate students when a sample of n = 30 has M = 33 years and SD = 4.3 years. A confidence interval is an interval, or range of values, centred around a sample statistic (the point estimate), within which the true population parameter is expected to lie; the most common confidence level is 95%, and a 100% interval is impossible unless the whole population is measured. Wider confidence (99%) gives a wider interval than 95% from the same sample. Construction: the standard error of the mean is SEM = s/√n = 4.3/√30 ≈"
-  },
-  {
-   "number": 4,
-   "topic": "Confidence Intervals and Hypothesis Testing",
-   "question": "3/5.48 ≈ 0.79. For a 95% interval we add and subtract about 2 standard errors (≈1.96 exactly): CI = M ± 2(SEM) = 33 ± 2(0.79) = 33 ± 1.57, giving approximately 31.43 to 34.57 years. Interpretation: we are 95% confident that the mean age of the entire population of graduate students lies between about 31.4 and 34.6 years; 95% of intervals constructed this way contain the true mean, and 5% do not.",
-   "marks": null,
-   "answer": ""
+   "answer": "A confidence interval is an interval, or range of values, centred around a sample statistic (the point estimate), within which the true population parameter is expected to lie; the most common confidence level is 95%, and a 100% interval is impossible unless the whole population is measured. Wider confidence (99%) gives a wider interval than 95% from the same sample. Construction: the standard error of the mean is SEM = s/√n = 4.3/√30 ≈ 4.3/5.48 ≈ 0.79. For a 95% interval we add and subtract about 2 standard errors (≈1.96 exactly): CI = M ± 2(SEM) = 33 ± 2(0.79) = 33 ± 1.57, giving approximately 31.43 to 34.57 years. Interpretation: we are 95% confident that the mean age of the entire population of graduate students lies between about 31.4 and 34.6 years; 95% of intervals constructed this way contain the true mean, and 5% do not."
   },
   {
    "number": 20,

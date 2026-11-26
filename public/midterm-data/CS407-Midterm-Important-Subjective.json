@@ -9,7 +9,7 @@
  "headerTitle": "CS407 — Routing and Switching",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 9,
- "itemCount": 41,
+ "itemCount": 36,
  "topics": [
   "Network Fundamentals and IOS",
   "Network Layer and IPv4 Addressing",
@@ -108,49 +108,21 @@
    "topic": "Network Layer and IPv4 Addressing",
    "question": "Differentiate between directed broadcast and limited broadcast.",
    "marks": null,
-   "answer": "A directed broadcast is sent to all hosts on a specific network; it is useful for sending a broadcast to all hosts on a non-local network - for example, a packet addressed to"
-  },
-  {
-   "number": 172,
-   "topic": "Network Layer and IPv4 Addressing",
-   "question": "16.4.255 reaches all hosts of the 172.16.4.0/24 network. Routers do not forward directed broadcasts by default, although they may be configured to do so. A limited broadcast is used for communication limited to the hosts on the local network only; such packets always use the destination IPv4 address 255.255.255.255, and routers never forward a limited broadcast, which is why an IPv4 network is also called a broadcast domain and routers form its boundary.",
-   "marks": null,
-   "answer": ""
+   "answer": "A directed broadcast is sent to all hosts on a specific network; it is useful for sending a broadcast to all hosts on a non-local network - for example, a packet addressed to 172.16.4.255 reaches all hosts of the 172.16.4.0/24 network. Routers do not forward directed broadcasts by default, although they may be configured to do so. A limited broadcast is used for communication limited to the hosts on the local network only; such packets always use the destination IPv4 address 255.255.255.255, and routers never forward a limited broadcast, which is why an IPv4 network is also called a broadcast domain and routers form its boundary."
   },
   {
    "number": 14,
    "topic": "Network Layer and IPv4 Addressing",
    "question": "What are private IPv4 addresses? Why are they not propagated on the Internet?",
    "marks": null,
-   "answer": "Private addresses are blocks of addresses used in networks that require limited or no Internet access. The private address blocks are 10.0.0.0/8 (10.0.0.0 to 10.255.255.255),"
-  },
-  {
-   "number": 172,
-   "topic": "Network Layer and IPv4 Addressing",
-   "question": "16.0.0/12 (172.16.0.0 to 172.31.255.255) and 192.168.0.0/16 (192.168.0.0 to",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 192,
-   "topic": "Network Layer and IPv4 Addressing",
-   "question": "168.255.255), as defined in RFC 1918. Packets with a source or destination private IP address are not propagated by Internet routers; Internet routers and firewalls block or translate these addresses. Private addresses are usually converted to public IP addresses using NAT (Network Address Translation) so that internal hosts can access the Internet.",
-   "marks": null,
-   "answer": ""
+   "answer": "Private addresses are blocks of addresses used in networks that require limited or no Internet access. The private address blocks are 10.0.0.0/8 (10.0.0.0 to 10.255.255.255), 172.16.0.0/12 (172.16.0.0 to 172.31.255.255) and 192.168.0.0/16 (192.168.0.0 to 192.168.255.255), as defined in RFC 1918. Packets with a source or destination private IP address are not propagated by Internet routers; Internet routers and firewalls block or translate these addresses. Private addresses are usually converted to public IP addresses using NAT (Network Address Translation) so that internal hosts can access the Internet."
   },
   {
    "number": 15,
    "topic": "Network Layer and IPv4 Addressing",
    "question": "Write a short note on loopback and link-local IPv4 addresses.",
    "marks": null,
-   "answer": "The loopback address 127.0.0.1 is a special address that hosts use to direct traffic to themselves; it lets TCP/IP applications and services running on the same device communicate with one another while bypassing the lower layers of the TCP/IP stack, and pinging it tests the TCP/IP configuration of the local host. The whole block 127.0.0.0 to"
-  },
-  {
-   "number": 127,
-   "topic": "Network Layer and IPv4 Addressing",
-   "question": "255.255.255 is reserved and no address from it should ever appear on any network. Link-local addresses are in the block 169.254.0.0/16 (169.254.0.0 to 169.254.255.255); they can be automatically assigned to the local host by the operating system when no IP configuration is available, for example in a small peer-to-peer network or when a host cannot obtain an address from a DHCP server.",
-   "marks": null,
-   "answer": ""
+   "answer": "The loopback address 127.0.0.1 is a special address that hosts use to direct traffic to themselves; it lets TCP/IP applications and services running on the same device communicate with one another while bypassing the lower layers of the TCP/IP stack, and pinging it tests the TCP/IP configuration of the local host. The whole block 127.0.0.0 to 127.255.255.255 is reserved and no address from it should ever appear on any network. Link-local addresses are in the block 169.254.0.0/16 (169.254.0.0 to 169.254.255.255); they can be automatically assigned to the local host by the operating system when no IP configuration is available, for example in a small peer-to-peer network or when a host cannot obtain an address from a DHCP server."
   },
   {
    "number": 16,
@@ -295,16 +267,9 @@
   {
    "number": 36,
    "topic": "Access Control Lists",
-   "question": "What is a wildcard mask?",
+   "question": "What is a wildcard mask? Explain its matching rules and the keywords 'host' and 'any'.",
    "marks": null,
-   "answer": "Explain its matching rules and the keywords 'host' and 'any'. A wildcard mask is a string of 32 binary digits used by the router in ACL statements to determine which bits of an address to examine for a match. Unlike a subnet mask, which uses 1s and 0s to identify the network, subnet and host portions of an address, a wildcard mask follows these rules: a wildcard mask bit 0 means 'match the corresponding bit value in the address', and a wildcard mask bit 1 means 'ignore the corresponding bit value in the address'. Two keywords simplify common cases: the host keyword substitutes for the mask"
-  },
-  {
-   "number": 0,
-   "topic": "Access Control Lists",
-   "question": "0.0.0, meaning all address bits must match so that only one specific host is matched; the any keyword substitutes for the IP address and the mask 255.255.255.255, meaning the entire IPv4 address is ignored and any address is accepted.",
-   "marks": null,
-   "answer": ""
+   "answer": "A wildcard mask is a string of 32 binary digits used by the router in ACL statements to determine which bits of an address to examine for a match. Unlike a subnet mask, which uses 1s and 0s to identify the network, subnet and host portions of an address, a wildcard mask follows these rules: a wildcard mask bit 0 means 'match the corresponding bit value in the address', and a wildcard mask bit 1 means 'ignore the corresponding bit value in the address'. Two keywords simplify common cases: the host keyword substitutes for the mask 0.0.0.0, meaning all address bits must match so that only one specific host is matched; the any keyword substitutes for the IP address and the mask 255.255.255.255, meaning the entire IPv4 address is ignored and any address is accepted."
   }
  ]
 }

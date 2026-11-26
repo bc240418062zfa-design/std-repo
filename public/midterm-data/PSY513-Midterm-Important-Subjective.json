@@ -22,9 +22,9 @@
   {
    "number": 1,
    "topic": "Foundations and Police Psychology",
-   "question": "Define forensic psychology.",
+   "question": "Define forensic psychology. Also describe its scope and main activities.",
    "marks": null,
-   "answer": "Also describe its scope and main activities. Forensic psychology is the application of psychological knowledge, methods and research to issues relating to law and the legal system (Wrightsman); Bartol and Bartol describe it as research and practice relating to the legal system and the professionals who work in it. Its scope is very broad: it includes police psychology, investigative psychology and offender profiling, psychological assessment of offenders and suspects, expert testimony in court, child custody evaluations, assessment of competency and criminal responsibility, false confession research, psychological autopsies, correctional psychology and work with victims. Forensic psychologists work with police, courts, prisons and legal professionals, which is why the recommended route is to qualify first as a clinical psychologist and then specialise in forensic work."
+   "answer": "Forensic psychology is the application of psychological knowledge, methods and research to issues relating to law and the legal system (Wrightsman); Bartol and Bartol describe it as research and practice relating to the legal system and the professionals who work in it. Its scope is very broad: it includes police psychology, investigative psychology and offender profiling, psychological assessment of offenders and suspects, expert testimony in court, child custody evaluations, assessment of competency and criminal responsibility, false confession research, psychological autopsies, correctional psychology and work with victims. Forensic psychologists work with police, courts, prisons and legal professionals, which is why the recommended route is to qualify first as a clinical psychologist and then specialise in forensic work."
   },
   {
    "number": 2,
@@ -36,23 +36,23 @@
   {
    "number": 3,
    "topic": "Foundations and Police Psychology",
-   "question": "What is excessive force?",
+   "question": "What is excessive force? Discuss its causes and how it can be combated at different levels.",
    "marks": null,
-   "answer": "Discuss its causes and how it can be combated at different levels. Excessive force exists when the level of force used by a police officer exceeds that which is justifiable in the situation. Bartol (1982) found that officers prone to excessive force fall into two personality groups: those with an antisocial personality pattern and those with an ineffectual personality pattern; certain PERSEREC traits also correlate with brutality and corruption. It can be combated at three levels: (1) Selection — screening-out applicants with antisocial or ineffectual traits through psychological testing; (2) Training — teaching empathy, communication, customer service and lawful use-of-force judgement; (3) Counselling and supervision — stress management, monitoring of complaint-prone officers, and fitness-for-duty evaluations after critical incidents."
+   "answer": "Excessive force exists when the level of force used by a police officer exceeds that which is justifiable in the situation. Bartol (1982) found that officers prone to excessive force fall into two personality groups: those with an antisocial personality pattern and those with an ineffectual personality pattern; certain PERSEREC traits also correlate with brutality and corruption. It can be combated at three levels: (1) Selection — screening-out applicants with antisocial or ineffectual traits through psychological testing; (2) Training — teaching empathy, communication, customer service and lawful use-of-force judgement; (3) Counselling and supervision — stress management, monitoring of complaint-prone officers, and fitness-for-duty evaluations after critical incidents."
   },
   {
    "number": 4,
    "topic": "Foundations and Police Psychology",
-   "question": "Discuss the MMPI as a tool of police selection.",
+   "question": "Discuss the MMPI as a tool of police selection. List its validity and clinical scales.",
    "marks": null,
-   "answer": "List its validity and clinical scales. The Minnesota Multiphasic Personality Inventory (MMPI) was developed in 1940 at the University of Minnesota and contains 567 true/false items. It is widely used in screening-out unsuitable police applicants. It has 6 validity scales, which detect lying, defensiveness, random responding and exaggeration, and 10 clinical scales, in order: 1. Hs — Hypochondriasis, 2. D — Depression, 3. Hy — Hysteria, 4. Pd — Psychopathic Deviate, 5. Mf — Masculinity/Femininity, 6. Pa — Paranoia, 7. Pt — Psychasthenia, 8. Sc — Schizophrenia, 9. Ma — Hypomania, 10. Si — Social Introversion. Elevated profiles, especially on Pd and Ma, help identify applicants at risk of misconduct, impulsivity and excessive force."
+   "answer": "The Minnesota Multiphasic Personality Inventory (MMPI) was developed in 1940 at the University of Minnesota and contains 567 true/false items. It is widely used in screening-out unsuitable police applicants. It has 6 validity scales, which detect lying, defensiveness, random responding and exaggeration, and 10 clinical scales, in order: 1. Hs — Hypochondriasis, 2. D — Depression, 3. Hy — Hysteria, 4. Pd — Psychopathic Deviate, 5. Mf — Masculinity/Femininity, 6. Pa — Paranoia, 7. Pt — Psychasthenia, 8. Sc — Schizophrenia, 9. Ma — Hypomania, 10. Si — Social Introversion. Elevated profiles, especially on Pd and Ma, help identify applicants at risk of misconduct, impulsivity and excessive force."
   },
   {
    "number": 5,
    "topic": "Foundations and Police Psychology",
-   "question": "What are false confessions?",
+   "question": "What are false confessions? Describe Kassin's three types.",
    "marks": null,
-   "answer": "Describe Kassin's three types. A false confession is an admission of guilt for a crime the person did not commit — a serious problem documented in cases such as the Lindbergh kidnapping (1932), where more than 200 people confessed. Kassin (1997) classified false confessions into three types: (1) Voluntary false confessions — given without police pressure, for attention and publicity, or to protect the real offender. (2) Coerced-compliant false confessions — the suspect knows he is innocent but confesses to escape the pressure of interrogation or to gain a promised benefit. (3) Coerced-internalized false confessions — through suggestive interrogation the suspect actually comes to believe that he committed the crime."
+   "answer": "A false confession is an admission of guilt for a crime the person did not commit — a serious problem documented in cases such as the Lindbergh kidnapping (1932), where more than 200 people confessed. Kassin (1997) classified false confessions into three types: (1) Voluntary false confessions — given without police pressure, for attention and publicity, or to protect the real offender. (2) Coerced-compliant false confessions — the suspect knows he is innocent but confesses to escape the pressure of interrogation or to gain a promised benefit. (3) Coerced-internalized false confessions — through suggestive interrogation the suspect actually comes to believe that he committed the crime."
   },
   {
    "number": 6,
@@ -85,9 +85,9 @@
   {
    "number": 10,
    "topic": "Psychodynamic Perspectives",
-   "question": "How does Freud interpret dreams?",
+   "question": "How does Freud interpret dreams? Discuss dream interpretation in the Freudian model.",
    "marks": null,
-   "answer": "Discuss dream interpretation in the Freudian model. For Freud, dreams are the 'royal road to the unconscious': they are disguised fulfilments of repressed wishes, mostly sexual in origin. Every dream symbol is ultimately a manifestation of sexual desires and of conflicts rooted in the psychosexual stages. The manifest content (the dream as remembered) hides the latent content (the true unconscious wish), transformed by dream-work processes such as condensation and displacement. The analyst uncovers the latent content through the patient's free association to the dream elements. Jung disagreed: he held that different symbols carry different, often archetypal and prospective meanings rather than uniformly sexual ones."
+   "answer": "For Freud, dreams are the 'royal road to the unconscious': they are disguised fulfilments of repressed wishes, mostly sexual in origin. Every dream symbol is ultimately a manifestation of sexual desires and of conflicts rooted in the psychosexual stages. The manifest content (the dream as remembered) hides the latent content (the true unconscious wish), transformed by dream-work processes such as condensation and displacement. The analyst uncovers the latent content through the patient's free association to the dream elements. Jung disagreed: he held that different symbols carry different, often archetypal and prospective meanings rather than uniformly sexual ones."
   },
   {
    "number": 11,
@@ -120,9 +120,9 @@
   {
    "number": 15,
    "topic": "Behavioural and Social Learning Perspectives",
-   "question": "What is modeling?",
+   "question": "What is modeling? Discuss Bandura's social learning explanation of aggression.",
    "marks": null,
-   "answer": "Discuss Bandura's social learning explanation of aggression. Modeling is learning by observing and imitating a model — a live person or a symbolic model in media. Bandura argued that aggression is not inherited but learned through behaviour modeling: children who observe aggressive models (parents, peers, media heroes) acquire aggressive responses, especially when the model is reinforced — vicarious reinforcement. Four conditions are necessary for modeling: attention to the model, retention of the observed behaviour, motor reproduction (ability to perform it) and motivation. Similarity to the model, the model's prestige and the observability of the behaviour increase imitation. This is why children of aggressive, physically punishing parents tend to become bullies and aggressive adults."
+   "answer": "Modeling is learning by observing and imitating a model — a live person or a symbolic model in media. Bandura argued that aggression is not inherited but learned through behaviour modeling: children who observe aggressive models (parents, peers, media heroes) acquire aggressive responses, especially when the model is reinforced — vicarious reinforcement. Four conditions are necessary for modeling: attention to the model, retention of the observed behaviour, motor reproduction (ability to perform it) and motivation. Similarity to the model, the model's prestige and the observability of the behaviour increase imitation. This is why children of aggressive, physically punishing parents tend to become bullies and aggressive adults."
   },
   {
    "number": 16,
@@ -134,9 +134,9 @@
   {
    "number": 17,
    "topic": "Behavioural and Social Learning Perspectives",
-   "question": "'Punishment is not effective.' Discuss Skinner's position and its implications for violence. Skinner's experiments showed that mild punishment only temporarily suppresses behaviour, and that only consistent and intense punishment suppresses it completely — which is impractical and unethical with children. Punishment also generalises, suppressing desirable behaviour along with undesirable behaviour, and it can act as reinforcement when it gives the child the attention he wants. Its implications for violence are serious: physical punishment models aggression ('aggression begets aggression'), builds up rage, resentment and revenge fantasies, teaches the child to avoid the punisher rather than to behave well, and damages self-esteem; offenders frequently have childhood histories of physical punishment. Skinner's alternative is to reward desirable behaviour and ignore unwanted behaviour — energetic progress in good eliminates bad.",
+   "question": "'Punishment is not effective.' Discuss Skinner's position and its implications for violence.",
    "marks": null,
-   "answer": ""
+   "answer": "Skinner's experiments showed that mild punishment only temporarily suppresses behaviour, and that only consistent and intense punishment suppresses it completely — which is impractical and unethical with children. Punishment also generalises, suppressing desirable behaviour along with undesirable behaviour, and it can act as reinforcement when it gives the child the attention he wants. Its implications for violence are serious: physical punishment models aggression ('aggression begets aggression'), builds up rage, resentment and revenge fantasies, teaches the child to avoid the punisher rather than to behave well, and damages self-esteem; offenders frequently have childhood histories of physical punishment. Skinner's alternative is to reward desirable behaviour and ignore unwanted behaviour — energetic progress in good eliminates bad."
   },
   {
    "number": 18,
@@ -183,9 +183,9 @@
   {
    "number": 24,
    "topic": "Islamic Perspective and Criminogenic Personality",
-   "question": "What is antisocial personality disorder?",
+   "question": "What is antisocial personality disorder? Describe its main characteristics and the crimes typically committed by such individuals.",
    "marks": null,
-   "answer": "Describe its main characteristics and the crimes typically committed by such individuals. Antisocial Personality Disorder (APD) — popularly called psychopathy — is a pervasive disregard for the rights of others and the rules of society. It can only be diagnosed after age 18, usually with a history of antisocial behaviour before 15 (lying, truancy, delinquency, running away). Main characteristics: typically male; absolute disregard for others' rights; manipulative, deceitful and conning; blaming others; pathological lying; poor impulse control; irresponsibility; sexual promiscuity; poly-drug use; thrill seeking; hostage taking; no victim empathy; and absolutely no remorse, regret or guilt. Such individuals typically commit theft, robbery, assault, rape, prison escape, illegal drug use and selling, sexual crimes and exploitation of vulnerable people — ranging from opportunistic mobile snatching to planned bank robbery. The DSPD debate asks whether such dangerous persons should be treated by force, given that psychiatry cannot predict dangerousness precisely and the disorder is considered largely untreatable against the person's will."
+   "answer": "Antisocial Personality Disorder (APD) — popularly called psychopathy — is a pervasive disregard for the rights of others and the rules of society. It can only be diagnosed after age 18, usually with a history of antisocial behaviour before 15 (lying, truancy, delinquency, running away). Main characteristics: typically male; absolute disregard for others' rights; manipulative, deceitful and conning; blaming others; pathological lying; poor impulse control; irresponsibility; sexual promiscuity; poly-drug use; thrill seeking; hostage taking; no victim empathy; and absolutely no remorse, regret or guilt. Such individuals typically commit theft, robbery, assault, rape, prison escape, illegal drug use and selling, sexual crimes and exploitation of vulnerable people — ranging from opportunistic mobile snatching to planned bank robbery. The DSPD debate asks whether such dangerous persons should be treated by force, given that psychiatry cannot predict dangerousness precisely and the disorder is considered largely untreatable against the person's will."
   },
   {
    "number": 25,

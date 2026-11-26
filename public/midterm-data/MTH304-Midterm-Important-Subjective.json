@@ -9,7 +9,7 @@
  "headerTitle": "MTH304 — Mechanics",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 4,
- "itemCount": 21,
+ "itemCount": 20,
  "topics": [
   "Core Subjective Topics"
  ],
@@ -45,37 +45,30 @@
   {
    "number": 5,
    "topic": "Core Subjective Topics",
-   "question": "Two forces of magnitude 8 N and 10 N are acting on a particle. Find the resultant of these forces by applying the parallelogram law. Find also the angle made by the resultant with the 10 N force. In the force triangle, the angle opposite the resultant is 140 degrees. By the law of cosines, R^2 = 8^2 + 10^2 - 2(8)(10)cos(140 degrees) = 64 + 100 - 160(-0.766) = 286.57, so R = 17 N (approximately). By the law of sines, R/sin(140 degrees) = 8/sin(theta), so sin(theta) = 8 sin(140 degrees)/17 = 0.30, giving theta = 17.6 degrees. Hence the resultant is 17 N, making an angle of",
+   "question": "Two forces of magnitude 8 N and 10 N are acting on a particle. Find the resultant of these forces by applying the parallelogram law. Find also the angle made by the resultant with the 10 N force.",
    "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 17,
-   "topic": "Core Subjective Topics",
-   "question": "6 degrees with the 10 N force.",
-   "marks": null,
-   "answer": ""
+   "answer": "In the force triangle, the angle opposite the resultant is 140 degrees. By the law of cosines, R^2 = 8^2 + 10^2 - 2(8)(10)cos(140 degrees) = 64 + 100 - 160(-0.766) = 286.57, so R = 17 N (approximately). By the law of sines, R/sin(140 degrees) = 8/sin(theta), so sin(theta) = 8 sin(140 degrees)/17 = 0.30, giving theta = 17.6 degrees. Hence the resultant is 17 N, making an angle of 17.6 degrees with the 10 N force."
   },
   {
    "number": 6,
    "topic": "Core Subjective Topics",
-   "question": "Two forces of magnitude 10 N and 15 N are the resolved parts of a force of magnitude F N. Find the magnitude of the force F. In the force triangle, by the law of sines, 15/sin(30 degrees) = 10/sin(alpha), so sin(alpha) = (10/15) sin(30 degrees) = 1/3, giving alpha = 19.5 degrees. The third angle of the triangle is 180 degrees - 30 degrees - 19.5 degrees = 130.5 degrees. Again by the law of sines, F/sin(130.5 degrees) = 15/sin(30 degrees), so F = 30 sin(130.5 degrees) = 22.8 N.",
+   "question": "Two forces of magnitude 10 N and 15 N are the resolved parts of a force of magnitude F N. Find the magnitude of the force F.",
    "marks": null,
-   "answer": ""
+   "answer": "In the force triangle, by the law of sines, 15/sin(30 degrees) = 10/sin(alpha), so sin(alpha) = (10/15) sin(30 degrees) = 1/3, giving alpha = 19.5 degrees. The third angle of the triangle is 180 degrees - 30 degrees - 19.5 degrees = 130.5 degrees. Again by the law of sines, F/sin(130.5 degrees) = 15/sin(30 degrees), so F = 30 sin(130.5 degrees) = 22.8 N."
   },
   {
    "number": 7,
    "topic": "Core Subjective Topics",
-   "question": "Resolve a force of 1000 N acting at 40 degrees to the horizontal into its horizontal and vertical components. Let Fx and Fy be the horizontal and vertical components of the force. Then Fx = 1000 cos(40 degrees) = 1000 x 0.766 = 766 N, and Fy = 1000 sin(40 degrees) = 1000 x 0.643 = 643 N. Thus the horizontal component is 766 N and the vertical component is 643 N.",
+   "question": "Resolve a force of 1000 N acting at 40 degrees to the horizontal into its horizontal and vertical components.",
    "marks": null,
-   "answer": ""
+   "answer": "Let Fx and Fy be the horizontal and vertical components of the force. Then Fx = 1000 cos(40 degrees) = 1000 x 0.766 = 766 N, and Fy = 1000 sin(40 degrees) = 1000 x 0.643 = 643 N. Thus the horizontal component is 766 N and the vertical component is 643 N."
   },
   {
    "number": 8,
    "topic": "Core Subjective Topics",
-   "question": "In a force triangle, a force of 1000 N is opposite an angle of 60 degrees. Find the force opposite an angle of 70 degrees. By the law of sines, Fy/sin(70 degrees) = 1000/sin(60 degrees). Hence Fy = 1000 sin(70 degrees)/sin(60 degrees) = 1000 x 0.9397/0.8660 = 1085 N.",
+   "question": "In a force triangle, a force of 1000 N is opposite an angle of 60 degrees. Find the force opposite an angle of 70 degrees.",
    "marks": null,
-   "answer": ""
+   "answer": "By the law of sines, Fy/sin(70 degrees) = 1000/sin(60 degrees). Hence Fy = 1000 sin(70 degrees)/sin(60 degrees) = 1000 x 0.9397/0.8660 = 1085 N."
   },
   {
    "number": 9,
@@ -87,9 +80,9 @@
   {
    "number": 10,
    "topic": "Core Subjective Topics",
-   "question": "The rectangular components of a resultant force are Rx = 5.51 N and Ry = 10.24 N. Find the magnitude and direction of the resultant. The magnitude is R = sqrt(Rx^2 + Ry^2) = sqrt((5.51)^2 + (10.24)^2) = sqrt(30.36 + 104.86) = sqrt(135.22) = 11.63 N. The direction is theta = tan^-1(Ry/Rx) = tan^-1(10.24/5.51) = tan^-1(1.858) = 61.7 degrees with the positive x-axis.",
+   "question": "The rectangular components of a resultant force are Rx = 5.51 N and Ry = 10.24 N. Find the magnitude and direction of the resultant.",
    "marks": null,
-   "answer": ""
+   "answer": "The magnitude is R = sqrt(Rx^2 + Ry^2) = sqrt((5.51)^2 + (10.24)^2) = sqrt(30.36 + 104.86) = sqrt(135.22) = 11.63 N. The direction is theta = tan^-1(Ry/Rx) = tan^-1(10.24/5.51) = tan^-1(1.858) = 61.7 degrees with the positive x-axis."
   },
   {
    "number": 11,
@@ -115,9 +108,9 @@
   {
    "number": 14,
    "topic": "Core Subjective Topics",
-   "question": "Three concurrent coplanar forces of magnitudes 3 N, 2 N and P N are in equilibrium. Find the angle x which the 2 N force makes with the horizontal, and the value of P. Let alpha, beta and gamma be the angles between the forces. From the diagram, gamma = 60 degrees + 90 degrees = 150 degrees. By Lamy's theorem, P/sin(alpha) = 3/sin(beta) = 2/sin(150 degrees). Hence 3/sin(beta) = 2/0.5, so sin(beta) = 0.75. Since beta is obtuse, beta = 180 degrees - 48.6 degrees = 131.4 degrees. The angle x is x = beta - 90 degrees = 41.4 degrees. Since alpha + beta + gamma = 360 degrees, alpha = 360 degrees - 131.4 degrees - 150 degrees = 78.6 degrees. Then P/sin(78.6 degrees) = 2/sin(150 degrees), so P = 4 sin(78.6 degrees) = 3.92 N.",
+   "question": "Three concurrent coplanar forces of magnitudes 3 N, 2 N and P N are in equilibrium. Find the angle x which the 2 N force makes with the horizontal, and the value of P.",
    "marks": null,
-   "answer": ""
+   "answer": "Let alpha, beta and gamma be the angles between the forces. From the diagram, gamma = 60 degrees + 90 degrees = 150 degrees. By Lamy's theorem, P/sin(alpha) = 3/sin(beta) = 2/sin(150 degrees). Hence 3/sin(beta) = 2/0.5, so sin(beta) = 0.75. Since beta is obtuse, beta = 180 degrees - 48.6 degrees = 131.4 degrees. The angle x is x = beta - 90 degrees = 41.4 degrees. Since alpha + beta + gamma = 360 degrees, alpha = 360 degrees - 131.4 degrees - 150 degrees = 78.6 degrees. Then P/sin(78.6 degrees) = 2/sin(150 degrees), so P = 4 sin(78.6 degrees) = 3.92 N."
   },
   {
    "number": 15,
@@ -129,16 +122,16 @@
   {
    "number": 16,
    "topic": "Core Subjective Topics",
-   "question": "Two concurrent forces are represented by lambda OA and mu OB. Given OA = i + 3j + 5k and OC = 4i - j + k, where C divides AB so that AC : CB = 2 : 3, find the magnitude of the resultant force. Since AC : CB = mu : lambda = 2 : 3, we have lambda = 3 and mu = 2. By the (lambda, mu) theorem, the resultant is R = (lambda + mu) OC = (3 + 2)(4i - j + k) = 5(4i - j + k) = 20i - 5j + 5k. Its magnitude is R = sqrt(20^2 + (-5)^2 + 5^2) = sqrt(400 + 25 + 25) = sqrt(450) = 15 sqrt(2) N (approximately 21.2 N).",
+   "question": "Two concurrent forces are represented by lambda OA and mu OB. Given OA = i + 3j + 5k and OC = 4i - j + k, where C divides AB so that AC : CB = 2 : 3, find the magnitude of the resultant force.",
    "marks": null,
-   "answer": ""
+   "answer": "Since AC : CB = mu : lambda = 2 : 3, we have lambda = 3 and mu = 2. By the (lambda, mu) theorem, the resultant is R = (lambda + mu) OC = (3 + 2)(4i - j + k) = 5(4i - j + k) = 20i - 5j + 5k. Its magnitude is R = sqrt(20^2 + (-5)^2 + 5^2) = sqrt(400 + 25 + 25) = sqrt(450) = 15 sqrt(2) N (approximately 21.2 N)."
   },
   {
    "number": 17,
    "topic": "Core Subjective Topics",
-   "question": "Two light strings are attached to a block of mass 20 kg. The block is in equilibrium on a smooth horizontal surface AB with its strings taut. The strings make angles of 60 degrees and 30 degrees with the horizontal on either side of the block, and the tensions in the strings are T N and 75 N respectively. Find the value of T and the magnitude of the contact force acting on the block. Resolving horizontally, T cos(60 degrees) = 75 cos(30 degrees), so T = 75 cos(30 degrees)/cos(60 degrees) = 75 x 0.866/0.5 = 130 N. Resolving vertically, the contact force N satisfies N + T sin(60 degrees) + 75 sin(30 degrees) = mg = 20 x 10 = 200 N. Hence N = 200 - 130 sin(60 degrees) - 75 sin(30 degrees) = 200 - 112.5 - 37.5 = 50 N. So the tension T is 130 N and the contact force is 50 N.",
+   "question": "Two light strings are attached to a block of mass 20 kg. The block is in equilibrium on a smooth horizontal surface AB with its strings taut. The strings make angles of 60 degrees and 30 degrees with the horizontal on either side of the block, and the tensions in the strings are T N and 75 N respectively. Find the value of T and the magnitude of the contact force acting on the block.",
    "marks": null,
-   "answer": ""
+   "answer": "Resolving horizontally, T cos(60 degrees) = 75 cos(30 degrees), so T = 75 cos(30 degrees)/cos(60 degrees) = 75 x 0.866/0.5 = 130 N. Resolving vertically, the contact force N satisfies N + T sin(60 degrees) + 75 sin(30 degrees) = mg = 20 x 10 = 200 N. Hence N = 200 - 130 sin(60 degrees) - 75 sin(30 degrees) = 200 - 112.5 - 37.5 = 50 N. So the tension T is 130 N and the contact force is 50 N."
   },
   {
    "number": 18,

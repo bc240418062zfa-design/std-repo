@@ -17,9 +17,9 @@
   {
    "number": 1,
    "topic": "Core Subjective Topics",
-   "question": "What is cell theory?",
+   "question": "What is cell theory? State its main points.",
    "marks": null,
-   "answer": "State its main points. Cell theory is the fundamental theory of biology which states that: (1) all living organisms are composed of one or more cells; (2) the cell is the basic structural and functional unit of life; and (3) all cells arise from pre-existing cells by division. It was developed from the work of Schleiden (1838, plants are made of cells), Schwann (1839, animals are made of cells) and Virchow (cells arise from pre-existing cells)."
+   "answer": "Cell theory is the fundamental theory of biology which states that: (1) all living organisms are composed of one or more cells; (2) the cell is the basic structural and functional unit of life; and (3) all cells arise from pre-existing cells by division. It was developed from the work of Schleiden (1838, plants are made of cells), Schwann (1839, animals are made of cells) and Virchow (cells arise from pre-existing cells)."
   },
   {
    "number": 2,
@@ -66,9 +66,9 @@
   {
    "number": 8,
    "topic": "Core Subjective Topics",
-   "question": "What are lysosomes?",
+   "question": "What are lysosomes? Describe their formation and functions.",
    "marks": null,
-   "answer": "Describe their formation and functions. Lysosomes are membrane-enclosed compartments filled with hydrolytic (acid hydrolase) enzymes — about 40 types including proteases, nucleases, lipases, glycosidases, phospholipases, phosphatases and sulfatases — which carry out the controlled intracellular digestion of macromolecules. They maintain an acidic interior of about pH 5 for optimal enzyme activity. Their enzymes are synthesized in the rough ER, tagged with mannose 6-phosphate in the Golgi apparatus, and delivered to lysosomes. Lysosomes digest material taken in by endocytosis and phagocytosis, and break down worn-out organelles by autophagy."
+   "answer": "Lysosomes are membrane-enclosed compartments filled with hydrolytic (acid hydrolase) enzymes — about 40 types including proteases, nucleases, lipases, glycosidases, phospholipases, phosphatases and sulfatases — which carry out the controlled intracellular digestion of macromolecules. They maintain an acidic interior of about pH 5 for optimal enzyme activity. Their enzymes are synthesized in the rough ER, tagged with mannose 6-phosphate in the Golgi apparatus, and delivered to lysosomes. Lysosomes digest material taken in by endocytosis and phagocytosis, and break down worn-out organelles by autophagy."
   },
   {
    "number": 9,
@@ -101,9 +101,9 @@
   {
    "number": 13,
    "topic": "Core Subjective Topics",
-   "question": "What are peroxisomes?",
+   "question": "What are peroxisomes? Describe their functions.",
    "marks": null,
-   "answer": "Describe their functions. Peroxisomes (also called microbodies) are simple, single-membrane-bound vesicles, 0.1 to 1.0 micrometers in diameter, containing more than 50 enzymes, many of them oxidative enzymes concentrated in a crystalline core. They are named for hydrogen peroxide, which is both produced and degraded in them. Their functions include the oxidation of very long chain fatty acids, detoxification of harmful compounds, and breakdown of hydrogen peroxide by catalase, protecting the cell from its toxic effects."
+   "answer": "Peroxisomes (also called microbodies) are simple, single-membrane-bound vesicles, 0.1 to 1.0 micrometers in diameter, containing more than 50 enzymes, many of them oxidative enzymes concentrated in a crystalline core. They are named for hydrogen peroxide, which is both produced and degraded in them. Their functions include the oxidation of very long chain fatty acids, detoxification of harmful compounds, and breakdown of hydrogen peroxide by catalase, protecting the cell from its toxic effects."
   },
   {
    "number": 14,
@@ -122,9 +122,9 @@
   {
    "number": 16,
    "topic": "Core Subjective Topics",
-   "question": "What is chromatin?",
+   "question": "What is chromatin? Differentiate between euchromatin and heterochromatin.",
    "marks": null,
-   "answer": "Differentiate between euchromatin and heterochromatin. Chromatin is the complex of DNA and proteins (mainly histones) found in the eukaryotic nucleus; DNA with bound histones is called chromatin. Euchromatin is the more extended, loosely packed and lightly staining form of chromatin, which is transcriptionally active. Heterochromatin is the highly condensed, tightly packed and darkly staining form, which is generally transcriptionally inactive. The uncondensed chromatin appears as 'beads on a string', where each bead is a nucleosome."
+   "answer": "Chromatin is the complex of DNA and proteins (mainly histones) found in the eukaryotic nucleus; DNA with bound histones is called chromatin. Euchromatin is the more extended, loosely packed and lightly staining form of chromatin, which is transcriptionally active. Heterochromatin is the highly condensed, tightly packed and darkly staining form, which is generally transcriptionally inactive. The uncondensed chromatin appears as 'beads on a string', where each bead is a nucleosome."
   },
   {
    "number": 17,
@@ -171,9 +171,9 @@
   {
    "number": 23,
    "topic": "Core Subjective Topics",
-   "question": "What are proteasomes?",
+   "question": "What are proteasomes? State their function.",
    "marks": null,
-   "answer": "State their function. Proteasomes are large protein complexes containing protein-digesting (protease) enzymes, present in the cytosol and nucleus of eukaryotic cells. They degrade unwanted, damaged or misfolded proteins that have been tagged with the small protein ubiquitin. By removing abnormal proteins and regulating the levels of key regulatory proteins, proteasomes maintain protein quality control and regulate many cellular processes."
+   "answer": "Proteasomes are large protein complexes containing protein-digesting (protease) enzymes, present in the cytosol and nucleus of eukaryotic cells. They degrade unwanted, damaged or misfolded proteins that have been tagged with the small protein ubiquitin. By removing abnormal proteins and regulating the levels of key regulatory proteins, proteasomes maintain protein quality control and regulate many cellular processes."
   },
   {
    "number": 24,

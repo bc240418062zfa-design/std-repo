@@ -9,7 +9,7 @@
  "headerTitle": "ZOO504 — Wildlife",
  "subtitle": "Midterm Important Subjective Questions (Solved)",
  "pageCount": 19,
- "itemCount": 63,
+ "itemCount": 56,
  "topics": [
   "Core Subjective Topics"
  ],
@@ -33,21 +33,7 @@
    "topic": "Core Subjective Topics",
    "question": "Write a note on the Urial and its subspecies found in Pakistan. (5 marks)",
    "marks": null,
-   "answer": "Urial (Ovis orientalis) is a wild sheep with long legs and relatively small horns, native to Central Asia. It is represented by three subspecies in Pakistan."
-  },
-  {
-   "number": 1,
-   "topic": "Core Subjective Topics",
-   "question": "Ovis orientalis vignei — Ladakh Urial or Shapu: Fur tends to be more greyish in winter and less red. The chest ruff is comparatively short with black hairs predominating. The horns turn markedly inwards at their tips. Distribution: Found in Chitral and the Northern Areas, on mountains up to 3000 meters elevation. Status: Endangered.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 2,
-   "topic": "Core Subjective Topics",
-   "question": "Ovis orientalis blandfordi — Afghan or Baluchistan Urial: Luxuriantly developed neck ruff. The body fur is reddish. The rams have horns which often develop more than a complete arc, with the tips of the horns bending slightly outwards. Distribution: Found in Sindh, Baluchistan and the southern hilly regions of KPK. Status: Endangered. (The third subspecies represented in the region is the Punjab Urial, Ovis orientalis punjabiensis, found in the Salt Range and Kala Chitta hills of Punjab.)",
-   "marks": null,
-   "answer": ""
+   "answer": "Urial (Ovis orientalis) is a wild sheep with long legs and relatively small horns, native to Central Asia. It is represented by three subspecies in Pakistan. 1. Ovis orientalis vignei — Ladakh Urial or Shapu: Fur tends to be more greyish in winter and less red. The chest ruff is comparatively short with black hairs predominating. The horns turn markedly inwards at their tips. Distribution: Found in Chitral and the Northern Areas, on mountains up to 3000 meters elevation. Status: Endangered. 2. Ovis orientalis blandfordi — Afghan or Baluchistan Urial: Luxuriantly developed neck ruff. The body fur is reddish. The rams have horns which often develop more than a complete arc, with the tips of the horns bending slightly outwards. Distribution: Found in Sindh, Baluchistan and the southern hilly regions of KPK. Status: Endangered. (The third subspecies represented in the region is the Punjab Urial, Ovis orientalis punjabiensis, found in the Salt Range and Kala Chitta hills of Punjab.)"
   },
   {
    "number": 4,
@@ -59,9 +45,9 @@
   {
    "number": 5,
    "topic": "Core Subjective Topics",
-   "question": "What are the feeding habits of the Barking Deer? (2 marks) The diet of the barking deer includes grasses, low-growing leaves, tender shoots and fruits.",
+   "question": "What are the feeding habits of the Barking Deer? (2 marks)",
    "marks": null,
-   "answer": ""
+   "answer": "The diet of the barking deer includes grasses, low-growing leaves, tender shoots and fruits."
   },
   {
    "number": 6,
@@ -164,9 +150,9 @@
   {
    "number": 20,
    "topic": "Core Subjective Topics",
-   "question": "What is the scientific name of the Blackbuck? (2 marks) Scientific Name: Antilope cervicapra",
+   "question": "What is the scientific name of the Blackbuck? (2 marks)",
    "marks": null,
-   "answer": ""
+   "answer": "Scientific Name: Antilope cervicapra"
   },
   {
    "number": 21,
@@ -185,16 +171,16 @@
   {
    "number": 23,
    "topic": "Core Subjective Topics",
-   "question": "What is the scientific name of the Wild Goat? (2 marks) Scientific Name: Capra aegagrus",
+   "question": "What is the scientific name of the Wild Goat? (2 marks)",
    "marks": null,
-   "answer": ""
+   "answer": "Scientific Name: Capra aegagrus"
   },
   {
    "number": 24,
    "topic": "Core Subjective Topics",
-   "question": "What is the scientific name of the Domestic Goat? (2 marks) Scientific Name: Capra aegagrus hircus",
+   "question": "What is the scientific name of the Domestic Goat? (2 marks)",
    "marks": null,
-   "answer": ""
+   "answer": "Scientific Name: Capra aegagrus hircus"
   },
   {
    "number": 25,
@@ -208,42 +194,7 @@
    "topic": "Core Subjective Topics",
    "question": "Write three rules of a zoo.",
    "marks": "5 marks",
-   "answer": ""
-  },
-  {
-   "number": 1,
-   "topic": "Core Subjective Topics",
-   "question": "No zoo shall acquire any animal in violation of the Wildlife Act.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 2,
-   "topic": "Core Subjective Topics",
-   "question": "No zoo shall exhibit any animal that is seriously sick or injured.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 3,
-   "topic": "Core Subjective Topics",
-   "question": "No zoo shall use any animal, other than the elephant in plains and the yak in hilly areas, for riding purposes.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 4,
-   "topic": "Core Subjective Topics",
-   "question": "Each zoo shall have a wall at least two meters high from the ground level.",
-   "marks": null,
-   "answer": ""
-  },
-  {
-   "number": 5,
-   "topic": "Core Subjective Topics",
-   "question": "The built-up area in any zoo shall not exceed twenty-five percent of the total area of the zoo.",
-   "marks": null,
-   "answer": ""
+   "answer": "1. No zoo shall acquire any animal in violation of the Wildlife Act. 2. No zoo shall exhibit any animal that is seriously sick or injured. 3. No zoo shall use any animal, other than the elephant in plains and the yak in hilly areas, for riding purposes. 4. Each zoo shall have a wall at least two meters high from the ground level. 5. The built-up area in any zoo shall not exceed twenty-five percent of the total area of the zoo."
   },
   {
    "number": 27,
@@ -339,9 +290,9 @@
   {
    "number": 40,
    "topic": "Core Subjective Topics",
-   "question": "Which are the most traded wild animals in the world? (2 marks) Pangolins are considered to be the most traded wild animals in the world.",
+   "question": "Which are the most traded wild animals in the world? (2 marks)",
    "marks": null,
-   "answer": ""
+   "answer": "Pangolins are considered to be the most traded wild animals in the world."
   },
   {
    "number": 41,
@@ -430,16 +381,16 @@
   {
    "number": 53,
    "topic": "Core Subjective Topics",
-   "question": "Which species of Martens are found in Pakistan? (2 marks) Two species are common to Pakistan: • Stone marten (Martes foina) • Yellow-throated marten (Martes flavigula)",
+   "question": "Which species of Martens are found in Pakistan? (2 marks)",
    "marks": null,
-   "answer": ""
+   "answer": "Two species are common to Pakistan: • Stone marten (Martes foina) • Yellow-throated marten (Martes flavigula)"
   },
   {
    "number": 54,
    "topic": "Core Subjective Topics",
-   "question": "What are the feeding habits of the Rhesus Monkey? (3 marks) This species is diurnal and omnivorous. It feeds on fruits, seeds, leaves, gums, resin, bark and small invertebrates.",
+   "question": "What are the feeding habits of the Rhesus Monkey? (3 marks)",
    "marks": null,
-   "answer": ""
+   "answer": "This species is diurnal and omnivorous. It feeds on fruits, seeds, leaves, gums, resin, bark and small invertebrates."
   },
   {
    "number": 55,

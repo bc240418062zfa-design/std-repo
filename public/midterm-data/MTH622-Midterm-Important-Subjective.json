@@ -46,9 +46,9 @@
   {
    "number": 5,
    "topic": "General",
-   "question": "Find the directional derivative of φ = 3x²z at the point (2, 1, 1) in the",
+   "question": "Find the directional derivative of φ = 3x²z at the point (2, 1, 1) in the direction of the vector 4î − 3k̂.",
    "marks": null,
-   "answer": "direction of the vector 4î − 3k̂. ∇φ = 6xz î + 3x² k̂. At (2, 1, 1): ∇φ = 12 î + 12 k̂. Unit vector in the given direction: â = (4î − 3k̂)/√(16 + 9) = (4î − 3k̂)/5. Directional derivative = ∇φ · â = (12)(4/5) + (12)(−3/5) = 48/5 − 36/5 = 12/5."
+   "answer": "∇φ = 6xz î + 3x² k̂. At (2, 1, 1): ∇φ = 12 î + 12 k̂. Unit vector in the given direction: â = (4î − 3k̂)/√(16 + 9) = (4î − 3k̂)/5. Directional derivative = ∇φ · â = (12)(4/5) + (12)(−3/5) = 48/5 − 36/5 = 12/5."
   },
   {
    "number": 6,
@@ -102,16 +102,16 @@
   {
    "number": 13,
    "topic": "General",
-   "question": "Write the necessary and sufficient conditions for a force field F to be",
+   "question": "Write the necessary and sufficient conditions for a force field F to be conservative.",
    "marks": null,
-   "answer": "conservative. A force field F is conservative if and only if any one (hence all) of the following equivalent conditions holds: (i) F can be expressed as the negative gradient of a scalar potential: F = −∇V. (ii) F is irrotational: ∇×F = 0 throughout the region. (iii) The work done around every closed path is zero: ∮_C F·dr = 0. (iv) The work done (line integral ∫_C F·dr) between two points is independent of the path joining them."
+   "answer": "A force field F is conservative if and only if any one (hence all) of the following equivalent conditions holds: (i) F can be expressed as the negative gradient of a scalar potential: F = −∇V. (ii) F is irrotational: ∇×F = 0 throughout the region. (iii) The work done around every closed path is zero: ∮_C F·dr = 0. (iv) The work done (line integral ∫_C F·dr) between two points is independent of the path joining them."
   },
   {
    "number": 14,
    "topic": "General",
-   "question": "If r = r e_r is the position vector of a particle in plane polar coordinates, find",
+   "question": "If r = r e_r is the position vector of a particle in plane polar coordinates, find the velocity of the particle.",
    "marks": null,
-   "answer": "the velocity of the particle. In plane polar coordinates the position vector is r = r e_r, where e_r is the unit radial vector and e_θ the unit transverse vector, with de_r/dt = θ̇ e_θ. v = dr/dt = ṙ e_r + r (de_r/dt) = ṙ e_r + r θ̇ e_θ. Thus the radial component of velocity is ṙ and the transverse component is r θ̇."
+   "answer": "In plane polar coordinates the position vector is r = r e_r, where e_r is the unit radial vector and e_θ the unit transverse vector, with de_r/dt = θ̇ e_θ. v = dr/dt = ṙ e_r + r (de_r/dt) = ṙ e_r + r θ̇ e_θ. Thus the radial component of velocity is ṙ and the transverse component is r θ̇."
   },
   {
    "number": 15,
@@ -123,30 +123,30 @@
   {
    "number": 16,
    "topic": "General",
-   "question": "A body of mass 2 kg moves so that its position vector is r = (2t² + 3t) î + t³ ĵ.",
+   "question": "A body of mass 2 kg moves so that its position vector is r = (2t² + 3t) î + t³ ĵ. Find the force acting on the body.",
    "marks": null,
-   "answer": "Find the force acting on the body. Velocity: v = dr/dt = (4t + 3) î + 3t² ĵ. Momentum: p = mv = 2(4t + 3) î + 6t² ĵ. By Newton's second law, F = dp/dt = 8 î + 12t ĵ. Hence the force acting on the body is (8 î + 12t ĵ) newtons."
+   "answer": "Velocity: v = dr/dt = (4t + 3) î + 3t² ĵ. Momentum: p = mv = 2(4t + 3) î + 6t² ĵ. By Newton's second law, F = dp/dt = 8 î + 12t ĵ. Hence the force acting on the body is (8 î + 12t ĵ) newtons."
   },
   {
    "number": 17,
    "topic": "General",
-   "question": "Find the work done in changing the velocity of a body of mass 100 kg from",
+   "question": "Find the work done in changing the velocity of a body of mass 100 kg from 1200 m/s to 1900 m/s.",
    "marks": null,
-   "answer": "1200 m/s to 1900 m/s. By the work–energy theorem, the work done equals the change in kinetic energy: W = (1/2) m v₂² − (1/2) m v₁² = (1/2)(100)(1900² − 1200²) = 50 × (3,610,000 − 1,440,000) = 50 × 2,170,000 W = 108,500,000 J = 1.085 × 10⁸ J."
+   "answer": "By the work–energy theorem, the work done equals the change in kinetic energy: W = (1/2) m v₂² − (1/2) m v₁² = (1/2)(100)(1900² − 1200²) = 50 × (3,610,000 − 1,440,000) = 50 × 2,170,000 W = 108,500,000 J = 1.085 × 10⁸ J."
   },
   {
    "number": 18,
    "topic": "General",
-   "question": "A man of mass 64 kg is standing in a lift which is moving upward with an",
+   "question": "A man of mass 64 kg is standing in a lift which is moving upward with an acceleration of 0.35 m/s². Find the force which the man exerts on the floor of the lift. (Take g = 9.8 m/s²)",
    "marks": null,
-   "answer": "acceleration of 0.35 m/s². Find the force which the man exerts on the floor of the lift. (Take g = 9.8 m/s²) Let R be the normal reaction of the floor on the man. The equation of motion for upward acceleration a is R − mg = ma, so R = m(g + a) = 64 × (9.8 + 0.35) = 64 × 10.15 = 649.6 N. By Newton's third law, the force exerted by the man on the floor is equal and opposite, i.e. 649.6 N."
+   "answer": "Let R be the normal reaction of the floor on the man. The equation of motion for upward acceleration a is R − mg = ma, so R = m(g + a) = 64 × (9.8 + 0.35) = 64 × 10.15 = 649.6 N. By Newton's third law, the force exerted by the man on the floor is equal and opposite, i.e. 649.6 N."
   },
   {
    "number": 19,
    "topic": "General",
-   "question": "Two bodies of masses m₁ = 7 kg and m₂ = 4 kg are moving with velocities u₁",
+   "question": "Two bodies of masses m₁ = 7 kg and m₂ = 4 kg are moving with velocities u₁ = 4 m/s and u₂ = 4 m/s. After collision, the first body moves with velocity v₁ = 2 m/s. Find the velocity v₂ of the second body after collision.",
    "marks": null,
-   "answer": "= 4 m/s and u₂ = 4 m/s. After collision, the first body moves with velocity v₁ = 2 m/s. Find the velocity v₂ of the second body after collision. By the law of conservation of linear momentum, m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂ 7(4) + 4(4) = 7(2) + 4v₂ 44 = 14 + 4v₂, so 4v₂ = 30 and v₂ = 7.5 m/s."
+   "answer": "By the law of conservation of linear momentum, m₁u₁ + m₂u₂ = m₁v₁ + m₂v₂ 7(4) + 4(4) = 7(2) + 4v₂ 44 = 14 + 4v₂, so 4v₂ = 30 and v₂ = 7.5 m/s."
   },
   {
    "number": 20,
@@ -158,9 +158,9 @@
   {
    "number": 21,
    "topic": "General",
-   "question": "Define kinetic energy and write its formulas for translational and rotational",
+   "question": "Define kinetic energy and write its formulas for translational and rotational motion.",
    "marks": null,
-   "answer": "motion. Kinetic energy is the energy possessed by a body by virtue of its motion; it equals the work required to bring the body from rest to its present speed. Translational kinetic energy: K.E. = (1/2) m v². Rotational kinetic energy of a rigid body rotating with angular velocity ω about a fixed axis: K.E. = (1/2) I ω², where I is the moment of inertia about that axis."
+   "answer": "Kinetic energy is the energy possessed by a body by virtue of its motion; it equals the work required to bring the body from rest to its present speed. Translational kinetic energy: K.E. = (1/2) m v². Rotational kinetic energy of a rigid body rotating with angular velocity ω about a fixed axis: K.E. = (1/2) I ω², where I is the moment of inertia about that axis."
   },
   {
    "number": 22,
@@ -186,30 +186,30 @@
   {
    "number": 25,
    "topic": "General",
-   "question": "For a rectangular plate of mass M, Ix = (1/3) M b² and Iy = (1/3) M a². Find",
+   "question": "For a rectangular plate of mass M, Ix = (1/3) M b² and Iy = (1/3) M a². Find the moment of inertia of the plate about the z-axis (perpendicular to its plane).",
    "marks": null,
-   "answer": "the moment of inertia of the plate about the z-axis (perpendicular to its plane). By the perpendicular axis theorem, Iz = Ix + Iy = (1/3) M b² + (1/3) M a² = (M/3)(a² + b²)."
+   "answer": "By the perpendicular axis theorem, Iz = Ix + Iy = (1/3) M b² + (1/3) M a² = (M/3)(a² + b²)."
   },
   {
    "number": 26,
    "topic": "General",
-   "question": "The surface area of a thin ring of radius r and thickness dr is 2πr dr. If the",
+   "question": "The surface area of a thin ring of radius r and thickness dr is 2πr dr. If the mass of a disc of radius R is m, find the mass dm of such a ring cut from the disc.",
    "marks": null,
-   "answer": "mass of a disc of radius R is m, find the mass dm of such a ring cut from the disc. Mass per unit area of the disc: σ = m / (πR²). Mass of the ring = σ × (area of ring) = [m / (πR²)] × 2πr dr. dm = (2m / R²) r dr."
+   "answer": "Mass per unit area of the disc: σ = m / (πR²). Mass of the ring = σ × (area of ring) = [m / (πR²)] × 2πr dr. dm = (2m / R²) r dr."
   },
   {
    "number": 27,
    "topic": "General",
-   "question": "Find the moment of inertia of a small portion (element) of a hoop about an",
+   "question": "Find the moment of inertia of a small portion (element) of a hoop about an axis through the centre of the hoop and perpendicular to its plane.",
    "marks": null,
-   "answer": "axis through the centre of the hoop and perpendicular to its plane. Let the hoop have radius r and let the small portion have mass δm. Every particle of the hoop is at the same distance r from the centre, so the moment of inertia of the portion about the perpendicular central axis is δI = r² δm. Summing over the whole hoop, I = r² Σ δm = m r², where m is the total mass of the hoop."
+   "answer": "Let the hoop have radius r and let the small portion have mass δm. Every particle of the hoop is at the same distance r from the centre, so the moment of inertia of the portion about the perpendicular central axis is δI = r² δm. Summing over the whole hoop, I = r² Σ δm = m r², where m is the total mass of the hoop."
   },
   {
    "number": 28,
    "topic": "General",
-   "question": "Derive the moment of inertia of a circular disc about an axis through its",
+   "question": "Derive the moment of inertia of a circular disc about an axis through its centre and perpendicular to its plane.",
    "marks": null,
-   "answer": "centre and perpendicular to its plane. Let the disc have mass M and radius R, so its mass per unit area is σ = M/(πR²). Divide the disc into thin rings of radius r and thickness dr; the mass of one ring is dm = σ · 2πr dr = (2M/R²) r dr, and its moment of inertia is dI = r² dm = (2M/R²) r³ dr. Integrating from r = 0 to r = R: I = (2M/R²) ∫₀^R r³ dr = (2M/R²)(R⁴/4) = (1/2) M R²."
+   "answer": "Let the disc have mass M and radius R, so its mass per unit area is σ = M/(πR²). Divide the disc into thin rings of radius r and thickness dr; the mass of one ring is dm = σ · 2πr dr = (2M/R²) r dr, and its moment of inertia is dI = r² dm = (2M/R²) r³ dr. Integrating from r = 0 to r = R: I = (2M/R²) ∫₀^R r³ dr = (2M/R²)(R⁴/4) = (1/2) M R²."
   },
   {
    "number": 29,
@@ -235,16 +235,16 @@
   {
    "number": 32,
    "topic": "General",
-   "question": "Distinguish between orbital angular momentum and spin angular",
+   "question": "Distinguish between orbital angular momentum and spin angular momentum.",
    "marks": null,
-   "answer": "momentum. The total angular momentum of a body about an origin O can be split into two parts: Orbital angular momentum: the angular momentum of the centre of mass, treated as a particle of mass M moving with the velocity of the centre of mass: L_orbital = R_cm × M V_cm. Spin angular momentum: the angular momentum of the body about its own centre of mass due to its rotation: L_spin = Σ rᵢ' × mᵢ vᵢ' (for a rigid body, L_spin = I ω). Total angular momentum: L = L_orbital + L_spin. (For example, the Moon has orbital angular momentum about the Earth and spin angular momentum about its own axis.)"
+   "answer": "The total angular momentum of a body about an origin O can be split into two parts: Orbital angular momentum: the angular momentum of the centre of mass, treated as a particle of mass M moving with the velocity of the centre of mass: L_orbital = R_cm × M V_cm. Spin angular momentum: the angular momentum of the body about its own centre of mass due to its rotation: L_spin = Σ rᵢ' × mᵢ vᵢ' (for a rigid body, L_spin = I ω). Total angular momentum: L = L_orbital + L_spin. (For example, the Moon has orbital angular momentum about the Earth and spin angular momentum about its own axis.)"
   },
   {
    "number": 33,
    "topic": "General",
-   "question": "If r = a cos ωt î + b sin ωt ĵ and the momentum is p = −amω sin ωt î + bmω",
+   "question": "If r = a cos ωt î + b sin ωt ĵ and the momentum is p = −amω sin ωt î + bmω cos ωt ĵ, find the angular momentum L = r × p.",
    "marks": null,
-   "answer": "cos ωt ĵ, find the angular momentum L = r × p. L = r × p = | î ĵ k̂ ; a cos ωt b sin ωt 0 ; −amω sin ωt bmω cos ωt 0 | Only the k̂-component survives: L_z = (a cos ωt)(bmω cos ωt) − (b sin ωt)(−amω sin ωt) = abmω cos² ωt + abmω sin² ωt = abmω (cos² ωt + sin² ωt) = abmω. Hence L = abmω k̂, which is constant in time."
+   "answer": "L = r × p = | î ĵ k̂ ; a cos ωt b sin ωt 0 ; −amω sin ωt bmω cos ωt 0 | Only the k̂-component survives: L_z = (a cos ωt)(bmω cos ωt) − (b sin ωt)(−amω sin ωt) = abmω cos² ωt + abmω sin² ωt = abmω (cos² ωt + sin² ωt) = abmω. Hence L = abmω k̂, which is constant in time."
   },
   {
    "number": 34,
