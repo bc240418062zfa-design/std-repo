@@ -69,6 +69,26 @@ async function decryptShardGCM(
 
 const SHARD_MASTER_KEY = 'a9f8fe4633851740d710a6772988ccb72c9613d016abbbbbf628a83337fdeb90';
 
+// Post-deploy staleness recovery. Every deploy deletes the old hashed chunk
+// files, so a tab opened before a deploy fails its first lazy shard import
+// with a 404 ("Failed to fetch dynamically imported module") and the
+// download/preview dies with "temporarily unavailable" — even though the
+// file, the mapping and the new chunks are all fine. Reload exactly once
+// per session so the browser fetches fresh HTML + chunk hashes. The flag
+// guarantees no reload loop: if the reload does not help, the error below
+// surfaces normally on the second attempt.
+function recoverStaleBundle(): boolean {
+  try {
+    if (typeof window === 'undefined' || typeof sessionStorage === 'undefined') return false;
+    if (sessionStorage.getItem('mihora-chunk-reload') === '1') return false;
+    sessionStorage.setItem('mihora-chunk-reload', '1');
+    window.location.reload();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function loadShard(shardKey: string): Promise<Record<string, any>> {
   if (shardCache.has(shardKey)) {
     return shardCache.get(shardKey)!;
@@ -103,6 +123,17 @@ async function loadShard(shardKey: string): Promise<Record<string, any>> {
           throw new Error(`Unknown shard key: ${shardKey}`);
       }
     } catch (err) {
+      // 'Unknown shard key' is a code bug, not staleness — never reload for it.
+      if (err instanceof Error && err.message.startsWith('Unknown shard key')) {
+        throw err;
+      }
+      // A failed dynamic import after a deploy almost always means this tab
+      // runs a stale bundle whose hashed chunk files no longer exist on the
+      // server. Reload once for fresh assets; the error surfaces normally if
+      // the reload does not help (flag already set).
+      if (recoverStaleBundle()) {
+        throw new Error(`Reloading for fresh assets (shard ${shardKey}).`);
+      }
       throw new Error(`Failed to load resource shard (${shardKey}): ${err}`);
     }
 
