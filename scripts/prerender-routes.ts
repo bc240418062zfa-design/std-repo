@@ -3,6 +3,11 @@ import path from 'path';
 import { mcqSets } from '../src/data/mcqs/index';
 import { subjectiveSets } from '../src/data/subjective/index';
 import {
+  buildSlimDocPage,
+  escapeHtmlAttr,
+  extractSpaAssetTags
+} from './doc-prerender-template';
+import {
   cleanDocumentDisplayTitle,
   DocSlugEntry,
   getDocSlugIndex
@@ -13,15 +18,6 @@ import {
   getMidtermDocsForCourse,
   getMidtermSiblingEntry
 } from '../src/utils/midtermPrep';
-
-function escapeHtmlAttr(str: string): string {
-  return (str || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
 
 interface RouteSEO {
   path: string;
@@ -1179,6 +1175,83 @@ function buildMidtermDocRoutes(): void {
 
 buildMidtermDocRoutes();
 
+// Slim /doc/* prerender (DESIGN §4.3). Doc pages are written directly to
+// dist/doc/<slug>/index.html — they NEVER go through the base-template
+// clone loop in prerenderAllRoutes (that would embed the 191 KB shell).
+// Waves are cumulative: a build includes every wave in activeWaves.
+// Fails loudly (throws) if the manifest is missing/unparseable or an env
+// override names an unknown wave — a silent zero-page build must never
+// look like success.
+function buildDocRoutes(
+  baseHtml: string,
+  siteWideJsonLdNodes: Array<Record<string, unknown>>,
+  distPath: string
+): number {
+  const wavesPath = path.resolve('scripts/doc-waves.json');
+  if (!fs.existsSync(wavesPath)) {
+    throw new Error(
+      'doc prerender: scripts/doc-waves.json is missing — refusing to prerender zero doc pages.'
+    );
+  }
+  let manifest: { waves?: Record<string, string[]>; activeWaves?: number[] };
+  try {
+    manifest = JSON.parse(fs.readFileSync(wavesPath, 'utf-8'));
+  } catch (err) {
+    throw new Error(`doc prerender: scripts/doc-waves.json is unparseable: ${err}`);
+  }
+  if (!manifest.waves || typeof manifest.waves !== 'object') {
+    throw new Error('doc prerender: scripts/doc-waves.json has no "waves" object.');
+  }
+
+  // Env override is for local testing only; CI never sets it.
+  const envWaves = process.env.DOC_WAVES || process.env.DOC_WAVE || '';
+  let activeWaves: number[];
+  if (envWaves.trim()) {
+    activeWaves = envWaves.split(',').map((w) => {
+      const n = Number(w.trim());
+      if (!Number.isInteger(n)) {
+        throw new Error(`doc prerender: DOC_WAVE/DOC_WAVES names a non-integer wave: "${w.trim()}"`);
+      }
+      return n;
+    });
+  } else {
+    activeWaves = manifest.activeWaves || [];
+  }
+  if (activeWaves.length === 0) {
+    throw new Error('doc prerender: no active waves (empty activeWaves and no DOC_WAVE override).');
+  }
+  const activeCourses = new Set<string>();
+  for (const wave of activeWaves) {
+    const codes = manifest.waves[String(wave)];
+    if (!codes) {
+      throw new Error(`doc prerender: unknown wave ${wave} (not in scripts/doc-waves.json).`);
+    }
+    for (const code of codes) activeCourses.add(code.toUpperCase());
+  }
+
+  const includedEntries = docSlugIndex.entries.filter((e) =>
+    activeCourses.has((e.resource.course || '').toUpperCase())
+  );
+  const includedSlugs = new Set(includedEntries.map((e) => e.slug));
+  const spaAssets = extractSpaAssetTags(baseHtml);
+
+  let written = 0;
+  for (const entry of includedEntries) {
+    const html = buildSlimDocPage(entry, {
+      siteWideJsonLdNodes,
+      spaAssets,
+      docsByCourse,
+      includedSlugs
+    });
+    const outDir = path.join(distPath, 'doc', entry.slug);
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf-8');
+    written++;
+  }
+  console.log(`📄 Doc prerender: ${written} slim doc pages written (waves ${activeWaves.join(',')}).`);
+  return written;
+}
+
 export function prerenderAllRoutes() {
   console.log('🚀 Running Multi-Route Static Pre-Renderer (Fixing 404s & Maximizing SEO)...');
 
@@ -1212,6 +1285,9 @@ export function prerenderAllRoutes() {
       console.warn('⚠️  Base JSON-LD in dist/index.html did not parse; per-route pages will carry their own graph only.');
     }
   }
+
+  // Slim /doc/* pages (own template — never the base-template clone loop).
+  const docPageCount = buildDocRoutes(baseHtml, siteWideJsonLdNodes, distPath);
 
   for (const route of ROUTES) {
     const routeDir = path.join(distPath, route.path);
@@ -1646,7 +1722,7 @@ ${allCoursesList
 
   console.log(`🤖 Generated llms.txt and llms-full.txt (GEO context) in dist/ and public/`);
   console.log(`🗺️ Generated master sitemap.xml (${ROUTES.length + 1} routes) + sitemap-docs.xml (${docSlugIndex.entries.length.toLocaleString()} document pages) in dist/ and public/ (lastmod ${BUILD_DATE})`);
-  console.log(`✅ Successfully pre-rendered ${ROUTES.length} static routes in dist/ (Zero 404s guaranteed).`);
+  console.log(`✅ Successfully pre-rendered ${ROUTES.length} static routes + ${docPageCount} slim doc pages in dist/ (Zero 404s guaranteed).`);
 }
 
 prerenderAllRoutes();

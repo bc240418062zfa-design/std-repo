@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { Course, Resource } from '../types';
 import { resolveResourceLocally, ResolvedResource } from '../security/shardResolver';
@@ -7,6 +7,8 @@ import {
   findDocEntryBySlug,
   getRelatedDocEntries
 } from '../utils/docSlug';
+import { readPrerenderedDocData } from '../utils/docSlugBase';
+import type { DocSlugEntry } from '../utils/docSlugBase';
 import { enrichDocumentMetadata, EnrichedDocMetadata } from '../utils/docEnricher';
 import { mcqSets } from '../data/mcqs';
 import { subjectiveSets } from '../data/subjective';
@@ -119,11 +121,22 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
   onOpenSubjectiveSet,
   onNavigate
 }) => {
-  const matchedEntry = useMemo(() => findDocEntryBySlug(requestedSlug), [requestedSlug]);
+  // Prerendered pages embed the resource record in #mihora-doc-data: use it
+  // directly and skip the catalog lookup for this slug. Slugs without a
+  // data block (waves not yet shipped, deep links) fall back to the
+  // catalog lookup below.
+  const matchedEntry: DocSlugEntry | null = useMemo(() => {
+    const pre = readPrerenderedDocData(requestedSlug);
+    if (pre) {
+      const slug = requestedSlug.trim().toLowerCase();
+      return { slug, compactKey: slug.replace(/-/g, ''), resource: pre, index: -1 };
+    }
+    return findDocEntryBySlug(requestedSlug);
+  }, [requestedSlug]);
   const resource = matchedEntry?.resource || null;
   const canonicalSlug = matchedEntry?.slug || requestedSlug.toLowerCase();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resolvedData, setResolvedData] = useState<ResolvedResource | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -131,6 +144,12 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  // §5.2: the shard (AES decrypt, ~1 MB) is fetched only when the preview
+  // is actually wanted — near the viewport, or explicitly requested via
+  // Download / Open / Reload. Until then the page shows the static
+  // metadata + a preview placeholder.
+  const [previewWanted, setPreviewWanted] = useState(false);
+  const previewSectionRef = useRef<HTMLElement | null>(null);
 
   const courseInfo = useMemo(() => {
     if (!resource) return null;
@@ -168,18 +187,42 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
     return () => window.removeEventListener('keydown', onKey);
   }, [isFullscreen]);
 
-  // Resolve embedded preview stream whenever document changes or reload is clicked
+  // Start resolving once the preview stage is near the viewport (~800px).
   useEffect(() => {
-    if (!resource) {
+    if (!resource || previewWanted) return;
+    const el = previewSectionRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setPreviewWanted(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setPreviewWanted(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '800px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [resource, previewWanted]);
+
+  // Resolve embedded preview stream once the preview is wanted (near
+  // viewport, Download/Open click, or Reload), whenever the document
+  // changes, or when reload is clicked.
+  useEffect(() => {
+    setResolvedData(null);
+    setPreviewUrl(null);
+    setError(null);
+    if (!resource || !previewWanted) {
       setLoading(false);
       return;
     }
 
     let isMounted = true;
     setLoading(true);
-    setError(null);
-    setResolvedData(null);
-    setPreviewUrl(null);
 
     async function resolveStream() {
       try {
@@ -236,7 +279,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [resource, reloadNonce]);
+  }, [resource, reloadNonce, previewWanted]);
 
   const handleCopyShareLink = async () => {
     const url = `https://study.mihora.tech/doc/${canonicalSlug}`;
@@ -251,6 +294,11 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
 
   const handleDirectDownloadClick = () => {
     if (!resource) return;
+    // A download needs the resolved Drive ID: trigger preview resolution
+    // too, so the Open-in-New-Tab link appears once it resolves. The
+    // download itself falls back to onDownloadResource below when the
+    // resolution has not finished yet.
+    setPreviewWanted(true);
     if (resolvedData?.driveId) {
       const target = createDirectDownloadUrl(resolvedData.driveId);
       const a = document.createElement('a');
@@ -473,6 +521,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left/Main Zone: Dedicated Embedded Document Preview Stage */}
         <section
+          ref={previewSectionRef}
           aria-label="Embedded Document Preview"
           className={
             isFullscreen
@@ -492,7 +541,10 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
             <div className="flex items-center gap-1.5 shrink-0">
               <button
                 type="button"
-                onClick={() => setReloadNonce((n) => n + 1)}
+                onClick={() => {
+                  setPreviewWanted(true);
+                  setReloadNonce((n) => n + 1);
+                }}
                 className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-[#DDD6C8] text-slate-700 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
                 title="Reload document preview"
               >
@@ -538,6 +590,26 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
               isFullscreen ? 'flex-1' : 'h-[68vh] min-h-[520px] max-h-[820px]'
             }`}
           >
+            {!previewWanted && !previewUrl && !error && (
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 space-y-3 bg-[#0D1B2A]/95 text-white">
+                <FileText className="w-9 h-9 text-amber-300" />
+                <div className="text-center space-y-1">
+                  <h2 className="text-sm font-bold text-white">Document Preview Loads on Scroll</h2>
+                  <p className="text-xs text-slate-300 max-w-sm">
+                    The file details above are already loaded. Scroll to the preview to load it, or open it now.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPreviewWanted(true)}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors cursor-pointer"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>Load Preview Now</span>
+                </button>
+              </div>
+            )}
+
             {loading && !error && (
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 space-y-3 bg-[#0D1B2A]/95 text-white">
                 <Loader2 className="w-9 h-9 text-amber-300 animate-spin" />

@@ -156,3 +156,54 @@ export function extractDocSlugFromPath(pathname: string): string | null {
     return match[1];
   }
 }
+
+// Read the per-page pre-resolved resource record embedded by the slim doc
+// prerender (<script type="application/json" id="mihora-doc-data">).
+// Pure + DOM-read only; no data import, so the main bundle stays slim.
+// Returns null when the block is absent, unparseable, fails validation, or
+// (when expectedSlug is given) belongs to a different slug — callers must
+// fall back to the catalog lookup in that case. The block carries only the
+// rlh hash (already public in the shipped catalog chunk), never a Drive ID.
+export function readPrerenderedDocData(expectedSlug?: string): Resource | null {
+  if (typeof document === 'undefined') return null;
+  const el = document.getElementById('mihora-doc-data');
+  if (!el || !el.textContent) return null;
+  try {
+    const parsed = JSON.parse(el.textContent) as {
+      course?: unknown;
+      name?: unknown;
+      format?: unknown;
+      type?: unknown;
+      tags?: unknown;
+      rlh?: unknown;
+      slug?: unknown;
+    };
+    if (
+      !parsed ||
+      typeof parsed.course !== 'string' ||
+      !parsed.course.trim() ||
+      typeof parsed.name !== 'string' ||
+      !parsed.name.trim() ||
+      typeof parsed.rlh !== 'string' ||
+      !parsed.rlh.trim()
+    ) {
+      return null;
+    }
+    if (expectedSlug && typeof parsed.slug === 'string') {
+      const norm = (s: string) => s.trim().toLowerCase().replace(/^\/+|\/+$/g, '');
+      if (norm(expectedSlug) !== norm(parsed.slug)) return null;
+    }
+    return {
+      course: parsed.course,
+      name: parsed.name,
+      format: typeof parsed.format === 'string' ? parsed.format : 'PDF',
+      type: typeof parsed.type === 'string' ? parsed.type : 'OTHER',
+      tags: Array.isArray(parsed.tags)
+        ? parsed.tags.filter((t): t is string => typeof t === 'string')
+        : [],
+      rlh: parsed.rlh
+    };
+  } catch {
+    return null;
+  }
+}
