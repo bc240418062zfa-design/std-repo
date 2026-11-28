@@ -54,10 +54,6 @@ jobs:
 
       - name: Prepare SPA routing & custom domain fallback
         run: |
-          # Copy index.html to 404.html for SPA client-side routing on GitHub Pages
-          if [ -f dist/index.html ]; then
-            cp dist/index.html dist/404.html
-          fi
           # Ensure custom domain CNAME is preserved
           if [ -f CNAME ]; then
             cp CNAME dist/CNAME
