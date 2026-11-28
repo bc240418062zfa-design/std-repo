@@ -26,6 +26,27 @@ export interface SeoSyncParams {
 const BASE_URL = 'https://study.mihora.tech';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-cover.jpg`;
 
+// Google Tag Manager (GTM-PBGWDFRK) SPA pageviews: GTM fires its own
+// page_view on container load (first page). Push a page_view only on
+// subsequent route changes, and only when the path actually changed,
+// so the landing page is never double-counted.
+let firstSeoSync = true;
+let lastTrackedPath = '';
+
+function trackSpaPageView(canonicalPath: string, title: string): void {
+  if (typeof window === 'undefined') return;
+  const dataLayer = (window as unknown as { dataLayer?: unknown[] }).dataLayer;
+  if (!Array.isArray(dataLayer)) return;
+  if (firstSeoSync) {
+    firstSeoSync = false;
+    lastTrackedPath = canonicalPath;
+    return;
+  }
+  if (canonicalPath === lastTrackedPath) return;
+  lastTrackedPath = canonicalPath;
+  dataLayer.push({ event: 'page_view', page_path: canonicalPath, page_title: title });
+}
+
 function upsertMeta(selector: string, attrName: 'name' | 'property', key: string, content: string) {
   let el = document.querySelector(selector) as HTMLMetaElement | null;
   if (!el) {
@@ -458,4 +479,6 @@ export function syncRouteSeo({
     '@context': 'https://schema.org',
     '@graph': [webPageNode, breadcrumbNode, ...graphNodes]
   });
+
+  trackSpaPageView(canonicalPath, title);
 }
