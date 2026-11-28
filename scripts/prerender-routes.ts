@@ -7,6 +7,7 @@ import {
   escapeHtmlAttr,
   extractSpaAssetTags
 } from './doc-prerender-template';
+import { loadDocTextBundles } from './doc-text-loader';
 import {
   cleanDocumentDisplayTitle,
   DocSlugEntry,
@@ -1235,20 +1236,85 @@ function buildDocRoutes(
   const includedSlugs = new Set(includedEntries.map((e) => e.slug));
   const spaAssets = extractSpaAssetTags(baseHtml);
 
+  // Phase 2: extracted text. Fails loudly when the bundles dir is missing;
+  // a missing bundle for one course only warns (counted below).
+  const textStore = loadDocTextBundles(activeCourses);
+  if (textStore.missingBundles.length > 0) {
+    console.warn(
+      `⚠️ Doc text: missing bundles for ${textStore.missingBundles.length} course(s): ${textStore.missingBundles.join(', ')} — those pages render without a text section.`
+    );
+  }
+
+  // Coverage manifest (committed by build-text-bundles.py): the exact set
+  // of slugs that must have text. Any OK slug without text fails the build.
+  const coveragePath = path.resolve('scripts/doc-text/coverage.json');
+  let expectedWithText = new Set<string>();
+  if (fs.existsSync(coveragePath)) {
+    const coverage = JSON.parse(fs.readFileSync(coveragePath, 'utf-8')) as Record<
+      string,
+      { status?: string }
+    >;
+    for (const [slug, rec] of Object.entries(coverage)) {
+      if (rec.status === 'OK' && includedSlugs.has(slug)) {
+        expectedWithText.add(slug);
+      }
+    }
+  }
+
   let written = 0;
+  let withText = 0;
+  const withoutText: string[] = [];
   for (const entry of includedEntries) {
     const html = buildSlimDocPage(entry, {
       siteWideJsonLdNodes,
       spaAssets,
       docsByCourse,
-      includedSlugs
+      includedSlugs,
+      getDocText: (slug: string) => textStore.getDocText(slug)
     });
     const outDir = path.join(distPath, 'doc', entry.slug);
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf-8');
     written++;
+    if (textStore.slugsWithText.has(entry.slug)) {
+      withText++;
+    } else {
+      withoutText.push(entry.slug);
+    }
   }
+
+  // No-missing enforcement: every slug the coverage manifest records as OK
+  // must have rendered with text.
+  const missingText = [...expectedWithText].filter(
+    (slug) => !textStore.slugsWithText.has(slug)
+  );
+  if (missingText.length > 0) {
+    throw new Error(
+      `doc prerender: ${missingText.length} slug(s) recorded OK in scripts/doc-text/coverage.json but have no text at build time (first 10: ${missingText.slice(0, 10).join(', ')}). Refusing to ship pages silently missing their text.`
+    );
+  }
+
   console.log(`📄 Doc prerender: ${written} slim doc pages written (waves ${activeWaves.join(',')}).`);
+  console.log(
+    `📝 Doc text: ${withText} pages with extracted text, ${withoutText.length} without (no text section rendered, per coverage manifest). Drive URLs defanged: ${textStore.defangedTotal}.`
+  );
+  fs.writeFileSync(
+    path.join(distPath, 'doc-text-coverage.json'),
+    JSON.stringify(
+      {
+        waves: activeWaves,
+        pages: written,
+        withText,
+        withoutText: withoutText.length,
+        withoutTextSlugs: withoutText,
+        defangedDriveUrls: textStore.defangedTotal,
+        missingBundles: textStore.missingBundles
+      },
+      null,
+      1
+    ),
+    'utf-8'
+  );
   return written;
 }
 

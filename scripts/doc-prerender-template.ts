@@ -56,6 +56,10 @@ export interface SlimDocPageContext {
   spaAssets: SpaAssetTags;
   docsByCourse: Map<string, DocSlugEntry[]>;
   includedSlugs: Set<string>;
+  // Phase 2: capped verbatim extracted text for a slug, or null when the
+  // file has none. When null the template renders NO text section at all
+  // (never a placeholder / "not available" note).
+  getDocText?: (slug: string) => string | null;
 }
 
 const BASE_URL = 'https://study.mihora.tech';
@@ -69,7 +73,8 @@ const SLIM_CSS =
   'h2{font-size:1.15rem;margin-top:2rem}h3{font-size:1rem;margin:.9rem 0 .2rem}p{margin:.6rem 0}' +
   'dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1rem;font-size:.92rem}dt{color:#64748b}dd{margin:0}' +
   'ol,ul{padding-left:1.25rem}li{margin:.35rem 0}footer{border-top:1px solid #e2e8f0;padding:1rem;text-align:center;font-size:.85rem;color:#64748b}' +
-  'nav.breadcrumb{max-width:800px;margin:0 auto;padding:.7rem 1rem 0;font-size:.85rem;color:#64748b}';
+  'nav.breadcrumb{max-width:800px;margin:0 auto;padding:.7rem 1rem 0;font-size:.85rem;color:#64748b}' +
+  'section.doc-text pre{white-space:pre-wrap;overflow-wrap:break-word;font:inherit;font-size:.92rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:.5rem;padding:1rem}';
 
 function truncateLinkText(text: string, max = 60): string {
   return text.length > max ? text.slice(0, max) : text;
@@ -159,6 +164,16 @@ export function buildSlimDocPage(entry: DocSlugEntry, ctx: SlimDocPageContext): 
     .map((f) => `<h3>${esc(f.question)}</h3><p>${esc(f.answer)}</p>`)
     .join('');
 
+  // Phase 2: verbatim extracted text of the file itself (capped at build
+  // time by the bundle builder). Rendered only when text exists; when the
+  // file has no extractable text there is simply no section — never a
+  // placeholder or warning note.
+  const docText = ctx.getDocText ? ctx.getDocText(slug) : null;
+  const textHtml =
+    docText && docText.trim().length > 0
+      ? `<section class="doc-text"><h2>Inside this file</h2><pre>${esc(docText)}</pre></section>`
+      : '';
+
   const prevNextHtml = `<nav>${prevEntry ? `<a href="/doc/${esc(prevEntry.slug)}">&larr; ${esc(truncateLinkText(cleanDocumentDisplayTitle(prevEntry.resource.name)))}</a>` : ''}${prevEntry && nextEntry ? ' · ' : ''}${nextEntry ? `<a href="/doc/${esc(nextEntry.slug)}">${esc(truncateLinkText(cleanDocumentDisplayTitle(nextEntry.resource.name)))} &rarr;</a>` : ''}</nav>`;
 
   const relatedHtml =
@@ -174,6 +189,14 @@ export function buildSlimDocPage(entry: DocSlugEntry, ctx: SlimDocPageContext): 
   return `<!doctype html>
 <html lang="en-PK">
 <head>
+<!-- Google tag (gtag.js) — GA4, Measurement ID G-87JTN1PLDL -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-87JTN1PLDL"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-87JTN1PLDL');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
@@ -206,6 +229,7 @@ export function buildSlimDocPage(entry: DocSlugEntry, ctx: SlimDocPageContext): 
 <p><em>${esc(enriched.examTips)}</em></p>
 <section><h2>What this file covers — ${esc(code)} syllabus roadmap</h2><ol>${modulesHtml}</ol></section>
 <section><h2>Frequently asked questions</h2>${faqsHtml}</section>
+${textHtml}
 ${prevNextHtml}
 ${relatedHtml}
 <p><a href="/courses/${esc(courseLower)}">All ${esc(code)} files</a> · <a href="/midterm-prep">Midterm Prep 2026</a> · <a href="/vu-mcqs-bank">MCQs Bank</a></p>

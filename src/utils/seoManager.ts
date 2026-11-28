@@ -26,6 +26,28 @@ export interface SeoSyncParams {
 const BASE_URL = 'https://study.mihora.tech';
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-cover.jpg`;
 
+// GA4 (G-87JTN1PLDL) SPA pageviews: gtag.js fires its own page_view on
+// load (first page). Send a page_view only on subsequent route changes,
+// and only when the path actually changed, so the landing page is never
+// double-counted.
+const GA4_MEASUREMENT_ID = 'G-87JTN1PLDL';
+let firstSeoSync = true;
+let lastTrackedPath = '';
+
+function trackSpaPageView(canonicalPath: string, title: string): void {
+  if (typeof window === 'undefined') return;
+  const gtagFn = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+  if (typeof gtagFn !== 'function') return;
+  if (firstSeoSync) {
+    firstSeoSync = false;
+    lastTrackedPath = canonicalPath;
+    return;
+  }
+  if (canonicalPath === lastTrackedPath) return;
+  lastTrackedPath = canonicalPath;
+  gtagFn('config', GA4_MEASUREMENT_ID, { page_path: canonicalPath, page_title: title });
+}
+
 function upsertMeta(selector: string, attrName: 'name' | 'property', key: string, content: string) {
   let el = document.querySelector(selector) as HTMLMetaElement | null;
   if (!el) {
@@ -373,7 +395,7 @@ export function syncRouteSeo({
     );
   } else if (page === 'security') {
     title = 'Privacy & Trust – Zero Data Collection | MIHORA VU';
-    desc = 'Zero login walls, zero analytics cookies, verified educational files, and direct instant downloads for Virtual University students.';
+    desc = 'Zero login walls, anonymous visit analytics, verified educational files, and direct instant downloads for Virtual University students.';
     canonicalPath = '/security';
     breadcrumbs.push(
       { name: 'About MIHORA', item: `${BASE_URL}/about` },
@@ -458,4 +480,6 @@ export function syncRouteSeo({
     '@context': 'https://schema.org',
     '@graph': [webPageNode, breadcrumbNode, ...graphNodes]
   });
+
+  trackSpaPageView(canonicalPath, title);
 }
