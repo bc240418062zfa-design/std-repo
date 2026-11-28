@@ -9,6 +9,7 @@ import {
 } from '../utils/docSlug';
 import { readPrerenderedDocData } from '../utils/docSlugBase';
 import { getDocRedirectTarget } from '../utils/docRedirects';
+import { NotFoundPage } from './NotFoundPage';
 import type { DocSlugEntry } from '../utils/docSlugBase';
 import { enrichDocumentMetadata, EnrichedDocMetadata } from '../utils/docEnricher';
 import { mcqSets } from '../data/mcqs';
@@ -56,6 +57,8 @@ interface DocumentViewerPageProps {
   onOpenMcqSet: (setId: string | null) => void;
   onOpenSubjectiveSet: (setId: string | null) => void;
   onNavigate: (page: string) => void;
+  /** Library search from the doc-not-found state (optional; falls back to home). */
+  onSearch?: (query: string) => void;
 }
 
 // Runtime Base64 decoding prevents build-time constant folding into leak patterns
@@ -120,7 +123,8 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
   onSelectCourse,
   onOpenMcqSet,
   onOpenSubjectiveSet,
-  onNavigate
+  onNavigate,
+  onSearch
 }) => {
   // Prerendered pages embed the resource record in #mihora-doc-data: use it
   // directly and skip the catalog lookup for this slug. Slugs without a
@@ -357,6 +361,23 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
             </div>
           </div>
         </div>
+      );
+    }
+    // Genuinely unknown slug: the shared branded 404, with the slug
+    // shown back to the visitor and search + quick links to get back
+    // into the library. Never a silent hop to the homepage.
+    if (!matchedEntry) {
+      return (
+        <NotFoundPage
+          title="Document Not Found"
+          message={`We couldn't locate a document matching "${requestedSlug}" in the library. It may have been renamed or removed — search the library or browse the 28,328 past papers, handouts and MCQ banks instead.`}
+          requestedPath={`/doc/${requestedSlug}`}
+          onNavigateHome={() => onNavigate('home')}
+          onOpenMidtermPrep={() => onNavigate('midterm-prep')}
+          onNavigate={onNavigate}
+          onSelectCourse={onSelectCourse}
+          onSearch={(q) => (onSearch ? onSearch(q) : onNavigate('home'))}
+        />
       );
     }
     return (
