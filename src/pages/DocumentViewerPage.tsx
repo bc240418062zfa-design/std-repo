@@ -8,6 +8,7 @@ import {
   getRelatedDocEntries
 } from '../utils/docSlug';
 import { readPrerenderedDocData } from '../utils/docSlugBase';
+import { getDocRedirectTarget } from '../utils/docRedirects';
 import type { DocSlugEntry } from '../utils/docSlugBase';
 import { enrichDocumentMetadata, EnrichedDocMetadata } from '../utils/docEnricher';
 import { mcqSets } from '../data/mcqs';
@@ -135,6 +136,22 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
   }, [requestedSlug]);
   const resource = matchedEntry?.resource || null;
   const canonicalSlug = matchedEntry?.slug || requestedSlug.toLowerCase();
+
+  // Phantom-URL fallback (src/utils/docRedirects.ts): a slug Google
+  // remembers that has no file in the archive redirects to the closest
+  // genuine page. The prerendered static redirect page normally handles
+  // this before the SPA boots; this covers in-app navigation to a
+  // phantom slug (stale link inside the app). Only fires when the slug
+  // matches nothing in the archive, so real pages are never redirected.
+  const redirectTarget = useMemo(
+    () => (!matchedEntry ? getDocRedirectTarget(requestedSlug) : null),
+    [matchedEntry, requestedSlug]
+  );
+  useEffect(() => {
+    if (redirectTarget) {
+      window.location.replace(redirectTarget);
+    }
+  }, [redirectTarget]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -315,6 +332,33 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
   };
 
   if (!resource || !enriched) {
+    // Phantom slug: the redirect effect above already navigates away;
+    // this card is only visible for an instant (or if navigation is
+    // blocked), so the user is never left on a dead page.
+    if (redirectTarget) {
+      return (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="rounded-3xl bg-white border border-[#DDD6C8] p-8 sm:p-12 text-center space-y-5 shadow-xs">
+            <div className="space-y-2">
+              <h1 className="text-2xl font-extrabold text-slate-950" style={{ textWrap: 'balance' }}>
+                This page has moved
+              </h1>
+              <p className="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                The document you were looking for has moved to a new address. You are being redirected.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <a
+                href={redirectTarget}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white text-xs font-bold transition-colors cursor-pointer"
+              >
+                <span>Continue to the file</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="rounded-3xl bg-white border border-[#DDD6C8] p-8 sm:p-12 text-center space-y-5 shadow-xs">

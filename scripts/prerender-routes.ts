@@ -4,9 +4,11 @@ import { mcqSets } from '../src/data/mcqs/index';
 import { subjectiveSets } from '../src/data/subjective/index';
 import {
   buildSlimDocPage,
+  buildDocRedirectPage,
   escapeHtmlAttr,
   extractSpaAssetTags
 } from './doc-prerender-template';
+import { DOC_REDIRECTS } from '../src/utils/docRedirects';
 import { loadDocTextBundles } from './doc-text-loader';
 import {
   cleanDocumentDisplayTitle,
@@ -1176,6 +1178,45 @@ function buildMidtermDocRoutes(): void {
 
 buildMidtermDocRoutes();
 
+// Phantom-URL redirects (src/utils/docRedirects.ts). Emits one static
+// instant-redirect page per phantom slug at dist/doc/<slug>/index.html.
+// Fails loudly (throws) if a from-slug collides with a real prerendered
+// page or a target is not a real page — a redirect must never shadow
+// real content or point at a 404.
+function buildDocRedirectRoutes(distPath: string, includedSlugs: Set<string>): number {
+  let written = 0;
+  for (const [fromSlug, targetPath] of Object.entries(DOC_REDIRECTS)) {
+    if (includedSlugs.has(fromSlug)) {
+      throw new Error(
+        `doc redirect: phantom slug "${fromSlug}" collides with a real prerendered doc page — refusing to shadow real content.`
+      );
+    }
+    if (targetPath.startsWith('/doc/')) {
+      const targetSlug = targetPath.replace(/^\/doc\//, '').replace(/\/+$/, '');
+      if (!includedSlugs.has(targetSlug)) {
+        throw new Error(
+          `doc redirect: target "${targetPath}" for "${fromSlug}" is not a prerendered doc page.`
+        );
+      }
+    } else {
+      const isSiteRoute =
+        targetPath === '/' || ROUTES.some((r) => `/${r.path}` === targetPath);
+      if (!isSiteRoute) {
+        throw new Error(
+          `doc redirect: target "${targetPath}" for "${fromSlug}" is not a known site route.`
+        );
+      }
+    }
+    const html = buildDocRedirectPage(fromSlug, targetPath);
+    const outDir = path.join(distPath, 'doc', fromSlug);
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf-8');
+    written++;
+  }
+  console.log(`🔀 Doc redirects: ${written} phantom redirect pages written.`);
+  return written;
+}
+
 // Slim /doc/* prerender (DESIGN §4.3). Doc pages are written directly to
 // dist/doc/<slug>/index.html — they NEVER go through the base-template
 // clone loop in prerenderAllRoutes (that would embed the 191 KB shell).
@@ -1298,6 +1339,16 @@ function buildDocRoutes(
   console.log(
     `📝 Doc text: ${withText} pages with extracted text, ${withoutText.length} without (no text section rendered, per coverage manifest). Drive URLs defanged: ${textStore.defangedTotal}.`
   );
+
+  // Phantom-URL redirects (src/utils/docRedirects.ts): slugs Google
+  // remembers that have NO file in the archive. GitHub Pages cannot do
+  // server-side 301s, so each gets a static instant-redirect page at
+  // dist/doc/<phantom-slug>/index.html. Fails loudly on any
+  // misconfiguration — a redirect must never shadow a real page, and a
+  // target must be a real page. Redirects are deliberately NOT added to
+  // sitemap-docs.xml (they are not content).
+  const redirectCount = buildDocRedirectRoutes(distPath, includedSlugs);
+
   fs.writeFileSync(
     path.join(distPath, 'doc-text-coverage.json'),
     JSON.stringify(
