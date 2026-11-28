@@ -68,6 +68,28 @@ export function runAudit() {
     process.exit(1);
   }
 
+  // Branded 404 fallback guard: when dist/ exists (i.e. after a build),
+  // dist/404.html must carry the injected no-JS fallback block. The
+  // deploy workflow used to re-copy index.html over 404.html AFTER the
+  // build, silently erasing it — the live 404 page then served the plain
+  // SPA shell. Fail the build loudly if the fallback ever goes missing
+  // again, so a broken 404 can never reach the deploy.
+  const distDir = path.resolve('dist');
+  if (fs.existsSync(distDir)) {
+    const fallbackPath = path.join(distDir, '404.html');
+    const fallbackHtml = fs.existsSync(fallbackPath)
+      ? fs.readFileSync(fallbackPath, 'utf-8')
+      : '';
+    if (!fallbackHtml.includes('data-mihora-404-fallback')) {
+      console.error(
+        '❌ Security audit failed: dist/404.html is missing the branded no-JS fallback block (data-mihora-404-fallback). ' +
+          'The build injects it into dist/404.html — do not overwrite 404.html after the build.'
+      );
+      process.exit(1);
+    }
+    console.log('✅ Branded no-JS 404 fallback present in dist/404.html.');
+  }
+
   console.log('✅ Public security audit passed! Zero Drive links, zero service account keys, zero raw credentials found.');
 }
 

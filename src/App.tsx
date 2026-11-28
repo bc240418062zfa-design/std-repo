@@ -149,7 +149,15 @@ function getPageFromPath(): AppPage {
   if (pathname.startsWith('/midterm-prep/')) return 'midterm-doc';
   if (pathname === '/midterm-prep' || pathname === '/midterm-prep-2026') return 'midterm-prep';
   if (pathname.startsWith('/doc/')) return 'doc';
-  if (pathname === '/courses' || pathname.startsWith('/courses/') || pathname === '/vu-course-list' || pathname === '/course-list') return 'courses';
+  if (pathname === '/courses' || pathname === '/vu-course-list' || pathname === '/course-list') return 'courses';
+  if (pathname.startsWith('/courses/')) {
+    // A /courses/<code> deep link is only a real page when the code
+    // exists in the catalog. An unknown code is a genuine 404 — it must
+    // never silently land on the homepage (see the deep-link effect
+    // below, which only applies the home filter for valid codes).
+    const code = pathname.split('/')[2]?.toUpperCase();
+    return code && courses.some((c) => c.code === code) ? 'courses' : 'not-found';
+  }
   if (pathname === '/simulator' || pathname === '/calculator' || pathname === '/mid-calculator' || pathname === '/vu-mid-calculator') return 'simulator';
   if (pathname === '/handbook' || pathname === '/guide' || pathname === '/rules' || pathname === '/vu-student-handbook') return 'handbook';
   if (pathname === '/gpa-calculator' || pathname === '/cgpa-calculator' || pathname === '/gpa') return 'gpa-calculator';
@@ -349,8 +357,14 @@ export default function App() {
         const parts = pathname.split('/');
         const code = parts[2];
         if (code) {
-          setFilters((prev) => ({ ...prev, course: code.toUpperCase() }));
-          setCurrentPage('home');
+          const upper = code.toUpperCase();
+          // Only a real course code applies the home filter. An unknown
+          // code is already routed to 'not-found' by getPageFromPath() —
+          // never override it with a silent hop to the homepage.
+          if (courses.some((c) => c.code === upper)) {
+            setFilters((prev) => ({ ...prev, course: upper }));
+            setCurrentPage('home');
+          }
         }
       }
 
@@ -407,6 +421,18 @@ export default function App() {
       window.history.pushState(null, '', targetPath);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Library search from any branded 404 (unknown routes, unknown /doc
+  // slugs, unknown courses): run the query on the homepage and scroll
+  // to the search box. Shared by the not-found render and the doc
+  // viewer so both 404 paths behave identically.
+  const handleLibrarySearch = (q: string) => {
+    setQuery(q);
+    handleNavigate('home');
+    setTimeout(() => {
+      scrollToSearch();
+    }, 120);
   };
 
   const handleOpenCatalogFilter = (nextType: string, customPath = '/') => {
@@ -2121,6 +2147,7 @@ export default function App() {
             onOpenMcqSet={handleSelectMcqSet}
             onOpenSubjectiveSet={handleSelectSubjectiveSet}
             onNavigate={(p) => handleNavigate(p as AppPage)}
+            onSearch={handleLibrarySearch}
           />
         )}
 
@@ -2241,13 +2268,7 @@ export default function App() {
             onOpenMidtermPrep={() => handleNavigate('midterm-prep')}
             onNavigate={(p) => handleNavigate(p as AppPage)}
             onSelectCourse={handleSelectCourse}
-            onSearch={(q) => {
-              setQuery(q);
-              handleNavigate('home');
-              setTimeout(() => {
-                scrollToSearch();
-              }, 120);
-            }}
+            onSearch={handleLibrarySearch}
           />
         )}
         </Suspense>
@@ -2267,6 +2288,21 @@ export default function App() {
         <DownloadModal
           session={downloadSession}
           onClose={() => setDownloadSession(null)}
+          onRetry={
+            downloadSession
+              ? () =>
+                  handleDownload({
+                    course: downloadSession.course,
+                    name: downloadSession.name,
+                    format: downloadSession.format,
+                    // handleDownload only reads rlh/name/format/course;
+                    // type/tags are unused there but required by the type.
+                    type: 'OTHER',
+                    tags: [],
+                    rlh: downloadSession.rlh
+                  })
+              : undefined
+          }
           onTriggerDownload={() => {
             if (downloadSession?.downloadUrl) {
               triggerFileStream(downloadSession.downloadUrl);

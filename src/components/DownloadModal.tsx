@@ -1,19 +1,22 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { DownloadSession } from '../types';
-import { CheckCircle2, Loader2, AlertCircle, ShieldCheck, Download, X } from 'lucide-react';
+import { CheckCircle2, Loader2, AlertCircle, ShieldCheck, Download, X, RefreshCw } from 'lucide-react';
 import { EASE_OUT_EXPO } from './MotionPrimitives';
 
 interface DownloadModalProps {
   session: DownloadSession | null;
   onClose: () => void;
   onTriggerDownload: () => void;
+  /** Re-run the download resolution for the same resource (error state). */
+  onRetry?: () => void;
 }
 
 export const DownloadModal: React.FC<DownloadModalProps> = ({
   session,
   onClose,
-  onTriggerDownload
+  onTriggerDownload,
+  onRetry
 }) => {
   return (
     <AnimatePresence>
@@ -147,14 +150,36 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({
                       <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
                       <span>{session.errorMessage || 'This resource is temporarily unavailable.'}</span>
                     </div>
-                    <motion.button
-                      whileTap={{ scale: 0.97 }}
-                      type="button"
-                      onClick={onClose}
-                      className="w-full py-2 text-xs font-semibold rounded-xl bg-white border border-[#DDD6C8] hover:bg-[#F3EFE6] text-slate-800 transition-colors cursor-pointer"
-                    >
-                      Dismiss
-                    </motion.button>
+                    {onRetry ? (
+                      <div className="flex flex-col gap-2">
+                        <motion.button
+                          whileTap={{ scale: 0.97 }}
+                          type="button"
+                          onClick={onRetry}
+                          className="w-full inline-flex items-center justify-center gap-2 py-2.5 text-xs font-bold rounded-xl bg-[#0D1B2A] hover:bg-blue-700 text-white transition-colors cursor-pointer"
+                        >
+                          <RefreshCw className="w-3.5 h-3.5" />
+                          <span>Try again</span>
+                        </motion.button>
+                        <motion.button
+                          whileTap={{ scale: 0.97 }}
+                          type="button"
+                          onClick={onClose}
+                          className="w-full py-2 text-xs font-semibold rounded-xl bg-white border border-[#DDD6C8] hover:bg-[#F3EFE6] text-slate-800 transition-colors cursor-pointer"
+                        >
+                          Dismiss
+                        </motion.button>
+                      </div>
+                    ) : (
+                      <motion.button
+                        whileTap={{ scale: 0.97 }}
+                        type="button"
+                        onClick={onClose}
+                        className="w-full py-2 text-xs font-semibold rounded-xl bg-white border border-[#DDD6C8] hover:bg-[#F3EFE6] text-slate-800 transition-colors cursor-pointer"
+                      >
+                        Dismiss
+                      </motion.button>
+                    )}
                   </div>
                 )}
               </motion.div>

@@ -241,3 +241,39 @@ ${relatedHtml}
 </html>
 `;
 }
+
+// Phantom-URL redirect page (see src/utils/docRedirects.ts).
+//
+// GitHub Pages cannot do server-side 301s, so a phantom slug — a URL
+// Google remembers that has NO file in the archive — gets a static page
+// that redirects instantly: meta refresh 0s + JS location.replace
+// fallback + a human-readable link. robots is noindex (a redirect is
+// not content) with follow so link equity passes to the target, and the
+// canonical points at the target. No SPA assets and no analytics tag:
+// the redirect fires immediately, so they would never run — the target
+// page's own pageview is what counts.
+export function buildDocRedirectPage(fromSlug: string, targetPath: string): string {
+  const targetUrl = `${BASE_URL}${targetPath}`;
+  const esc = escapeHtmlAttr;
+  return `<!doctype html>
+<html lang="en-PK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redirecting… | MIHORA VU</title>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="${esc(targetUrl)}">
+<meta http-equiv="refresh" content="0; url=${esc(targetUrl)}">
+<script>window.location.replace(${JSON.stringify(targetUrl)});</script>
+</head>
+<body>
+<main style="max-width:800px;margin:3rem auto;padding:0 1rem;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#0f172a;line-height:1.6">
+<h1>This page has moved</h1>
+<p>The document you were looking for has moved to a new address.</p>
+<p><a href="${esc(targetUrl)}">Continue to the file &rarr;</a></p>
+<p><a href="/">MIHORA VU Study Library</a> · <a href="/past-papers">Past Papers</a></p>
+</main>
+</body>
+</html>
+`;
+}
